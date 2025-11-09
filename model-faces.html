@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison Model X - AI Model Reference Packs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            background-color: #0b0b0b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* COLOR PALETTE */
+        :root {
+            --white: #ffffff;
+            --black: #0b0b0b;
+            --gold: #d4af37;
+            --soft-gray: #2a2a2a;
+            --light-gold: #f4e4c1;
+            --pure-white: #fafafa;
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: var(--black);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Website Use Case/generated-image.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--white);
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: var(--gold);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 100px;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+            background: #e5c158;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--gold);
+            font-size: 24px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* SECTION STYLES */
+        section {
+            padding: 100px 60px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        /* PREMIUM TITLE STYLING - For "Faces Built for Every Story" style */
+        .premium-section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--white);
+            letter-spacing: -1px;
+            line-height: 1.2;
+            text-transform: capitalize;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: var(--gold);
+            margin-bottom: 80px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* PROBLEM SECTION */
+        .problem {
+            background: var(--black);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+            align-items: center;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 40px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-item:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .comparison-item h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .comparison-item.bad {
+            opacity: 0.7;
+        }
+
+        .comparison-item.good {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* SOLUTION SECTION */
+        .solution {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .feature-card {
+            padding: 40px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(42, 42, 42, 0.5);
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* GALLERY SECTION */
+        .gallery {
+            background: var(--black);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(212, 175, 55, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* PRICING SECTION */
+        .pricing {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-card {
+            padding: 50px 40px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: rgba(42, 42, 42, 0.5);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 900;
+            margin: 20px 0;
+            color: var(--white);
+        }
+
+        .pricing-card .currency {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        .pricing-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pricing-card li::before {
+            content: '✓ ';
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+
+        /* WHY SECTION */
+        .why {
+            background: var(--black);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .why-card {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .why-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--gold);
+        }
+
+        .why-card h3 {
+            font-size: 18px;
+            color: var(--white);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* HOW IT WORKS */
+        .how {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            z-index: 0;
+        }
+
+        .step {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 900;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .step h3 {
+            font-size: 18px;
+            color: var(--white);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .step p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background: var(--black);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--white);
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        .about-quote {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: var(--gold);
+            margin-top: 40px;
+            padding: 30px 0;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .about-quote-author {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* FAQ SECTION */
+        .faq {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 60px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            background: rgba(42, 42, 42, 0.3);
+            border-radius: 4px;
+        }
+
+        .faq-question:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .faq-question h4 {
+            font-size: 16px;
+            color: var(--white);
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .faq-toggle {
+            color: var(--gold);
+            font-size: 24px;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+
+        .faq-question.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 25px;
+            max-height: 500px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 80px 60px 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 30px;
+            }
+
+            nav ul {
+                gap: 20px;
+                font-size: 12px;
+            }
+
+            section {
+                padding: 60px 30px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero .tagline {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .premium-section-title {
+                font-size: 48px;
+            }
+
+            .features-grid,
+            .pricing-cards,
+            .why-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            section {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .premium-section-title {
+                font-size: 36px;
+            }
+
+            .pricing-card .price {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">MAISON MODEL X</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <p class="tagline">Where Elegance Transcends Reality</p>
+            <h1>The Face That Stays Consistent Across Every AI Generation</h1>
+            <p>Custom AI model reference packs — photorealistic, multi-angle, ready for Midjourney, Seedream, Nano Banana, and beyond.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})">Create My Custom Model</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('gallery').scrollIntoView({behavior: 'smooth'})">View Examples</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section class="problem">
+        <h2 class="section-title">AI Faces That Change Every Time You Generate? Not Anymore.</h2>
+        <p style="text-align: center; max-width: 800px; margin: 30px auto 60px; font-size: 18px; color: rgba(255, 255, 255, 0.8); line-height: 1.8;">Every creator knows the frustration: You spend hours crafting the perfect character in Midjourney, only to lose their identity in the next generation. Features shift. Expressions change. Your vision becomes inconsistent.</p>
+        <div class="comparison">
+            <div class="comparison-item bad">
+                <h3>❌ Without Maison Model X</h3>
+                <p style="margin-top: 20px; font-size: 14px;">AI-generated faces that change every time. Features shift. Consistency lost. Hours wasted.</p>
+            </div>
+            <div class="comparison-item good">
+                <h3>✓ With Maison Model X</h3>
+                <p style="margin-top: 20px; font-size: 14px;">Locked face identity. 95%+ consistency. Every generation matches your vision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section class="solution" id="solution">
+        <h2 class="section-title">We Build the Consistent Face You've Been Searching For</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Multi-Angle References</h3>
+                <p>✓ Front, side, ¾ angles<br>✓ Full-body shots<br>✓ Close-up details<br>✓ Multiple expressions<br><br>Every angle your AI tool needs — captured once, used forever.</p>
+            </div>
+            <div class="feature-card">
+                <h3>AI-Optimized For All Tools</h3>
+                <p>✓ Midjourney Character Reference<br>✓ Google Nano Banana<br>✓ Seedream 4.0<br>✓ Stable Diffusion LoRA-ready<br><br>One reference pack. Unlimited possibilities.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Delivered in 48 Hours</h3>
+                <p>✓ Fast 24–48 hour delivery<br>✓ Priority rush available<br>✓ Unlimited revisions included<br>✓ 4K resolution<br><br>From brief to beautiful — faster than any freelancer.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px;">
+            <button class="btn btn-primary" onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})">Get Your Custom Model</button>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section class="gallery" id="gallery">
+        <h2 class="premium-section-title">Faces Built for Every Story</h2>
+        <p class="section-subtitle">Diverse. Authentic. Always Consistent.</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="MODELs/M1.png" alt="Model Face 1">
+                <div class="gallery-overlay">View Pack</div>
+            </div>
+            <div class="gallery-item">
+                <img src="MODELs/W11_1.png" alt="Model Face 2">
+                <div class="gallery-overlay">View Pack</div>
+            </div>
+            <div class="gallery-item">
+                <img src="MODELs/M3_3.png" alt="Model Face 3">
+                <div class="gallery-overlay">View Pack</div>
+            </div>
+            <div class="gallery-item">
+                <img src="MODELs/W6_3.png" alt="Model Face 4">
+                <div class="gallery-overlay">View Pack</div>
+            </div>
+            <div class="gallery-item">
+                <img src="MODELs/M11_1.png" alt="Model Face 5">
+                <div class="gallery-overlay">View Pack</div>
+            </div>
+            <div class="gallery-item">
+                <img src="MODELs/W1.png" alt="Model Face 6">
+                <div class="gallery-overlay">View Pack</div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px; color: rgba(255, 255, 255, 0.7); font-size: 14px;">All generated with Maison Model X consistency technology</div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <h2 class="section-title">Choose Your Reference Pack</h2>
+        <p class="section-subtitle">Transparent pricing. No hidden fees. Cancel anytime.</p>
+        <div class="pricing-cards">
+            <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
+                <h3>QUICK FACE</h3>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
+                <div class="price"><span class="currency">₹</span>4,000</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$48 USD</p>
+                <ul>
+                    <li>5 reference angles</li>
+                    <li>2K resolution</li>
+                    <li>24–48 hour delivery</li>
+                    <li>1 revision round</li>
+                    <li>Personal use only</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
+            </div>
+
+            <div class="pricing-card popular" onclick="selectPricingCard(event, 'standard')">
+                <div class="pricing-badge">⭐ MOST POPULAR</div>
+                <h3>STANDARD FACE</h3>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Best Value</p>
+                <div class="price"><span class="currency">₹</span>6,000</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$72 USD</p>
+                <ul>
+                    <li>8 reference angles</li>
+                    <li>2 expressions</li>
+                    <li>4K resolution</li>
+                    <li>18–24 hour delivery</li>
+                    <li>3 revision rounds</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'standard')">Order Now</button>
+            </div>
+
+            <div class="pricing-card" onclick="selectPricingCard(event, 'premium')">
+                <h3>PREMIUM FACE</h3>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Professional Grade</p>
+                <div class="price"><span class="currency">₹</span>12,000</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$144 USD</p>
+                <ul>
+                    <li>10 angles + macro</li>
+                    <li>5 expressions</li>
+                    <li>4K+ resolution</li>
+                    <li>12–18 hour delivery</li>
+                    <li>Unlimited revisions</li>
+                    <li>Commercial license</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'premium')">Order Now</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding: 30px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h4 style="color: var(--white); margin-bottom: 20px;">Enhance Your Order</h4>
+            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">• Commercial License: +₹5,000 | • Rush Delivery (12 hrs): +₹2,000 | • Age Progression: +₹3,000 | • Body Type Variants: +₹2,000</p>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE SECTION -->
+    <section class="why">
+        <h2 class="section-title">Why Creators Trust Maison Model X</h2>
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">🔒</div>
+                <h3>Consistent Faces</h3>
+                <p>95%+ consistency across all angles. Your character stays the same — every time, every tool.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">⚡</div>
+                <h3>48-Hour Delivery</h3>
+                <p>From brief to beautiful in 2 days. Rush delivery available when you need it faster.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🌍</div>
+                <h3>Diverse Global Aesthetics</h3>
+                <p>We create faces that honor every ethnicity, age, and body type with authentic representation.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🤖</div>
+                <h3>AI-Optimized References</h3>
+                <p>Ready for any platform — Midjourney, Nano Banana, Seedream, Stable Diffusion.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">✨</div>
+                <h3>Unlimited Revisions</h3>
+                <p>We don't stop until you're 100% satisfied. Premium packages include unlimited tweaks.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">💬</div>
+                <h3>Premium Support</h3>
+                <p>Real humans. Real expertise. Real care. Dedicated support for your perfect model.</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 60px; font-size: 18px; font-style: italic; color: rgba(255, 255, 255, 0.8); max-width: 800px; margin-left: auto; margin-right: auto;">We blend AI precision with human artistry — because your digital model deserves to be as unique as your vision.</p>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how">
+        <h2 class="section-title">From Idea to Icon in 4 Simple Steps</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1️⃣</div>
+                <h3>Fill Your Brief</h3>
+                <p>Tell us your vision — age, ethnicity, style, mood. Takes 2 minutes. No tech skills needed.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2️⃣</div>
+                <h3>We Generate</h3>
+                <p>Our AI artists get to work with custom generation and multi-angle consistency checks.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3️⃣</div>
+                <h3>You Receive</h3>
+                <p>Your reference pack with 8–10 high-res angles, expressions, and AI-ready formats.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4️⃣</div>
+                <h3>Use in AI Tools</h3>
+                <p>Upload to Midjourney, Nano Banana, Seedream. Finally — consistent characters.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px;">
+            <button class="btn btn-primary" onclick="document.getElementById('order').scrollIntoView({behavior: 'smooth'})">Start Your Order</button>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about">
+        <h2 class="section-title">Where Technology Meets Timeless Beauty</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Our Story</h3>
+                <p>Maison Model X was born from a simple frustration: AI image generators couldn't maintain character consistency. As creators ourselves, we understood the pain of losing hours to regenerations, hoping to recapture that perfect face.</p>
+                <p>So we built it. By blending cutting-edge AI with human artistic direction, we've created a service that delivers what every storyteller needs — consistent, photorealistic digital humans that stay true across every generation.</p>
+                <p>Founded in 2025 by Bhargavi More, a physicist-turned-AI-artist, Maison Model X serves creators, agencies, and studios worldwide.</p>
+                <div class="about-quote">"Every face tells a story. We make sure yours is told consistently."</div>
+                <div class="about-quote-author">— Bhargavi More, Founder</div>
+            </div>
+            <div class="about-image">
+                <img src="Website Use Case/0001-removebg-preview (1).png" alt="Founder">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What is an AI model reference pack?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">An AI model reference pack is a collection of 8–10 high-resolution images showing the same photorealistic human face from multiple angles (front, side, ¾, full body, close-up) and expressions. You use these as reference images in AI tools like Midjourney's Character Reference feature, Nano Banana prompts, or Stable Diffusion LoRA training — ensuring your AI-generated outputs maintain the same face identity every time.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>How long does delivery take?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Standard delivery: 18–24 hours after your brief is submitted. We also offer Quick Face (24–48 hours), Premium Face (12–18 hours), and Rush Delivery add-on (12 hours for +₹2,000). You'll receive progress updates via email within 12 hours of order placement.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>Can I use this commercially?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Personal use (portfolio, social media) is included in all packages. Commercial use requires a Commercial License (+₹5,000), which includes full commercial rights and resale/client usage allowance. Premium Face packages include commercial licensing by default.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What if I'm not satisfied?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">We offer up to 3 revision rounds (Standard) or unlimited revisions (Premium) to ensure 100% satisfaction. If you're still not happy after revisions, we offer full refunds if the work doesn't match your brief or we miss delivery deadlines. No questions asked.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What AI tools are supported?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Our reference packs are optimized for all major AI image generators: Midjourney, Google Nano Banana, Seedream 4.0, Stable Diffusion, DALL-E 3, Leonardo AI, and any tool that supports image-to-image or reference uploads. We provide a usage guide with every pack.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>Do you offer bulk discounts?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Yes! Bulk discounts available: 3 models (10% off), 5 models (15% off), 10+ models (20% off). Contact us for custom agency packages or white-label partnerships.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What's your refund policy?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Full refunds available if we miss delivery deadlines or if work doesn't match your brief after all revision rounds. Refunds are processed within 5–7 business days. We're confident in our quality, so refunds are rare.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>How do I get started?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Scroll to the "Create Your Model" form below, fill in your details, select your package, and submit. You'll receive an order confirmation with payment details. We accept Razorpay for secure INR and international payments.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORDER SECTION -->
+    <section style="background: linear-gradient(135deg, #0b0b0b 0%, #1a1a1a 100%);" id="order">
+        <h2 class="section-title">Create Your Custom Model</h2>
+        <p class="section-subtitle">Takes 3 minutes. No credit card to start.</p>
+        <form id="orderForm" style="max-width: 700px; margin: 60px auto; background: rgba(42, 42, 42, 0.5); padding: 50px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px;">
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 1: Your Details</label>
+                <input type="text" name="firstName" placeholder="Full Name" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
+                <input type="email" name="email" placeholder="Email Address" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
+                <input type="tel" name="phone" placeholder="Phone Number (with country code)" style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 2: Model Description</label>
+                <select name="age" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
+                    <option style="background: var(--black);">Select Age Range</option>
+                    <option style="background: var(--black);">18-25</option>
+                    <option style="background: var(--black);">26-35</option>
+                    <option style="background: var(--black);">36-45</option>
+                    <option style="background: var(--black);">46-55</option>
+                </select>
+                <select name="gender" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
+                    <option style="background: var(--black);">Select Gender</option>
+                    <option style="background: var(--black);">Female</option>
+                    <option style="background: var(--black);">Male</option>
+                    <option style="background: var(--black);">Non-binary</option>
+                </select>
+                <select name="ethnicity" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
+                    <option style="background: var(--black);">Select Ethnicity</option>
+                    <option style="background: var(--black);">South Asian</option>
+                    <option style="background: var(--black);">East Asian</option>
+                    <option style="background: var(--black);">African</option>
+                    <option style="background: var(--black);">European</option>
+                    <option style="background: var(--black);">Latin American</option>
+                </select>
+                <textarea name="description" placeholder="Describe hair style, body type, special features..." style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif; min-height: 100px;" required></textarea>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 3: Package Selection</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <label style="padding: 15px; background: rgba(212, 175, 55, 0.1); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 4px; cursor: pointer; text-align: center; color: var(--white); font-size: 14px;">
+                        <input type="radio" name="formPackage" value="quick" style="margin-right: 10px;" onchange="updateFormPackage('quick')"> Quick ₹4,000
+                    </label>
+                    <label style="padding: 15px; background: rgba(212, 175, 55, 0.2); border: 2px solid var(--gold); border-radius: 4px; cursor: pointer; text-align: center; color: var(--white); font-size: 14px;">
+                        <input type="radio" name="formPackage" value="standard" checked style="margin-right: 10px;" onchange="updateFormPackage('standard')"> Standard ₹6,000
+                    </label>
+                    <label style="padding: 15px; background: rgba(212, 175, 55, 0.1); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 4px; cursor: pointer; text-align: center; color: var(--white); font-size: 14px;">
+                        <input type="radio" name="formPackage" value="premium" style="margin-right: 10px;" onchange="updateFormPackage('premium')"> Premium ₹12,000
+                    </label>
+                </div>
+                <div style="background: rgba(212, 175, 55, 0.05); padding: 15px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 4px; color: rgba(255, 255, 255, 0.8); font-size: 14px;">
+                    <label style="display: flex; align-items: center; margin-bottom: 10px; cursor: pointer;">
+                        <input type="checkbox" name="commercial" style="margin-right: 10px; cursor: pointer;"> Commercial License (+₹5,000)
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <input type="checkbox" name="rush" style="margin-right: 10px; cursor: pointer;"> Rush Delivery 12hrs (+₹2,000)
+                    </label>
+                </div>
+            </div>
+
+            <div style="background: rgba(212, 175, 55, 0.1); padding: 25px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; margin-bottom: 30px; text-align: center;">
+                <h4 style="color: var(--gold); margin-bottom: 10px;">Order Total</h4>
+                <div style="font-size: 36px; color: var(--white); font-weight: 900; margin-bottom: 10px;" id="orderTotal">₹6,000</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">50% upfront • 50% on delivery</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 16px;">Generate My Model →</button>
+            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">✓ Secure payment via Razorpay • ✓ 100% Satisfaction Guarantee • ✓ Delivery within promised time</p>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#solution">Our Solution</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#order">Create Model</a></li>
+                    <li><a href="#gallery">View Portfolio</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter / X</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="#" title="Instagram">
+                    <img src="Website Use Case/insta_logo-removebg-preview.png" alt="Instagram">
+                </a>
+                <a href="#" title="Twitter/X">
+                    𝕏
+                </a>
+                <a href="#" title="YouTube">
+                    ▶️
+                </a>
+            </div>
+            <p>© 2025 Maison Model X. All rights reserved. Built with ❤️ for creators worldwide.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle Function
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+        }
+
+        // Pricing Card Selection
+        function selectPricingCard(event, packageType) {
+            event.stopPropagation();
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach(card => card.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Package Selection Buttons
+        function selectPackage(event, packageType) {
+            event.stopPropagation();
+            const radioButton = event.currentTarget.closest('.pricing-card').querySelector('input[type="radio"]');
+            if (radioButton) {
+                radioButton.checked = true;
+            }
+        }
+
+        // Update Form Package Selection
+        function updateFormPackage(packageType) {
+            const prices = {
+                'quick': '₹4,000',
+                'standard': '₹6,000',
+                'premium': '₹12,000'
+            };
+            document.getElementById('orderTotal').textContent = prices[packageType];
+        }
+
+        // Form Submission to Bitrix24
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Gather form data
+            const formData = {
+                firstName: document.querySelector('input[name="firstName"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                phone: document.querySelector('input[name="phone"]').value,
+                age: document.querySelector('select[name="age"]').value,
+                gender: document.querySelector('select[name="gender"]').value,
+                ethnicity: document.querySelector('select[name="ethnicity"]').value,
+                description: document.querySelector('textarea[name="description"]').value,
+                package: document.querySelector('input[name="formPackage"]:checked').value,
+                commercial: document.querySelector('input[name="commercial"]').checked,
+                rush: document.querySelector('input[name="rush"]').checked,
+            };
+
+            // Send to Bitrix24
+            sendToBitrix24(formData);
+        });
+
+        function sendToBitrix24(data) {
+            // REPLACE WITH YOUR BITRIX24 WEBHOOK URL
+            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+
+            // Format message for Bitrix24
+            const message = `
+New Order from Maison Model X:
+
+Name: ${data.firstName}
+Email: ${data.email}
+Phone: ${data.phone}
+
+Model Specs:
+- Age: ${data.age}
+- Gender: ${data.gender}
+- Ethnicity: ${data.ethnicity}
+- Description: ${data.description}
+
+Package: ${data.package.toUpperCase()}
+Commercial License: ${data.commercial ? 'Yes (+₹5,000)' : 'No'}
+Rush Delivery: ${data.rush ? 'Yes (+₹2,000)' : 'No'}
+
+Contact for immediate follow-up.
+            `;
+
+            // Send via fetch
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: message,
+                    firstName: data.firstName,
+                    email: data.email,
+                    phone: data.phone,
+                    package: data.package,
+                })
+            })
+            .then(response => {
+                alert('Thank you! Your order has been submitted. We will contact you within 24 hours to confirm.');
+                document.getElementById('orderForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Order submitted! We will contact you soon.');
+            });
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
