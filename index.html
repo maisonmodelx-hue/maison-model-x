@@ -1762,43 +1762,7 @@
                 }
             });
         });
-    
-        // Ethnicity - Show "Other" input
-        function checkEthnicityOther() {
-            const select = document.getElementById('ethnicitySelect');
-            const input = document.getElementById('otherEthnicityInput');
-
-            if (select.value === 'other') {
-                input.classList.remove('hidden-section');
-            } else {
-                input.classList.add('hidden-section');
-            }
-        }
-
-        // Accessories - Show dropdown when "Yes" selected
-        function checkAccessories() {
-            const select = document.getElementById('accessoriesSelect');
-            const section = document.getElementById('accessoriesTypeSection');
-
-            if (select.value === 'yes') {
-                section.classList.remove('hidden-section');
-            } else {
-                section.classList.add('hidden-section');
-            }
-        }
-
-        // Accessories type - Show "Other" input
-        function checkAccessoriesOther() {
-            const select = document.getElementById('accessoriesType');
-            const otherSection = document.getElementById('accessoriesOtherSection');
-
-            if (select.value === 'other') {
-                otherSection.classList.remove('hidden-section');
-            } else {
-                otherSection.classList.add('hidden-section');
-            }
-        }
-</script>
+    </script>
 </body>
 
 </html>
