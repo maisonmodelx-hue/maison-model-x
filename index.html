@@ -336,6 +336,35 @@
             line-height: 1.7;
         }
 
+        /* PROBLEM SECTION */
+        .problem-section {
+            background: var(--black);
+        }
+
+        .problem-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(212, 175, 55, 0.08);
+            padding: 60px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+        }
+
+        .problem-content h3 {
+            font-size: 32px;
+            color: var(--white);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .problem-content p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
         /* FEEDBACK FORM */
         .feedback-section {
             background: var(--black);
@@ -469,6 +498,50 @@
         .form-group input::placeholder,
         .form-group textarea::placeholder {
             color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* FILE UPLOAD STYLES */
+        .file-upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 2px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+        }
+
+        .file-name {
+            font-size: 12px;
+            color: var(--gold);
+            margin-top: 8px;
+            display: none;
+        }
+
+        .file-name.show {
+            display: block;
         }
 
         .hidden-section {
@@ -672,7 +745,6 @@
             <li><a href="#models">Models</a></li>
             <li><a href="#products">Products</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#faq">FAQ</a></li>
             <li><a href="#order">Order</a></li>
         </ul>
     </nav>
@@ -767,6 +839,20 @@
         </div>
     </section>
 
+    <!-- CONSISTENT FACES PROBLEM -->
+    <section class="problem-section">
+        <h2 class="section-title">AI Faces That Change Every Time You Generate?</h2>
+        <p class="section-subtitle">The Face That Stays Consistent</p>
+        <div class="problem-content">
+            <h3>Every Creator Knows This Frustration</h3>
+            <p>You spend hours crafting the perfect character in Midjourney. Then you generate it again and the face completely changes. Features shift. Expressions differ. Your vision breaks.</p>
+            <p>Traditional AI tools can't maintain face consistency. Until now.</p>
+            <div style="margin-top: 30px;">
+                <a href="model-faces.html" class="btn btn-primary">Discover Our AI Model Solution →</a>
+            </div>
+        </div>
+    </section>
+
     <!-- PRICING SECTION -->
     <section class="pricing" id="pricing">
         <h2 class="section-title">Our Offers</h2>
@@ -852,7 +938,7 @@
         <p class="section-subtitle">Fill in your details. We'll bring your vision to life.</p>
         
         <div class="form-container">
-            <form id="orderForm">
+            <form id="orderForm" enctype="multipart/form-data">
                 <!-- CLIENT DETAILS -->
                 <div class="form-section">
                     <div class="form-section-title">📋 Client Details</div>
@@ -1000,6 +1086,53 @@
                     </div>
                 </div>
 
+                <!-- IMAGE UPLOADS -->
+                <div class="form-section">
+                    <div class="form-section-title">📸 Image Uploads</div>
+                    
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label>📦 Upload Your Product Image</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="productImage" name="product_image" accept="image/*">
+                                <label for="productImage" class="file-upload-label">
+                                    Click or drag your product image here<br>
+                                    <span style="font-size: 11px; opacity: 0.7;">(JPG, PNG, WebP - Max 5MB)</span>
+                                </label>
+                                <div class="file-name" id="productImageName"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label>🎨 Upload Reference/Inspiration Images (Optional)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="referenceImages" name="reference_images" accept="image/*" multiple>
+                                <label for="referenceImages" class="file-upload-label">
+                                    Click or drag multiple reference images here<br>
+                                    <span style="font-size: 11px; opacity: 0.7;">(Up to 5 images - JPG, PNG, WebP)</span>
+                                </label>
+                                <div class="file-name" id="referenceImagesName"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label>💼 Upload Brand Logo (Optional)</label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="brandLogo" name="brand_logo" accept="image/*">
+                                <label for="brandLogo" class="file-upload-label">
+                                    Click or drag your brand logo here<br>
+                                    <span style="font-size: 11px; opacity: 0.7;">(JPG, PNG, WebP - Max 2MB)</span>
+                                </label>
+                                <div class="file-name" id="brandLogoName"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- PROJECT DESCRIPTION -->
                 <div class="form-section">
                     <div class="form-section-title">📝 Project Description & Special Requirements</div>
@@ -1088,6 +1221,26 @@
     </footer>
 
     <script>
+        // File upload handlers
+        function setupFileUpload(inputId, displayId) {
+            const input = document.getElementById(inputId);
+            const display = document.getElementById(displayId);
+            const wrapper = input.closest('.file-upload-wrapper');
+            const label = wrapper.querySelector('.file-upload-label');
+
+            input.addEventListener('change', function(e) {
+                if (this.files.length > 0) {
+                    const fileNames = Array.from(this.files).map(f => f.name).join(', ');
+                    display.textContent = '✓ ' + fileNames;
+                    display.classList.add('show');
+                }
+            });
+        }
+
+        setupFileUpload('productImage', 'productImageName');
+        setupFileUpload('referenceImages', 'referenceImagesName');
+        setupFileUpload('brandLogo', 'brandLogoName');
+
         function checkEthnicityOther() {
             const select = document.getElementById('ethnicitySelect');
             const input = document.getElementById('otherEthnicityInput');
@@ -1119,13 +1272,8 @@
             }
         });
 
-        function updatePlanOptions() {
-            // This function can be extended for dynamic plan-based changes
-        }
-
-        function updateProductOptions() {
-            // This function can be extended for dynamic product-based changes
-        }
+        function updatePlanOptions() { }
+        function updateProductOptions() { }
 
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
