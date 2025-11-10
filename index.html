@@ -95,7 +95,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('generated-image.jpg');
+            background-image: url('generated-image.png');
             background-size: cover;
             background-position: center;
             opacity: 0.4;
@@ -190,6 +190,19 @@
             background: rgba(212, 175, 55, 0.1);
         }
 
+        .btn-link {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
         /* SECTIONS */
         section {
             padding: 100px 60px;
@@ -255,46 +268,6 @@
             transform: scale(1.05);
         }
 
-        /* PRODUCTS SECTION */
-        .products {
-            background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product-item {
-            aspect-ratio: 0.75;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.3s;
-        }
-
-        .product-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .product-item:hover {
-            border-color: var(--gold);
-            transform: scale(1.02);
-        }
-
-        .product-item:hover img {
-            transform: scale(1.05);
-        }
-
         /* BENEFITS/WHY CHOOSE */
         .benefits {
             background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
@@ -336,7 +309,7 @@
             line-height: 1.7;
         }
 
-        /* PROBLEM SECTION */
+        /* CONSISTENT FACES PROBLEM */
         .problem-section {
             background: var(--black);
         }
@@ -365,34 +338,251 @@
             margin-bottom: 30px;
         }
 
-        /* FEEDBACK FORM */
-        .feedback-section {
-            background: var(--black);
+        .problem-cta {
+            display: inline-block;
         }
 
-        .feedback-container {
-            background: rgba(26, 26, 26, 0.8);
-            padding: 45px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            max-width: 700px;
+        /* SERVICES */
+        .services {
+            background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .feedback-container h3 {
-            font-size: 22px;
+        .service-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 16px;
             color: var(--gold);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: 700;
         }
 
-        .feedback-container p {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 25px;
+        .service-card p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
         }
 
-        /* FORM STYLES */
+        /* HOW IT WORKS */
+        .how-it-works {
+            background: var(--black);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 45px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+            z-index: 0;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 90px;
+            height: 90px;
+            background: var(--gold);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .step h3 {
+            font-size: 17px;
+            color: var(--white);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .step p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        /* PROJECTS/PORTFOLIO */
+        .projects {
+            background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
+        }
+
+        .projects-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .projects-content p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .portfolio-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* PRICING */
+        .pricing {
+            background: var(--black);
+        }
+
+        .pricing-intro {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .pricing-intro p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-10px);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .pricing-card h3 {
+            font-size: 16px;
+            color: var(--gold);
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .pricing-card .tier-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--white);
+            margin: 10px 0;
+        }
+
+        .price-usd {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 12px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 15px 0;
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        .pricing-card li {
+            padding: 6px 0;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.75);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .pricing-card li::before {
+            content: '✓ ';
+            color: var(--gold);
+            font-weight: 700;
+            margin-right: 5px;
+        }
+
+        .pricing-card .btn {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 11px;
+        }
+
+        /* ORDER FORM SECTION */
+        .order-section {
+            background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
+        }
+
         .form-container {
             background: rgba(26, 26, 26, 0.8);
             padding: 50px;
@@ -500,50 +690,6 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* FILE UPLOAD STYLES */
-        .file-upload-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-upload-wrapper input[type="file"] {
-            position: absolute;
-            left: -9999px;
-            opacity: 0;
-        }
-
-        .file-upload-label {
-            display: block;
-            padding: 20px;
-            background: rgba(212, 175, 55, 0.08);
-            border: 2px dashed rgba(212, 175, 55, 0.4);
-            border-radius: 4px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 13px;
-        }
-
-        .file-upload-label:hover {
-            border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.12);
-            color: var(--gold);
-        }
-
-        .file-name {
-            font-size: 12px;
-            color: var(--gold);
-            margin-top: 8px;
-            display: none;
-        }
-
-        .file-name.show {
-            display: block;
-        }
-
         .hidden-section {
             display: none !important;
         }
@@ -553,96 +699,152 @@
             width: 100%;
         }
 
-        /* PRICING */
-        .pricing {
+        /* FEEDBACK FORM */
+        .feedback-section {
             background: var(--black);
         }
 
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            max-width: 1400px;
+        .feedback-container {
+            background: rgba(26, 26, 26, 0.8);
+            padding: 45px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        .pricing-card {
-            background: rgba(26, 26, 26, 0.8);
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .pricing-card:hover {
-            border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
-            transform: translateY(-10px);
-        }
-
-        .pricing-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--gold);
-            color: var(--black);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .pricing-card h3 {
-            font-size: 16px;
+        .feedback-container h3 {
+            font-size: 22px;
             color: var(--gold);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 700;
         }
 
-        .price {
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--white);
-            margin: 10px 0;
-        }
-
-        .price-usd {
-            font-size: 11px;
+        .feedback-container p {
+            font-size: 12px;
             color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 12px;
+            margin-bottom: 25px;
         }
 
-        .pricing-card ul {
-            list-style: none;
-            margin: 15px 0;
-            text-align: left;
-            flex-grow: 1;
+        /* ABOUT */
+        .about {
+            background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
         }
 
-        .pricing-card li {
-            padding: 6px 0;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.75);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .pricing-card li::before {
-            content: '✓ ';
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: var(--white);
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .about-text p {
+            font-size: 14px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 18px;
+        }
+
+        .about-quote {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
             color: var(--gold);
-            font-weight: 700;
-            margin-right: 5px;
+            margin-top: 30px;
+            padding: 25px 0;
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
         }
 
-        .pricing-card .btn {
-            margin-top: 15px;
+        .about-image {
             width: 100%;
-            padding: 10px 20px;
-            font-size: 11px;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--black);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            background: rgba(42, 42, 42, 0.3);
+            border-radius: 4px;
+        }
+
+        .faq-question:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .faq-question h4 {
+            font-size: 14px;
+            color: var(--white);
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .faq-toggle {
+            color: var(--gold);
+            font-size: 20px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+
+        .faq-question.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
         }
 
         /* FOOTER */
@@ -694,36 +896,56 @@
             font-size: 12px;
         }
 
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .social-links img {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+        }
+
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .benefits-grid, .products-grid {
+            .benefits-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .pricing-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
-        }
 
-        @media (max-width: 768px) {
-            section {
-                padding: 60px 30px;
-            }
-
-            .section-title {
-                font-size: 36px;
-            }
-
-            .gallery-grid, .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .benefits-grid {
+            .about-content {
                 grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 50px;
             }
 
             .form-grid {
@@ -732,6 +954,54 @@
 
             .footer-content {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 30px;
+            }
+
+            nav ul {
+                gap: 15px;
+                font-size: 11px;
+            }
+
+            section {
+                padding: 60px 30px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benefits-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-container::before {
+                display: none;
+            }
+
+            .form-container {
+                padding: 30px;
             }
         }
     </style>
@@ -743,8 +1013,9 @@
         <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#models">Models</a></li>
-            <li><a href="#products">Products</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#order">Order</a></li>
         </ul>
     </nav>
@@ -769,48 +1040,22 @@
         <p class="section-subtitle">Diverse. Authentic. Always Consistent.</p>
         <div class="gallery-grid">
             <div class="gallery-item">
-                <img src="MODELs/M1.jpg" alt="Model 1">
+                <img src="M1.png" alt="Model 1">
             </div>
             <div class="gallery-item">
-                <img src="MODELs/W11_1.jpg" alt="Model 2">
+                <img src="W11_1.png" alt="Model 2">
             </div>
             <div class="gallery-item">
-                <img src="MODELs/M3_3.jpg" alt="Model 3">
+                <img src="M3_3.png" alt="Model 3">
             </div>
             <div class="gallery-item">
-                <img src="MODELs/W6_3.jpg" alt="Model 4">
+                <img src="W6_3.png" alt="Model 4">
             </div>
             <div class="gallery-item">
-                <img src="MODELs/M11_1.jpg" alt="Model 5">
+                <img src="W11_3.png" alt="Model 5">
             </div>
             <div class="gallery-item">
-                <img src="MODELs/W1.jpg" alt="Model 6">
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUCTS SECTION -->
-    <section class="products" id="products">
-        <h2 class="section-title">Our Products</h2>
-        <p class="section-subtitle">Featuring AI Models in Our Collections</p>
-        <div class="products-grid">
-            <div class="product-item">
-                <img src="MODELs/M1.jpg" alt="Product 1">
-            </div>
-            <div class="product-item">
-                <img src="MODELs/W11_1.jpg" alt="Product 2">
-            </div>
-            <div class="product-item">
-                <img src="MODELs/M3_3.jpg" alt="Product 3">
-            </div>
-            <div class="product-item">
-                <img src="MODELs/W6_3.jpg" alt="Product 4">
-            </div>
-            <div class="product-item">
-                <img src="MODELs/M11_1.jpg" alt="Product 5">
-            </div>
-            <div class="product-item">
-                <img src="MODELs/W1.jpg" alt="Product 6">
+                <img src="M11_3.png" alt="Model 6">
             </div>
         </div>
     </section>
@@ -841,14 +1086,89 @@
 
     <!-- CONSISTENT FACES PROBLEM -->
     <section class="problem-section">
-        <h2 class="section-title">AI Faces That Change Every Time You Generate?</h2>
-        <p class="section-subtitle">The Face That Stays Consistent</p>
+        <h2 class="section-title">The Consistent Faces Problem</h2>
+        <p class="section-subtitle">AI Faces That Change Every Time You Generate?</p>
         <div class="problem-content">
             <h3>Every Creator Knows This Frustration</h3>
             <p>You spend hours crafting the perfect character in Midjourney. Then you generate it again and the face completely changes. Features shift. Expressions differ. Your vision breaks.</p>
             <p>Traditional AI tools can't maintain face consistency. Until now.</p>
-            <div style="margin-top: 30px;">
+            <div class="problem-cta">
                 <a href="model-faces.html" class="btn btn-primary">Discover Our AI Model Solution →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUR SERVICES -->
+    <section class="services" id="services">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Complete solutions for fashion brands</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>AI Fashion Models</h3>
+                <p>Custom AI models for your collection. No real photoshoot needed.</p>
+            </div>
+            <div class="service-card">
+                <h3>Customized Looks</h3>
+                <p>Perfect poses, backgrounds, and outfits tailored to your brand.</p>
+            </div>
+            <div class="service-card">
+                <h3>Garment Showcase</h3>
+                <p>Virtual try-on with digital models showing products instantly.</p>
+            </div>
+            <div class="service-card">
+                <h3>Social Media Ready</h3>
+                <p>Campaign-ready AI models for Instagram, Facebook, and marketing.</p>
+            </div>
+            <div class="service-card">
+                <h3>Full E-Commerce</h3>
+                <p>Complete online store with AI model galleries and shopping.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Five simple steps to stunning AI models</p>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Share Your Vision</h3>
+                <p>Tell us your model aesthetic and brand style. We handle the details.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Book Your Spot</h3>
+                <p>Confirm your order. You're in our creative queue.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>We Create Magic</h3>
+                <p>Our team builds your hyper-realistic AI models with precision.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Review & Refine</h3>
+                <p>Preview and request changes. We iterate until perfect.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Use Everywhere</h3>
+                <p>Full commercial rights. Use freely on all platforms.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO/PROJECTS -->
+    <section class="projects">
+        <h2 class="section-title">Our Projects</h2>
+        <p class="section-subtitle">See how brands are reshaping fashion with AI</p>
+        <div class="projects-content">
+            <p>Stunning model photography without expensive photoshoots. We create hyper-realistic AI models for fashion and jewelry brands globally.</p>
+            <p>Commercial-ready campaigns in hours. Save costs. Get diversity. No logistics headaches.</p>
+            <div class="portfolio-links">
+                <a href="https://maisonmodelx-hue.github.io/my-flipbook/" target="_blank" class="btn btn-link">📖 View Digital Flipbook</a>
+                <a href="https://drive.google.com/file/d/1EYnagaW6OP-4b56A0SDYWQCfw0NJphtL/view" target="_blank" class="btn btn-link">📄 Download PDF</a>
             </div>
         </div>
     </section>
@@ -862,12 +1182,13 @@
             <!-- ARTISAN -->
             <div class="pricing-card">
                 <h3>🎨 Artisan</h3>
+                <p class="tier-sub">Entry-Level</p>
                 <div class="price">₹6,000</div>
                 <p class="price-usd">~$72 USD</p>
                 <ul>
                     <li>1 custom model</li>
                     <li>3-5 images</li>
-                    <li>24-36 hrs</li>
+                    <li>24-36 hrs delivery</li>
                     <li>1 revision</li>
                 </ul>
                 <button class="btn btn-primary">Order</button>
@@ -876,28 +1197,32 @@
             <!-- COUTURE -->
             <div class="pricing-card">
                 <h3>👗 Couture</h3>
+                <p class="tier-sub">Professional</p>
                 <div class="price">₹15,000</div>
                 <p class="price-usd">~$180 USD</p>
                 <ul>
                     <li>2 models</li>
                     <li>8-12 images</li>
-                    <li>18-24 hrs</li>
+                    <li>18-24 hrs delivery</li>
                     <li>3 revisions</li>
+                    <li>Priority support</li>
                 </ul>
                 <button class="btn btn-primary">Order</button>
             </div>
 
-            <!-- ATELIER -->
+            <!-- ATELIER (HERO) -->
             <div class="pricing-card">
                 <div class="pricing-badge">⭐ HERO</div>
                 <h3>✨ Atelier</h3>
+                <p class="tier-sub">Premium</p>
                 <div class="price">₹35,000</div>
                 <p class="price-usd">~$420 USD</p>
                 <ul>
                     <li>3 models</li>
-                    <li>15-20 images</li>
-                    <li>12-18 hrs</li>
-                    <li>Unlimited</li>
+                    <li>15-20 images + 3 videos</li>
+                    <li>12-18 hrs delivery</li>
+                    <li>Unlimited revisions</li>
+                    <li>Dedicated PM</li>
                 </ul>
                 <button class="btn btn-primary">Order</button>
             </div>
@@ -905,13 +1230,15 @@
             <!-- MAISON -->
             <div class="pricing-card">
                 <h3>🏰 Maison</h3>
+                <p class="tier-sub">Enterprise</p>
                 <div class="price">₹75,000</div>
                 <p class="price-usd">~$900 USD</p>
                 <ul>
                     <li>30-50 images</li>
-                    <li>+ 8 videos</li>
-                    <li>6-12 hrs</li>
-                    <li>24/7 support</li>
+                    <li>+ 8 videos + 5 banners</li>
+                    <li>6-12 hrs delivery</li>
+                    <li>Unlimited revisions</li>
+                    <li>24/7 priority</li>
                 </ul>
                 <button class="btn btn-primary">Order</button>
             </div>
@@ -919,13 +1246,15 @@
             <!-- LEGACY -->
             <div class="pricing-card">
                 <h3>👑 Legacy</h3>
+                <p class="tier-sub">Bespoke</p>
                 <div class="price">Custom</div>
-                <p class="price-usd">Contact</p>
+                <p class="price-usd">Contact us</p>
                 <ul>
-                    <li>Unlimited</li>
+                    <li>50+ unlimited</li>
                     <li>Full AI training</li>
-                    <li>2-4 hrs</li>
-                    <li>API access</li>
+                    <li>2-4 hrs delivery</li>
+                    <li>C-suite access</li>
+                    <li>API integration</li>
                 </ul>
                 <button class="btn btn-primary">Contact</button>
             </div>
@@ -933,12 +1262,12 @@
     </section>
 
     <!-- ORDER FORM SECTION -->
-    <section style="background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%); padding: 100px 60px;" id="order">
+    <section class="order-section" id="order">
         <h2 class="section-title">Order Your Models</h2>
         <p class="section-subtitle">Fill in your details. We'll bring your vision to life.</p>
         
         <div class="form-container">
-            <form id="orderForm" enctype="multipart/form-data">
+            <form id="orderForm">
                 <!-- CLIENT DETAILS -->
                 <div class="form-section">
                     <div class="form-section-title">📋 Client Details</div>
@@ -998,8 +1327,6 @@
                             <label>Ethnicity</label>
                             <select name="model_ethnicity" id="ethnicitySelect" onchange="checkEthnicityOther()" required>
                                 <option value="">-- Select Ethnicity --</option>
-                                <option value="indian">Indian</option>
-                                <option value="chinese">Chinese</option>
                                 <option value="south-asian">South Asian</option>
                                 <option value="east-asian">East Asian</option>
                                 <option value="african">African</option>
@@ -1041,32 +1368,11 @@
                         </div>
                         <div class="form-group">
                             <label>Accessories Included?</label>
-                            <select name="accessories" id="accessoriesSelect" onchange="checkAccessories()" required>
+                            <select name="accessories" required>
                                 <option value="">-- Select Option --</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
-                        </div>
-                        <div class="form-group hidden-section" id="accessoriesTypeSection">
-                            <label>Which Type of Accessories?</label>
-                            <select name="accessories_type" id="accessoriesType">
-                                <option value="">-- Select Accessories --</option>
-                                <option value="necklace">Necklace</option>
-                                <option value="bracelet">Bracelet</option>
-                                <option value="rings">Rings</option>
-                                <option value="earrings">Earrings</option>
-                                <option value="watches">Watches</option>
-                                <option value="bags">Bags</option>
-                                <option value="belts">Belts</option>
-                                <option value="scarves">Scarves</option>
-                                <option value="hats">Hats</option>
-                                <option value="glasses">Glasses</option>
-                                <option value="other-accessories">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group hidden-section" id="accessoriesOtherSection">
-                            <label>Specify Accessories Type</label>
-                            <input type="text" name="accessories_other" placeholder="Please specify the accessories type">
                         </div>
                         <div class="form-group">
                             <label>Shot Type</label>
@@ -1086,49 +1392,47 @@
                     </div>
                 </div>
 
-                <!-- IMAGE UPLOADS -->
+                <!-- BRANDING & IMAGE DETAILS -->
                 <div class="form-section">
-                    <div class="form-section-title">📸 Image Uploads</div>
-                    
-                    <div class="form-grid full">
+                    <div class="form-section-title">🎨 Branding & Image Details</div>
+                    <div class="form-grid">
                         <div class="form-group">
-                            <label>📦 Upload Your Product Image</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" id="productImage" name="product_image" accept="image/*">
-                                <label for="productImage" class="file-upload-label">
-                                    Click or drag your product image here<br>
-                                    <span style="font-size: 11px; opacity: 0.7;">(JPG, PNG, WebP - Max 5MB)</span>
-                                </label>
-                                <div class="file-name" id="productImageName"></div>
-                            </div>
+                            <label>Background & Composition</label>
+                            <input type="text" name="background" placeholder="e.g., White minimalist, Studio, Outdoor, etc." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Name Display Location</label>
+                            <select name="brand_location" required>
+                                <option value="">-- Select Location --</option>
+                                <option value="top-left">Top Left</option>
+                                <option value="top-right">Top Right</option>
+                                <option value="bottom-left">Bottom Left</option>
+                                <option value="bottom-right">Bottom Right</option>
+                                <option value="center">Center</option>
+                                <option value="no-placement">No Placement</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Image Resolution Required</label>
+                            <select name="resolution" required>
+                                <option value="">-- Select Resolution --</option>
+                                <option value="1080x1080">1080x1080 (Social Media)</option>
+                                <option value="1920x1080">1920x1080 (Web)</option>
+                                <option value="2560x1440">2560x1440 (High Quality)</option>
+                                <option value="4k">4K (Professional)</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        <div class="form-group hidden-section" id="numImagesSection">
+                            <label>Number of Images Required</label>
+                            <input type="number" name="num_images" min="1" placeholder="e.g., 5" id="numImages">
                         </div>
                     </div>
 
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>🎨 Upload Reference/Inspiration Images (Optional)</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" id="referenceImages" name="reference_images" accept="image/*" multiple>
-                                <label for="referenceImages" class="file-upload-label">
-                                    Click or drag multiple reference images here<br>
-                                    <span style="font-size: 11px; opacity: 0.7;">(Up to 5 images - JPG, PNG, WebP)</span>
-                                </label>
-                                <div class="file-name" id="referenceImagesName"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-grid full">
-                        <div class="form-group">
-                            <label>💼 Upload Brand Logo (Optional)</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" id="brandLogo" name="brand_logo" accept="image/*">
-                                <label for="brandLogo" class="file-upload-label">
-                                    Click or drag your brand logo here<br>
-                                    <span style="font-size: 11px; opacity: 0.7;">(JPG, PNG, WebP - Max 2MB)</span>
-                                </label>
-                                <div class="file-name" id="brandLogoName"></div>
-                            </div>
+                            <label>Upload Your Product Image (Optional)</label>
+                            <input type="file" name="product_image" accept="image/*">
                         </div>
                     </div>
                 </div>
@@ -1183,6 +1487,94 @@
         </div>
     </section>
 
+    <!-- ABOUT SECTION -->
+    <section class="about">
+        <h2 class="section-title">Founder's Note</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Built for visionaries who refuse to compromise.</h3>
+                <p>I built Maison Model X to solve one problem: help fashion designers and creators showcase their designs beautifully—fast, affordably, without photoshoot logistics.</p>
+                <p>Whether it's a dress, jewelry, or accessory, our AI models wear your creations with lifelike realism. The result? Professional photos in 24 hours. Costs down by 90%. Creative control at 100%.</p>
+                <p>I'm obsessed with how AI can transform fashion. Making virtual modeling smarter, cheaper, and more beautiful is my mission.</p>
+                <div class="about-quote">"Your future designs deserve it."</div>
+                <p style="margin-top: 20px; font-weight: 600;">Bhargavi More<br>Founder, Maison Model X</p>
+            </div>
+            <div class="about-image">
+                <img src="0001-removebg-preview (1).png" alt="Founder">
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+        <h2 class="section-title">Frequently Asked</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What exactly is Maison Model X?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">We create stunning AI-generated model photography for fashion and jewelry brands. Custom models, poses, backgrounds—all tailored to your brand vision.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>Who should use this service?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Fashion designers, jewelry brands, e-commerce businesses, content creators, and small shops. Anyone needing professional model photos without expensive photoshoots.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>How fast can I get my images?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">24-48 hours standard. Priority options available. Larger campaigns on custom quotes.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>Are my images unique?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Absolutely. Every image is custom-created based on your brief. Full control over model appearance, pose, background, and styling.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What usage rights do I get?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Lifetime commercial usage rights. Use them in your shop, social media, marketing, portfolio—anywhere. No hidden fees.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>Can I request specific features?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Yes. Age, ethnicity, body type, style, poses, backgrounds, lighting—tell us exactly what you need.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>What if I'm not happy?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Revisions included in every package. Professional and Premium packages include unlimited revisions until you're 100% satisfied.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h4>How do I order?</h4>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">Use the detailed order form on this page. Select your package. Tell us your vision. We'll contact you within 24 hours to confirm and start work.</div>
+            </div>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
         <div class="footer-content">
@@ -1190,7 +1582,7 @@
                 <h4>Services</h4>
                 <ul>
                     <li><a href="#pricing">Our Offers</a></li>
-                    <li><a href="#products">Our Products</a></li>
+                    <li><a href="#services">Our Services</a></li>
                     <li><a href="#order">Create Model</a></li>
                     <li><a href="#models">View Portfolio</a></li>
                 </ul>
@@ -1198,8 +1590,8 @@
             <div class="footer-section">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                     <li><a href="#">Contact</a></li>
                     <li><a href="#">Terms of Service</a></li>
                     <li><a href="#">Privacy Policy</a></li>
@@ -1214,6 +1606,14 @@
                 </ul>
             </div>
         </div>
+
+        <div class="social-links">
+            <a href="#" title="Instagram">
+                <img src="insta_logo-removebg-preview.png" alt="Instagram">
+            </a>
+            <a href="#" title="Twitter/X">𝕏</a>
+            <a href="#" title="YouTube">▶️</a>
+        </div>
         <div class="footer-bottom">
             <p>© 2025 Maison Model X. All rights reserved. Engineered for visionaries. Built with ❤️ for fashion.</p>
             <p>Email: bhargavirmore2001@gmail.com</p>
@@ -1221,26 +1621,7 @@
     </footer>
 
     <script>
-        // File upload handlers
-        function setupFileUpload(inputId, displayId) {
-            const input = document.getElementById(inputId);
-            const display = document.getElementById(displayId);
-            const wrapper = input.closest('.file-upload-wrapper');
-            const label = wrapper.querySelector('.file-upload-label');
-
-            input.addEventListener('change', function(e) {
-                if (this.files.length > 0) {
-                    const fileNames = Array.from(this.files).map(f => f.name).join(', ');
-                    display.textContent = '✓ ' + fileNames;
-                    display.classList.add('show');
-                }
-            });
-        }
-
-        setupFileUpload('productImage', 'productImageName');
-        setupFileUpload('referenceImages', 'referenceImagesName');
-        setupFileUpload('brandLogo', 'brandLogoName');
-
+        // Check if ethnicity is "Other" and show text input
         function checkEthnicityOther() {
             const select = document.getElementById('ethnicitySelect');
             const input = document.getElementById('otherEthnicityInput');
@@ -1252,40 +1633,136 @@
             }
         }
 
-        function checkAccessories() {
-            const select = document.getElementById('accessoriesSelect');
-            const section = document.getElementById('accessoriesTypeSection');
+        // Update product options based on plan
+        function updatePlanOptions() {
+            const planSelect = document.getElementById('planSelect').value;
+            const productSelect = document.getElementById('productTypeSelect');
             
-            if (select.value === 'yes') {
-                section.classList.remove('hidden-section');
+            // Reset product select
+            productSelect.value = '';
+            
+            // Remove or add jewelry option based on plan
+            const jewelryOption = Array.from(productSelect.options).find(opt => opt.value === 'jewelry');
+            
+            if (planSelect === 'artisan') {
+                // Artisan plan doesn't support jewelry
+                if (jewelryOption) {
+                    jewelryOption.remove();
+                }
             } else {
-                section.classList.add('hidden-section');
+                // Other plans support jewelry
+                if (!jewelryOption) {
+                    const option = document.createElement('option');
+                    option.value = 'jewelry';
+                    option.text = 'Jewelry';
+                    productSelect.insertBefore(option, productSelect.options[2]);
+                }
             }
         }
 
-        document.getElementById('accessoriesType').addEventListener('change', function() {
-            const otherSection = document.getElementById('accessoriesOtherSection');
-            if (this.value === 'other-accessories') {
-                otherSection.classList.remove('hidden-section');
+        // Update product type options
+        function updateProductOptions() {
+            const productSelect = document.getElementById('productTypeSelect').value;
+            const numImagesSection = document.getElementById('numImagesSection');
+            
+            if (productSelect === 'campaign') {
+                numImagesSection.classList.remove('hidden-section');
             } else {
-                otherSection.classList.add('hidden-section');
+                numImagesSection.classList.add('hidden-section');
             }
-        });
+        }
 
-        function updatePlanOptions() { }
-        function updateProductOptions() { }
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+        }
 
+        // Order Form submission
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you! Your order has been submitted. We will contact you within 24 hours.');
-            this.reset();
+            
+            const formData = new FormData(this);
+            const data = {
+                type: 'Order',
+                client_name: formData.get('client_name'),
+                client_email: formData.get('client_email'),
+                client_phone: formData.get('client_phone'),
+                brand_name: formData.get('brand_name'),
+                plan_type: formData.get('plan_type'),
+                model_gender: formData.get('model_gender'),
+                model_ethnicity: formData.get('model_ethnicity'),
+                ethnicity_other: formData.get('ethnicity_other'),
+                model_age: formData.get('model_age'),
+                product_type: formData.get('product_type'),
+                accessories: formData.get('accessories'),
+                shot_type: formData.get('shot_type'),
+                fabric_type: formData.get('fabric_type'),
+                background: formData.get('background'),
+                brand_location: formData.get('brand_location'),
+                resolution: formData.get('resolution'),
+                num_images: formData.get('num_images'),
+                project_description: formData.get('project_description'),
+                special_requirements: formData.get('special_requirements'),
+            };
+
+            // Replace with your Bitrix24 webhook URL
+            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                alert('Thank you! Your order has been submitted. We will contact you within 24 hours.');
+                document.getElementById('orderForm').reset();
+            })
+            .catch(() => {
+                alert('Order submitted! We will be in touch soon.');
+            });
         });
 
+        // Feedback Form submission
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your feedback!');
-            this.reset();
+            
+            const formData = {
+                type: 'Feedback',
+                name: document.querySelector('#feedbackForm input[name="fb_name"]').value,
+                email: document.querySelector('#feedbackForm input[name="fb_email"]').value,
+                subject: document.querySelector('#feedbackForm input[name="fb_subject"]').value,
+                message: document.querySelector('#feedbackForm textarea[name="fb_message"]').value,
+            };
+
+            // Replace with your Bitrix24 webhook URL
+            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                alert('Thank you for your feedback!');
+                document.getElementById('feedbackForm').reset();
+            })
+            .catch(() => {
+                alert('Feedback submitted! We appreciate your input.');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
     </script>
 </body>
+
 </html>
