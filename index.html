@@ -1034,6 +1034,60 @@
         </div>
     </section>
 
+    <!-- Before After SECTION -->
+    <section class="before-after-slider" style="max-width: 900px; margin: 0 auto; padding: 50px 20px;">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Before & After</h2>
+        <div class="slider-container" style="position: relative; width: 100%; overflow: hidden; cursor: ew-resize; user-select: none;">
+            <img src="W6_C-W8_J.png" alt="Before" style="width: 100%; display: block;"/>
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden;">
+                <img src="W8_1.png" alt="After" style="width: 200%; display: block; position: relative; left: 0;"/>
+            </div>
+            <div class="slider-handle" style="
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 4px;
+                height: 100%;
+                background: white;
+                border: 2px solid #8b7355;
+                border-radius: 2px;
+                transform: translateX(-50%);
+                cursor: ew-resize;
+                z-index: 10;
+                "></div>
+        </div>
+    </section>
+    
+    <script>
+        (function() {
+            const container = document.querySelector('.slider-container');
+            const afterImage = container.querySelector('.after-image');
+            const handle = container.querySelector('.slider-handle');
+            let isDragging = false;
+            function onDrag(e) {
+                if (!isDragging) return;
+                let rect = container.getBoundingClientRect();
+                let x = e.touches ? e.touches[0].clientX : e.clientX;
+                let offsetX = x - rect.left;
+                if (offsetX < 0) offsetX = 0;
+                if (offsetX > rect.width) offsetX = rect.width;
+                let percent = (offsetX / rect.width) * 100;
+                afterImage.style.width = percent + '%';
+                handle.style.left = percent + '%';
+            }
+            
+            handle.addEventListener('mousedown', () => { isDragging = true; });
+            handle.addEventListener('touchstart', () => { isDragging = true; });
+            
+            window.addEventListener('mouseup', () => { isDragging = false; });
+            window.addEventListener('touchend', () => { isDragging = false; });
+            window.addEventListener('touchcancel', () => { isDragging = false; });
+
+            window.addEventListener('mousemove', onDrag);
+            window.addEventListener('touchmove', onDrag);
+        })();
+    </script>
+
     <!-- GALLERY - OUR MODELS -->
     <section class="gallery" id="models">
         <h2 class="section-title">Our Models</h2>
@@ -1766,3 +1820,4 @@
 </body>
 
 </html>
+
