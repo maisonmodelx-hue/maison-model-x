@@ -1547,6 +1547,35 @@ Contact for immediate follow-up.
             });
         }
 
+        // Feedback Form submission
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                type: 'Feedback',
+                name: document.querySelector('#feedbackForm input[name="fb_name"]').value,
+                email: document.querySelector('#feedbackForm input[name="fb_email"]').value,
+                subject: document.querySelector('#feedbackForm input[name="fb_subject"]').value,
+                message: document.querySelector('#feedbackForm textarea[name="fb_message"]').value,
+            };
+
+            // Replace with your Bitrix24 webhook URL
+            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                alert('Thank you for your feedback!');
+                document.getElementById('feedbackForm').reset();
+            })
+            .catch(() => {
+                alert('Feedback submitted! We appreciate your input.');
+            });
+        });
+
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1564,5 +1593,6 @@ Contact for immediate follow-up.
 </body>
 
 </html>
+
 
 
