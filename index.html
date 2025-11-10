@@ -1422,11 +1422,26 @@
                         </div>
                         <div class="form-group">
                             <label>Accessories Included?</label>
-                            <select name="accessories" required>
+                            <select name="accessories" onchange="toggleAccessoriesDropdown()" required>
                                 <option value="">-- Select Option --</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
+                            <div id="accessoriesDropdownContainer" style="display: none; margin-top: 10px;">
+                                <label>Which Accessories?</label>
+                                <select name="accessories_type" id="accessoriesDropdown" onchange="toggleAccessoriesOther()">
+                                    <option value="">-- Select Accessories --</option>
+                                    <option value="belts">Belts</option>
+                                    <option value="scarves">Scarves</option>
+                                    <option value="hats">Hats</option>
+                                    <option value="gloves">Gloves</option>
+                                    <option value="bags">Bags</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Specify custom accessory">
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Shot Type</label>
@@ -1441,7 +1456,22 @@
                         </div>
                         <div class="form-group">
                             <label>Fabric Type / Material</label>
-                            <input type="text" name="fabric_type" placeholder="e.g., Cotton, Silk, Linen, etc.">
+                            <select name="fabric_type" onchange="toggleFabricOther()" required>
+                                <option value="">-- Select Fabric Type --</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="silk">Silk</option>
+                                <option value="linen">Linen</option>
+                                <option value="wool">Wool</option>
+                                <option value="polyester">Polyester</option>
+                                <option value="denim">Denim</option>
+                                <option value="leather">Leather</option>
+                                <option value="satin">Satin</option>
+                                <option value="velvet">Velvet</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div id="fabricOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="fabric_other" id="fabricOther" placeholder="Specify custom fabric type">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1816,7 +1846,60 @@
                 }
             });
         });
-    </script>
+    
+        // Toggle accessories dropdown
+        function toggleAccessoriesDropdown() {
+            const accessoriesSelect = document.querySelector('select[name="accessories"]');
+            const dropdownContainer = document.getElementById('accessoriesDropdownContainer');
+            if (accessoriesSelect.value === 'yes') {
+                dropdownContainer.style.display = 'block';
+            } else {
+                dropdownContainer.style.display = 'none';
+                document.getElementById('accessoriesDropdown').value = '';
+                document.getElementById('accessoriesOtherContainer').style.display = 'none';
+                document.getElementById('accessoriesOther').value = '';
+            }
+        }
+
+        // Toggle accessories "Other" input
+        function toggleAccessoriesOther() {
+            const accessoriesDropdown = document.getElementById('accessoriesDropdown');
+            const otherContainer = document.getElementById('accessoriesOtherContainer');
+            if (accessoriesDropdown.value === 'other') {
+                otherContainer.style.display = 'block';
+                document.getElementById('accessoriesOther').focus();
+            } else {
+                otherContainer.style.display = 'none';
+                document.getElementById('accessoriesOther').value = '';
+            }
+        }
+
+        // Toggle ethnicity "Other" input
+        function checkEthnicityOther() {
+            const ethnicitySelect = document.getElementById('ethnicitySelect');
+            const otherContainer = document.getElementById('ethnicityOtherContainer');
+            if (ethnicitySelect.value === 'other') {
+                otherContainer.style.display = 'block';
+                document.getElementById('ethnicityOther').focus();
+            } else {
+                otherContainer.style.display = 'none';
+                document.getElementById('ethnicityOther').value = '';
+            }
+        }
+
+        // Toggle fabric "Other" input
+        function toggleFabricOther() {
+            const fabricSelect = document.querySelector('select[name="fabric_type"]');
+            const otherContainer = document.getElementById('fabricOtherContainer');
+            if (fabricSelect.value === 'other') {
+                otherContainer.style.display = 'block';
+                document.getElementById('fabricOther').focus();
+            } else {
+                otherContainer.style.display = 'none';
+                document.getElementById('fabricOther').value = '';
+            }
+        }
+</script>
 </body>
 
 </html>
