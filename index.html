@@ -1597,10 +1597,10 @@
                                 <option value="mixed">Mixed</option>
                             </select>
                         </div>
-                        <div class="form-group hidden-section" id="otherEthnicityInput">
-                            <label>Specify Region</label>
-                            <input type="text" name="ethnicity_region" placeholder="Enter region or country (e.g., India, Southeast Asia)">
+                        <div class="form-group" id="ethnicityCustomContainer" style="display: none; margin-top: 10px;">
+                            <input type="text" name="ethnicity_custom" id="ethnicity_custom" placeholder="Specify country or region (e.g., India, Japan, Nigeria…)">
                         </div>
+
                         <div class="form-group">
                             <label>Age Range</label>
                             <select name="model_age" required>
@@ -2563,15 +2563,14 @@
         // Toggle ethnicity "Other" input
         function checkEthnicityOther() {
             const ethnicitySelect = document.getElementById('ethnicitySelect');
-            const otherContainer = document.getElementById('ethnicityOtherContainer');
-            if (ethnicitySelect.value === 'specific-region') {
-                otherContainer.style.display = 'block';
-                document.getElementById('ethnicityOther').focus();
+            const ethnicityCustomContainer = document.getElementById('ethnicityCustomContainer');
+            if (ethnicitySelect.value === '') {
+                ethnicityCustomContainer.style.display = 'none';
             } else {
-                otherContainer.style.display = 'none';
-                document.getElementById('ethnicityOther').value = '';
+                ethnicityCustomContainer.style.display = 'block';
             }
         }
+
 
         // Toggle fabric "Other" input
         function toggleFabricOther() {
@@ -2720,6 +2719,7 @@
             // Update hidden input
             document.getElementById(fieldId).value = hexColor.toUpperCase();
         }
+
 
 
 
