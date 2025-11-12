@@ -1569,7 +1569,7 @@
                             </select>
                             <div id="accessoriesDropdownContainer" style="display: none; margin-top: 10px;">
                                 <label>Which Accessories?</label>
-                                <select name="accessories_type" id="accessoriesDropdown" onchange="toggleAccessoriesOther()">
+                                <select name="accessories_type" id="accessoriesDropdown" onchange="toggleAccessoriesFields()">
                                     <option value="">-- Select Accessories --</option>
                                     <option value="belts">Belts</option>
                                     <option value="scarves">Scarves</option>
@@ -1578,6 +1578,16 @@
                                     <option value="bags">Bags</option>
                                     <option value="other">Other</option>
                                 </select>
+                                <div id="accessoriesInputContainer" style="display: none; margin-top: 10px;">
+                                    <div class="form-group">
+                                        <label>Upload Image of Accessory</label>
+                                        <input type="file" name="accessory_image" id="accessoryImage" accept="image/*">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Describe the Accessory</label>
+                                        <textarea name="accessory_description" id="accessoryDescription" placeholder="Describe the accessory"></textarea>
+                                    </div>
+                                </div>
                                 <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
                                     <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Specify custom accessory">
                                 </div>
@@ -2443,20 +2453,35 @@
             } else {
                 dropdownContainer.style.display = 'none';
                 document.getElementById('accessoriesDropdown').value = '';
+                document.getElementById('accessoriesInputContainer').style.display = 'none';
                 document.getElementById('accessoriesOtherContainer').style.display = 'none';
+                document.getElementById('accessoryImage').value = '';
+                document.getElementById('accessoryDescription').value = '';
                 document.getElementById('accessoriesOther').value = '';
             }
         }
 
-        // Toggle accessories "Other" input
-        function toggleAccessoriesOther() {
+        // Toggle accessories input fields and "Other" option
+        function toggleAccessoriesFields() {
             const accessoriesDropdown = document.getElementById('accessoriesDropdown');
+            const inputContainer = document.getElementById('accessoriesInputContainer');
             const otherContainer = document.getElementById('accessoriesOtherContainer');
-            if (accessoriesDropdown.value === 'other') {
-                otherContainer.style.display = 'block';
-                document.getElementById('accessoriesOther').focus();
-            } else {
+
+            // Show/hide the file upload and description inputs
+            if (accessoriesDropdown.value && accessoriesDropdown.value !== 'other') {
+                inputContainer.style.display = 'block';
                 otherContainer.style.display = 'none';
+                document.getElementById('accessoriesOther').value = '';
+            } else if (accessoriesDropdown.value === 'other') {
+                inputContainer.style.display = 'none';
+                otherContainer.style.display = 'block';
+                document.getElementById('accessoryImage').value = '';
+                document.getElementById('accessoryDescription').value = '';
+            } else {
+                inputContainer.style.display = 'none';
+                otherContainer.style.display = 'none';
+                document.getElementById('accessoryImage').value = '';
+                document.getElementById('accessoryDescription').value = '';
                 document.getElementById('accessoriesOther').value = '';
             }
         }
