@@ -1528,7 +1528,6 @@
                                 <option value="latin-american">Latin American</option>
                                 <option value="middle-eastern">Middle Eastern</option>
                                 <option value="mixed">Mixed</option>
-                                <option value="specific-region">Specific Region</option>
                             </select>
                         </div>
                         <div class="form-group hidden-section" id="otherEthnicityInput">
@@ -1555,8 +1554,10 @@
                                 <option value="">-- Select Product Type --</option>
                                 <option value="clothing">Clothing</option>
                                 <option value="jewelry">Jewelry</option>
-                                <option value="accessories">Accessories</option>
                                 <option value="footwear">Footwear</option>
+                                <option value="footwear">Handbags & Purses</option>
+                                <option value="footwear">Beauty & Skincare</option>
+                                <option value="footwear">Fragrance</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -1586,6 +1587,9 @@
                                     <div class="form-group">
                                         <label>Describe the Accessory</label>
                                         <textarea name="accessory_description" id="accessoryDescription" placeholder="Describe the accessory"></textarea>
+                                    </div>
+                                    <div style="margin: 0; padding: 10px 0; font-size: 85%; color: #d4af37; font-style: italic;">
+                                        💡 <strong>Note:</strong> Please provide either an image OR description of the accessory.
                                     </div>
                                 </div>
                                 <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
@@ -2467,17 +2471,20 @@
             const inputContainer = document.getElementById('accessoriesInputContainer');
             const otherContainer = document.getElementById('accessoriesOtherContainer');
 
-            // Show/hide the file upload and description inputs
-            if (accessoriesDropdown.value && accessoriesDropdown.value !== 'other') {
-                inputContainer.style.display = 'block';
-                otherContainer.style.display = 'none';
-                document.getElementById('accessoriesOther').value = '';
-            } else if (accessoriesDropdown.value === 'other') {
-                inputContainer.style.display = 'none';
-                otherContainer.style.display = 'block';
-                document.getElementById('accessoryImage').value = '';
-                document.getElementById('accessoryDescription').value = '';
+            // Show file upload and description inputs for ALL accessory options including "other"
+            if (accessoriesDropdown.value && accessoriesDropdown.value !== '') {
+                if (accessoriesDropdown.value === 'other') {
+                    // For "Other", show both the inputs AND the text field for specifying
+                    inputContainer.style.display = 'block';
+                    otherContainer.style.display = 'block';
+                } else {
+                    // For standard options (Belts, Hats, etc.), show only the inputs
+                    inputContainer.style.display = 'block';
+                    otherContainer.style.display = 'none';
+                    document.getElementById('accessoriesOther').value = '';
+                }
             } else {
+                // When no selection, hide everything
                 inputContainer.style.display = 'none';
                 otherContainer.style.display = 'none';
                 document.getElementById('accessoryImage').value = '';
