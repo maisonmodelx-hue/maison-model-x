@@ -1177,59 +1177,77 @@
     <!-- Before After SECTION -->
     <section class="before-after-slider" style="max-width: 900px; margin: 0 auto; padding: 50px 20px;">
         <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Before & After</h2>
-        <div class="slider-container" style="position: relative; width: 100%; overflow: hidden; cursor: default; user-select: none;">
-            <img src="W6_C & W8_J.png" alt="Before" style="width: 100%; display: block;"/>
-            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
-                <img src="W8_1.png" alt="After" style="width: 100%; display: block;"/>
+        <div class="panels-container" style="display: flex; gap: 20px; justify-content: center;">
+            <!-- Left Panel -->
+            <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
+                <img src="W6_C & W8_J.png" alt="Before" style="width: 100%; display: block;"/>
+                <div class="after-image-left" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                    <img src="W8_1.png" alt="After" style="width: 100%; display: block;"/>
+                </div>
             </div>
-            <div class="slider-handle" style="
-                position: absolute;
-                top: 0;
-                left: 50%;
-                width: 4px;
-                height: 100%;
-                background: white;
-                border: 2px solid #8b7355;
-                border-radius: 2px;
-                transform: translateX(-50%);
-                cursor: default;
-                z-index: 10;
-                "></div>
+            <!-- Right Panel -->
+            <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
+                <img src="W6_C & W8_J.png" alt="Before" style="width: 100%; display: block;"/>
+                <div class="after-image-right" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                    <img src="W8_1.png" alt="After" style="width: 100%; display: block;"/>
+                </div>
+            </div>
         </div>
     </section>
 
     <script>
         (function() {
-            const container = document.querySelector('.slider-container');
-            const afterImage = container.querySelector('.after-image');
-            const handle = container.querySelector('.slider-handle');
-            const animationDuration = 3000; // 3 seconds in milliseconds
-            const startTime = Date.now();
-            let animationComplete = false;
+            const panels = document.querySelectorAll('.slider-panel');
 
-            function animate() {
-                if (animationComplete) return;
+            panels.forEach((panel, index) => {
+                const afterImageClass = index === 0 ? '.after-image-left' : '.after-image-right';
+                const afterImage = panel.querySelector(afterImageClass);
+                let animationId = null;
+                let isHovering = false;
+                let currentProgress = 0;
+                const animationDuration = 600; // 600ms for smooth hover animation
+                let animationStartTime = null;
 
-                const elapsed = Date.now() - startTime;
-                let progress = Math.min(elapsed / animationDuration, 1); // 0 to 1, capped at 1
+                function animateToProgress(targetProgress) {
+                    if (animationId) cancelAnimationFrame(animationId);
 
-                let leftPercent = progress * 100; // 0% to 100%
-                let rightPercent = 100 - (progress * 100); // 100% to 0%
+                    animationStartTime = Date.now();
 
-                afterImage.style.clipPath = `inset(0 ${rightPercent}% 0 0)`;
-                handle.style.left = (50 + progress * 50) + '%';
+                    function updateAnimation() {
+                        const elapsed = Date.now() - animationStartTime;
+                        const animProgress = Math.min(elapsed / animationDuration, 1);
 
-                if (progress >= 1) {
-                    animationComplete = true;
-                    afterImage.style.clipPath = 'inset(0 0 0 0)';
-                    handle.style.left = '100%';
-                    return;
+                        // Smooth easing (cubic-in-out approximation)
+                        const easeProgress = animProgress < 0.5 
+                            ? 2 * animProgress * animProgress 
+                            : -1 + (4 - 2 * animProgress) * animProgress;
+
+                        currentProgress = currentProgress + (targetProgress - currentProgress) * easeProgress;
+                        const rightPercent = 100 - (currentProgress * 100);
+                        afterImage.style.clipPath = `inset(0 ${rightPercent}% 0 0)`;
+
+                        if (animProgress < 1) {
+                            animationId = requestAnimationFrame(updateAnimation);
+                        } else {
+                            currentProgress = targetProgress;
+                            const finalRightPercent = 100 - (targetProgress * 100);
+                            afterImage.style.clipPath = `inset(0 ${finalRightPercent}% 0 0)`;
+                        }
+                    }
+
+                    animationId = requestAnimationFrame(updateAnimation);
                 }
 
-                requestAnimationFrame(animate);
-            }
+                panel.addEventListener('mouseenter', function() {
+                    isHovering = true;
+                    animateToProgress(1); // Animate to fully revealed
+                });
 
-            animate();
+                panel.addEventListener('mouseleave', function() {
+                    isHovering = false;
+                    animateToProgress(0); // Animate back to before state
+                });
+            });
         })();
     </script>
 
