@@ -1594,25 +1594,7 @@
                                 <option value="product-focus">Product Focus</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Fabric Type / Material</label>
-                            <select name="fabric_type" onchange="toggleFabricOther()" required>
-                                <option value="">-- Select Fabric Type --</option>
-                                <option value="cotton">Cotton</option>
-                                <option value="silk">Silk</option>
-                                <option value="linen">Linen</option>
-                                <option value="wool">Wool</option>
-                                <option value="polyester">Polyester</option>
-                                <option value="denim">Denim</option>
-                                <option value="leather">Leather</option>
-                                <option value="satin">Satin</option>
-                                <option value="velvet">Velvet</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <div id="fabricOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="fabric_other" id="fabricOther" placeholder="Specify custom fabric type">
-                            </div>
-                        </div>
+                        
 
                     <div class="form-grid">
                         <div class="form-group">
@@ -1666,8 +1648,8 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material</label>
-                                <select name="one_piece_material" id="onePieceMaterial">
+                                <label>Fabric</label>
+                                <select name="one_piece_material" id="onePieceMaterial" id="onepiecematerial" onchange="toggleOnepiecematerialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1680,6 +1662,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="onepiecematerialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="one_piece_material_other" id="onepiecematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -1700,7 +1685,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Material for Top</label>
-                                <select name="top_material" id="topMaterial">
+                                <select name="top_material" id="topMaterial" id="topmaterial" onchange="toggleTopmaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1713,6 +1698,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="topmaterialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="top_material_other" id="topmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                         <div class="form-grid">
@@ -1729,7 +1717,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Material for Bottom</label>
-                                <select name="bottom_material" id="bottomMaterial">
+                                <select name="bottom_material" id="bottomMaterial" id="bottommaterial" onchange="toggleBottommaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1742,6 +1730,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="bottommaterialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="bottom_material_other" id="bottommaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -1762,7 +1753,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Material for Top</label>
-                                <select name="three_top_material" id="threeTopMaterial">
+                                <select name="three_top_material" id="threeTopMaterial" id="threetopmaterial" onchange="toggleThreetopmaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1775,6 +1766,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="threetopmaterialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="three_top_material_other" id="threetopmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                         <div class="form-grid">
@@ -1791,7 +1785,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Material for Middle</label>
-                                <select name="three_middle_material" id="threeMiddleMaterial">
+                                <select name="three_middle_material" id="threeMiddleMaterial" id="threemiddlematerial" onchange="toggleThreemiddlematerialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1804,6 +1798,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="threemiddlematerialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="three_middle_material_other" id="threemiddlematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                         <div class="form-grid">
@@ -1820,7 +1817,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Material for Bottom</label>
-                                <select name="three_bottom_material" id="threeBottomMaterial">
+                                <select name="three_bottom_material" id="threeBottomMaterial" id="threebottommaterial" onchange="toggleThreebottommaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1833,6 +1830,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="threebottommaterialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="three_bottom_material_other" id="threebottommaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -1852,8 +1852,8 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material</label>
-                                <select name="single_style_material" id="singleStyleMaterial">
+                                <label>Fabric</label>
+                                <select name="single_style_material" id="singleStyleMaterial" id="singlestylematerial" onchange="toggleSinglestylematerialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1866,6 +1866,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="singlestylematerialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="single_style_material_other" id="singlestylematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -1885,8 +1888,8 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material</label>
-                                <select name="other_dress_material" id="otherDressMaterial">
+                                <label>Fabric</label>
+                                <select name="other_dress_material" id="otherDressMaterial" id="otherdressmaterial" onchange="toggleOtherdressmaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
                                     <option value="silk">Silk</option>
@@ -1899,6 +1902,9 @@
                                     <option value="velvet">Velvet</option>
                                     <option value="other">Other</option>
                                 </select>
+                            <div id="otherdressmaterialOtherContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="other_dress_material_other" id="otherdressmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -1906,7 +1912,13 @@
                     </div>
                 </div>
 
-                <!-- BRANDING & IMAGE DETAILS -->
+                <div class="form-section">
+                    <div style="margin: 0; padding: 10px 0; font-size: 90%; color: #d4af37; font-style: italic;">
+                        ⚠️ <strong>Disclaimer:</strong> Please mention only the fabric(s) that will be visible in the final photograph. For example, if a gown includes an inner hard-net layer that is not visible in the photo, do not list it.
+                    </div>
+                </div>
+
+<!-- BRANDING & IMAGE DETAILS -->
                 <div class="form-section">
                     <div class="form-section-title">🎨 Branding & Image Details</div>
                     <div class="form-grid">
@@ -2151,12 +2163,141 @@
     </footer>
 
     <script>
+        
+        // Toggle onepiecematerial "Other" input
+        function toggleOnepiecematerialOther() {
+            const select = document.getElementById('onepiecematerial');
+            const otherContainer = document.getElementById('onepiecematerialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('onepiecematerialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('onepiecematerialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle topmaterial "Other" input
+        function toggleTopmaterialOther() {
+            const select = document.getElementById('topmaterial');
+            const otherContainer = document.getElementById('topmaterialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('topmaterialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('topmaterialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle bottommaterial "Other" input
+        function toggleBottommaterialOther() {
+            const select = document.getElementById('bottommaterial');
+            const otherContainer = document.getElementById('bottommaterialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('bottommaterialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('bottommaterialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle threetopmaterial "Other" input
+        function toggleThreetopmaterialOther() {
+            const select = document.getElementById('threetopmaterial');
+            const otherContainer = document.getElementById('threetopmaterialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('threetopmaterialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('threetopmaterialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle threemiddlematerial "Other" input
+        function toggleThreemiddlematerialOther() {
+            const select = document.getElementById('threemiddlematerial');
+            const otherContainer = document.getElementById('threemiddlematerialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('threemiddlematerialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('threemiddlematerialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle threebottommaterial "Other" input
+        function toggleThreebottommaterialOther() {
+            const select = document.getElementById('threebottommaterial');
+            const otherContainer = document.getElementById('threebottommaterialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('threebottommaterialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('threebottommaterialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle singlestylematerial "Other" input
+        function toggleSinglestylematerialOther() {
+            const select = document.getElementById('singlestylematerial');
+            const otherContainer = document.getElementById('singlestylematerialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('singlestylematerialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('singlestylematerialOther').value = '';
+                }
+            }
+        }
+
+
+        // Toggle otherdressmaterial "Other" input
+        function toggleOtherdressmaterialOther() {
+            const select = document.getElementById('otherdressmaterial');
+            const otherContainer = document.getElementById('otherdressmaterialOtherContainer');
+            if (select && otherContainer) {
+                if (select.value === 'other') {
+                    otherContainer.style.display = 'block';
+                    document.getElementById('otherdressmaterialOther').focus();
+                } else {
+                    otherContainer.style.display = 'none';
+                    document.getElementById('otherdressmaterialOther').value = '';
+                }
+            }
+        }
+
+
         // Check if ethnicity is "Other" and show text input
         function checkEthnicityOther() {
             const select = document.getElementById('ethnicitySelect');
             const input = document.getElementById('otherEthnicityInput');
             
-            if (select.value === 'other') {
+            if (select.value !== '') {
                 input.classList.remove('hidden-section');
             } else {
                 input.classList.add('hidden-section');
