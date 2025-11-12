@@ -1646,6 +1646,9 @@
                                     <option value="bags">Bags</option>
                                     <option value="other">Other</option>
                                 </select>
+                                <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
+                                    <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Specify custom accessory">
+                                </div>
                                 <div id="accessoriesInputContainer" style="display: none; margin-top: 10px;">
                                     <div class="form-group">
                                         <label>Upload Image of Accessory</label>
@@ -1658,9 +1661,6 @@
                                     <div style="margin: 0; padding: 10px 0; font-size: 85%; color: #d4af37; font-style: italic;">
                                         💡 <strong>Note:</strong> Please provide either an image OR description of the accessory.
                                     </div>
-                                </div>
-                                <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Specify custom accessory">
                                 </div>
                             </div>
                         </div>
@@ -2719,6 +2719,7 @@
             // Update hidden input
             document.getElementById(fieldId).value = hexColor.toUpperCase();
         }
+
 
 
 
