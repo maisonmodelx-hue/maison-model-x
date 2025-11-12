@@ -1004,7 +1004,147 @@
                 padding: 30px;
             }
         }
-    </style>
+    
+        /* COLOR PICKER COMPACT */
+        .color-picker-compact-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .color-circle-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+            transition: all 0.2s ease;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .color-circle-btn:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: scale(1.08);
+        }
+
+        .color-circle-btn:active {
+            transform: scale(0.96);
+        }
+
+        .color-hex-display {
+            font-family: monospace;
+            font-size: 12px;
+            color: #555;
+            background-color: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            white-space: nowrap;
+        }
+
+        /* Color Picker Modal */
+        .color-picker-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .color-picker-modal.active {
+            display: flex;
+        }
+
+        .color-picker-modal-content {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-width: 320px;
+        }
+
+        .color-picker-modal-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .color-picker-modal input[type="color"] {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .color-picker-modal-preview {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .color-picker-modal-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+
+        .color-picker-modal-hex {
+            font-family: monospace;
+            font-size: 13px;
+            color: #555;
+            background-color: #f5f5f5;
+            padding: 8px 12px;
+            border-radius: 6px;
+            flex: 1;
+        }
+
+        .color-picker-modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .color-picker-modal-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .color-picker-modal-btn:hover {
+            background-color: #f0f0f0;
+            border-color: #aaa;
+        }
+
+        .color-picker-modal-btn.confirm {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .color-picker-modal-btn.confirm:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
 </head>
 <body>
     <!-- NAVIGATION -->
@@ -1388,12 +1528,12 @@
                                 <option value="latin-american">Latin American</option>
                                 <option value="middle-eastern">Middle Eastern</option>
                                 <option value="mixed">Mixed</option>
-                                <option value="other">Other (Specify)</option>
+                                <option value="specific-region">Specific Region</option>
                             </select>
                         </div>
                         <div class="form-group hidden-section" id="otherEthnicityInput">
-                            <label>Specify Ethnicity</label>
-                            <input type="text" name="ethnicity_other" placeholder="Please specify your ethnicity preference">
+                            <label>Specify Region</label>
+                            <input type="text" name="ethnicity_region" placeholder="Enter region or country (e.g., India, Southeast Asia)">
                         </div>
                         <div class="form-group">
                             <label>Age Range</label>
@@ -1500,7 +1640,14 @@
                     <div class="form-grid" id="generalColorField" style="display: none;">
                         <div class="form-group">
                             <label>Color</label>
-                            <input type="text" name="general_color" id="generalColor" placeholder="e.g., Red, Blue, Black">
+                            <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="generalColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('generalColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_generalColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="general_color" id="generalColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="generalColor_input" value="#FF0000" style="display: none;">
+
                         </div>
                     </div>
 
@@ -1509,7 +1656,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color</label>
-                                <input type="text" name="one_piece_color" id="onePieceColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="onePieceColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('onePieceColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_onePieceColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="one_piece_color" id="onePieceColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="onePieceColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
@@ -1535,7 +1689,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color for Top</label>
-                                <input type="text" name="top_color" id="topColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="topColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('topColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_topColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="top_color" id="topColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="topColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material for Top</label>
@@ -1557,7 +1718,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color for Bottom</label>
-                                <input type="text" name="bottom_color" id="bottomColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="bottomColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('bottomColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_bottomColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="bottom_color" id="bottomColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="bottomColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material for Bottom</label>
@@ -1583,7 +1751,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color for Top</label>
-                                <input type="text" name="three_top_color" id="threeTopColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="threeTopColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeTopColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_threeTopColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="three_top_color" id="threeTopColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="threeTopColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material for Top</label>
@@ -1605,7 +1780,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color for Middle</label>
-                                <input type="text" name="three_middle_color" id="threeMiddleColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="threeMiddleColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeMiddleColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_threeMiddleColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="three_middle_color" id="threeMiddleColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="threeMiddleColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material for Middle</label>
@@ -1627,7 +1809,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color for Bottom</label>
-                                <input type="text" name="three_bottom_color" id="threeBottomColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="threeBottomColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeBottomColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_threeBottomColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="three_bottom_color" id="threeBottomColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="threeBottomColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material for Bottom</label>
@@ -1653,7 +1842,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color</label>
-                                <input type="text" name="single_style_color" id="singleStyleColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="singleStyleColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('singleStyleColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_singleStyleColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="single_style_color" id="singleStyleColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="singleStyleColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
@@ -1679,7 +1875,14 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Color</label>
-                                <input type="text" name="other_dress_color" id="otherDressColor" placeholder="e.g., Red, Blue, Black">
+                                <div class="color-picker-compact-container">
+                                    <button type="button" class="color-circle-btn" id="otherDressColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('otherDressColor')"></button>
+                                    <div class="color-hex-display" id="hex_display_otherDressColor">Hex: #FF0000</div>
+                                </div>
+                                <input type="hidden" name="other_dress_color" id="otherDressColor" value="#FF0000">
+                                <!-- Hidden color picker input -->
+                                <input type="color" id="otherDressColor_input" value="#FF0000" style="display: none;">
+
                             </div>
                             <div class="form-group">
                                 <label>Material</label>
@@ -1794,7 +1997,23 @@
                     <textarea name="fb_message" placeholder="Tell us your thoughts, suggestions, or experience..." required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Send Feedback</button>
-            </form>
+            
+                <!-- COLOR PICKER MODAL -->
+                <div id="colorPickerModal" class="color-picker-modal">
+                    <div class="color-picker-modal-content">
+                        <div class="color-picker-modal-header">Select Color</div>
+                        <input type="color" id="colorPickerInput" value="#FF0000" onchange="updateModalColor()">
+                        <div class="color-picker-modal-preview">
+                            <div class="color-picker-modal-swatch" id="colorPickerSwatch" style="background-color: #FF0000;"></div>
+                            <div class="color-picker-modal-hex" id="colorPickerHex">Hex: #FF0000</div>
+                        </div>
+                        <div class="color-picker-modal-buttons">
+                            <button type="button" class="color-picker-modal-btn" onclick="closeColorPicker()">Cancel</button>
+                            <button type="button" class="color-picker-modal-btn confirm" onclick="applyColor()">Apply</button>
+                        </div>
+                    </div>
+                </div>
+</form>
         </div>
     </section>
 
@@ -2105,7 +2324,7 @@
         function checkEthnicityOther() {
             const ethnicitySelect = document.getElementById('ethnicitySelect');
             const otherContainer = document.getElementById('ethnicityOtherContainer');
-            if (ethnicitySelect.value === 'other') {
+            if (ethnicitySelect.value === 'specific-region') {
                 otherContainer.style.display = 'block';
                 document.getElementById('ethnicityOther').focus();
             } else {
@@ -2178,9 +2397,86 @@
                 otherDressTypeContainer.style.display = 'block';
             }
         }
+
+        
+
+        // Color Picker Variables
+        let currentColorFieldId = null;
+
+        function openColorPicker(fieldId) {
+            currentColorFieldId = fieldId;
+            const currentValue = document.getElementById(fieldId).value || '#FF0000';
+
+            // Set the modal picker to current value
+            document.getElementById('colorPickerInput').value = currentValue;
+            document.getElementById('colorPickerSwatch').style.backgroundColor = currentValue;
+            document.getElementById('colorPickerHex').textContent = 'Hex: ' + currentValue.toUpperCase();
+
+            // Show modal
+            document.getElementById('colorPickerModal').classList.add('active');
+        }
+
+        function closeColorPicker() {
+            document.getElementById('colorPickerModal').classList.remove('active');
+            currentColorFieldId = null;
+        }
+
+        function updateModalColor() {
+            const color = document.getElementById('colorPickerInput').value;
+            document.getElementById('colorPickerSwatch').style.backgroundColor = color;
+            document.getElementById('colorPickerHex').textContent = 'Hex: ' + color.toUpperCase();
+        }
+
+        function applyColor() {
+            if (!currentColorFieldId) return;
+
+            const color = document.getElementById('colorPickerInput').value.toUpperCase();
+
+            // Update the hidden input
+            document.getElementById(currentColorFieldId).value = color;
+
+            // Update the circle button color
+            document.getElementById(currentColorFieldId + '_btn').style.backgroundColor = color;
+
+            // Update the hex display
+            document.getElementById('hex_display_' + currentColorFieldId).textContent = 'Hex: ' + color;
+
+            // Close the modal
+            closeColorPicker();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('colorPickerModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeColorPicker();
+                    }
+                });
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeColorPicker();
+            }
+        });
 </script>
 </body>
 
 </html>
 
 
+
+        function updateColorPreview(fieldId, hexColor) {
+            // Update preview box
+            document.getElementById('preview_' + fieldId).style.backgroundColor = hexColor;
+
+            // Update hex display
+            document.getElementById('hex_' + fieldId).textContent = hexColor.toUpperCase();
+
+            // Update hidden input
+            document.getElementById(fieldId).value = hexColor.toUpperCase();
+        }
