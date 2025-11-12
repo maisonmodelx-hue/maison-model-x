@@ -1179,8 +1179,8 @@
         <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Before & After</h2>
         <div class="slider-container" style="position: relative; width: 100%; overflow: hidden; cursor: default; user-select: none;">
             <img src="W6_C & W8_J.png" alt="Before" style="width: 100%; display: block;"/>
-            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden;">
-                <img src="W8_1.png" alt="After" style="width: 100%; display: block; position: relative; left: 0;"/>
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                <img src="W8_1.png" alt="After" style="width: 100%; display: block;"/>
             </div>
             <div class="slider-handle" style="
                 position: absolute;
@@ -1213,13 +1213,15 @@
                 const elapsed = Date.now() - startTime;
                 let progress = Math.min(elapsed / animationDuration, 1); // 0 to 1, capped at 1
 
-                let percent = 50 + (progress * 50); // Start at 50% (center) and move to 100% (right)
-                afterImage.style.width = percent + '%';
-                handle.style.left = percent + '%';
+                let leftPercent = progress * 100; // 0% to 100%
+                let rightPercent = 100 - (progress * 100); // 100% to 0%
+
+                afterImage.style.clipPath = `inset(0 ${rightPercent}% 0 0)`;
+                handle.style.left = (50 + progress * 50) + '%';
 
                 if (progress >= 1) {
                     animationComplete = true;
-                    afterImage.style.width = '100%';
+                    afterImage.style.clipPath = 'inset(0 0 0 0)';
                     handle.style.left = '100%';
                     return;
                 }
