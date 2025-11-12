@@ -1473,6 +1473,91 @@
                                 <input type="text" name="fabric_other" id="fabricOther" placeholder="Specify custom fabric type">
                             </div>
                         </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Dress Type</label>
+                            <select name="dress_type" id="dressTypeSelect" onchange="toggleDressTypeFields()" required>
+                                <option value="">-- Select Dress Type --</option>
+                                <option value="one-piece">One-Piece</option>
+                                <option value="two-piece">Two-Piece</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ONE-PIECE COLOR/MATERIAL FIELDS -->
+                    <div id="onePieceFields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Color</label>
+                                <input type="text" name="one_piece_color" id="onePieceColor" placeholder="e.g., Red, Blue, Black">
+                            </div>
+                            <div class="form-group">
+                                <label>Material</label>
+                                <select name="one_piece_material" id="onePieceMaterial">
+                                    <option value="">-- Select Material --</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="silk">Silk</option>
+                                    <option value="linen">Linen</option>
+                                    <option value="wool">Wool</option>
+                                    <option value="polyester">Polyester</option>
+                                    <option value="denim">Denim</option>
+                                    <option value="leather">Leather</option>
+                                    <option value="satin">Satin</option>
+                                    <option value="velvet">Velvet</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TWO-PIECE COLOR/MATERIAL FIELDS -->
+                    <div id="twoPieceFields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Color for Top</label>
+                                <input type="text" name="top_color" id="topColor" placeholder="e.g., Red, Blue, Black">
+                            </div>
+                            <div class="form-group">
+                                <label>Material for Top</label>
+                                <select name="top_material" id="topMaterial">
+                                    <option value="">-- Select Material --</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="silk">Silk</option>
+                                    <option value="linen">Linen</option>
+                                    <option value="wool">Wool</option>
+                                    <option value="polyester">Polyester</option>
+                                    <option value="denim">Denim</option>
+                                    <option value="leather">Leather</option>
+                                    <option value="satin">Satin</option>
+                                    <option value="velvet">Velvet</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Color for Bottom</label>
+                                <input type="text" name="bottom_color" id="bottomColor" placeholder="e.g., Red, Blue, Black">
+                            </div>
+                            <div class="form-group">
+                                <label>Material for Bottom</label>
+                                <select name="bottom_material" id="bottomMaterial">
+                                    <option value="">-- Select Material --</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="silk">Silk</option>
+                                    <option value="linen">Linen</option>
+                                    <option value="wool">Wool</option>
+                                    <option value="polyester">Polyester</option>
+                                    <option value="denim">Denim</option>
+                                    <option value="leather">Leather</option>
+                                    <option value="satin">Satin</option>
+                                    <option value="velvet">Velvet</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
@@ -1897,6 +1982,32 @@
             } else {
                 otherContainer.style.display = 'none';
                 document.getElementById('fabricOther').value = '';
+            }
+        }
+
+        // Toggle dress type fields (One-Piece or Two-Piece)
+        function toggleDressTypeFields() {
+            const dressTypeSelect = document.getElementById('dressTypeSelect');
+            const onePieceFields = document.getElementById('onePieceFields');
+            const twoPieceFields = document.getElementById('twoPieceFields');
+
+            // Hide both sections first
+            onePieceFields.style.display = 'none';
+            twoPieceFields.style.display = 'none';
+
+            // Clear all fields
+            document.getElementById('onePieceColor').value = '';
+            document.getElementById('onePieceMaterial').value = '';
+            document.getElementById('topColor').value = '';
+            document.getElementById('topMaterial').value = '';
+            document.getElementById('bottomColor').value = '';
+            document.getElementById('bottomMaterial').value = '';
+
+            // Show relevant section based on selection
+            if (dressTypeSelect.value === 'one-piece') {
+                onePieceFields.style.display = 'block';
+            } else if (dressTypeSelect.value === 'two-piece') {
+                twoPieceFields.style.display = 'block';
             }
         }
 </script>
