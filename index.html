@@ -1680,26 +1680,15 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Dress Type</label>
-                            <select name="dress_type" id="dressTypeSelect" onchange="toggleDressTypeFields()" required>
-                                <option value="">-- Select Dress Type --</option>
-                                <option value="one-piece">One-Piece</option>
-                                <option value="two-piece">Two-Piece</option>
-                                <option value="three-piece">Three-Piece</option>
-                                <option value="gown">Gown</option>
-                                <option value="saree">Saree</option>
-                                <option value="suit">Suit</option>
-                                <option value="traditional">Traditional Wear</option>
-                                <option value="casual">Casual Wear</option>
-                                <option value="formal">Formal Wear</option>
-                                <option value="other">Other</option>
-                            </select>
-                            <div id="otherDressTypeContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="dress_type_other" id="dressTypeOther" placeholder="Specify custom dress type">
-                            </div>
+                            <input type="text" name="dress_type" id="dressTypeInput" placeholder="e.g., Saree, Suit, Gown, etc." oninput="checkDressFormReady()" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Pieces</label>
+                            <input type="number" name="num_pieces" id="numPiecesInput" placeholder="e.g., 2, 3, 4" min="1" max="10" oninput="checkDressFormReady()" required>
                         </div>
                     </div>
 
-                    <!-- DYNAMIC DRESS PARTS FIELDS (for "Other" dress type with custom number of parts) -->
+                    <!-- DYNAMIC DRESS PARTS FIELDS (appears after dress type and number of pieces are filled) -->
                     <div id="dynamicDressPartsContainer" style="display: none; margin-top: 20px;"></div>
 
                     <!-- GENERAL COLOR FIELD (for all dress types) -->
@@ -2041,7 +2030,7 @@
 
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Upload Your Product Image</label>
+                            <label>Upload Your Product Image (Optional)</label>
                             <input type="file" name="product_image" accept="image/*">
                         </div>
                     </div>
@@ -2587,118 +2576,45 @@
         }
 
         // Toggle dress type fields (One-Piece or Two-Piece)
-        function toggleDressTypeFields() {
-            const dressTypeSelect = document.getElementById('dressTypeSelect');
-            const onePieceFields = document.getElementById('onePieceFields');
-            const twoPieceFields = document.getElementById('twoPieceFields');
-            const threePieceFields = document.getElementById('threePieceFields');
-            const singlePieceStyleFields = document.getElementById('singlePieceStyleFields');
-            const otherDressTypeFields = document.getElementById('otherDressTypeFields');
-            const otherDressTypeContainer = document.getElementById('otherDressTypeContainer');
+        function checkDressFormReady() {
+            const dressTypeInput = document.getElementById('dressTypeInput').value.trim();
+            const numPiecesInput = document.getElementById('numPiecesInput').value.trim();
             const dynamicDressPartsContainer = document.getElementById('dynamicDressPartsContainer');
 
-            // Hide all sections first
-            onePieceFields.style.display = 'none';
-            twoPieceFields.style.display = 'none';
-            threePieceFields.style.display = 'none';
-            singlePieceStyleFields.style.display = 'none';
-            otherDressTypeFields.style.display = 'none';
-            otherDressTypeContainer.style.display = 'none';
-            dynamicDressPartsContainer.style.display = 'none';
-
-            // Clear all fields
-            document.getElementById('onePieceColor').value = '';
-            document.getElementById('onePieceMaterial').value = '';
-            document.getElementById('topColor').value = '';
-            document.getElementById('topMaterial').value = '';
-            document.getElementById('bottomColor').value = '';
-            document.getElementById('bottomMaterial').value = '';
-            document.getElementById('threeTopColor').value = '';
-            document.getElementById('threeTopMaterial').value = '';
-            document.getElementById('threeMiddleColor').value = '';
-            document.getElementById('threeMiddleMaterial').value = '';
-            document.getElementById('threeBottomColor').value = '';
-            document.getElementById('threeBottomMaterial').value = '';
-            document.getElementById('singleStyleColor').value = '';
-            document.getElementById('singleStyleMaterial').value = '';
-            document.getElementById('otherDressColor').value = '';
-            document.getElementById('otherDressMaterial').value = '';
-            document.getElementById('dressTypeOther').value = '';
-
-            // Show relevant section based on selection
-            if (dressTypeSelect.value === 'one-piece') {
-                onePieceFields.style.display = 'block';
-            } else if (dressTypeSelect.value === 'two-piece') {
-                twoPieceFields.style.display = 'block';
-            } else if (dressTypeSelect.value === 'three-piece') {
-                threePieceFields.style.display = 'block';
-            } else if (dressTypeSelect.value === 'gown' || dressTypeSelect.value === 'saree' || dressTypeSelect.value === 'suit' || dressTypeSelect.value === 'traditional' || dressTypeSelect.value === 'casual' || dressTypeSelect.value === 'formal') {
-                singlePieceStyleFields.style.display = 'block';
-            } else if (dressTypeSelect.value === 'other') {
-                otherDressTypeContainer.style.display = 'block';
-                promptForDressParts();
+            // If both fields have values, generate the dynamic color/fabric fields
+            if (dressTypeInput && numPiecesInput) {
+                const numPieces = parseInt(numPiecesInput, 10);
+                if (!isNaN(numPieces) && numPieces > 0) {
+                    generateDressPartFields(numPieces);
+                    dynamicDressPartsContainer.style.display = 'block';
+                    return;
+                }
             }
+
+            // Otherwise hide the container
+            dynamicDressPartsContainer.style.display = 'none';
         }
 
         
 
 
-        function promptForDressParts() {
-            const container = document.getElementById('dynamicDressPartsContainer');
-            container.innerHTML = ''; // Clear previous content
-
-            // Create the input field and button for number of parts
-            const inputGroup = document.createElement('div');
-            inputGroup.className = 'form-group';
-            inputGroup.style.marginBottom = '20px';
-            inputGroup.innerHTML = `
-                <label>How many dress parts are there?</label>
-                <input type="number" id="numDressPartsInput" placeholder="Enter number (e.g., 4)" min="1" value="" style="width: 100%; padding: 10px; border: 1px solid var(--gold); background: var(--black); color: var(--white); border-radius: 4px; font-size: 14px;">
-                <button type="button" style="margin-top: 10px; padding: 10px 20px; background: var(--gold); color: var(--black); border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;" onclick="generateDressPartsFromInput()">Continue</button>
-            `;
-
-            container.appendChild(inputGroup);
-            container.style.display = 'block';
-
-            // Focus on the input field
-            document.getElementById('numDressPartsInput').focus();
-        }
-
-        function generateDressPartsFromInput() {
-            const input = document.getElementById('numDressPartsInput');
-            const numParts = parseInt(input.value, 10);
-
-            if (isNaN(numParts) || numParts < 1) {
-                alert('Please enter a valid number greater than 0.');
-                input.focus();
-                return;
-            }
-
-            generateDressPartFields(numParts);
-        }
-
         function generateDressPartFields(numParts) {
             const container = document.getElementById('dynamicDressPartsContainer');
-
-            // Remove the input section
-            const existingInput = container.querySelector('.form-group');
-            if (existingInput) {
-                existingInput.remove();
-            }
+            container.innerHTML = ''; // Clear previous fields
 
             const formGrid = document.createElement('div');
             formGrid.className = 'form-grid';
             formGrid.style.display = 'grid';
             formGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
             formGrid.style.gap = '20px';
-            formGrid.style.marginTop = '0px';
+            formGrid.style.marginTop = '10px';
 
             for (let i = 1; i <= numParts; i++) {
                 // Color group
                 const colorGroup = document.createElement('div');
                 colorGroup.className = 'form-group';
                 colorGroup.innerHTML = `
-                    <label>Part ${i} Color</label>
+                    <label>Piece ${i} Color</label>
                     <div class="color-picker-compact-container">
                         <button type="button" class="color-circle-btn" id="dynamicPartColor_${i}_btn" style="background-color: #FF0000;" onclick="openColorPicker('dynamicPartColor_${i}')"></button>
                         <div class="color-hex-display" id="hex_display_dynamicPartColor_${i}">Hex: #FF0000</div>
@@ -2712,7 +2628,7 @@
                 const fabricGroup = document.createElement('div');
                 fabricGroup.className = 'form-group';
                 fabricGroup.innerHTML = `
-                    <label>Part ${i} Fabric</label>
+                    <label>Piece ${i} Fabric</label>
                     <select name="dynamic_part_fabric_${i}" id="dynamicPartFabric_${i}">
                         <option value="">-- Select Fabric --</option>
                         <option value="cotton">Cotton</option>
@@ -2839,6 +2755,4 @@
             // Update hidden input
             document.getElementById(fieldId).value = hexColor.toUpperCase();
         }
-
-
 
