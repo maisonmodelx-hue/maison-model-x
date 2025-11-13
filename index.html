@@ -1699,6 +1699,9 @@
                         </div>
                     </div>
 
+                    <!-- DYNAMIC DRESS PARTS FIELDS (for "Other" dress type with custom number of parts) -->
+                    <div id="dynamicDressPartsContainer" style="display: none; margin-top: 20px;"></div>
+
                     <!-- GENERAL COLOR FIELD (for all dress types) -->
                     <div class="form-grid" id="generalColorField" style="display: none;">
                         <div class="form-group">
@@ -2038,7 +2041,7 @@
 
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Upload Your Product Image (Optional)</label>
+                            <label>Upload Your Product Image</label>
                             <input type="file" name="product_image" accept="image/*">
                         </div>
                     </div>
@@ -2592,6 +2595,7 @@
             const singlePieceStyleFields = document.getElementById('singlePieceStyleFields');
             const otherDressTypeFields = document.getElementById('otherDressTypeFields');
             const otherDressTypeContainer = document.getElementById('otherDressTypeContainer');
+            const dynamicDressPartsContainer = document.getElementById('dynamicDressPartsContainer');
 
             // Hide all sections first
             onePieceFields.style.display = 'none';
@@ -2600,6 +2604,7 @@
             singlePieceStyleFields.style.display = 'none';
             otherDressTypeFields.style.display = 'none';
             otherDressTypeContainer.style.display = 'none';
+            dynamicDressPartsContainer.style.display = 'none';
 
             // Clear all fields
             document.getElementById('onePieceColor').value = '';
@@ -2630,14 +2635,131 @@
             } else if (dressTypeSelect.value === 'gown' || dressTypeSelect.value === 'saree' || dressTypeSelect.value === 'suit' || dressTypeSelect.value === 'traditional' || dressTypeSelect.value === 'casual' || dressTypeSelect.value === 'formal') {
                 singlePieceStyleFields.style.display = 'block';
             } else if (dressTypeSelect.value === 'other') {
-                otherDressTypeFields.style.display = 'block';
                 otherDressTypeContainer.style.display = 'block';
+                promptForDressParts();
             }
         }
 
         
 
-        // Color Picker Variables
+
+        function promptForDressParts() {
+            const container = document.getElementById('dynamicDressPartsContainer');
+            container.innerHTML = ''; // Clear previous content
+
+            // Create the input field and button for number of parts
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'form-group';
+            inputGroup.style.marginBottom = '20px';
+            inputGroup.innerHTML = `
+                <label>How many dress parts are there?</label>
+                <input type="number" id="numDressPartsInput" placeholder="Enter number (e.g., 4)" min="1" value="" style="width: 100%; padding: 10px; border: 1px solid var(--gold); background: var(--black); color: var(--white); border-radius: 4px; font-size: 14px;">
+                <button type="button" style="margin-top: 10px; padding: 10px 20px; background: var(--gold); color: var(--black); border: none; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;" onclick="generateDressPartsFromInput()">Continue</button>
+            `;
+
+            container.appendChild(inputGroup);
+            container.style.display = 'block';
+
+            // Focus on the input field
+            document.getElementById('numDressPartsInput').focus();
+        }
+
+        function generateDressPartsFromInput() {
+            const input = document.getElementById('numDressPartsInput');
+            const numParts = parseInt(input.value, 10);
+
+            if (isNaN(numParts) || numParts < 1) {
+                alert('Please enter a valid number greater than 0.');
+                input.focus();
+                return;
+            }
+
+            generateDressPartFields(numParts);
+        }
+
+        function generateDressPartFields(numParts) {
+            const container = document.getElementById('dynamicDressPartsContainer');
+
+            // Remove the input section
+            const existingInput = container.querySelector('.form-group');
+            if (existingInput) {
+                existingInput.remove();
+            }
+
+            const formGrid = document.createElement('div');
+            formGrid.className = 'form-grid';
+            formGrid.style.display = 'grid';
+            formGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
+            formGrid.style.gap = '20px';
+            formGrid.style.marginTop = '0px';
+
+            for (let i = 1; i <= numParts; i++) {
+                // Color group
+                const colorGroup = document.createElement('div');
+                colorGroup.className = 'form-group';
+                colorGroup.innerHTML = `
+                    <label>Part ${i} Color</label>
+                    <div class="color-picker-compact-container">
+                        <button type="button" class="color-circle-btn" id="dynamicPartColor_${i}_btn" style="background-color: #FF0000;" onclick="openColorPicker('dynamicPartColor_${i}')"></button>
+                        <div class="color-hex-display" id="hex_display_dynamicPartColor_${i}">Hex: #FF0000</div>
+                    </div>
+                    <input type="hidden" name="dynamic_part_color_${i}" id="dynamicPartColor_${i}" value="#FF0000">
+                    <input type="color" id="dynamicPartColor_${i}_input" value="#FF0000" style="display: none;">
+                `;
+                formGrid.appendChild(colorGroup);
+
+                // Fabric group
+                const fabricGroup = document.createElement('div');
+                fabricGroup.className = 'form-group';
+                fabricGroup.innerHTML = `
+                    <label>Part ${i} Fabric</label>
+                    <select name="dynamic_part_fabric_${i}" id="dynamicPartFabric_${i}">
+                        <option value="">-- Select Fabric --</option>
+                        <option value="cotton">Cotton</option>
+                        <option value="silk">Silk</option>
+                        <option value="linen">Linen</option>
+                        <option value="wool">Wool</option>
+                        <option value="velvet">Velvet</option>
+                        <option value="satin">Satin</option>
+                        <option value="polyester">Polyester</option>
+                        <option value="denim">Denim</option>
+                        <option value="chiffon">Chiffon</option>
+                        <option value="khadi">Khadi</option>
+                        <option value="organza">Organza</option>
+                        <option value="tulle">Tulle</option>
+                        <option value="taffeta">Taffeta</option>
+                        <option value="brocade">Brocade</option>
+                        <option value="tweed">Tweed</option>
+                        <option value="lace">Lace</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div id="dynamicPartFabric_${i}_otherContainer" style="display: none; margin-top: 10px;">
+                        <input type="text" name="dynamic_part_fabric_${i}_other" id="dynamicPartFabric_${i}_other" placeholder="Specify custom fabric">
+                    </div>
+                `;
+
+                formGrid.appendChild(fabricGroup);
+
+                // Add onchange handler for the fabric select
+                setTimeout(() => {
+                    const select = document.getElementById(`dynamicPartFabric_${i}`);
+                    if (select) {
+                        select.addEventListener('change', function() {
+                            const otherContainer = document.getElementById(`dynamicPartFabric_${i}_otherContainer`);
+                            if (this.value === 'other') {
+                                otherContainer.style.display = 'block';
+                            } else {
+                                otherContainer.style.display = 'none';
+                            }
+                        });
+                    }
+                }, 0);
+            }
+
+            container.appendChild(formGrid);
+        }
+
+                // Color Picker Variables
         let currentColorFieldId = null;
 
         function openColorPicker(fieldId) {
@@ -2717,16 +2839,6 @@
             // Update hidden input
             document.getElementById(fieldId).value = hexColor.toUpperCase();
         }
-
-
-
-
-
-
-
-
-
-
 
 
 
