@@ -1356,6 +1356,27 @@
             height: 24px;
         }
 
+        
+        /* GOLDEN ASTERISK FOR REQUIRED FIELDS */
+        label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .required-asterisk {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        input[required] ~ label .required-asterisk,
+        select[required] ~ label .required-asterisk,
+        textarea[required] ~ label .required-asterisk {
+            display: inline;
+        }
+
         </style>
 
 
@@ -1572,15 +1593,15 @@
                     <div class="form-section-title">📋 Client Details</div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Full Name</label>
+                            <label>Full Name <span class="required-asterisk">*</span></label>
                             <input type="text" name="client_name" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
-                            <label>Email Address</label>
+                            <label>Email Address <span class="required-asterisk">*</span></label>
                             <input type="email" name="client_email" placeholder="your@email.com" required>
                         </div>
                         <div class="form-group">
-                            <label>Country Code</label>
+                            <label>Country Code <span class="required-asterisk">*</span></label>
                             <select name="country_code" id="countryCodeSelect" required>
                                 <option value="">-- Select Country --</option>
                                 <option value="+91">🇮🇳 India (+91)</option>
@@ -1624,14 +1645,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Phone Number</label>
+                            <label>Phone Number <span class="required-asterisk">*</span></label>
                             <div style="display: flex; gap: 10px; align-items: center;">
                                 <span id="countryCodeDisplay" style="padding: 10px 15px; background: var(--light-gray); border: 1px solid var(--gold); border-radius: 4px; color: var(--gold); font-weight: 600; min-width: 80px;">+91</span>
                                 <input type="tel" name="client_phone" id="phoneInput" placeholder="XXXXXXXXXX" required style="flex: 1;">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Brand Name</label>
+                            <label>Brand Name <span class="required-asterisk">*</span></label>
                             <input type="text" name="brand_name" placeholder="Your brand name" required>
                         </div>
                     </div>
@@ -1642,7 +1663,7 @@
                     <div class="form-section-title">💰 Select Your Plan</div>
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Choose Your Package</label>
+                            <label>Choose Your Package <span class="required-asterisk">*</span></label>
                             <select name="plan_type" id="planSelect" onchange="updatePlanOptions()" required>
                                 <option value="">-- Select a Plan --</option>
                                 <option value="artisan">🎨 Artisan (₹6,000)</option>
@@ -1660,7 +1681,7 @@
                     <div class="form-section-title">👤 Model & Your Product Details</div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Gender</label>
+                            <label>Gender <span class="required-asterisk">*</span></label>
                             <select name="model_gender" required>
                                 <option value="">-- Select Gender --</option>
                                 <option value="female">Female</option>
@@ -1668,7 +1689,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Ethnicity</label>
+                            <label>Ethnicity <span class="required-asterisk">*</span></label>
                             <select name="model_ethnicity" id="ethnicitySelect" onchange="checkEthnicityOther()" required>
                                 <option value="">-- Select Ethnicity --</option>
                                 <option value="south-asian">South Asian</option>
@@ -1699,7 +1720,7 @@
 
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Choose Your Edition</label>
+                            <label>Choose Your Edition <span class="required-asterisk">*</span></label>
                             <select name="product_type" id="productTypeSelect" onchange="updateProductOptions()" required>
                                 <option value="">-- Select Product Type --</option>
                                 <option value="clothing">Clothing</option>
@@ -1748,7 +1769,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Shot Type</label>
+                            <label>Shot Type <span class="required-asterisk">*</span></label>
                             <select name="shot_type" required>
                                 <option value="">-- Select Shot Type --</option>
                                 <option value="close-up">Close-Up (Face)</option>
@@ -1762,11 +1783,11 @@
 
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Dress Type</label>
+                            <label>Dress Type <span class="required-asterisk">*</span></label>
                             <input type="text" name="dress_type" id="dressTypeInput" placeholder="e.g., Saree, Suit, Gown, etc." oninput="checkDressFormReady()" required>
                         </div>
                         <div class="form-group">
-                            <label>Number of Pieces</label>
+                            <label>Number of Pieces <span class="required-asterisk">*</span></label>
                             <input type="number" name="num_pieces" id="numPiecesInput" placeholder="e.g., 2, 3, 4" min="1" max="10" oninput="checkDressFormReady()" required>
                         </div>
                     </div>
@@ -2907,9 +2928,6 @@
 </body>
 
 </html>
-
-
-
 
 
 
