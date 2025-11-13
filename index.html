@@ -2910,17 +2910,4 @@
 
 
 
-        function updateColorPreview(fieldId, hexColor) {
-            // Update preview box
-            document.getElementById('preview_' + fieldId).style.backgroundColor = hexColor;
-
-            // Update hex display
-            document.getElementById('hex_' + fieldId).textContent = hexColor.toUpperCase();
-
-            // Update hidden input
-            document.getElementById(fieldId).value = hexColor.toUpperCase();
-        }
-
-
-
 
