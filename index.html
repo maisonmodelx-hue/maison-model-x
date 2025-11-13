@@ -1320,7 +1320,43 @@
         .product-card:hover {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-    </style>
+    
+        /* SCROLL TO TOP BUTTON */
+        .scroll-to-top-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .scroll-to-top-btn:hover {
+            background: #e5c158;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .scroll-to-top-btn.show {
+            display: flex;
+        }
+
+        .scroll-to-top-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        </style>
 
 
     <!-- WHY CHOOSE US -->
@@ -2034,6 +2070,18 @@
                             <input type="file" name="product_image" accept="image/*">
                         </div>
                     </div>
+
+                    <!-- PRODUCT DESCRIPTION SECTION -->
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label>Product Description</label>
+                            <textarea name="product_description" id="productDescription" placeholder="Describe your product in detail (color, fabric, style, fit, special features, etc.). Use this if you don't have an image."></textarea>
+                        </div>
+                    </div>
+
+                    <div style="margin: 0; padding: 10px 0; font-size: 85%; color: #d4af37; font-style: italic;">
+                        <strong>Note:</strong> If you have uploaded a product image, you don't need to write the description. The image will be used for reference.
+                    </div>
                 </div>
 
                 <!-- PROJECT DESCRIPTION -->
@@ -2597,6 +2645,69 @@
 
         
 
+        // Color Picker Variables
+        let currentColorFieldId = null;
+
+        function openColorPicker(fieldId) {
+            currentColorFieldId = fieldId;
+            const currentValue = document.getElementById(fieldId).value || '#FF0000';
+
+            // Set the modal picker to current value
+            document.getElementById('colorPickerInput').value = currentValue;
+            document.getElementById('colorPickerSwatch').style.backgroundColor = currentValue;
+            document.getElementById('colorPickerHex').textContent = 'Hex: ' + currentValue.toUpperCase();
+
+            // Show modal
+            document.getElementById('colorPickerModal').classList.add('active');
+        }
+
+        function closeColorPicker() {
+            document.getElementById('colorPickerModal').classList.remove('active');
+            currentColorFieldId = null;
+        }
+
+        function updateModalColor() {
+            const color = document.getElementById('colorPickerInput').value;
+            document.getElementById('colorPickerSwatch').style.backgroundColor = color;
+            document.getElementById('colorPickerHex').textContent = 'Hex: ' + color.toUpperCase();
+        }
+
+        function applyColor() {
+            if (!currentColorFieldId) return;
+
+            const color = document.getElementById('colorPickerInput').value.toUpperCase();
+
+            // Update the hidden input
+            document.getElementById(currentColorFieldId).value = color;
+
+            // Update the circle button color
+            document.getElementById(currentColorFieldId + '_btn').style.backgroundColor = color;
+
+            // Update the hex display
+            document.getElementById('hex_display_' + currentColorFieldId).textContent = 'Hex: ' + color;
+
+            // Close the modal
+            closeColorPicker();
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('colorPickerModal');
+            if (modal) {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeColorPicker();
+                    }
+                });
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeColorPicker();
+            }
+        });
 
         function generateDressPartFields(numParts) {
             const container = document.getElementById('dynamicDressPartsContainer');
@@ -2675,70 +2786,30 @@
             container.appendChild(formGrid);
         }
 
-                // Color Picker Variables
-        let currentColorFieldId = null;
-
-        function openColorPicker(fieldId) {
-            currentColorFieldId = fieldId;
-            const currentValue = document.getElementById(fieldId).value || '#FF0000';
-
-            // Set the modal picker to current value
-            document.getElementById('colorPickerInput').value = currentValue;
-            document.getElementById('colorPickerSwatch').style.backgroundColor = currentValue;
-            document.getElementById('colorPickerHex').textContent = 'Hex: ' + currentValue.toUpperCase();
-
-            // Show modal
-            document.getElementById('colorPickerModal').classList.add('active');
-        }
-
-        function closeColorPicker() {
-            document.getElementById('colorPickerModal').classList.remove('active');
-            currentColorFieldId = null;
-        }
-
-        function updateModalColor() {
-            const color = document.getElementById('colorPickerInput').value;
-            document.getElementById('colorPickerSwatch').style.backgroundColor = color;
-            document.getElementById('colorPickerHex').textContent = 'Hex: ' + color.toUpperCase();
-        }
-
-        function applyColor() {
-            if (!currentColorFieldId) return;
-
-            const color = document.getElementById('colorPickerInput').value.toUpperCase();
-
-            // Update the hidden input
-            document.getElementById(currentColorFieldId).value = color;
-
-            // Update the circle button color
-            document.getElementById(currentColorFieldId + '_btn').style.backgroundColor = color;
-
-            // Update the hex display
-            document.getElementById('hex_display_' + currentColorFieldId).textContent = 'Hex: ' + color;
-
-            // Close the modal
-            closeColorPicker();
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('colorPickerModal');
-            if (modal) {
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        closeColorPicker();
-                    }
-                });
+        // SCROLL TO TOP FUNCTIONALITY
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollToTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
             }
         });
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeColorPicker();
-            }
-        });
-</script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+    </script>
+    <!-- SCROLL TO TOP BUTTON -->
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" onclick="scrollToTop()" title="Go to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 </body>
 
 </html>
@@ -2755,4 +2826,16 @@
             // Update hidden input
             document.getElementById(fieldId).value = hexColor.toUpperCase();
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
