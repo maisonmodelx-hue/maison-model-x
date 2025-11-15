@@ -125,7 +125,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 60px;
+            padding: 14px 60px;
             background: rgba(11, 11, 11, 0.95);
             position: fixed;
             width: 100%;
@@ -1360,9 +1360,29 @@
         <h2 class="section-title">Consistency From Every Angle</h2>
         <p class="section-subtitle">Explore your model in full 360° clarity—every pose, every angle, always consistent.</p>
         <div class="mmx-carousel-container" style="margin: 0 auto; display: flex; justify-content: center;">
-            <img id="mmx-carousel-img" src="1.png" alt="Consistency from every angle" class="mmx-carousel-image" style="max-width: 400px; width: 100%; height: auto;">
+            <img id="mmx-carousel-img" src="1.png" alt="Consistency from every angle" class="mmx-carousel-image" style="max-width: 400px; width: 100%; height: auto; transition: opacity 0.8s ease-in-out;">
         </div>
     </section>
+
+    <script>
+    (function() {
+        const carouselImg = document.getElementById('mmx-carousel-img');
+        const imageFiles = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png'];
+        let currentImageIndex = 0;
+
+        function rotateImage() {
+            currentImageIndex = (currentImageIndex + 1) % imageFiles.length;
+            carouselImg.style.opacity = '0';
+            setTimeout(() => {
+                carouselImg.src = imageFiles[currentImageIndex];
+                carouselImg.style.opacity = '1';
+            }, 400);
+        }
+
+        // Start auto-rotation every 4 seconds
+        setInterval(rotateImage, 4000);
+    })();
+    </script>
 
 <section class="problem">
         <h2 class="section-title">The Frustration Every Creator Knows</h2>
@@ -2032,9 +2052,6 @@ Contact for immediate follow-up.
 </body>
 
 </html>
-
-
-
 
 
 
