@@ -1360,7 +1360,7 @@
         <h2 class="section-title">Consistency From Every Angle</h2>
         <p class="section-subtitle">Explore your model in full 360° clarity—every pose, every angle, always consistent.</p>
         <div class="mmx-carousel-container" style="margin: 0 auto; display: flex; justify-content: center;">
-            <img id="mmx-carousel-img" src="1.png" alt="Consistency from every angle" class="mmx-carousel-image" style="max-width: 400px; width: 100%; height: auto; transition: opacity 0.8s ease-in-out;">
+            <img id="mmx-carousel-img" src="1.png" alt="Consistency from every angle" class="mmx-carousel-image" style="max-width: 400px; width: 100%; height: auto;">
         </div>
     </section>
 
@@ -1372,11 +1372,7 @@
 
         function rotateImage() {
             currentImageIndex = (currentImageIndex + 1) % imageFiles.length;
-            carouselImg.style.opacity = '0';
-            setTimeout(() => {
-                carouselImg.src = imageFiles[currentImageIndex];
-                carouselImg.style.opacity = '1';
-            }, 400);
+            carouselImg.src = imageFiles[currentImageIndex];
         }
 
         // Start auto-rotation every 4 seconds
@@ -2052,6 +2048,7 @@ Contact for immediate follow-up.
 </body>
 
 </html>
+
 
 
 
