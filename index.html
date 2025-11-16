@@ -1801,19 +1801,35 @@
         
         <div class="form-container">
             <form id="orderForm">
-                <!-- CLIENT DETAILS -->
-                <div class="form-section">
-                    <div class="form-section-title">
-                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;">Client Details
+        <!-- WIZARD CONTAINER -->
+        <div id="wizardContainer" class="wizard-container">
+
+            <!-- PROGRESS BAR -->
+            <div class="wizard-progress-container">
+                <div class="wizard-progress-bar" id="progressBar"></div>
+                <div class="wizard-step-indicators" id="stepIndicators"></div>
+            </div>
+
+            <!-- WIZARD STEPS CONTAINER -->
+            <div class="wizard-steps-wrapper" id="wizardStepsWrapper">
+
+                <!-- STEP 1: Client Details -->
+                <div class="wizard-step" data-step="1">
+                    <div class="wizard-step-header">
+                        <h3>Your Details</h3>
+                        <p>Tell us about yourself and your brand</p>
                     </div>
+
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Full Name <span class="required-asterisk">*</span></label>
                             <input type="text" name="client_name" placeholder="Your name" required>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Email Address <span class="required-asterisk">*</span></label>
                             <input type="email" name="client_email" placeholder="your@email.com" required>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Country Code <span class="required-asterisk">*</span></label>
@@ -1858,75 +1874,86 @@
                                 <option value="+971">🇦🇪 United Arab Emirates (+971)</option>
                                 <option value="+966">🇸🇦 Saudi Arabia (+966)</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Phone Number <span class="required-asterisk">*</span></label>
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <span id="countryCodeDisplay" style="padding: 10px 15px; background: var(--light-gray); border: 1px solid var(--gold); border-radius: 4px; color: var(--gold); font-weight: 600; min-width: 80px;">+91</span>
-                                <input type="tel" name="client_phone" id="phoneInput" placeholder="XXXXXXXXXX" required style="flex: 1;">
+                            <div class="phone-input-group">
+                                <span id="phonePrefix" class="phone-prefix">+91</span>
+                                <input type="tel" name="client_phone" placeholder="10 digit number" required>
                             </div>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Brand Name <span class="required-asterisk">*</span></label>
                             <input type="text" name="brand_name" placeholder="Your brand name" required>
+                            <span class="field-error"></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- PLAN SELECTION -->
-                <div class="form-section">
-                    <div class="form-section-title">
-                        <img src="dart.png" alt="Dart Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;">Select Your Plan
+                <!-- STEP 2: Plan Selection -->
+                <div class="wizard-step" data-step="2">
+                    <div class="wizard-step-header">
+                        <h3>Select Your Plan</h3>
+                        <p>Choose the package that fits your needs</p>
                     </div>
-                    <div class="form-grid full">
-                        <div class="form-group">
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
                             <label>Choose Your Package <span class="required-asterisk">*</span></label>
-                            <select name="plan_type" id="planSelect" onchange="updatePlanOptions()" required>
+                            <select name="plan_type" required>
                                 <option value="">-- Select a Plan --</option>
-                                <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;">🎨Artisan (₹6,000)</option>
-                                <option value="couture"><img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;">Couture (₹15,000)</option>
-                                <option value="atelier"><img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;">Atelier (₹35,000)</option>
-                                <option value="maison"><img src="castle.png" alt="Castle Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;">Maison (₹75,000)</option>
-                                <option value="legacy"><img src="crown.png" alt="Crown Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;">Legacy (Custom)</option>
+                                <option value="Artisan">🎨 Artisan (₹6,000)</option>
+                                <option value="Couture">Couture (₹15,000)</option>
+                                <option value="Atelier">Atelier (₹35,000)</option>
+                                <option value="Maison">Maison (₹75,000)</option>
+                                <option value="Legacy">Legacy (Custom)</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
                     </div>
                 </div>
 
-                <!-- MODEL DETAILS -->
-                <div class="form-section">
-                    <div class="form-section-title"> 
-                        <img src="human.png" alt="Human Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;">Model & Your Product Details
+                <!-- STEP 3: Model Specifications -->
+                <div class="wizard-step" data-step="3">
+                    <div class="wizard-step-header">
+                        <h3>Model Specifications</h3>
+                        <p>Define your model's appearance and style</p>
                     </div>
+
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Gender <span class="required-asterisk">*</span></label>
-                            <select name="model_gender" required>
+                            <select name="model_gender" id="genderSelect" required>
                                 <option value="">-- Select Gender --</option>
-                                <option value="female">Female</option>
-                                <option value="male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Male">Male</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Ethnicity <span class="required-asterisk">*</span></label>
-                            <select name="model_ethnicity" id="ethnicitySelect" onchange="checkEthnicityOther()" required>
+                            <select name="model_ethnicity" id="ethnicitySelect" required>
                                 <option value="">-- Select Ethnicity --</option>
-                                <option value="south-asian">South Asian</option>
-                                <option value="east-asian">East Asian</option>
-                                <option value="african">African</option>
-                                <option value="european">European</option>
-                                <option value="latin-american">Latin American</option>
-                                <option value="middle-eastern">Middle Eastern</option>
-                                <option value="mixed">Mixed</option>
+                                <option value="South Asian">South Asian</option>
+                                <option value="East Asian">East Asian</option>
+                                <option value="African">African</option>
+                                <option value="European">European</option>
+                                <option value="Latin American">Latin American</option>
+                                <option value="Middle Eastern">Middle Eastern</option>
+                                <option value="Mixed">Mixed</option>
                             </select>
-                            <div class="form-group" id="ethnicityCustomContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="ethnicity_custom" id="ethnicity_custom" placeholder="Specify country or region (e.g., India, Japan, Nigeria…)">
-                            </div>
+                            <span class="field-error"></span>
                         </div>
-
+                        <div class="form-group" id="ethnicityOtherGroup" style="display: none;">
+                            <label>Specify Ethnicity</label>
+                            <input type="text" name="ethnicity_custom" placeholder="Please describe">
+                            <span class="field-error"></span>
+                        </div>
                         <div class="form-group">
                             <label>Age Range</label>
-                            <select name="model_age" required>
+                            <select name="model_age" id="ageRangeSelect">
                                 <option value="">-- Select Age Range --</option>
                                 <option value="18-25">18-25 years</option>
                                 <option value="26-35">26-35 years</option>
@@ -1934,45 +1961,194 @@
                                 <option value="46-55">46-55 years</option>
                                 <option value="55+">55+ years</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
+                        <div class="form-group">
+                            <label>Hair Color <span class="required-asterisk">*</span></label>
+                            <select name="hair_color" id="hairColorSelect" required>
+                                <option value="">-- Select Hair Color --</option>
+                                <option value="Black">Black</option>
+                                <option value="Brown">Brown</option>
+                                <option value="Blonde">Blonde</option>
+                                <option value="Red">Red</option>
+                                <option value="Auburn">Auburn</option>
+                                <option value="Gray/Silver">Gray/Silver</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group" id="hairColorOtherGroup" style="display: none;">
+                            <label>Specify Hair Color</label>
+                            <input type="text" name="hair_color_custom" placeholder="Describe the hair color">
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Skin Tone <span class="required-asterisk">*</span></label>
+                            <select name="skin_tone" id="skinToneSelect" required>
+                                <option value="">-- Select Skin Tone --</option>
+                                <option value="Very Fair">Very Fair</option>
+                                <option value="Fair">Fair</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Olive">Olive</option>
+                                <option value="Deep">Deep</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group" id="skinToneCustomGroup" style="display: none;">
+                            <label>Describe Skin Tone</label>
+                            <input type="text" name="skin_tone_custom" placeholder="Describe your preferred skin tone">
+                            <span class="field-error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Model Style & Presentation -->
+                <div class="wizard-step" data-step="4">
+                    <div class="wizard-step-header">
+                        <h3>Model Style & Presentation</h3>
+                        <p>Choose how your model should look and pose</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Model Style <span class="required-asterisk">*</span></label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="modelStyle_minimal" name="model_style" value="Minimal/Plain" required>
+                                    <label for="modelStyle_minimal">Minimal/Plain</label>
+                                    <p class="radio-hint">Simple, clean aesthetic</p>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="modelStyle_luxury" name="model_style" value="Luxury Studio">
+                                    <label for="modelStyle_luxury">Luxury Studio</label>
+                                    <p class="radio-hint">High-end studio setting</p>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="modelStyle_outdoor" name="model_style" value="Outdoor/Nature">
+                                    <label for="modelStyle_outdoor">Outdoor/Nature</label>
+                                    <p class="radio-hint">Natural, scenic backdrop</p>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="modelStyle_urban" name="model_style" value="Urban/City">
+                                    <label for="modelStyle_urban">Urban/City</label>
+                                    <p class="radio-hint">Modern city environment</p>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="modelStyle_branded" name="model_style" value="Branded/Custom">
+                                    <label for="modelStyle_branded">Branded/Custom</label>
+                                    <p class="radio-hint">Custom branded setting</p>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="modelStyle_other" name="model_style" value="Other">
+                                    <label for="modelStyle_other">Other</label>
+                                    <p class="radio-hint">Specify your preference</p>
+                                </div>
+                            </div>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width" id="modelStyleOtherGroup" style="display: none;">
+                            <label>Describe Your Style Preference</label>
+                            <textarea name="model_style_custom" placeholder="Tell us about your unique style vision..." rows="3"></textarea>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Pose Preference <span class="required-asterisk">*</span></label>
+                            <select name="pose_preference" id="poseSelect" required>
+                                <option value="">-- Select Pose --</option>
+                                <option value="Standing Full Body">Standing Full Body</option>
+                                <option value="Standing Upper Half">Standing Upper Half</option>
+                                <option value="Sitting">Sitting</option>
+                                <option value="Dynamic/Action">Dynamic/Action</option>
+                                <option value="Reclining">Reclining</option>
+                                <option value="Close-up/Headshot">Close-up/Headshot</option>
+                                <option value="Multiple Poses">Multiple Poses</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Pose Description</label>
+                            <textarea name="pose_description" placeholder="Describe the specific pose or movement you'd like..." rows="3"></textarea>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Setting / Background <span class="required-asterisk">*</span></label>
+                            <select name="setting_background" id="settingSelect" required>
+                                <option value="">-- Select Background --</option>
+                                <option value="Plain White">Plain White</option>
+                                <option value="Plain Black">Plain Black</option>
+                                <option value="Neutral Gray">Neutral Gray</option>
+                                <option value="Studio Lighting">Studio Lighting</option>
+                                <option value="Natural Outdoor">Natural Outdoor</option>
+                                <option value="Urban Street">Urban Street</option>
+                                <option value="Luxury Interior">Luxury Interior</option>
+                                <option value="Beach/Nature">Beach/Nature</option>
+                                <option value="Custom">Custom</option>
+                            </select>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width" id="settingCustomGroup" style="display: none;">
+                            <label>Describe Custom Background</label>
+                            <textarea name="setting_custom" placeholder="Describe your custom background..." rows="3"></textarea>
+                            <span class="field-error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Product Details & Edition Type -->
+                <div class="wizard-step" data-step="5">
+                    <div class="wizard-step-header">
+                        <h3>Your Product</h3>
+                        <p>Tell us about what you're showcasing</p>
                     </div>
 
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Choose Your Edition <span class="required-asterisk">*</span></label>
-                            <select name="product_type" id="productTypeSelect" onchange="updateProductOptions()" required>
+                            <select name="product_type" id="productTypeSelect" required>
                                 <option value="">-- Select Product Type --</option>
-                                <option value="clothing">Clothing</option>
-                                <option value="jewelry">Jewelry</option>
-                                <option value="footwear">Footwear</option>
-                                <option value="footwear">Handbags & Purses</option>
-                                <option value="footwear">Beauty & Skincare</option>
-                                <option value="footwear">Fragrance</option>
-                                <option value="other">Bespoke / Custom Order</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Footwear">Footwear</option>
+                                <option value="Handbags & Purses">Handbags & Purses</option>
+                                <option value="Beauty & Skincare">Beauty & Skincare</option>
+                                <option value="Fragrance">Fragrance</option>
+                                <option value="Bespoke / Custom Order">Bespoke / Custom Order</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
                             <label>Accessories Included?</label>
-                            <select name="accessories" onchange="toggleAccessoriesDropdown()" required>
+                            <select name="accessories" id="accessoriesSelect">
                                 <option value="">-- Select Option --</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
                             </select>
-                            <div id="accessoriesDropdownContainer" style="display: none; margin-top: 10px;">
-                                <label>Which Accessories?</label>
-                                <select name="accessories_type" id="accessoriesDropdown" onchange="toggleAccessoriesFields()">
-                                    <option value="">-- Select Accessories --</option>
-                                    <option value="belts">Belts</option>
-                                    <option value="scarves">Scarves</option>
-                                    <option value="hats">Hats</option>
-                                    <option value="gloves">Gloves</option>
-                                    <option value="bags">Bags</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Specify custom accessory">
-                                </div>
-                                <div id="accessoriesInputContainer" style="display: none; margin-top: 10px;">
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group" id="accessoriesTypeGroup" style="display: none;">
+                            <label>Which Accessories?</label>
+                            <select name="accessories_type" id="accessoriesTypeSelect">
+                                <option value="">-- Select Accessories --</option>
+                                <option value="Belts">Belts</option>
+                                <option value="Scarves">Scarves</option>
+                                <option value="Hats">Hats</option>
+                                <option value="Gloves">Gloves</option>
+                                <option value="Sunglasses">Sunglasses</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Shoes">Shoes</option>
+                                <option value="Bag">Bag</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group" id="accessoriesOtherGroup" style="display: none;">
+                            <label>Specify Other Accessories</label>
+                            <input type="text" name="accessories_other" placeholder="Describe the accessories">
+                            <span class="field-error"></span>
+                        </div>
+                        <div id="accessoriesInputContainer" style="display: none; margin-top: 10px;">
                                     <div class="form-group">
                                         <label>Upload Image of Accessory</label>
                                         <input type="file" name="accessory_image" id="accessoryImage" accept="image/*">
@@ -1985,413 +2161,111 @@
                                         💡 <strong>Note:</strong> Please provide either an image OR description of the accessory.
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Shot Type <span class="required-asterisk">*</span></label>
-                            <select name="shot_type" required>
-                                <option value="">-- Select Shot Type --</option>
-                                <option value="close-up">Close-Up (Face)</option>
-                                <option value="half-body">Half-Body</option>
-                                <option value="3-4-view">3/4 View</option>
-                                <option value="full-body">Full-Body</option>
-                                <option value="product-focus">Product Focus</option>
-                            </select>
-                        </div>
-                        
+                    </div>
+                </div>
 
-                    <div class="form-grid">
-                        <div class="form-group">
+                <!-- STEP 6: Detailed Product Information -->
+                <div class="wizard-step" data-step="6">
+                    <div class="wizard-step-header">
+                        <h3>Product Details</h3>
+                        <p>Provide specifics about your clothing or product</p>
+                    </div>
+
+                    <div class="form-grid" id="dressDetailsContainer">
+                        <div class="form-group full-width">
                             <label>Dress Type <span class="required-asterisk">*</span></label>
-                            <input type="text" name="dress_type" id="dressTypeInput" placeholder="e.g., Saree, Suit, Gown, etc." oninput="checkDressFormReady()" required>
+                            <select name="dress_type" id="dressTypeSelect" required>
+                                <option value="">-- Select Dress Type --</option>
+                                <option value="Single Piece">Single Piece</option>
+                                <option value="Two Pieces (Top + Bottom)">Two Pieces (Top + Bottom)</option>
+                                <option value="Three Pieces (Top + Middle + Bottom)">Three Pieces (Top + Middle + Bottom)</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <span class="field-error"></span>
                         </div>
-                        <div class="form-group">
-                            <label>Number of Pieces <span class="required-asterisk">*</span></label>
-                            <input type="number" name="num_pieces" id="numPiecesInput" placeholder="e.g., 2, 3, 4" min="1" max="10" oninput="checkDressFormReady()" required>
-                        </div>
+                        <!-- Dynamic dress fields will be inserted here by JavaScript -->
                     </div>
 
-                    <!-- DYNAMIC DRESS PARTS FIELDS (appears after dress type and number of pieces are filled) -->
-                    <div id="dynamicDressPartsContainer" style="display: none; margin-top: 20px;"></div>
-
-                    <!-- GENERAL COLOR FIELD (for all dress types) -->
-                    <div class="form-grid" id="generalColorField" style="display: none;">
-                        <div class="form-group">
-                            <label>Color</label>
-                            <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="generalColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('generalColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_generalColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="general_color" id="generalColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="generalColor_input" value="#FF0000" style="display: none;">
-
-                        </div>
-                    </div>
-
-                    <!-- ONE-PIECE COLOR/MATERIAL FIELDS -->
-                    <div id="onePieceFields" style="display: none;">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="onePieceColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('onePieceColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_onePieceColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="one_piece_color" id="onePieceColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="onePieceColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Fabric</label>
-                                <select name="one_piece_material" id="onePieceMaterial" id="onepiecematerial" onchange="toggleOnepiecematerialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="onepiecematerialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="one_piece_material_other" id="onepiecematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- TWO-PIECE COLOR/MATERIAL FIELDS -->
-                    <div id="twoPieceFields" style="display: none;">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color for Top</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="topColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('topColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_topColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="top_color" id="topColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="topColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Material for Top</label>
-                                <select name="top_material" id="topMaterial" id="topmaterial" onchange="toggleTopmaterialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="topmaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="top_material_other" id="topmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color for Bottom</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="bottomColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('bottomColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_bottomColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="bottom_color" id="bottomColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="bottomColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Material for Bottom</label>
-                                <select name="bottom_material" id="bottomMaterial" id="bottommaterial" onchange="toggleBottommaterialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="bottommaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="bottom_material_other" id="bottommaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- THREE-PIECE COLOR/MATERIAL FIELDS -->
-                    <div id="threePieceFields" style="display: none;">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color for Top</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="threeTopColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeTopColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_threeTopColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="three_top_color" id="threeTopColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="threeTopColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Material for Top</label>
-                                <select name="three_top_material" id="threeTopMaterial" id="threetopmaterial" onchange="toggleThreetopmaterialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="threetopmaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="three_top_material_other" id="threetopmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color for Middle</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="threeMiddleColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeMiddleColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_threeMiddleColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="three_middle_color" id="threeMiddleColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="threeMiddleColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Material for Middle</label>
-                                <select name="three_middle_material" id="threeMiddleMaterial" id="threemiddlematerial" onchange="toggleThreemiddlematerialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="threemiddlematerialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="three_middle_material_other" id="threemiddlematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color for Bottom</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="threeBottomColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeBottomColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_threeBottomColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="three_bottom_color" id="threeBottomColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="threeBottomColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Material for Bottom</label>
-                                <select name="three_bottom_material" id="threeBottomMaterial" id="threebottommaterial" onchange="toggleThreebottommaterialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="threebottommaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="three_bottom_material_other" id="threebottommaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- GOWN/SAREE/SUIT/TRADITIONAL/CASUAL/FORMAL COLOR/MATERIAL FIELDS -->
-                    <div id="singlePieceStyleFields" style="display: none;">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="singleStyleColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('singleStyleColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_singleStyleColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="single_style_color" id="singleStyleColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="singleStyleColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Fabric</label>
-                                <select name="single_style_material" id="singleStyleMaterial" id="singlestylematerial" onchange="toggleSinglestylematerialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="singlestylematerialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="single_style_material_other" id="singlestylematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- OTHER DRESS TYPE COLOR/MATERIAL FIELDS -->
-                    <div id="otherDressTypeFields" style="display: none;">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Color</label>
-                                <div class="color-picker-compact-container">
-                                    <button type="button" class="color-circle-btn" id="otherDressColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('otherDressColor')"></button>
-                                    <div class="color-hex-display" id="hex_display_otherDressColor">Hex: #FF0000</div>
-                                </div>
-                                <input type="hidden" name="other_dress_color" id="otherDressColor" value="#FF0000">
-                                <!-- Hidden color picker input -->
-                                <input type="color" id="otherDressColor_input" value="#FF0000" style="display: none;">
-
-                            </div>
-                            <div class="form-group">
-                                <label>Fabric</label>
-                                <select name="other_dress_material" id="otherDressMaterial" id="otherdressmaterial" onchange="toggleOtherdressmaterialOther()">
-                                    <option value="">-- Select Material --</option>
-                                    <option value="cotton">Cotton</option>
-                                    <option value="silk">Silk</option>
-                                    <option value="linen">Linen</option>
-                                    <option value="wool">Wool</option>
-                                    <option value="polyester">Polyester</option>
-                                    <option value="denim">Denim</option>
-                                    <option value="leather">Leather</option>
-                                    <option value="satin">Satin</option>
-                                    <option value="velvet">Velvet</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            <div id="otherdressmaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="other_dress_material_other" id="otherdressmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <div style="margin: 0; padding: 10px 0; font-size: 90%; color: #d4af37; font-style: italic;">
-                        ⚠️ <strong>Disclaimer:</strong> Please mention only the fabric(s) that will be visible in the final photograph. For example, if a gown includes an inner hard-net layer that is not visible in the photo, do not list it.
-                    </div>
-                </div>
-
-<!-- BRANDING & IMAGE DETAILS -->
-                <div class="form-section">
-                    <div class="form-section-title">
-                        <img src="logo.png" alt="Logo Icon" style="vertical-align: middle; width: 30px; height: 35px; margin-right: 5px;">Branding & Image Details
-                    </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Background & Composition</label>
-                            <input type="text" name="background" placeholder="e.g., White minimalist, Studio, Outdoor, etc." required>
-                        </div>
-                        <div class="form-group">
-                            <label>Brand Name Display Location</label>
-                            <select name="brand_location" required>
-                                <option value="">-- Select Location --</option>
-                                <option value="top-left">Top Left</option>
-                                <option value="top-right">Top Right</option>
-                                <option value="bottom-left">Bottom Left</option>
-                                <option value="bottom-right">Bottom Right</option>
-                                <option value="center">Center</option>
-                                <option value="no-placement">No Placement</option>
+                            <label>Number of Images to Generate <span class="required-asterisk">*</span></label>
+                            <select name="num_images" id="numImagesSelect" required>
+                                <option value="">-- Select Number --</option>
+                                <option value="1">1 Image</option>
+                                <option value="2">2 Images</option>
+                                <option value="3">3 Images</option>
+                                <option value="4">4 Images</option>
+                                <option value="5">5 Images</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
                         <div class="form-group">
-                            <label>Image Resolution Required</label>
-                            <select name="resolution" required>
+                            <label>Resolution <span class="required-asterisk">*</span></label>
+                            <select name="resolution" id="resolutionSelect" required>
                                 <option value="">-- Select Resolution --</option>
-                                <option value="1080x1080">1080x1080 (Social Media)</option>
-                                <option value="1920x1080">1920x1080 (Web)</option>
-                                <option value="2560x1440">2560x1440 (High Quality)</option>
-                                <option value="4k">4K (Professional)</option>
-                                <option value="custom">Custom</option>
+                                <option value="1024x1024">1024x1024</option>
+                                <option value="1080x1350">1080x1350 (Instagram)</option>
+                                <option value="1200x1500">1200x1500</option>
+                                <option value="2000x2500">2000x2500 (High Res)</option>
                             </select>
+                            <span class="field-error"></span>
                         </div>
-                        <div class="form-group hidden-section" id="numImagesSection">
-                            <label>Number of Images Required</label>
-                            <input type="number" name="num_images" min="1" placeholder="e.g., 5" id="numImages">
-                        </div>
-                    </div>
-
-                    <div class="form-grid full">
-                        <div class="form-group">
-                            <label>Upload Your Product Image</label>
-                            <input type="file" name="product_image" accept="image/*">
-                        </div>
-                    </div>
-
-                    <!-- PRODUCT DESCRIPTION SECTION -->
-                    <div class="form-grid full">
-                        <div class="form-group">
-                            <label>Product Description (Optional)</label>
-                            <textarea name="product_description" id="productDescription" placeholder="Describe your product in detail (color, fabric, style, fit, special features, etc.). Use this if you don't have an image."></textarea>
-                        </div>
-                    </div>
-
-                    <div style="margin: 0; padding: 10px 0; font-size: 85%; color: #d4af37; font-style: italic;">
-                        <strong>Note:</strong> If you have uploaded a product image, you don't need to write the description. The image will be used for reference.
                     </div>
                 </div>
 
-                <!-- PROJECT DESCRIPTION -->
-                <div class="form-section">
-                    <div class="form-section-title">
-                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;">Project Description & Special Requirements
+                <!-- STEP 7: Additional Notes & Special Requirements -->
+                <div class="wizard-step" data-step="7">
+                    <div class="wizard-step-header">
+                        <h3>Special Requests</h3>
+                        <p>Share any additional styling notes or requirements</p>
                     </div>
-                    <div class="form-grid full">
-                        <div class="form-group">
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Additional Styling/Notes</label>
+                            <textarea name="additional_notes" id="additionalNotesText" placeholder="Any special styling preferences, makeup details, or custom requests..." rows="6"></textarea>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Special Requirements</label>
+                            <textarea name="special_requirements" placeholder="Any other requirements or information we should know..." rows="4"></textarea>
+                            <span class="field-error"></span>
+                        </div>
+                        <div class="form-group full-width">
                             <label>Project Description</label>
-                            <textarea name="project_description" placeholder="Describe your project, style preferences, inspiration, mood..."></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Any Other Specific Requirements?</label>
-                            <textarea name="special_requirements" placeholder="The more specific you are, the better we can realize your vision. Include any special requests here..."></textarea>
+                            <textarea name="project_description" placeholder="Tell us about your project, brand story, or vision..." rows="4"></textarea>
+                            <span class="field-error"></span>
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Submit Order</button>
-            </form>
+                <!-- STEP 8: Review & Confirm -->
+                <div class="wizard-step final-review" data-step="8">
+                    <div class="wizard-step-header">
+                        <h3>Review Your Order</h3>
+                        <p>Please verify all details before submitting</p>
+                    </div>
+
+                    <div class="review-content" id="reviewContent">
+                        <!-- Review content will be dynamically generated here -->
+                    </div>
+
+                    <div class="review-notice">
+                        <p>✓ All information has been entered. Ready to proceed to payment?</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NAVIGATION BUTTONS -->
+            <div class="wizard-navigation">
+                <button type="button" id="backBtn" class="btn btn-secondary" style="display: none;">← Back</button>
+                <button type="button" id="nextBtn" class="btn btn-primary">Next →</button>
+                <button type="submit" id="submitBtn" class="btn btn-success" style="display: none;">Complete Order & Pay</button>
+            </div>
+
+        </div>
+    </form>
         </div>
     </section>
 
@@ -3209,4 +3083,5 @@
 </body>
 
 </html>
+
 
