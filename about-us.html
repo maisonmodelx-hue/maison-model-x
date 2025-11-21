@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Maison Model X</title>
+    <style>
+        :root {
+            --color-cream: #FCFCF9;
+            --color-cream-light: #FFFFFD;
+            --color-charcoal: #1F2121;
+            --color-charcoal-light: #262828;
+            --color-teal: #21808D;
+            --color-teal-hover: #1D7480;
+            --color-teal-light: #32B8C6;
+            --color-brown: #5E5240;
+            --color-brown-alpha: rgba(94, 82, 64, 0.12);
+            --color-gray: #626C71;
+            --color-gray-light: #A7A9A9;
+            --color-white: #FFFFFF;
+            
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        .header {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-charcoal-light) 100%);
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 900px;
+        }
+
+        .header-logo {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: var(--color-teal-light);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            color: var(--color-cream);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .header h1 strong {
+            font-weight: 600;
+            color: var(--color-teal-light);
+        }
+
+        .header-tagline {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--color-gray-light);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--color-charcoal);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--color-gray);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            line-height: 1.7;
+        }
+
+        /* Story Section */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .story-card {
+            background: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--color-brown-alpha);
+            transition: var(--transition);
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .story-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-teal-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .story-card p {
+            color: var(--color-gray);
+            line-height: 1.7;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-teal-hover) 100%);
+            padding: 6rem 0;
+            color: var(--color-cream);
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mission-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--color-cream);
+        }
+
+        .mission-content p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        /* Values Grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .value-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-teal-light);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .value-card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card p {
+            color: var(--color-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Founder Section */
+        .founder-section {
+            background: var(--color-charcoal);
+            color: var(--color-cream);
+            padding: 6rem 0;
+        }
+
+        .founder-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .founder-image-wrapper {
+            position: relative;
+        }
+
+        .founder-image {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 3/4;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-charcoal-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--color-cream);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .founder-text h2 {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--color-teal-light);
+        }
+
+        .founder-title {
+            font-size: 1rem;
+            color: var(--color-gray-light);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .founder-quote {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            line-height: 1.8;
+            font-style: italic;
+            color: var(--color-cream);
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            border-left: 3px solid var(--color-teal-light);
+            padding-left: 2rem;
+        }
+
+        .founder-bio {
+            color: var(--color-gray-light);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* Differentiators Section */
+        .differentiators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .diff-card {
+            background: var(--color-white);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--color-brown-alpha);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .diff-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-teal);
+            box-shadow: 0 10px 30px rgba(33, 128, 141, 0.1);
+        }
+
+        .diff-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .diff-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-charcoal);
+            margin-bottom: 0.75rem;
+        }
+
+        .diff-card p {
+            color: var(--color-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-charcoal-light) 100%);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dots" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--color-cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--color-gray-light);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-teal-light) 100%);
+            color: var(--color-cream);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(33, 128, 141, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-teal-light);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-teal-light);
+            color: var(--color-charcoal);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-charcoal);
+            color: var(--color-gray-light);
+            padding: 3rem 0 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-teal-light);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--color-gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-teal-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 0;
+            }
+
+            .founder-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .founder-image {
+                margin: 0 auto;
+            }
+
+            .founder-quote {
+                border-left: none;
+                border-top: 3px solid var(--color-teal-light);
+                padding-left: 0;
+                padding-top: 1.5rem;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+                width: 100%;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content animate-in">
+            <div class="header-logo">MMX</div>
+            <h1>Where <strong>Elegance</strong> Transcends Reality</h1>
+            <p class="header-tagline">Reinventing fashion through AI-powered hyper-realistic model photography</p>
+        </div>
+    </header>
+
+    <!-- Story Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Story</h2>
+            <p class="section-subtitle">Maison Model X was born from a simple yet powerful vision: to empower fashion and jewelry creators worldwide to showcase their designs with flawless beauty—faster, smarter, and without the complexities of traditional photoshoots.</p>
+            
+            <div class="story-grid">
+                <div class="story-card">
+                    <div class="story-icon">
+                        <img src="moneybag3.png" alt="Moneybag Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </div>
+                    <h3>The Cost Barrier</h3>
+                    <p>Traditional fashion photoshoots cost between $5,000-$20,000+, taking weeks to plan and execute. These prohibitive costs lock out small brands, independent designers, and emerging creators from professional-grade imagery.</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <img src="mask3.png" alt="Mask Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </div>
+                    <h3>The Consistency Problem</h3>
+                    <p>Even with AI tools like Midjourney, every generation produces a different face—making it impossible to build brand identity or create cohesive campaigns. Face consistency has been fashion's unsolved AI challenge.</p>
+                </div>
+                <div class="story-card">
+                    <div class="story-icon">
+                        <img src="target3.png" alt="Target Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </div>
+                    <h3>The Solution</h3>
+                    <p>Professional-grade, campaign-ready images with the same model face across every generation, delivered within 24 hours at a fraction of traditional costs. Complete creative control, full commercial rights, and unlimited possibilities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>To democratize access to world-class fashion photography, making it accessible to creators of all sizes. We believe every brand deserves to showcase their work with stunning, professional visuals—regardless of budget or location.</p>
+                <p>Through advanced AI techniques and meticulous creative curation, we're building the future of fashion visualization: one where quality, speed, and affordability coexist in perfect harmony.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">By The Numbers</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-number">24</div>
+                    <h4>Hour Delivery</h4>
+                    <p>Campaign-ready images in under a day—not weeks</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-number">95%</div>
+                    <h4>Cost Savings</h4>
+                    <p>Professional photography at a fraction of traditional costs</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-number">100%</div>
+                    <h4>Face Consistency</h4>
+                    <p>Same model face across every generation—guaranteed</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-number">∞</div>
+                    <h4>Creative Control</h4>
+                    <p>Unlimited customization for poses, settings, and styling</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section class="founder-section">
+        <div class="container">
+            <div class="founder-content" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto; text-align: center;">
+                <div class="founder-text">
+                    <h2>Meet The Founder</h2>
+                    <p class="founder-title">Bhargavi More &mdash; Founder &amp; Creative Director</p>
+                    <blockquote class="founder-quote" style="border-left: none; border-top: 3px solid var(--color-teal-light); padding-left: 0; padding-top: 1.5rem;">
+                        "I am passionate about reinventing fashion through AI. Elevating virtual modeling into an art form that's accessible yet extraordinary—that is the future I build for you. Your masterpieces deserve this transformation."
+                    </blockquote>
+                    <p class="founder-bio">
+                        With a background in AI research and a deep passion for fashion, Bhargavi founded Maison Model X to bridge the gap between technology and creativity. Her vision: to make world-class fashion photography accessible to every creator, from independent designers to established luxury brands.
+                    </p>
+                    <p class="founder-bio">
+                        Combining technical excellence with artistic sensibility, Maison Model X delivers hyper-realistic AI models that don't just meet industry standards—they set them.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiators Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Maison Model X Stands Apart</h2>
+            <p class="section-subtitle">We're not just another AI tool—we're your creative partner in bringing your brand's vision to life with unprecedented quality and consistency.</p>
+            
+            <div class="differentiators">
+                <div class="diff-card">
+                    <span class="diff-icon">
+                        <img src="palette3.png" alt="Palette Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </span>
+                    <h3>Face Consistency Mastery</h3>
+                    <p>Unlike Midjourney or generic AI tools, our models maintain the same face across every generation—solving fashion's biggest AI challenge and building true brand identity.</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">
+                        <img src="bolt3.png" alt="bolt Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </span>
+                    <h3>Lightning-Fast Turnaround</h3>
+                    <p>12-24 hour delivery for premium tiers. Launch campaigns in days, not weeks. Speed without compromising quality.</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">
+                        <img src="Diamond3.png" alt="Diamond Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </span>
+                    <h3>Jewelry Excellence</h3>
+                    <p>Best-in-class rendering for intricate jewelry details. Perfect for showcasing fine craftsmanship and luxury pieces.</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">
+                        <img src="Earth3.png" alt="Earth Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </span>
+                    <h3>Cultural Authenticity</h3>
+                    <p>Models representing your brand's aesthetic—perfectly suited for Indian, South Asian, and global fashion markets.</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">
+                        <img src="human23.png" alt="Human Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </span>
+                    <h3>Personalized Service</h3>
+                    <p>Direct collaboration, unlimited revisions, and personalized creative direction. Your vision, brought to life with meticulous attention to every detail.</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">
+                        <img src="tick3.png" alt="Tick Icon" style="vertical-align: middle; width: 90px; height: 90px;">
+                    </span>
+                    <h3>Full Commercial Rights</h3>
+                    <p>Use your images anywhere, forever. No licensing restrictions, no hidden fees. Complete ownership.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Brand?</h2>
+                <p>Join forward-thinking brands already using AI to create stunning fashion photography in hours—not weeks.</p>
+                <a href="mailto:maisonmodelx@gmail.com" class="btn">Get Started Today</a>
+                <a href="https://maisonmodelx.com" class="btn btn-secondary">View Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">MAISON MODEL X</div>
+            <p>Where Elegance Transcends Reality</p>
+            <p>Email: maisonmodelx@gmail.com</p>
+            <div class="footer-links">
+                <a href="https://maisonmodelx.com">Home</a>
+                <a href="#about">About</a>
+                <a href="https://maisonmodelx.com#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.85rem; opacity: 0.7;">&copy; 2024 Maison Model X. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
