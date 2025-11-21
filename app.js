@@ -1,6 +1,6 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-const PDF_URL = 'pdfs/portfolio.pdf';
+const PDF_URL = 'Portfolio 3.pdf';
 let pdfDoc = null;
 let currentPage = 1;
 
