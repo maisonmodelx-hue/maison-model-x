@@ -1576,7 +1576,369 @@
             display: inline;
         }
 
-        </style>
+        
+
+    /* ===== ORDER FORM IMPROVEMENTS ===== */
+
+    /* Progress Indicator */
+    .form-progress {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+        position: relative;
+    }
+
+    .progress-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 0 0 auto;
+        z-index: 2;
+        position: relative;
+    }
+
+    .progress-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--color-secondary);
+        border: 2px solid var(--color-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 14px;
+        color: var(--color-text-secondary);
+        transition: all 0.3s ease;
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-step.active .progress-circle {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-btn-primary-text);
+        transform: scale(1.1);
+    }
+
+    .progress-step.completed .progress-circle {
+        background: var(--color-success);
+        border-color: var(--color-success);
+        color: white;
+    }
+
+    .progress-label {
+        font-size: 12px;
+        color: var(--color-text-secondary);
+        text-align: center;
+        max-width: 100px;
+        line-height: 1.3;
+    }
+
+    .progress-step.active .progress-label {
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+
+    .progress-line {
+        flex: 1;
+        height: 2px;
+        background: var(--color-border);
+        margin: 0 0.5rem;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .progress-line.completed::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        background: var(--color-success);
+        transition: width 0.3s ease;
+    }
+
+    /* Form Steps */
+    .form-step {
+        display: none;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .form-step.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Form Section Headers */
+    .form-section-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid var(--color-border);
+    }
+
+    .form-section-header .section-icon {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-section-header .form-section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin: 0.5rem 0;
+    }
+
+    .form-section-header .form-section-subtitle {
+        font-size: 0.95rem;
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
+
+    /* Subsections */
+    .form-subsection {
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .form-subsection:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    .form-subsection-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-subsection-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-text);
+        margin: 0 0 0.5rem 0;
+    }
+
+    .form-subsection-header .helper-text {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    /* Grid Layouts */
+    .form-grid-1col {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-grid-2col {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .form-grid-3col {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+
+    .form-group-span-2 {
+        grid-column: span 2;
+    }
+
+    @media (max-width: 768px) {
+        .form-grid-2col,
+        .form-grid-3col {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group-span-2 {
+            grid-column: span 1;
+        }
+    }
+
+    /* Form Groups */
+    .form-group {
+        margin-bottom: 0;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--color-text);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-base);
+        font-size: 0.95rem;
+        background: var(--color-surface);
+        color: var(--color-text);
+        transition: all 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+    }
+
+    .helper-text {
+        display: block;
+        margin-top: 0.4rem;
+        font-size: 0.85rem;
+        color: var(--color-text-secondary);
+    }
+
+    /* Additional Options & Bespoke Sections */
+    .additional-options-container,
+    .bespoke-details-container {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--color-secondary);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+    }
+
+    /* Navigation Buttons */
+    .form-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--color-border);
+        gap: 1rem;
+    }
+
+    .nav-button {
+        padding: 0.875rem 2rem;
+        border: none;
+        border-radius: var(--radius-base);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .prev-button {
+        background: var(--color-secondary);
+        color: var(--color-text);
+    }
+
+    .prev-button:hover {
+        background: var(--color-secondary-hover);
+        transform: translateX(-2px);
+    }
+
+    .next-button {
+        background: var(--color-primary);
+        color: var(--color-btn-primary-text);
+        margin-left: auto;
+    }
+
+    .next-button:hover {
+        background: var(--color-primary-hover);
+        transform: translateX(2px);
+    }
+
+    .nav-arrow {
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    /* Submit Section */
+    .form-submit-section {
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .submit-note {
+        font-size: 0.9rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .submit-button {
+        padding: 1rem 3rem;
+        border: none;
+        border-radius: var(--radius-base);
+        font-size: 1.1rem;
+        font-weight: 600;
+        background: var(--color-primary);
+        color: var(--color-btn-primary-text);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .submit-button:hover {
+        background: var(--color-primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(var(--color-teal-500-rgb), 0.3);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .form-progress {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .progress-step {
+            flex: 0 0 calc(20% - 0.8rem);
+        }
+
+        .progress-line {
+            display: none;
+        }
+
+        .progress-label {
+            font-size: 10px;
+            max-width: 60px;
+        }
+
+        .progress-circle {
+            width: 32px;
+            height: 32px;
+            font-size: 12px;
+        }
+
+        .form-section-header .form-section-title {
+            font-size: 1.25rem;
+        }
+
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.95rem;
+        }
+    }
+
+</style>
 
 
     <!-- WHY CHOOSE US -->
@@ -1825,27 +2187,57 @@
     <section class="order-section" id="order">
         <h2 class="section-title">Order Your Models</h2>
         <p class="section-subtitle">Fill in your details. We'll bring your vision to life.</p>
-        
+
         <div class="form-container">
+            <!-- Progress Indicator -->
+            <div class="form-progress">
+                <div class="progress-step active" data-step="1">
+                    <div class="progress-circle">1</div>
+                    <div class="progress-label">Your Details</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="progress-circle">2</div>
+                    <div class="progress-label">Plan Selection</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="progress-circle">3</div>
+                    <div class="progress-label">Model & Product</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="progress-circle">4</div>
+                    <div class="progress-label">Branding & Images</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="5">
+                    <div class="progress-circle">5</div>
+                    <div class="progress-label">Final Details</div>
+                </div>
+            </div>
+
             <form id="orderForm">
+
                 <!-- CLIENT DETAILS -->
-                <div class="form-section">
+                <div class="form-step active" data-step="1">
+<div class="form-section">
                     <div class="form-section-title">
-                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">Client Details
+                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">Contact Information
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Full Name <span class="required-asterisk">*</span></label>
-                            <input type="text" name="client_name" placeholder="Your name" required>
+                            <label>Your Full Name <span class="required-asterisk">*</span></label>
+                            <input type="text" name="client_name" placeholder="Enter your full name" required>
                         </div>
                         <div class="form-group">
-                            <label>Email Address <span class="required-asterisk">*</span></label>
-                            <input type="email" name="client_email" placeholder="your@email.com" required>
+                            <label>Your Email Address <span class="required-asterisk">*</span></label>
+                            <input type="email" name="client_email" placeholder="Enter your email address" required>
                         </div>
                         <div class="form-group">
-                            <label>Country Code <span class="required-asterisk">*</span></label>
+                            <label>Country / Region Code <span class="required-asterisk">*</span></label>
                             <select name="country_code" id="countryCodeSelect" required>
-                                <option value="">-- Select Country --</option>
+                                <option value="">— Select your country —</option>
                                 <option value="+91">🇮🇳 India (+91)</option>
                                 <option value="+1">🇺🇸 United States (+1)</option>
                                 <option value="+44">🇬🇧 United Kingdom (+44)</option>
@@ -1890,24 +2282,26 @@
                             <label>Phone Number <span class="required-asterisk">*</span></label>
                             <div style="display: flex; gap: 10px; align-items: center;">
                                 <span id="countryCodeDisplay" style="padding: 10px 15px; background: var(--light-gray); border: 1px solid var(--gold); border-radius: 4px; color: var(--gold); font-weight: 600; min-width: 80px;">+91</span>
-                                <input type="tel" name="client_phone" id="phoneInput" placeholder="XXXXXXXXXX" required style="flex: 1;">
+                                <input type="tel" name="client_phone" id="phoneInput" placeholder="Enter your phone number" required style="flex: 1;">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Brand Name <span class="required-asterisk">*</span></label>
-                            <input type="text" name="brand_name" placeholder="Your brand name" required>
+                            <label>Your Brand or Company Name <span class="required-asterisk">*</span></label>
+                            <input type="text" name="brand_name" placeholder="Enter your brand or company name" required>
                         </div>
                     </div>
                 </div>
 
                 <!-- PLAN SELECTION -->
-                <div class="form-section">
+                </div>
+<div class="form-step" data-step="2">
+<div class="form-section">
                     <div class="form-section-title">
-                        <img src="dart.png" alt="Dart Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading="lazy">Select Your Plan
+                        <img src="dart.png" alt="Dart Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading="lazy">Choose Your Service Package
                     </div>
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Choose Your Package <span class="required-asterisk">*</span></label>
+                            <label>Select Your Package <span class="required-asterisk">*</span></label>
                             <select name="plan_type" id="planSelect" onchange="updatePlanOptions()" required>
                                 <option value="">-- Select a Plan --</option>
                                 <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">🎨Artisan (₹6,000)</option>
@@ -1921,13 +2315,29 @@
                 </div>
 
                 <!-- MODEL DETAILS -->
-                <div class="form-section">
+                </div>
+<div class="form-step" data-step="3">
+<div class="form-section">
                     <div class="form-section-title"> 
-                        <img src="human.png" alt="Human Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading="lazy">Model & Your Product Details
+                        <img src="human.png" alt="Human Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading="lazy">Model Specifications & Product Details
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Gender <span class="required-asterisk">*</span></label>
+                            <label>Number of Models Required <span class="required-asterisk">*</span></label>
+                            <select name="number_of_model" id="numberOfModel" required>
+                                <option value="">-- Select Number --</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Model Gender <span class="required-asterisk">*</span></label>
                             <select name="model_gender" required>
                                 <option value="">-- Select Gender --</option>
                                 <option value="female">Female</option>
@@ -1935,7 +2345,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Ethnicity <span class="required-asterisk">*</span></label>
+                            <label>Model Ethnicity / Region <span class="required-asterisk">*</span></label>
                             <select name="model_ethnicity" id="ethnicitySelect" onchange="checkEthnicityOther()" required>
                                 <option value="">-- Select Ethnicity --</option>
                                 <option value="south-asian">South Asian</option>
@@ -1947,14 +2357,14 @@
                                 <option value="mixed">Mixed</option>
                             </select>
                             <div class="form-group" id="ethnicityCustomContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="ethnicity_custom" id="ethnicity_custom" placeholder="Specify country or region (e.g., India, Japan, Nigeria…)">
+                                <input type="text" name="ethnicity_custom" id="ethnicity_custom" placeholder="e.g., Indian, East Asian, African, Middle Eastern, European, Latin American">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Age Range</label>
+                            <label>Model Age Range</label>
                             <select name="model_age" required>
-                                <option value="">-- Select Age Range --</option>
+                                <option value="">-- Select Model Age Range --</option>
                                 <option value="18-25">18-25 years</option>
                                 <option value="26-35">26-35 years</option>
                                 <option value="36-45">36-45 years</option>
@@ -1962,11 +2372,46 @@
                                 <option value="55+">55+ years</option>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label>Model Hair Type</label>
+                            <select name="hair_type" id="hairTypeSelect" onchange="checkHairTypeOther()">
+                                <option value="">-- Select Model Hair Type --</option>
+                                <option value="straight">Straight</option>
+                                <option value="wavy">Wavy</option>
+                                <option value="curly">Curly</option>
+                                <option value="coily">Coily</option>
+                                <option value="bald">Bald</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="form-group" id="hairTypeCustomContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="hair_type_custom" id="hair_type_custom" placeholder="e.g., Straight, Wavy, Curly, Coily, Textured">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Model Hair Color</label>
+                            <select name="hair_color" id="hairColorSelect" onchange="checkHairColorOther()">
+                                <option value="">-- Select Model Hair Color --</option>
+                                <option value="black">Black</option>
+                                <option value="dark-brown">Dark Brown</option>
+                                <option value="light-brown">Light Brown</option>
+                                <option value="blonde">Blonde</option>
+                                <option value="red">Red</option>
+                                <option value="auburn">Auburn</option>
+                                <option value="gray">Gray</option>
+                                <option value="white">White</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="form-group" id="hairColorCustomContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="hair_color_custom" id="hair_color_custom" placeholder="e.g., Black, Brown, Blonde, Auburn, Red, Gray, Custom">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Choose Your Edition <span class="required-asterisk">*</span></label>
+                            <label>Select Your Edition <span class="required-asterisk">*</span></label>
                             <select name="product_type" id="productTypeSelect" onchange="updateProductOptions()" required>
                                 <option value="">-- Select Product Type --</option>
                                 <option value="clothing">Clothing</option>
@@ -1978,44 +2423,85 @@
                                 <option value="other">Bespoke / Custom Order</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Accessories Included?</label>
+                        <div id="accessoriesSection" style="display: none;">
+                            <div class="form-group">
+                            <label>Include Accessories in This Order?</label>
                             <select name="accessories" onchange="toggleAccessoriesDropdown()" required>
                                 <option value="">-- Select Option --</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
                             <div id="accessoriesDropdownContainer" style="display: none; margin-top: 10px;">
-                                <label>Which Accessories?</label>
-                                <select name="accessories_type" id="accessoriesDropdown" onchange="toggleAccessoriesFields()">
-                                    <option value="">-- Select Accessories --</option>
-                                    <option value="belts">Belts</option>
-                                    <option value="scarves">Scarves</option>
-                                    <option value="hats">Hats</option>
-                                    <option value="gloves">Gloves</option>
-                                    <option value="bags">Bags</option>
-                                    <option value="other">Other</option>
+                                <label>How Many Accessories? (Maximum 3)</label>
+                                <select name="num_accessories" id="numAccessories" onchange="updateAccessorySelections()">
+                                    <option value="">-- Select Number --</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
                                 </select>
+                                <div id="whichAccessoriesContainer" style="display: none; margin-top: 10px;">
+                                    <div id="accessoryType1Container" style="display: none; margin-top: 10px;">
+                                        <label>Accessory #1 Type</label>
+                                        <select name="accessories_type_1" id="accessoriesDropdown1" onchange="checkAccessory1Other()">
+                                            <option value="">-- Select Accessory --</option>
+                                            <option value="belts">Belts</option>
+                                            <option value="scarves">Scarves</option>
+                                            <option value="hats">Hats</option>
+                                            <option value="gloves">Gloves</option>
+                                            <option value="bags">Bags</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div id="accessory1OtherContainer" style="display: none; margin-top: 10px;">
+                                            <input type="text" name="accessory_1_other" id="accessory1Other" placeholder="e.g., Necklace, Earrings, Handbag, Watch, Sunglasses">
+                                        </div>
+                                    </div>
+                                    <div id="accessoryType2Container" style="display: none; margin-top: 10px;">
+                                        <label>Accessory #2 Type</label>
+                                        <select name="accessories_type_2" id="accessoriesDropdown2" onchange="checkAccessory2Other()">
+                                            <option value="">-- Select Accessory --</option>
+                                            <option value="belts">Belts</option>
+                                            <option value="scarves">Scarves</option>
+                                            <option value="hats">Hats</option>
+                                            <option value="gloves">Gloves</option>
+                                            <option value="bags">Bags</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div id="accessory2OtherContainer" style="display: none; margin-top: 10px;">
+                                            <input type="text" name="accessory_2_other" id="accessory2Other" placeholder="e.g., Bracelet, Ring, Belt, Scarf, Hat">
+                                        </div>
+                                    </div>
+                                    <div id="accessoryType3Container" style="display: none; margin-top: 10px;">
+                                        <label>Accessory #3 Type</label>
+                                        <select name="accessories_type_3" id="accessoriesDropdown3" onchange="checkAccessory3Other()">
+                                            <option value="">-- Select Accessory --</option>
+                                            <option value="belts">Belts</option>
+                                            <option value="scarves">Scarves</option>
+                                            <option value="hats">Hats</option>
+                                            <option value="gloves">Gloves</option>
+                                            <option value="bags">Bags</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div id="accessory3OtherContainer" style="display: none; margin-top: 10px;">
+                                            <input type="text" name="accessory_3_other" id="accessory3Other" placeholder="e.g., Shoes, Clutch, Brooch, Hairpiece">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="accessoriesOtherContainer" style="display: none; margin-top: 10px;">
-                                    <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Specify custom accessory">
+                                    <input type="text" name="accessories_other" id="accessoriesOther" placeholder="Describe your custom accessory">
                                 </div>
                                 <div id="accessoriesInputContainer" style="display: none; margin-top: 10px;">
-                                    <div class="form-group">
-                                        <label>Upload Image of Accessory</label>
-                                        <input type="file" name="accessory_image" id="accessoryImage" accept="image/*">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Describe the Accessory</label>
-                                        <textarea name="accessory_description" id="accessoryDescription" placeholder="Describe the accessory"></textarea>
+                                    <div id="accessoryUploadsList">
+                                        <!-- Accessory upload fields will be dynamically inserted here -->
                                     </div>
                                     <div style="margin: 0; padding: 10px 0; font-size: 85%; color: #d4af37; font-style: italic;">
-                                        💡 <strong>Note:</strong> Please provide either an image OR description of the accessory.
+                                        💡 <strong>Note:</strong> Please provide either an image OR description for each accessory.
                                     </div>
                                 </div>
+                        </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Shot Type <span class="required-asterisk">*</span></label>
+                            <label>Type of Shot / Framing <span class="required-asterisk">*</span></label>
                             <select name="shot_type" required>
                                 <option value="">-- Select Shot Type --</option>
                                 <option value="close-up">Close-Up (Face)</option>
@@ -2029,12 +2515,12 @@
 
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Dress Type <span class="required-asterisk">*</span></label>
-                            <input type="text" name="dress_type" id="dressTypeInput" placeholder="e.g., Saree, Suit, Gown, etc." oninput="checkDressFormReady()" required>
+                            <label>Garment / Outfit Type <span class="required-asterisk">*</span></label>
+                            <input type="text" name="dress_type" id="dressTypeInput" placeholder="e.g., Dress, Saree, Suit, Gown, Jumpsuit, Separates" oninput="checkDressFormReady()" required>
                         </div>
                         <div class="form-group">
-                            <label>Number of Pieces <span class="required-asterisk">*</span></label>
-                            <input type="number" name="num_pieces" id="numPiecesInput" placeholder="e.g., 2, 3, 4" min="1" max="10" oninput="checkDressFormReady()" required>
+                            <label>Number of Garment Pieces <span class="required-asterisk">*</span></label>
+                            <input type="number" name="num_pieces" id="numPiecesInput" placeholder="Enter number (e.g., 1, 2, 3, or 4)" min="1" max="10" oninput="checkDressFormReady()" required>
                         </div>
                     </div>
 
@@ -2044,7 +2530,7 @@
                     <!-- GENERAL COLOR FIELD (for all dress types) -->
                     <div class="form-grid" id="generalColorField" style="display: none;">
                         <div class="form-group">
-                            <label>Color</label>
+                            <label>Garment Color</label>
                             <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="generalColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('generalColor')"></button>
                                     <div class="color-hex-display" id="hex_display_generalColor">Hex: #FF0000</div>
@@ -2060,7 +2546,7 @@
                     <div id="onePieceFields" style="display: none;">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color</label>
+                                <label>Garment Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="onePieceColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('onePieceColor')"></button>
                                     <div class="color-hex-display" id="hex_display_onePieceColor">Hex: #FF0000</div>
@@ -2071,7 +2557,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Fabric</label>
+                                <label>Garment Material / Fabric</label>
                                 <select name="one_piece_material" id="onePieceMaterial" id="onepiecematerial" onchange="toggleOnepiecematerialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2086,7 +2572,7 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="onepiecematerialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="one_piece_material_other" id="onepiecematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="one_piece_material_other" id="onepiecematerialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
@@ -2096,7 +2582,7 @@
                     <div id="twoPieceFields" style="display: none;">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color for Top</label>
+                                <label>Top Piece Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="topColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('topColor')"></button>
                                     <div class="color-hex-display" id="hex_display_topColor">Hex: #FF0000</div>
@@ -2107,7 +2593,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material for Top</label>
+                                <label>Top Piece Material / Fabric</label>
                                 <select name="top_material" id="topMaterial" id="topmaterial" onchange="toggleTopmaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2122,13 +2608,13 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="topmaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="top_material_other" id="topmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="top_material_other" id="topmaterialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color for Bottom</label>
+                                <label>Bottom Piece Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="bottomColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('bottomColor')"></button>
                                     <div class="color-hex-display" id="hex_display_bottomColor">Hex: #FF0000</div>
@@ -2139,7 +2625,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material for Bottom</label>
+                                <label>Bottom Piece Material / Fabric</label>
                                 <select name="bottom_material" id="bottomMaterial" id="bottommaterial" onchange="toggleBottommaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2154,7 +2640,7 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="bottommaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="bottom_material_other" id="bottommaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="bottom_material_other" id="bottommaterialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
@@ -2164,7 +2650,7 @@
                     <div id="threePieceFields" style="display: none;">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color for Top</label>
+                                <label>Top Piece Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="threeTopColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeTopColor')"></button>
                                     <div class="color-hex-display" id="hex_display_threeTopColor">Hex: #FF0000</div>
@@ -2175,7 +2661,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material for Top</label>
+                                <label>Top Piece Material / Fabric</label>
                                 <select name="three_top_material" id="threeTopMaterial" id="threetopmaterial" onchange="toggleThreetopmaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2190,13 +2676,13 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="threetopmaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="three_top_material_other" id="threetopmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="three_top_material_other" id="threetopmaterialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color for Middle</label>
+                                <label>Middle Piece Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="threeMiddleColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeMiddleColor')"></button>
                                     <div class="color-hex-display" id="hex_display_threeMiddleColor">Hex: #FF0000</div>
@@ -2207,7 +2693,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material for Middle</label>
+                                <label>Middle Piece Material / Fabric</label>
                                 <select name="three_middle_material" id="threeMiddleMaterial" id="threemiddlematerial" onchange="toggleThreemiddlematerialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2222,13 +2708,13 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="threemiddlematerialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="three_middle_material_other" id="threemiddlematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="three_middle_material_other" id="threemiddlematerialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color for Bottom</label>
+                                <label>Bottom Piece Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="threeBottomColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('threeBottomColor')"></button>
                                     <div class="color-hex-display" id="hex_display_threeBottomColor">Hex: #FF0000</div>
@@ -2239,7 +2725,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Material for Bottom</label>
+                                <label>Bottom Piece Material / Fabric</label>
                                 <select name="three_bottom_material" id="threeBottomMaterial" id="threebottommaterial" onchange="toggleThreebottommaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2254,7 +2740,7 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="threebottommaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="three_bottom_material_other" id="threebottommaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="three_bottom_material_other" id="threebottommaterialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
@@ -2264,7 +2750,7 @@
                     <div id="singlePieceStyleFields" style="display: none;">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color</label>
+                                <label>Garment Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="singleStyleColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('singleStyleColor')"></button>
                                     <div class="color-hex-display" id="hex_display_singleStyleColor">Hex: #FF0000</div>
@@ -2275,7 +2761,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Fabric</label>
+                                <label>Garment Material / Fabric</label>
                                 <select name="single_style_material" id="singleStyleMaterial" id="singlestylematerial" onchange="toggleSinglestylematerialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2290,7 +2776,7 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="singlestylematerialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="single_style_material_other" id="singlestylematerialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="single_style_material_other" id="singlestylematerialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
@@ -2300,7 +2786,7 @@
                     <div id="otherDressTypeFields" style="display: none;">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Color</label>
+                                <label>Garment Color</label>
                                 <div class="color-picker-compact-container">
                                     <button type="button" class="color-circle-btn" id="otherDressColor_btn" style="background-color: #FF0000;" onclick="openColorPicker('otherDressColor')"></button>
                                     <div class="color-hex-display" id="hex_display_otherDressColor">Hex: #FF0000</div>
@@ -2311,7 +2797,7 @@
 
                             </div>
                             <div class="form-group">
-                                <label>Fabric</label>
+                                <label>Garment Material / Fabric</label>
                                 <select name="other_dress_material" id="otherDressMaterial" id="otherdressmaterial" onchange="toggleOtherdressmaterialOther()">
                                     <option value="">-- Select Material --</option>
                                     <option value="cotton">Cotton</option>
@@ -2326,7 +2812,7 @@
                                     <option value="other">Other</option>
                                 </select>
                             <div id="otherdressmaterialOtherContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="other_dress_material_other" id="otherdressmaterialOther" placeholder="Specify custom fabric" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
+                                <input type="text" name="other_dress_material_other" id="otherdressmaterialOther" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather" style="background: #000; border: 1px solid #d4af37; color: #fff; padding: 10px; width: 100%;">
                             </div>
                             </div>
                         </div>
@@ -2335,24 +2821,28 @@
                     </div>
                 </div>
 
-                <div class="form-section">
+                </div>
+<div class="form-step" data-step="4">
+<div class="form-section">
                     <div style="margin: 0; padding: 10px 0; font-size: 90%; color: #d4af37; font-style: italic;">
                         ⚠️ <strong>Disclaimer:</strong> Please mention only the fabric(s) that will be visible in the final photograph. For example, if a gown includes an inner hard-net layer that is not visible in the photo, do not list it.
                     </div>
                 </div>
 
 <!-- BRANDING & IMAGE DETAILS -->
-                <div class="form-section">
+                </div>
+<div class="form-step" data-step="5">
+<div class="form-section">
                     <div class="form-section-title">
-                        <img src="logo.png" alt="Logo Icon" style="vertical-align: middle; width: 30px; height: 35px; margin-right: 5px;" loading="lazy">Branding & Image Details
+                        <img src="logo.png" alt="Logo Icon" style="vertical-align: middle; width: 30px; height: 35px; margin-right: 5px;" loading="lazy">Visual Requirements & Brand Assets
                     </div>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Background & Composition</label>
-                            <input type="text" name="background" placeholder="e.g., White minimalist, Studio, Outdoor, etc." required>
+                            <label>Background Style & Scene Composition</label>
+                            <input type="text" name="background" placeholder="e.g., Studio white, Outdoor garden, Urban street, Luxury interior, Minimalist" required>
                         </div>
                         <div class="form-group">
-                            <label>Brand Name Display Location</label>
+                            <label>Where to Display Your Brand Name</label>
                             <select name="brand_location" required>
                                 <option value="">-- Select Location --</option>
                                 <option value="top-left">Top Left</option>
@@ -2363,26 +2853,16 @@
                                 <option value="no-placement">No Placement</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Image Resolution Required</label>
-                            <select name="resolution" required>
-                                <option value="">-- Select Resolution --</option>
-                                <option value="1080x1080">1080x1080 (Social Media)</option>
-                                <option value="1920x1080">1920x1080 (Web)</option>
-                                <option value="2560x1440">2560x1440 (High Quality)</option>
-                                <option value="4k">4K (Professional)</option>
-                                <option value="custom">Custom</option>
-                            </select>
-                        </div>
+                        
                         <div class="form-group hidden-section" id="numImagesSection">
-                            <label>Number of Images Required</label>
-                            <input type="number" name="num_images" min="1" placeholder="e.g., 5" id="numImages">
+                            <label>Total Number of Images Needed</label>
+                            <input type="number" name="num_images" min="1" placeholder="Enter total number of images required" id="numImages">
                         </div>
                     </div>
 
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Upload Your Product Image</label>
+                            <label>Upload Your Product Image(s)</label>
                             <input type="file" name="product_image" accept="image/*">
                         </div>
                     </div>
@@ -2390,8 +2870,36 @@
                     <!-- PRODUCT DESCRIPTION SECTION -->
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Product Description (Optional)</label>
-                            <textarea name="product_description" id="productDescription" placeholder="Describe your product in detail (color, fabric, style, fit, special features, etc.). Use this if you don't have an image."></textarea>
+                            <label>Product Description (Optional if no image uploaded)</label>
+                            <textarea name="product_description" id="productDescription" placeholder="Provide detailed description: color, material, style, fit, embellishments, unique features. Include this if you cannot upload an image."></textarea>
+                        </div>
+                    </div>
+
+
+                    <!-- ACCESSORIES IMAGE UPLOAD SECTION -->
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label>Upload Accessory Images (Optional — Max 3 files)</label>
+                            <div id="accessoryUpload1" style="display: none;">
+                                <input type="file" name="accessories_image_1" accept="image/*" id="accessoriesImage1">
+                            </div>
+                            <div id="accessoryUpload2" style="display: none; margin-top: 10px;">
+                                <div>
+                                    <input type="file" name="accessories_image_2" accept="image/*" id="accessoriesImage2">
+                                </div>
+                            </div>
+                            <div id="accessoryUpload3" style="display: none; margin-top: 10px;">
+                                <div>
+                                    <input type="file" name="accessories_image_3" accept="image/*" id="accessoriesImage3">
+                                </div>
+                            </div></div>
+                    </div>
+
+                    <!-- ACCESSORIES DESCRIPTION SECTION -->
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label>Describe Your Accessories (Optional)</label>
+                            <textarea name="accessories_description" id="accessoriesDescription" placeholder="Describe each accessory: type, style, material, color, and preferred placement or styling"></textarea>
                         </div>
                     </div>
 
@@ -2401,23 +2909,39 @@
                 </div>
 
                 <!-- PROJECT DESCRIPTION -->
-                <div class="form-section">
+                </div>
+<div class="form-step" data-step="6">
+<div class="form-section">
                     <div class="form-section-title">
-                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">Project Description & Special Requirements
+                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">Project Brief & Additional Requests
                     </div>
                     <div class="form-grid full">
                         <div class="form-group">
-                            <label>Project Description</label>
-                            <textarea name="project_description" placeholder="Describe your project, style preferences, inspiration, mood..."></textarea>
+                            <label>Describe Your Project Vision</label>
+                            <textarea name="project_description" placeholder="Share your project vision: overall aesthetic, mood, style inspiration, target audience, campaign theme"></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Any Other Specific Requirements?</label>
-                            <textarea name="special_requirements" placeholder="The more specific you are, the better we can realize your vision. Include any special requests here..."></textarea>
+                            <label>Additional Notes or Special Requests</label>
+                            <textarea name="special_requirements" placeholder="Any specific poses, expressions, styling details, or technical requirements? The more detail you provide, the better we can match your vision."></textarea>
                         </div>
                     </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit Order</button>
+            </div>
+
+                <!-- Navigation Buttons -->
+                <div class="form-navigation">
+                    <button type="button" class="nav-button prev-button" id="prevButton" style="display: none;">
+                        <span class="nav-arrow">←</span> Previous
+                    </button>
+                    <button type="button" class="nav-button next-button" id="nextButton">
+                        Next <span class="nav-arrow">→</span>
+                    </button>
+                    <button type="submit" class="nav-button submit-button" id="submitButton" style="display: none;">
+                        Submit Order Request
+                    </button>
+                </div>
             </form>
         </div>
     </section>
@@ -2433,11 +2957,11 @@
             <form id="feedbackForm">
                 <div class="form-group">
                     <label>Your Name</label>
-                    <input type="text" name="fb_name" placeholder="Your name" required>
+                    <input type="text" name="fb_name" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" name="fb_email" placeholder="your@email.com" required>
+                    <input type="email" name="fb_email" placeholder="Enter your email address" required>
                 </div>
                 <div class="form-group">
                     <label>Feedback Subject</label>
@@ -2616,7 +3140,7 @@
     </footer>
 
     <script>
-        
+
         // Toggle onepiecematerial "Other" input
         function toggleOnepiecematerialOther() {
             const select = document.getElementById('onepiecematerial');
@@ -2757,17 +3281,64 @@
             }
         }
 
+        // Check if Model Hair Type "Other" is selected
+        function checkHairTypeOther() {
+            const select = document.getElementById('hairTypeSelect');
+            const customContainer = document.getElementById('hairTypeCustomContainer');
+
+            if (select.value === 'other') {
+                customContainer.style.display = 'block';
+            } else {
+                customContainer.style.display = 'none';
+            }
+        }
+
+        // Check if Model Hair Color "Other" is selected
+        function checkHairColorOther() {
+            const select = document.getElementById('hairColorSelect');
+            const customContainer = document.getElementById('hairColorCustomContainer');
+
+            if (select.value === 'other') {
+                customContainer.style.display = 'block';
+            } else {
+                customContainer.style.display = 'none';
+            }
+        }
+
         // Update product options based on plan
         function updatePlanOptions() {
             const planSelect = document.getElementById('planSelect').value;
             const productSelect = document.getElementById('productTypeSelect');
-            
+            const accessoriesSection = document.getElementById('accessoriesSection');
+            const accessoriesSelect = document.querySelector('select[name="accessories"]');
+            const numberOfModelSelect = document.getElementById('numberOfModel');
+
             // Reset product select
             productSelect.value = '';
-            
+
+            // ===== NEW: AUTO-SET NUMBER OF MODELS BASED ON PLAN =====
+            const planModelMapping = {
+                'artisan': '1',
+                'couture': '3',
+                'atelier': '5',
+                'maison': '8',
+                'legacy': ''  // Legacy is custom, so don't auto-select
+            };
+
+            // Set the number of models dropdown based on selected plan
+            if (numberOfModelSelect && planSelect && planModelMapping.hasOwnProperty(planSelect)) {
+                numberOfModelSelect.value = planModelMapping[planSelect];
+
+                // If Legacy plan, reset to empty (user must select custom)
+                if (planSelect === 'legacy') {
+                    numberOfModelSelect.value = '';
+                }
+            }
+            // ===== END NEW CODE =====
+
             // Remove or add jewelry option based on plan
             const jewelryOption = Array.from(productSelect.options).find(opt => opt.value === 'jewelry');
-            
+
             if (planSelect === 'artisan') {
                 // Artisan plan doesn't support jewelry
                 if (jewelryOption) {
@@ -2780,6 +3351,41 @@
                     option.value = 'jewelry';
                     option.text = 'Jewelry';
                     productSelect.insertBefore(option, productSelect.options[2]);
+                }
+            }
+
+            // Handle accessories visibility based on plan
+            // Only Atelier, Maison, and Legacy support accessories
+            const plansWithAccessories = ['atelier', 'maison', 'legacy'];
+
+            if (plansWithAccessories.includes(planSelect)) {
+                // Show accessories section
+                accessoriesSection.style.display = 'block';
+                accessoriesSelect.required = true;
+            } else {
+                // Hide accessories section and reset
+                accessoriesSection.style.display = 'none';
+                accessoriesSelect.required = false;
+                accessoriesSelect.value = '';
+
+                // Also reset any open accessory dropdowns
+                const dropdownContainer = document.getElementById('accessoriesDropdownContainer');
+                if (dropdownContainer) {
+                    dropdownContainer.style.display = 'none';
+                    const accessoriesDropdown = document.getElementById('accessoriesDropdown');
+                    if (accessoriesDropdown) accessoriesDropdown.value = '';
+
+                    const accessoryImage = document.getElementById('accessoryImage');
+                    const accessoryDescription = document.getElementById('accessoryDescription');
+                    const accessoriesOther = document.getElementById('accessoriesOther');
+                    const accessoriesInputContainer = document.getElementById('accessoriesInputContainer');
+                    const accessoriesOtherContainer = document.getElementById('accessoriesOtherContainer');
+
+                    if (accessoryImage) accessoryImage.value = '';
+                    if (accessoryDescription) accessoryDescription.value = '';
+                    if (accessoriesOther) accessoriesOther.value = '';
+                    if (accessoriesInputContainer) accessoriesInputContainer.style.display = 'none';
+                    if (accessoriesOtherContainer) accessoriesOtherContainer.style.display = 'none';
                 }
             }
         }
@@ -2945,6 +3551,61 @@
             }
         }
 
+
+        // Toggle Accessory #1 "Other" input
+        function checkAccessory1Other() {
+            const accessory1Select = document.getElementById('accessoriesDropdown1');
+            const accessory1OtherContainer = document.getElementById('accessory1OtherContainer');
+
+            if (accessory1Select && accessory1OtherContainer) {
+                if (accessory1Select.value === 'other') {
+                    accessory1OtherContainer.style.display = 'block';
+                } else {
+                    accessory1OtherContainer.style.display = 'none';
+                    const accessory1Other = document.getElementById('accessory1Other');
+                    if (accessory1Other) accessory1Other.value = '';
+                }
+            }
+            // Also call the original toggle function to maintain other functionality
+            toggleAccessoriesFields();
+        }
+
+        // Toggle Accessory #2 "Other" input
+        function checkAccessory2Other() {
+            const accessory2Select = document.getElementById('accessoriesDropdown2');
+            const accessory2OtherContainer = document.getElementById('accessory2OtherContainer');
+
+            if (accessory2Select && accessory2OtherContainer) {
+                if (accessory2Select.value === 'other') {
+                    accessory2OtherContainer.style.display = 'block';
+                } else {
+                    accessory2OtherContainer.style.display = 'none';
+                    const accessory2Other = document.getElementById('accessory2Other');
+                    if (accessory2Other) accessory2Other.value = '';
+                }
+            }
+            // Also call the original toggle function to maintain other functionality
+            toggleAccessoriesFields();
+        }
+
+        // Toggle Accessory #3 "Other" input
+        function checkAccessory3Other() {
+            const accessory3Select = document.getElementById('accessoriesDropdown3');
+            const accessory3OtherContainer = document.getElementById('accessory3OtherContainer');
+
+            if (accessory3Select && accessory3OtherContainer) {
+                if (accessory3Select.value === 'other') {
+                    accessory3OtherContainer.style.display = 'block';
+                } else {
+                    accessory3OtherContainer.style.display = 'none';
+                    const accessory3Other = document.getElementById('accessory3Other');
+                    if (accessory3Other) accessory3Other.value = '';
+                }
+            }
+            // Also call the original toggle function to maintain other functionality
+            toggleAccessoriesFields();
+        }
+
         // Toggle ethnicity "Other" input
         function checkEthnicityOther() {
             const ethnicitySelect = document.getElementById('ethnicitySelect');
@@ -3108,7 +3769,7 @@
                         <option value="other">Other</option>
                     </select>
                     <div id="dynamicPartFabric_${i}_otherContainer" style="display: none; margin-top: 10px;">
-                        <input type="text" name="dynamic_part_fabric_${i}_other" id="dynamicPartFabric_${i}_other" placeholder="Specify custom fabric">
+                        <input type="text" name="dynamic_part_fabric_${i}_other" id="dynamicPartFabric_${i}_other" placeholder="e.g., Silk, Cotton, Linen, Velvet, Chiffon, Denim, Leather">
                     </div>
                 `;
 
@@ -3246,11 +3907,250 @@
                 document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth' });
             });
         });
-    </script>
+    
+
+    // Function to dynamically show/hide accessory upload fields based on selection
+    function updateAccessorySelections() {
+        const numAccessories = document.getElementById('numAccessories').value;
+
+        // Get the main container for "Which Accessories?"
+        const whichAccessoriesContainer = document.getElementById('whichAccessoriesContainer');
+
+        // Get individual accessory type selection containers
+        const accessoryType1Container = document.getElementById('accessoryType1Container');
+        const accessoryType2Container = document.getElementById('accessoryType2Container');
+        const accessoryType3Container = document.getElementById('accessoryType3Container');
+
+        // Get the container divs for each accessory upload
+        const accessory1Container = document.getElementById('accessoryUpload1');
+        const accessory2Container = document.getElementById('accessoryUpload2');
+        const accessory3Container = document.getElementById('accessoryUpload3');
+
+        // Get the input elements
+        const accessory1 = document.getElementById('accessoriesImage1');
+        const accessory2 = document.getElementById('accessoriesImage2');
+        const accessory3 = document.getElementById('accessoriesImage3');
+
+        // Get the "Other" text box containers
+        const accessory1OtherContainer = document.getElementById('accessory1OtherContainer');
+        const accessory2OtherContainer = document.getElementById('accessory2OtherContainer');
+        const accessory3OtherContainer = document.getElementById('accessory3OtherContainer');
+
+        // Reset all to hidden and disabled
+        whichAccessoriesContainer.style.display = 'none';
+        accessoryType1Container.style.display = 'none';
+        accessoryType2Container.style.display = 'none';
+        accessoryType3Container.style.display = 'none';
+
+        accessory1Container.style.display = 'none';
+        accessory2Container.style.display = 'none';
+        accessory3Container.style.display = 'none';
+        accessory1.disabled = true;
+        accessory2.disabled = true;
+        accessory3.disabled = true;
+
+        // Hide "Other" text boxes
+        if (accessory1OtherContainer) accessory1OtherContainer.style.display = 'none';
+        if (accessory2OtherContainer) accessory2OtherContainer.style.display = 'none';
+        if (accessory3OtherContainer) accessory3OtherContainer.style.display = 'none';
+
+        // Show "Which Accessories?" dropdowns based on selection
+        if (numAccessories === '1') {
+            whichAccessoriesContainer.style.display = 'block';
+            accessoryType1Container.style.display = 'block';
+            accessory1Container.style.display = 'block';
+            accessory1.disabled = false;
+        } else if (numAccessories === '2') {
+            whichAccessoriesContainer.style.display = 'block';
+            accessoryType1Container.style.display = 'block';
+            accessoryType2Container.style.display = 'block';
+            accessory1Container.style.display = 'block';
+            accessory2Container.style.display = 'block';
+            accessory1.disabled = false;
+            accessory2.disabled = false;
+        } else if (numAccessories === '3') {
+            whichAccessoriesContainer.style.display = 'block';
+            accessoryType1Container.style.display = 'block';
+            accessoryType2Container.style.display = 'block';
+            accessoryType3Container.style.display = 'block';
+            accessory1Container.style.display = 'block';
+            accessory2Container.style.display = 'block';
+            accessory3Container.style.display = 'block';
+            accessory1.disabled = false;
+            accessory2.disabled = false;
+            accessory3.disabled = false;
+        }
+    }
+
+    // Initialize on page load to hide all accessory uploads by default
+    document.addEventListener('DOMContentLoaded', function() {
+        updateAccessoryUploads();
+    });
+
+</script>
+
+<script>
+
+    // Step-based form navigation
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('orderForm');
+        const steps = document.querySelectorAll('.form-step');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const progressLines = document.querySelectorAll('.progress-line');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+
+        let currentStep = 1;
+        const totalSteps = steps.length;
+
+        // Show current step
+        function showStep(stepNumber) {
+            steps.forEach(step => step.classList.remove('active'));
+            progressSteps.forEach(step => step.classList.remove('active', 'completed'));
+
+            const currentStepElement = document.querySelector(`[data-step="${stepNumber}"].form-step`);
+            if (currentStepElement) {
+                currentStepElement.classList.add('active');
+            }
+
+            // Update progress indicator
+            progressSteps.forEach((step, index) => {
+                const stepNum = index + 1;
+                if (stepNum < stepNumber) {
+                    step.classList.add('completed');
+                } else if (stepNum === stepNumber) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update progress lines
+            progressLines.forEach((line, index) => {
+                if (index < stepNumber - 1) {
+                    line.classList.add('completed');
+                } else {
+                    line.classList.remove('completed');
+                }
+            });
+
+            // Update navigation buttons
+            prevButton.style.display = stepNumber === 1 ? 'none' : 'flex';
+
+            if (stepNumber === totalSteps) {
+                nextButton.style.display = 'none';
+            } else {
+                nextButton.style.display = 'flex';
+            }
+
+            if (stepNumber !== 1 || currentStep !== 1) {
+                document.querySelector('.order-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+
+        // Validate current step
+        function validateStep(stepNumber) {
+            const currentStepElement = document.querySelector(`[data-step="${stepNumber}"].form-step`);
+            if (!currentStepElement) return true;
+
+            const requiredFields = currentStepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--color-error)';
+                } else {
+                    field.style.borderColor = 'var(--color-border)';
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields before proceeding.');
+            }
+
+            return isValid;
+        }
+
+        // Next button click
+        nextButton.addEventListener('click', function() {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            }
+        });
+
+        // Previous button click
+        prevButton.addEventListener('click', function() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+
+        // Initialize first step
+        showStep(currentStep);
+
+        // Plan selection logic (existing functionality preserved)
+        const planSelect = document.getElementById('planSelect');
+        const additionalOptionsSection = document.getElementById('additionalOptionsSection');
+        const bespokeDetailsSection = document.getElementById('bespokeDetailsSection');
+
+        if (planSelect) {
+            planSelect.addEventListener('change', function() {
+                const selectedPlan = this.value;
+
+                if (selectedPlan === 'Bespoke') {
+                    additionalOptionsSection.style.display = 'none';
+                    bespokeDetailsSection.style.display = 'block';
+                } else if (selectedPlan) {
+                    additionalOptionsSection.style.display = 'block';
+                    bespokeDetailsSection.style.display = 'none';
+                } else {
+                    additionalOptionsSection.style.display = 'none';
+                    bespokeDetailsSection.style.display = 'none';
+                }
+            });
+        }
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            // Show loading state
+            const submitButton = form.querySelector('.submit-button');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Submitting...';
+            submitButton.disabled = true;
+
+            // Collect form data
+            const formData = new FormData(form);
+
+            // Here you would typically send the data to your server
+            // For now, we'll just log it and show a success message
+            console.log('Form submitted:', Object.fromEntries(formData));
+
+            // Simulate submission
+            setTimeout(function() {
+                alert('Thank you! Your order request has been submitted. We will contact you within 24 hours.');
+                form.reset();
+                currentStep = 1;
+                showStep(currentStep);
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }, 1000);
+        });
+    });
+
+</script>
 </body>
 
 </html>
-
 
 
 
