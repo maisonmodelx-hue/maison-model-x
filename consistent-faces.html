@@ -1527,19 +1527,35 @@
 
 <section class="pricing" id="pricing">
         <h2 class="section-title">Choose Your Reference Pack</h2>
-        <p class="section-subtitle">Transparent pricing. No hidden fees. Cancel anytime.</p>
+        <p class="section-subtitle">Transparent pricing. No hidden fees.</p>
         <div class="pricing-cards">
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
                 <h3>QUICK FACE</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
-                <div class="price"><span class="currency">₹</span>4,000</div>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$48 USD</p>
+                <div class="price"><span class="currency">₹</span>3,999</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$45 USD</p>
                 <ul>
-                    <li>5 reference angles</li>
-                    <li>2K resolution</li>
+                    <li>1 model</li>
+                    <li>3 angles/poses</li>
                     <li>24–48 hour delivery</li>
                     <li>1 revision round</li>
-                    <li>Personal use only</li>
+                    <li>Commercial Rights</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
+            </div>
+
+            <div class="pricing-cards">
+            <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
+                <h3>QUICK FACE</h3>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
+                <div class="price"><span class="currency">₹</span>10,999</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$123 USD</p>
+                <ul>
+                    <li>3 models</li>
+                    <li>15 angles/poses (5 per model)</li>
+                    <li>24–48 hour delivery</li>
+                    <li>1 revision round</li>
+                    <li>Commercial Rights</li>
                 </ul>
                 <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
             </div>
@@ -1548,30 +1564,43 @@
                 <div class="pricing-badge">⭐ MOST POPULAR</div>
                 <h3>STANDARD FACE</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Best Value</p>
-                <div class="price"><span class="currency">₹</span>6,000</div>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$72 USD</p>
+                <div class="price"><span class="currency">₹</span>19,999</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$223 USD</p>
                 <ul>
-                    <li>8 reference angles</li>
-                    <li>2 expressions</li>
-                    <li>4K resolution</li>
-                    <li>18–24 hour delivery</li>
-                    <li>3 revision rounds</li>
-                    <li>Priority support</li>
+                    <li>5 models</li>
+                    <li>30 angles/poses (6 per model)</li>
+                    <li>12–24 hour delivery</li>
+                    <li>2 revision rounds</li>
+                    <li>Commercial Rights</li>
                 </ul>
                 <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'standard')">Order Now</button>
+            </div>
+                <div class="pricing-cards">
+            <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
+                <h3>QUICK FACE</h3>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
+                <div class="price"><span class="currency">₹</span>37,999</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$423 USD</p>
+                <ul>
+                    <li>10 models</li>
+                    <li>60 angles/poses (6 per model)</li>
+                    <li>24–36 hour delivery</li>
+                    <li>3 revision round</li>
+                    <li>Commercial Rights</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
             </div>
 
             <div class="pricing-card" onclick="selectPricingCard(event, 'premium')">
                 <h3>PREMIUM FACE</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Professional Grade</p>
-                <div class="price"><span class="currency">₹</span>12,000</div>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$144 USD</p>
+                <div class="price"><span class="currency"></span>Custom</div>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">Custom</p>
                 <ul>
-                    <li>10 angles + macro</li>
-                    <li>5 expressions</li>
-                    <li>4K+ resolution</li>
-                    <li>12–18 hour delivery</li>
-                    <li>Unlimited revisions</li>
+                    <li>Custom - For Orders More than 10 Models</li>
+                    <li>Custom</li>
+                    <li>delivery (varies)</li>
+                    <li>3 revisions</li>
                     <li>Commercial license</li>
                 </ul>
                 <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'premium')">Order Now</button>
@@ -1603,6 +1632,7 @@
                     <option style="background: var(--black);">26-35</option>
                     <option style="background: var(--black);">36-45</option>
                     <option style="background: var(--black);">46-55</option>
+                    <option style="background: var(--black);">55+ years</option>
                 </select>
                 <select name="gender" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
                     <option style="background: var(--black);">Select Gender</option>
@@ -1617,6 +1647,13 @@
                     <option style="background: var(--black);">African</option>
                     <option style="background: var(--black);">European</option>
                     <option style="background: var(--black);">Latin American</option>
+                    <option value="middle-eastern">Middle Eastern</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                            <div class="form-group" id="ethnicityCustomContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="ethnicity_custom" id="ethnicity_custom" placeholder="e.g., Indian, East Asian, African, Middle Eastern, European, Latin American">
+                            </div>
+                        </div>
                 </select>
                 <textarea name="description" placeholder="Describe hair style, body type, special features..." style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif; min-height: 100px;" required></textarea>
             </div>
@@ -2068,4 +2105,5 @@ Contact for immediate follow-up.
 </body>
 
 </html>
+
 
