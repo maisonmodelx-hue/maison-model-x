@@ -1533,7 +1533,7 @@
         <div class="pricing-cards">
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
                 <h3>Prélude</h3>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Creative Entry Point</p>
                 <div class="price"><span class="currency">₹</span>3,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$45 USD</p>
                 <ul>
@@ -1550,7 +1550,7 @@
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
                 <input type="radio" name="formPackage" value="Élan - ₹10,999" style="display: none;">
                 <h3>Élan</h3>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Distinctive Editorial Edge</p>
                 <div class="price"><span class="currency">₹</span>10,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$123 USD</p>
                 <ul>
@@ -1566,7 +1566,7 @@
             <div class="pricing-card popular" onclick="selectPricingCard(event, 'standard')">
                 <div class="pricing-badge">⭐Hero</div>
                 <h3>Signature</h3>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Best Value</p>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Campaign Essential</p>
                 <div class="price"><span class="currency">₹</span>19,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$223 USD</p>
                 <ul>
@@ -1583,7 +1583,7 @@
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
                 <input type="radio" name="formPackage" value="Couture Ensemble - ₹37,999" style="display: none;">
                 <h3>Couture Ensemble</h3>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Creative Suite</p>
                 <div class="price"><span class="currency">₹</span>37,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$423 USD</p>
                 <ul>
@@ -1598,7 +1598,7 @@
 
             <div class="pricing-card" onclick="selectPricingCard(event, 'premium')">
                 <h3>Légende</h3>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Professional Grade</p>
+                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Timeless Iconic Choice</p>
                 <div class="price"><span class="currency"></span>Custom</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">Custom</p>
                 <ul>
@@ -1609,7 +1609,7 @@
                     <li>Commercial license</li>
                 </ul>
                 <input type="radio" name="formPackage" value="Légende - Custom Pricing" style="display: none;">
-                <button class="btn btn-primary" style="width: 80%;" onclick="selectPackage(event, 'premium')">Order Now</button>
+                <button class="btn btn-primary" style="width: 80%;" onclick="event.stopPropagation(); window.location.href='mailto:maisonmodelx@gmail.com?subject=Légende Package Inquiry - Custom Quote&body=Hi Maison Model X Team,%0D%0A%0D%0AI am interested in the Légende package for 10+ models.%0D%0A%0D%0AProject Details:%0D%0ANumber of models needed: %0D%0AProject timeline: %0D%0ASpecific requirements: %0D%0A%0D%0APlease provide a custom quote.%0D%0A%0D%0AThank you!';">Contact Us</button>
             </div>
         </div>
 
@@ -2335,6 +2335,98 @@
             </div>
             <button type="submit" class="btn btn-primary">Send Feedback</button>
         </form>
+
+    <!--   OLD (this is the original from file) the just below this is another one from claude if that doesn't work uncomment this and comment out that. It's from <script> to </script>
+        <script>
+        // Feedback Form Submission to Bitrix24
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const webhookUrl = "YOUR_WEBHOOK_URL_HERE";
+
+            const formData = {
+                fb_name: document.querySelector('input[name="fb_name"]').value,
+                fb_email: document.querySelector('input[name="fb_email"]').value,
+                fb_subject: document.querySelector('input[name="fb_subject"]').value,
+                fb_message: document.querySelector('textarea[name="fb_message"]').value
+            };
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Thank you for submitting your feedback.');
+                    document.getElementById('feedbackForm').reset();
+                } else {
+                    alert('There was an error submitting your feedback. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your feedback. Please try again.');
+            });
+        }); 
+        
+        </script> -->
+
+        <script>
+        // Feedback Form Submission to Bitrix24
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // TODO: Replace with your actual Bitrix24 webhook URL
+            const webhookUrl = "YOUR_BITRIX24_WEBHOOK_URL_HERE";
+
+            // Check if webhook URL is configured
+            if (webhookUrl === "YOUR_BITRIX24_WEBHOOK_URL_HERE") {
+                console.error('Bitrix24 webhook URL not configured');
+                alert('❌ Feedback system is not configured yet. Please contact us directly at maisonmodelx@gmail.com');
+                return;
+            }
+
+            const formData = {
+                fb_name: document.querySelector('input[name="fb_name"]').value,
+                fb_email: document.querySelector('input[name="fb_email"]').value,
+                fb_subject: document.querySelector('input[name="fb_subject"]').value,
+                fb_message: document.querySelector('textarea[name="fb_message"]').value
+            };
+
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('✅ Thank you for submitting your feedback. We appreciate your input!');
+                    document.getElementById('feedbackForm').reset();
+                } else {
+                    throw new Error('Server responded with error: ' + response.status);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('❌ There was an error submitting your feedback. Please try again or contact us at maisonmodelx@gmail.com');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+        </script>
     </div>
 </section>
 
@@ -2759,6 +2851,100 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             });
         });
     </script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+// Razorpay Payment Integration
+(function() {
+    const orderForm = document.getElementById('orderForm');
+
+    // Store the original sendToBitrix24 function
+    const originalSendToBitrix24 = window.sendToBitrix24;
+
+    // Intercept form submission
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Collect form data
+        const formData = new FormData(orderForm);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Get the total amount from the page
+        const totalElement = document.getElementById('orderTotal');
+        const totalText = totalElement ? totalElement.textContent : '₹0';
+        const amount = parseInt(totalText.replace(/[^0-9]/g, '')) || 0;
+
+        if (amount === 0) {
+            alert('Please select a package before proceeding.');
+            return;
+        }
+
+        // Configure Razorpay options
+        const options = {
+            key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your actual Razorpay Key ID
+            amount: amount * 100, // Amount in paise
+            currency: 'INR',
+            name: 'Maison Model X',
+            description: data.packageSelection || 'Custom Model Package',
+            image: 'https://www.maisonmodelx.com/logo.png', // Replace with your logo URL
+            handler: function(response) {
+                // Payment successful
+                console.log('Payment Success:', response);
+
+                // Add Razorpay payment details to form as hidden inputs
+                const paymentIdInput = document.createElement('input');
+                paymentIdInput.type = 'hidden';
+                paymentIdInput.name = 'razorpay_payment_id';
+                paymentIdInput.value = response.razorpay_payment_id;
+                orderForm.appendChild(paymentIdInput);
+
+                const orderIdInput = document.createElement('input');
+                orderIdInput.type = 'hidden';
+                orderIdInput.name = 'razorpay_order_id';
+                orderIdInput.value = response.razorpay_order_id || '';
+                orderForm.appendChild(orderIdInput);
+
+                const signatureInput = document.createElement('input');
+                signatureInput.type = 'hidden';
+                signatureInput.name = 'razorpay_signature';
+                signatureInput.value = response.razorpay_signature || '';
+                orderForm.appendChild(signatureInput);
+
+                // Now collect updated form data including payment details
+                const updatedFormData = new FormData(orderForm);
+                const updatedData = {};
+                updatedFormData.forEach((value, key) => {
+                    updatedData[key] = value;
+                });
+
+                // Submit to Bitrix24
+                originalSendToBitrix24(updatedData);
+            },
+            prefill: {
+                name: data.firstName || '',
+                email: data.email || '',
+                contact: data.phone || ''
+            },
+            theme: {
+                color: '#D4AF37'
+            },
+            modal: {
+                ondismiss: function() {
+                    alert('Payment failed or cancelled. Please try again.');
+                }
+            }
+        };
+
+        // Open Razorpay checkout
+        const razorpayInstance = new Razorpay(options);
+        razorpayInstance.open();
+    });
+})();
+</script>
+
 </body>
 
 </html>
