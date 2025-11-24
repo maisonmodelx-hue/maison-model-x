@@ -950,12 +950,12 @@
 
         .about-quote {
             font-family: 'Great Vibes', cursive;
-            font-size: 28px;
+            font-size: 36px;
             color: var(--gold);
             margin-top: 30px;
-            padding: 25px 0;
-            border-top: 2px solid rgba(212, 175, 55, 0.2);
-            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            padding: 20px 0;
+            /* border-top: 2px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2); */
         }
 
         .about-image {
@@ -2304,9 +2304,9 @@
                             <label>Select Your Package <span class="required-asterisk">*</span></label>
                             <select name="plan_type" id="planSelect" onchange="updatePlanOptions()" required>
                                 <option value="">-- Select a Plan --</option>
-                                <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">🎨Artisan (₹6,000)</option>
+                                <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Artisan (₹6,000)</option>
                                 <option value="couture"><img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Couture (₹15,000)</option>
-                                <option value="atelier"><img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Atelier (₹35,000)</option>
+                                <option value="atelier"><img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">⭐ Atelier (₹35,000)</option>
                                 <option value="maison"><img src="castle.png" alt="Castle Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Maison (₹75,000)</option>
                                 <option value="legacy"><img src="crown.png" alt="Crown Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Legacy (Custom)</option>
                             </select>
@@ -2386,6 +2386,58 @@
                             </select>
                             <div class="form-group" id="hairTypeCustomContainer" style="display: none; margin-top: 10px;">
                                 <input type="text" name="hair_type_custom" id="hair_type_custom" placeholder="e.g., Straight, Wavy, Curly, Coily, Textured">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Model Hair Style</label>
+                            <select name="hair_style" id="hairStyleSelect" onchange="checkHairStyleOther()">
+                                <option value="">-- Select Model Hair Style --</option>
+                                
+                                <!-- Long Hair Styles -->
+                                <option value="long-loose">Long & Loose</option>
+                                <option value="long-wavy">Long & Wavy</option>
+                                <option value="long-straight">Long & Straight</option>
+                                <option value="beach-waves">Beach Waves</option>
+                                <option value="mermaid-waves">Mermaid Waves</option>
+                                
+                                <!-- Medium Hair Styles -->
+                                <option value="shoulder-length">Shoulder Length</option>
+                                <option value="layered">Layered</option>
+                                <option value="textured-lob">Textured Lob</option>
+                                
+                                <!-- Updos & Tied Styles -->
+                                <option value="high-bun">High Bun</option>
+                                <option value="low-bun">Low Bun</option>
+                                <option value="messy-bun">Messy Bun</option>
+                                <option value="top-knot">Top Knot</option>
+                                <option value="ponytail">Ponytail</option>
+                                <option value="braided">Braided</option>
+                                <option value="half-up-half-down">Half-Up Half-Down</option>
+                                <option value="chignon">Chignon</option>
+                                
+                                <!-- Short Hair Styles -->
+                                <option value="pixie-cut">Pixie Cut</option>
+                                <option value="bob-cut">Bob Cut</option>
+                                <option value="short-crop">Short Crop</option>
+                                <option value="undercut">Undercut</option>
+                                
+                                <!-- Specialized Styles -->
+                                <option value="slicked-back">Slicked Back</option>
+                                <option value="side-parted">Side Parted</option>
+                                <option value="center-parted">Center Parted</option>
+                                <option value="voluminous">Voluminous</option>
+                                <option value="sleek-straight">Sleek & Straight</option>
+                                
+                                <!-- Cultural/Traditional -->
+                                <option value="afro">Afro</option>
+                                <option value="dreadlocks">Dreadlocks</option>
+                                <option value="cornrows">Cornrows</option>
+                                
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="form-group" id="hairStyleCustomContainer" style="display: none; margin-top: 10px;">
+                                <input type="text" name="hair_style_custom" id="hair_style_custom" placeholder="e.g., French twist, Victory rolls, Finger waves, Mohawk">
                             </div>
                         </div>
 
@@ -2995,10 +3047,12 @@
     <!-- VISION SECTION -->
     <section class="vision-section" style="background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%); padding: 100px 60px;">
         <div class="vision-container" style="max-width: 900px; margin: 0 auto; text-align: center; background: rgba(42, 42, 42, 0.8); padding: 80px 60px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: var(--gold); margin-bottom: 40px; letter-spacing: 1px;">Founder's Vision</h2>
-
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900; color: var(--gold); margin-bottom: 25px; letter-spacing: 1px;">Founder's Vision</h2>
+            <div class="about-quote">
+                "Your dreams are the heart of what we create."
+            </div>
             <p style="font-size: 18px; line-height: 2; color: rgba(255, 255, 255, 0.95); margin-bottom: 50px; font-style: italic; font-weight: 400;">
-                "I am passionate about reinventing fashion through AI. Elevating virtual modeling into an art form that's accessible yet extraordinary—that is the future I build for you. Your masterpieces deserve this transformation."
+                I am passionate about reinventing fashion through AI. Elevating virtual modeling into an art form that's accessible yet extraordinary—that is the future I build for you. Your masterpieces deserve this transformation.
             </p>
 
             <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(212, 175, 55, 0.3);">
@@ -3285,6 +3339,18 @@
         function checkHairTypeOther() {
             const select = document.getElementById('hairTypeSelect');
             const customContainer = document.getElementById('hairTypeCustomContainer');
+
+            if (select.value === 'other') {
+                customContainer.style.display = 'block';
+            } else {
+                customContainer.style.display = 'none';
+            }
+        }
+
+        // Check if Model Hair Style "Other" is selected
+        function checkHairStyleOther() {
+            const select = document.getElementById('hairStyleSelect');
+            const customContainer = document.getElementById('hairStyleCustomContainer');
 
             if (select.value === 'other') {
                 customContainer.style.display = 'block';
@@ -4148,13 +4214,134 @@
     });
 
 </script>
-</body>
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+// Razorpay Payment Integration
+document.addEventListener('DOMContentLoaded', function() {
+    const orderForm = document.getElementById('orderForm');
+    const submitButton = document.querySelector('button[type="submit"].btn-primary');
+    const navSubmitButton = document.getElementById('submitButton');
+
+    // Create payment container
+    const paymentContainer = document.createElement('div');
+    paymentContainer.id = 'paymentMessage';
+    paymentContainer.style.cssText = 'display: none; padding: 12px; margin: 1rem 0; border-radius: 6px; font-size: 0.95rem; text-align: center;';
+
+    if (orderForm) {
+        orderForm.parentNode.insertBefore(paymentContainer, orderForm.nextSibling);
+    }
+
+    // Handle form submission
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get form data
+        const clientName = document.querySelector('[name="client_name"]')?.value || 'Client';
+        const clientEmail = document.querySelector('[name="client_email"]')?.value || 'customer@example.com';
+        const clientPhone = document.querySelector('[name="client_phone"]')?.value || '';
+        const tierSelect = document.querySelector('[name="tier_select"]');
+        const tierValue = tierSelect?.value || 'entry';
+
+        // Define tier prices (in paisa - 100 paisa = 1 rupee)
+        const tierPrices = {
+            'entry': 7200,      // $72 = ~6000 INR = 600000 paisa, using 7200 for demo
+            'professional': 18000,  // $180
+            'premium': 33500,   // $335
+            'enterprise': 90000, // $900
+            'bespoke': 50000    // Custom - default
+        };
+
+        const amount = tierPrices[tierValue] || 50000; // Default to 50000 paisa
+
+        // Generate order ID (in real scenario, this comes from backend)
+        const orderId = 'order_' + Date.now();
+
+        // Razorpay options
+        const options = {
+            key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your Razorpay Key ID
+            amount: amount,
+            currency: 'INR',
+            name: 'Maison Model X',
+            description: 'AI-Generated Fashion Model Photography - ' + tierValue.charAt(0).toUpperCase() + tierValue.slice(1) + ' Tier',
+            order_id: orderId,
+            prefill: {
+                name: clientName,
+                email: clientEmail,
+                contact: clientPhone
+            },
+            theme: {
+                color: '#000000'
+            },
+            handler: function(response) {
+                // Payment successful
+                handlePaymentSuccess(response);
+            },
+            modal: {
+                ondismiss: function() {
+                    showPaymentMessage('Payment cancelled. Please try again.', 'error');
+                }
+            }
+        };
+
+        // Open Razorpay checkout
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function(response) {
+            showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
+        });
+        rzp.open();
+    });
+
+    function handlePaymentSuccess(response) {
+        // Create hidden fields for payment data
+        const paymentIdInput = document.createElement('input');
+        paymentIdInput.type = 'hidden';
+        paymentIdInput.name = 'razorpay_payment_id';
+        paymentIdInput.value = response.razorpay_payment_id;
+        orderForm.appendChild(paymentIdInput);
+
+        const orderIdInput = document.createElement('input');
+        orderIdInput.type = 'hidden';
+        orderIdInput.name = 'razorpay_order_id';
+        orderIdInput.value = response.razorpay_order_id;
+        orderForm.appendChild(orderIdInput);
+
+        const signatureInput = document.createElement('input');
+        signatureInput.type = 'hidden';
+        signatureInput.name = 'razorpay_signature';
+        signatureInput.value = response.razorpay_signature;
+        orderForm.appendChild(signatureInput);
+
+        // Show success message
+        showPaymentMessage('Payment successful! Submitting order...', 'success');
+
+        // Submit form to Bitrix24 after brief delay
+        setTimeout(function() {
+            orderForm.submit();
+        }, 1500);
+    }
+
+    function showPaymentMessage(message, type) {
+        const container = document.getElementById('paymentMessage');
+        container.textContent = message;
+        container.style.display = 'block';
+
+        if (type === 'success') {
+            container.style.backgroundColor = '#d4edda';
+            container.style.color = '#155724';
+            container.style.borderLeft = '4px solid #28a745';
+        } else if (type === 'error') {
+            container.style.backgroundColor = '#f8d7da';
+            container.style.color = '#721c24';
+            container.style.borderLeft = '4px solid #dc3545';
+        }
+    }
+});
+</script>
+
+    </body>
 
 </html>
-
-
-
-
-
 
 
