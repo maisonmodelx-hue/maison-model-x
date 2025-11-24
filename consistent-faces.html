@@ -158,7 +158,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 32px;
         }
 
         nav a {
@@ -284,7 +284,7 @@
         }
 
         .btn {
-            padding: 16px 40px;
+            padding: 16px 34px;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
@@ -457,7 +457,7 @@
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 32px;
             margin-top: 60px;
             max-width: 1200px;
             margin-left: auto;
@@ -590,16 +590,16 @@
 
         .pricing-cards {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 60px;
-            max-width: 1200px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 32px;
+            margin-top: 50px;
+            max-width: 1400px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .pricing-card {
-            padding: 50px 40px;
+            padding: 30px 35px;
             border: 2px solid rgba(212, 175, 55, 0.2);
             border-radius: 12px;
             text-align: center;
@@ -609,6 +609,7 @@
             cursor: pointer;
             animation: scaleInDown 0.6s ease-out;
             overflow: hidden;
+            min-width: 260px;
         }
 
         .pricing-card::before {
@@ -638,6 +639,7 @@
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(26, 26, 26, 0.5) 100%);
             transform: scale(1.08);
             box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3);
+            z-index: 1;
         }
 
         .pricing-card.popular:hover {
@@ -668,7 +670,7 @@
         }
 
         .pricing-card h3 {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--gold);
             margin-bottom: 15px;
             font-weight: 700;
@@ -677,7 +679,7 @@
         }
 
         .pricing-card .price {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 900;
             margin: 20px 0;
             color: var(--white);
@@ -720,7 +722,7 @@
         .why-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
+            gap: 32px;
             margin-top: 60px;
             max-width: 1200px;
             margin-left: auto;
@@ -1260,12 +1262,12 @@
 
             .about-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 32px;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 32px;
             }
 
             .pricing-card.popular {
@@ -1530,7 +1532,7 @@
         <p class="section-subtitle">Transparent pricing. No hidden fees.</p>
         <div class="pricing-cards">
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
-                <h3>QUICK FACE</h3>
+                <h3>Prélude</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
                 <div class="price"><span class="currency">₹</span>3,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$45 USD</p>
@@ -1541,12 +1543,13 @@
                     <li>1 revision round</li>
                     <li>Commercial Rights</li>
                 </ul>
-                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
+                <input type="radio" name="formPackage" value="Prélude - ₹3,999" style="display: none;">
+                <button class="btn btn-primary" style="width: 80%;" onclick="selectPackage(event, 'quick')">Order Now</button>
             </div>
 
-            <div class="pricing-cards">
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
-                <h3>QUICK FACE</h3>
+                <input type="radio" name="formPackage" value="Élan - ₹10,999" style="display: none;">
+                <h3>Élan</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
                 <div class="price"><span class="currency">₹</span>10,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$123 USD</p>
@@ -1557,12 +1560,12 @@
                     <li>1 revision round</li>
                     <li>Commercial Rights</li>
                 </ul>
-                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
+                <button class="btn btn-primary" style="width: 80%;" onclick="selectPackage(event, 'quick')">Order Now</button>
             </div>
 
             <div class="pricing-card popular" onclick="selectPricingCard(event, 'standard')">
-                <div class="pricing-badge">⭐ MOST POPULAR</div>
-                <h3>STANDARD FACE</h3>
+                <div class="pricing-badge">⭐Hero</div>
+                <h3>Signature</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Best Value</p>
                 <div class="price"><span class="currency">₹</span>19,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$223 USD</p>
@@ -1573,11 +1576,13 @@
                     <li>2 revision rounds</li>
                     <li>Commercial Rights</li>
                 </ul>
-                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'standard')">Order Now</button>
+                <input type="radio" name="formPackage" value="Signature - ₹19,999" style="display: none;">
+                <button class="btn btn-primary" style="width: 80%;" onclick="selectPackage(event, 'standard')">Order Now</button>
             </div>
-                <div class="pricing-cards">
+
             <div class="pricing-card" onclick="selectPricingCard(event, 'quick')">
-                <h3>QUICK FACE</h3>
+                <input type="radio" name="formPackage" value="Couture Ensemble - ₹37,999" style="display: none;">
+                <h3>Couture Ensemble</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Perfect to Try</p>
                 <div class="price"><span class="currency">₹</span>37,999</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">~$423 USD</p>
@@ -1588,11 +1593,11 @@
                     <li>3 revision round</li>
                     <li>Commercial Rights</li>
                 </ul>
-                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'quick')">Order Now</button>
+                <button class="btn btn-primary" style="width: 80%;" onclick="selectPackage(event, 'quick')">Order Now</button>
             </div>
 
             <div class="pricing-card" onclick="selectPricingCard(event, 'premium')">
-                <h3>PREMIUM FACE</h3>
+                <h3>Légende</h3>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Professional Grade</p>
                 <div class="price"><span class="currency"></span>Custom</div>
                 <p style="font-size: 14px; color: rgba(255, 255, 255, 0.6);">Custom</p>
@@ -1603,13 +1608,14 @@
                     <li>3 revisions</li>
                     <li>Commercial license</li>
                 </ul>
-                <button class="btn btn-primary" style="width: 100%;" onclick="selectPackage(event, 'premium')">Order Now</button>
+                <input type="radio" name="formPackage" value="Légende - Custom Pricing" style="display: none;">
+                <button class="btn btn-primary" style="width: 80%;" onclick="selectPackage(event, 'premium')">Order Now</button>
             </div>
         </div>
 
         <div style="text-align: center; margin-top: 60px; padding: 30px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; max-width: 800px; margin-left: auto; margin-right: auto;">
             <h4 style="color: var(--white); margin-bottom: 20px;">Enhance Your Order</h4>
-            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">• Commercial License: +₹5,000 | • Rush Delivery (12 hrs): +₹2,000 | • Age Progression: +₹3,000 | • Body Type Variants: +₹2,000</p>
+            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">• Rush Delivery (12 hrs): +₹2,000 | • Extra Images: +₹1,000 | • Age Progression: +₹3,000 | • Extra Revision (minor changes): +₹2,000 | • Extra Model: +₹2,300 |</p>
         </div>
     </section>
 
@@ -1617,6 +1623,21 @@
         <h2 class="section-title">Create Your Custom Model</h2>
         <p class="section-subtitle">Takes 3 minutes.</p>
         <form id="orderForm" style="max-width: 700px; margin: 60px auto; background: rgba(42, 42, 42, 0.5); padding: 50px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px;">
+
+            <!-- Dynamic Plan Summary -->
+            <div id="planSummary" style="background: rgba(212, 175, 55, 0.1); padding: 20px; border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 8px; margin-bottom: 30px; display: none;">
+                <h4 style="color: var(--gold); margin-bottom: 15px; font-size: 18px; text-transform: uppercase;">Selected Plan</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <div style="flex: 1;">
+                        <div id="planName" style="font-size: 22px; color: var(--white); font-weight: 700; margin-bottom: 5px;"></div>
+                        <div id="planSubtitle" style="font-size: 13px; color: rgba(255, 255, 255, 0.7);"></div>
+                    </div>
+                    <div id="planPrice" style="font-size: 28px; color: var(--gold); font-weight: 900;"></div>
+                </div>
+                <ul id="planFeatures" style="list-style: none; padding: 0; margin: 15px 0 0 0; font-size: 13px; color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                </ul>
+            </div>
+
             <div style="margin-bottom: 30px;">
                 <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 1: Your Details</label>
                 <input type="text" name="firstName" placeholder="Full Name" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
@@ -1625,71 +1646,668 @@
             </div>
 
             <div style="margin-bottom: 30px;">
-                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 2: Model Description</label>
-                <select name="age" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
-                    <option style="background: var(--black);">Select Age Range</option>
-                    <option style="background: var(--black);">18-25</option>
-                    <option style="background: var(--black);">26-35</option>
-                    <option style="background: var(--black);">36-45</option>
-                    <option style="background: var(--black);">46-55</option>
-                    <option style="background: var(--black);">55+ years</option>
+                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 2: Package Selection</label>
+                <select name="packageSelection" id="packageSelection" style="width: 100%; padding: 14px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(212, 175, 55, 0.4); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 600;" required onchange="handlePackageChange()">
+                    <option value="" style="background: var(--black);">-- Select Your Package --</option>
+                    <option value="prelude" style="background: var(--black);">Prélude - ₹3,999 (1 model, 3 angles)</option>
+                    <option value="elan" style="background: var(--black);">Élan - ₹10,999 (3 models, 15 angles)</option>
+                    <option value="signature" style="background: var(--black);">⭐ Signature - ₹19,999 (5 models, 30 angles) [BEST VALUE]</option>
+                    <option value="couture" style="background: var(--black);">Couture Ensemble - ₹37,999 (10 models, 60 angles)</option>
+                    <option value="legende" style="background: var(--black);">Légende - Custom (10+ models)</option>
                 </select>
-                <select name="gender" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
-                    <option style="background: var(--black);">Select Gender</option>
-                    <option style="background: var(--black);">Female</option>
-                    <option style="background: var(--black);">Male</option>
-                    <option style="background: var(--black);">Non-binary</option>
-                </select>
-                <select name="ethnicity" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required>
-                    <option style="background: var(--black);">Select Ethnicity</option>
-                    <option style="background: var(--black);">South Asian</option>
-                    <option style="background: var(--black);">East Asian</option>
-                    <option style="background: var(--black);">African</option>
-                    <option style="background: var(--black);">European</option>
-                    <option style="background: var(--black);">Latin American</option>
-                    <option value="middle-eastern">Middle Eastern</option>
-                                <option value="mixed">Mixed</option>
-                            </select>
-                            <div class="form-group" id="ethnicityCustomContainer" style="display: none; margin-top: 10px;">
-                                <input type="text" name="ethnicity_custom" id="ethnicity_custom" placeholder="e.g., Indian, East Asian, African, Middle Eastern, European, Latin American">
-                            </div>
-                        </div>
-                </select>
-                <textarea name="description" placeholder="Describe hair style, body type, special features..." style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif; min-height: 100px;" required></textarea>
             </div>
 
-            <div style="margin-bottom: 30px;">
-                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 3: Package Selection</label>
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                    <label style="padding: 15px; background: rgba(212, 175, 55, 0.1); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 4px; cursor: pointer; text-align: center; color: var(--white); font-size: 14px;">
-                        <input type="radio" name="formPackage" value="quick" style="margin-right: 10px;" onchange="updateFormPackage('quick')"> Quick ₹4,000
-                    </label>
-                    <label style="padding: 15px; background: rgba(212, 175, 55, 0.2); border: 2px solid var(--gold); border-radius: 4px; cursor: pointer; text-align: center; color: var(--white); font-size: 14px;">
-                        <input type="radio" name="formPackage" value="standard" checked style="margin-right: 10px;" onchange="updateFormPackage('standard')"> Standard ₹6,000
-                    </label>
-                    <label style="padding: 15px; background: rgba(212, 175, 55, 0.1); border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 4px; cursor: pointer; text-align: center; color: var(--white); font-size: 14px;">
-                        <input type="radio" name="formPackage" value="premium" style="margin-right: 10px;" onchange="updateFormPackage('premium')"> Premium ₹12,000
-                    </label>
+            <div id="modelDescriptionSection" style="margin-bottom: 30px; opacity: 0.5; pointer-events: none; transition: all 0.3s ease;">
+                <label style="display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">
+                    Step 3: Model Description
+                    <span id="modelCountLabel" style="font-size: 12px; color: rgba(255, 255, 255, 0.6); font-weight: 400;"></span>
+                </label>
+
+                <!-- Model Wizard Progress -->
+                <div id="modelWizardProgress" style="display: none; text-align: center; margin-bottom: 20px; padding: 15px; background: rgba(212, 175, 55, 0.1); border-radius: 4px; border: 1px solid rgba(212, 175, 55, 0.3);">
+                    <h3 style="color: var(--gold); font-size: 16px; margin: 0;">
+                        Model <span id="currentModelNumber">1</span> of <span id="totalModelsNumber">1</span>
+                    </h3>
                 </div>
-                <div style="background: rgba(212, 175, 55, 0.05); padding: 15px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 4px; color: rgba(255, 255, 255, 0.8); font-size: 14px;">
-                    <label style="display: flex; align-items: center; margin-bottom: 10px; cursor: pointer;">
-                        <input type="checkbox" name="commercial" style="margin-right: 10px; cursor: pointer;"> Commercial License (+₹5,000)
+
+                <!-- Model Form Container -->
+                <div id="modelFormContainer">
+                    <!-- Age Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Age Range</label>
+                    <select name="age" id="age" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Age Range</option>
+                        <option style="background: var(--black);">18-25</option>
+                        <option style="background: var(--black);">26-35</option>
+                        <option style="background: var(--black);">36-45</option>
+                        <option style="background: var(--black);">46-55</option>
+                        <option style="background: var(--black);">55+ years</option>
+                    </select>
+
+                    <!-- Gender Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Gender</label>
+                    <select name="gender" id="gender" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Gender</option>
+                        <option style="background: var(--black);">Female</option>
+                        <option style="background: var(--black);">Male</option>
+                        <option style="background: var(--black);">Non-binary</option>
+                    </select>
+
+                    <!-- Ethnicity Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Ethnicity</label>
+                    <select name="ethnicity" id="ethnicity" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Ethnicity</option>
+                        <option style="background: var(--black);">South Asian</option>
+                        <option style="background: var(--black);">East Asian</option>
+                        <option style="background: var(--black);">African</option>
+                        <option style="background: var(--black);">European</option>
+                        <option style="background: var(--black);">Latin American</option>
+                        <option value="middle-eastern" style="background: var(--black);">Middle Eastern</option>
+                        <option value="mixed" style="background: var(--black);">Mixed</option>
+                    </select>
+
+                    <!-- Region Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Region/Country</label>
+                    <select name="region" id="region" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Specific Region/Country</option>
+                        <option style="background: var(--black);">India</option>
+                        <option style="background: var(--black);">Pakistan</option>
+                        <option style="background: var(--black);">Bangladesh</option>
+                        <option style="background: var(--black);">Sri Lanka</option>
+                        <option style="background: var(--black);">China</option>
+                        <option style="background: var(--black);">Japan</option>
+                        <option style="background: var(--black);">Korea</option>
+                        <option style="background: var(--black);">Thailand</option>
+                        <option style="background: var(--black);">Vietnam</option>
+                        <option style="background: var(--black);">Philippines</option>
+                        <option style="background: var(--black);">Nigeria</option>
+                        <option style="background: var(--black);">Ethiopia</option>
+                        <option style="background: var(--black);">Kenya</option>
+                        <option style="background: var(--black);">South Africa</option>
+                        <option style="background: var(--black);">Ghana</option>
+                        <option style="background: var(--black);">United Kingdom</option>
+                        <option style="background: var(--black);">France</option>
+                        <option style="background: var(--black);">Germany</option>
+                        <option style="background: var(--black);">Italy</option>
+                        <option style="background: var(--black);">Spain</option>
+                        <option style="background: var(--black);">Russia</option>
+                        <option style="background: var(--black);">Poland</option>
+                        <option style="background: var(--black);">Mexico</option>
+                        <option style="background: var(--black);">Brazil</option>
+                        <option style="background: var(--black);">Argentina</option>
+                        <option style="background: var(--black);">Colombia</option>
+                        <option style="background: var(--black);">Peru</option>
+                        <option style="background: var(--black);">Saudi Arabia</option>
+                        <option style="background: var(--black);">UAE</option>
+                        <option style="background: var(--black);">Turkey</option>
+                        <option style="background: var(--black);">Iran</option>
+                        <option style="background: var(--black);">Egypt</option>
+                        <option style="background: var(--black);">Other</option>
+                    </select>
+
+                    <!-- Hair Type Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Hair Type</label>
+                    <select name="hairType" id="hairType" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Hair Type</option>
+                        <option style="background: var(--black);">Straight</option>
+                        <option style="background: var(--black);">Wavy</option>
+                        <option style="background: var(--black);">Curly</option>
+                        <option style="background: var(--black);">Coily</option>
+                        <option style="background: var(--black);">Kinky</option>
+                        <option style="background: var(--black);">Bald</option>
+                    </select>
+
+                    <!-- Hair Color Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Hair Color</label>
+                    <select name="hairColor" id="hairColor" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Hair Color</option>
+                        <option style="background: var(--black);">Black</option>
+                        <option style="background: var(--black);">Dark Brown</option>
+                        <option style="background: var(--black);">Light Brown</option>
+                        <option style="background: var(--black);">Blonde</option>
+                        <option style="background: var(--black);">Red</option>
+                        <option style="background: var(--black);">Auburn</option>
+                        <option style="background: var(--black);">Gray</option>
+                        <option style="background: var(--black);">White</option>
+                        <option style="background: var(--black);">Platinum Blonde</option>
+                        <option style="background: var(--black);">Other</option>
+                    </select>
+
+                    <!-- Skin Tone Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Skin Tone</label>
+                    <select name="skinTone" id="skinTone" style="width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif;" required disabled>
+                        <option style="background: var(--black);">Select Skin Tone</option>
+                        <option style="background: var(--black);">Very Fair</option>
+                        <option style="background: var(--black);">Fair</option>
+                        <option style="background: var(--black);">Light</option>
+                        <option style="background: var(--black);">Light Medium</option>
+                        <option style="background: var(--black);">Medium</option>
+                        <option style="background: var(--black);">Medium Tan</option>
+                        <option style="background: var(--black);">Tan</option>
+                        <option style="background: var(--black);">Deep Tan</option>
+                        <option style="background: var(--black);">Dark</option>
+                        <option style="background: var(--black);">Deep Dark</option>
+                    </select>
+
+                    <!-- Description Field -->
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 13px;">Additional Details</label>
+                    <textarea name="description" id="description" placeholder="Describe hair style, body type, special features..." style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif; min-height: 100px;" required disabled></textarea>
+                </div>
+
+                <!-- Model Wizard Navigation -->
+                <div id="modelWizardNav" style="display: none; margin-top: 20px; display: flex; gap: 10px; justify-content: space-between;">
+                    <button type="button" id="prevModelBtn" style="padding: 12px 24px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; transition: all 0.3s ease;">
+                        ← Previous
+                    </button>
+                    <button type="button" id="nextModelBtn" style="padding: 12px 24px; background: var(--gold); border: none; color: var(--black); border-radius: 4px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 600; transition: all 0.3s ease;">
+                        Next →
+                    </button>
+                </div>
+
+                <!-- Hidden inputs for Bitrix24 array format -->
+                <div id="hiddenModelInputs"></div>
+
+                <!-- Multi-Model Wizard Script (ISOLATED TO STEP 3 ONLY) -->
+                <script>
+                (function() {
+                    // Wizard state
+                    let wizardState = {
+                        totalModels: 1,
+                        currentModel: 1,
+                        modelData: {}
+                    };
+
+                    // Field IDs to track
+                    const fieldIds = ['age', 'gender', 'ethnicity', 'region', 'hairType', 'hairColor', 'skinTone', 'description'];
+
+                    // Initialize wizard when package changes
+                    function initializeModelWizard(modelCount) {
+                        wizardState.totalModels = modelCount;
+                        wizardState.currentModel = 1;
+                        wizardState.modelData = {};
+
+                        // Initialize data storage for each model
+                        for (let i = 1; i <= modelCount; i++) {
+                            wizardState.modelData[i] = {};
+                        }
+
+                        // Show/hide wizard UI based on model count
+                        const progressDiv = document.getElementById('modelWizardProgress');
+                        const navDiv = document.getElementById('modelWizardNav');
+
+                        if (modelCount > 1) {
+                            progressDiv.style.display = 'block';
+                            navDiv.style.display = 'flex';
+                            updateWizardUI();
+                        } else {
+                            progressDiv.style.display = 'none';
+                            navDiv.style.display = 'none';
+                        }
+                    }
+
+                    // Update wizard UI
+                    function updateWizardUI() {
+                        document.getElementById('currentModelNumber').textContent = wizardState.currentModel;
+                        document.getElementById('totalModelsNumber').textContent = wizardState.totalModels;
+
+                        // Update button states
+                        const prevBtn = document.getElementById('prevModelBtn');
+                        const nextBtn = document.getElementById('nextModelBtn');
+
+                        prevBtn.disabled = wizardState.currentModel === 1;
+                        prevBtn.style.opacity = wizardState.currentModel === 1 ? '0.5' : '1';
+                        prevBtn.style.cursor = wizardState.currentModel === 1 ? 'not-allowed' : 'pointer';
+
+                        const isLastModel = wizardState.currentModel === wizardState.totalModels;
+                        nextBtn.textContent = isLastModel ? 'Continue →' : 'Next →';
+                    }
+
+                    // Save current model data
+                    function saveCurrentModelData() {
+                        const currentData = {};
+                        fieldIds.forEach(fieldId => {
+                            const element = document.getElementById(fieldId);
+                            if (element) {
+                                currentData[fieldId] = element.value;
+                            }
+                        });
+                        wizardState.modelData[wizardState.currentModel] = currentData;
+                    }
+
+                    // Load model data into form
+                    function loadModelData(modelNumber) {
+                        const data = wizardState.modelData[modelNumber] || {};
+                        fieldIds.forEach(fieldId => {
+                            const element = document.getElementById(fieldId);
+                            if (element && data[fieldId] !== undefined) {
+                                element.value = data[fieldId];
+                            } else if (element) {
+                                // Reset to default
+                                if (element.tagName === 'SELECT') {
+                                    element.selectedIndex = 0;
+                                } else {
+                                    element.value = '';
+                                }
+                            }
+                        });
+                    }
+
+                    // Generate hidden inputs for Bitrix24 array format
+                    function generateHiddenInputs() {
+                        const container = document.getElementById('hiddenModelInputs');
+                        container.innerHTML = '';
+
+                        for (let modelNum = 1; modelNum <= wizardState.totalModels; modelNum++) {
+                            const modelData = wizardState.modelData[modelNum] || {};
+
+                            fieldIds.forEach(fieldId => {
+                                const value = modelData[fieldId] || '';
+                                const input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = `models[${modelNum}][${fieldId}]`;
+                                input.value = value;
+                                container.appendChild(input);
+                            });
+                        }
+                    }
+
+                    // Next button handler
+                    document.getElementById('nextModelBtn').addEventListener('click', function() {
+                        // Save current model data
+                        saveCurrentModelData();
+
+                        // If last model, generate hidden inputs and show continue section
+                        if (wizardState.currentModel === wizardState.totalModels) {
+                            generateHiddenInputs();
+
+                            // Enable Step 4 (addons section)
+                            const addonsSection = document.getElementById('addonsSection');
+                            if (addonsSection && window.currentPlan) {
+                                const isCustom = window.currentPlan.name === 'Légende';
+                                if (!isCustom) {
+                                    addonsSection.style.opacity = '1';
+                                    addonsSection.style.pointerEvents = 'auto';
+
+                                    // Enable addon checkboxes
+                                    document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
+                                        cb.disabled = false;
+                                    });
+                                }
+                            }
+
+                            // Enable total section
+                            const totalSection = document.getElementById('totalSection');
+                            if (totalSection) {
+                                totalSection.style.opacity = '1';
+                            }
+
+                            // Enable submit button
+                            const submitBtn = document.getElementById('submitBtn');
+                            if (submitBtn) {
+                                submitBtn.disabled = false;
+                                submitBtn.style.opacity = '1';
+                                submitBtn.style.cursor = 'pointer';
+                                submitBtn.textContent = 'Submit Order →';
+                            }
+
+                            return;
+                        }
+
+                        // Move to next model
+                        wizardState.currentModel++;
+                        loadModelData(wizardState.currentModel);
+                        updateWizardUI();
+
+                        // Scroll to top of form
+                        document.getElementById('modelFormContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+
+                    // Previous button handler
+                    document.getElementById('prevModelBtn').addEventListener('click', function() {
+                        if (wizardState.currentModel > 1) {
+                            // Save current model data
+                            saveCurrentModelData();
+
+                            // Move to previous model
+                            wizardState.currentModel--;
+                            loadModelData(wizardState.currentModel);
+                            updateWizardUI();
+
+                            // Scroll to top of form
+                            document.getElementById('modelFormContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+
+                    // Expose initialization function globally for handlePackageChange to call
+                    window.initializeModelWizard = initializeModelWizard;
+
+                    // Hook into form submission to ensure all data is saved
+                    const form = document.querySelector('form');
+                    if (form) {
+                        form.addEventListener('submit', function(e) {
+                            // Save current model data before submit
+                            saveCurrentModelData();
+                            // Generate final hidden inputs
+                            generateHiddenInputs();
+                        });
+                    }
+                })();
+                </script>
+            </div>
+
+            <div id="addonsSection" style="margin-bottom: 30px; opacity: 0.5; pointer-events: none; transition: all 0.3s ease;">
+                <label style="display: block; margin-bottom: 15px; color: var(--gold); font-weight: 700; font-size: 14px; text-transform: uppercase;">Step 4: Enhance Your Order (Optional)</label>
+                <div style="background: rgba(212, 175, 55, 0.05); padding: 20px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 4px; color: rgba(255, 255, 255, 0.8); font-size: 14px;">
+                    <label id="rushOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
+                        <input type="checkbox" name="rush" id="rush" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
+                        <span>Rush Delivery (12 hours) <strong style="color: var(--gold);">+₹2,000</strong></span>
                     </label>
-                    <label style="display: flex; align-items: center; cursor: pointer;">
-                        <input type="checkbox" name="rush" style="margin-right: 10px; cursor: pointer;"> Rush Delivery 12hrs (+₹2,000)
+                    <label id="extraImagesOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
+                        <input type="checkbox" name="extraImages" id="extraImages" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
+                        <span>Extra Images <strong style="color: var(--gold);">+₹1,000</strong></span>
+                    </label>
+                    <label id="ageProgressionOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
+                        <input type="checkbox" name="ageProgression" id="ageProgression" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
+                        <span>Age Progression <strong style="color: var(--gold);">+₹3,000</strong></span>
+                    </label>
+                    <label id="extraRevisionOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
+                        <input type="checkbox" name="extraRevision" id="extraRevision" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
+                        <span>Extra Revision Round <strong style="color: var(--gold);">+₹2,000</strong></span>
+                    </label>
+                    <label id="extraModelOption" style="display: flex; align-items: center; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
+                        <input type="checkbox" name="extraModel" id="extraModel" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
+                        <span>Add Extra Model <strong style="color: var(--gold);">+₹2,300</strong></span>
                     </label>
                 </div>
             </div>
 
-            <div style="background: rgba(212, 175, 55, 0.1); padding: 25px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; margin-bottom: 30px; text-align: center;">
+            <div id="customNotice" style="background: rgba(212, 175, 55, 0.15); padding: 20px; border: 2px solid var(--gold); border-radius: 8px; margin-bottom: 30px; display: none;">
+                <h4 style="color: var(--gold); margin-bottom: 10px; font-size: 16px;">📞 Custom Quote Required</h4>
+                <p style="color: rgba(255, 255, 255, 0.9); font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
+                    The <strong>Légende</strong> package is fully customizable for projects requiring 10+ models. Please describe your requirements below, and our team will contact you with a personalized quote within 24 hours.
+                </p>
+                <textarea name="customRequirements" id="customRequirements" placeholder="Describe your project: number of models needed, specific requirements, timeline..." style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: 'Montserrat', sans-serif; min-height: 120px;" disabled></textarea>
+            </div>
+
+            <div id="totalSection" style="background: rgba(212, 175, 55, 0.1); padding: 25px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; margin-bottom: 30px; text-align: center; opacity: 0.5; transition: all 0.3s ease;">
                 <h4 style="color: var(--gold); margin-bottom: 10px;">Order Total</h4>
-                <div style="font-size: 36px; color: var(--white); font-weight: 900; margin-bottom: 10px;" id="orderTotal">₹6,000</div>
-                <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">50% upfront • 50% on delivery</p>
+                <div style="font-size: 36px; color: var(--white); font-weight: 900; margin-bottom: 10px;" id="orderTotal">₹0</div>
+                <p id="paymentTerms" style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Select a package to see pricing</p>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 16px;">Generate My Model →</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; font-size: 16px; opacity: 0.5; cursor: not-allowed;" disabled>Select a Package to Continue →</button>
             <p style="text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">✓ Secure payment via Razorpay • ✓ 100% Satisfaction Guarantee • ✓ Delivery within promised time</p>
         </form>
+
+        <script>
+            // Pricing plan data matching the pricing section
+            const pricingPlans = {
+                prelude: {
+                    name: "Prélude",
+                    subtitle: "Perfect to Try",
+                    price: 3999,
+                    priceDisplay: "₹3,999",
+                    usdPrice: "~$45 USD",
+                    models: 1,
+                    angles: 3,
+                    delivery: "24–48 hour delivery",
+                    revisions: 1,
+                    features: [
+                        "✓ 1 model",
+                        "✓ 3 angles/poses",
+                        "✓ 24–48 hour delivery",
+                        "✓ 1 revision round",
+                        "✓ Commercial Rights"
+                    ]
+                },
+                elan: {
+                    name: "Élan",
+                    subtitle: "Perfect to Try",
+                    price: 10999,
+                    priceDisplay: "₹10,999",
+                    usdPrice: "~$123 USD",
+                    models: 3,
+                    angles: 15,
+                    delivery: "24–48 hour delivery",
+                    revisions: 1,
+                    features: [
+                        "✓ 3 models",
+                        "✓ 15 angles/poses (5 per model)",
+                        "✓ 24–48 hour delivery",
+                        "✓ 1 revision round",
+                        "✓ Commercial Rights"
+                    ]
+                },
+                signature: {
+                    name: "Signature",
+                    subtitle: "⭐ Best Value",
+                    price: 19999,
+                    priceDisplay: "₹19,999",
+                    usdPrice: "~$223 USD",
+                    models: 5,
+                    angles: 30,
+                    delivery: "12–24 hour delivery",
+                    revisions: 2,
+                    features: [
+                        "✓ 5 models",
+                        "✓ 30 angles/poses (6 per model)",
+                        "✓ 12–24 hour delivery",
+                        "✓ 2 revision rounds",
+                        "✓ Commercial Rights"
+                    ]
+                },
+                couture: {
+                    name: "Couture Ensemble",
+                    subtitle: "Premium Collection",
+                    price: 37999,
+                    priceDisplay: "₹37,999",
+                    usdPrice: "~$423 USD",
+                    models: 10,
+                    angles: 60,
+                    delivery: "24–36 hour delivery",
+                    revisions: 3,
+                    features: [
+                        "✓ 10 models",
+                        "✓ 60 angles/poses (6 per model)",
+                        "✓ 24–36 hour delivery",
+                        "✓ 3 revision rounds",
+                        "✓ Commercial Rights"
+                    ]
+                },
+                legende: {
+                    name: "Légende",
+                    subtitle: "Professional Grade",
+                    price: null,
+                    priceDisplay: "Custom",
+                    usdPrice: "Custom Quote",
+                    models: "10+",
+                    angles: "Custom",
+                    delivery: "Varies",
+                    revisions: 3,
+                    features: [
+                        "✓ Custom - For 10+ Models",
+                        "✓ Custom angles/poses",
+                        "✓ Delivery timeline varies",
+                        "✓ 3 revision rounds",
+                        "✓ Commercial license"
+                    ]
+                }
+            };
+
+            let currentPlan = null;
+
+            function handlePackageChange() {
+                const select = document.getElementById('packageSelection');
+                const selectedValue = select.value;
+
+                if (!selectedValue) {
+                    resetForm();
+                    return;
+                }
+
+                currentPlan = pricingPlans[selectedValue];
+
+                // Show plan summary
+                const summaryDiv = document.getElementById('planSummary');
+                summaryDiv.style.display = 'block';
+                document.getElementById('planName').textContent = currentPlan.name;
+                document.getElementById('planSubtitle').textContent = currentPlan.subtitle;
+                document.getElementById('planPrice').textContent = currentPlan.priceDisplay;
+
+                const featuresUl = document.getElementById('planFeatures');
+                featuresUl.innerHTML = '';
+                currentPlan.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    li.style.marginBottom = '5px';
+                    featuresUl.appendChild(li);
+                });
+
+                // Enable/disable sections based on plan
+                const isCustom = selectedValue === 'legende';
+
+                if (isCustom) {
+                    // For Légende (custom), show custom notice and minimal form
+                    enableSection('modelDescriptionSection', true);
+                    document.getElementById('modelCountLabel').textContent = '(Custom project)';
+                    document.getElementById('customNotice').style.display = 'block';
+                    document.getElementById('customRequirements').disabled = false;
+
+                    // Disable addons for custom
+                    disableSection('addonsSection');
+
+                    // Update total display
+                    document.getElementById('orderTotal').textContent = 'Custom Quote';
+                    document.getElementById('paymentTerms').textContent = 'Contact us for personalized pricing';
+                    document.getElementById('totalSection').style.opacity = '1';
+
+                    // Enable submit button
+                    const submitBtn = document.getElementById('submitBtn');
+                    submitBtn.textContent = 'Request Custom Quote →';
+                    submitBtn.style.opacity = '1';
+                    submitBtn.style.cursor = 'pointer';
+                    submitBtn.disabled = false;
+
+                } else {
+                    // Standard plans
+                    document.getElementById('customNotice').style.display = 'none';
+                    document.getElementById('customRequirements').disabled = true;
+
+                    enableSection('modelDescriptionSection', false);
+                    enableSection('addonsSection', false);
+                    enableSection('totalSection', false);
+
+                    // Update model count label
+                    const modelCount = currentPlan.models;
+                    document.getElementById('modelCountLabel').textContent = 
+                        `(Describe your ${modelCount === 1 ? 'model' : modelCount + ' models'})`;
+
+                    // Initialize multi-model wizard
+                    if (typeof window.initializeModelWizard === 'function') {
+                        window.initializeModelWizard(modelCount);
+                    }
+
+                    // Update total
+                    updateTotal();
+
+                    // Enable submit button (will be properly controlled by wizard for multi-model)
+                    const submitBtn = document.getElementById('submitBtn');
+                    if (modelCount === 1) {
+                        submitBtn.textContent = 'Generate My Model →';
+                        submitBtn.style.opacity = '1';
+                        submitBtn.style.cursor = 'pointer';
+                        submitBtn.disabled = false;
+                    } else {
+                        submitBtn.textContent = 'Complete All Models First';
+                        submitBtn.style.opacity = '0.5';
+                        submitBtn.style.cursor = 'not-allowed';
+                        submitBtn.disabled = true;
+                    }
+                }
+            }
+
+            function enableSection(sectionId, isCustom = false) {
+                const section = document.getElementById(sectionId);
+                section.style.opacity = '1';
+                section.style.pointerEvents = 'auto';
+
+                // Enable all inputs in the section
+                const inputs = section.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+            }
+
+            function disableSection(sectionId) {
+                const section = document.getElementById(sectionId);
+                section.style.opacity = '0.5';
+                section.style.pointerEvents = 'none';
+
+                // Disable all inputs in the section
+                const inputs = section.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    input.disabled = true;
+                    if (input.type === 'checkbox') {
+                        input.checked = false;
+                    }
+                });
+            }
+
+            function updateTotal() {
+                if (!currentPlan || !currentPlan.price) return;
+
+                let total = currentPlan.price;
+
+                // Add selected addons
+                if (document.getElementById('rush').checked) total += 2000;
+                if (document.getElementById('extraImages').checked) total += 1000;
+                if (document.getElementById('ageProgression').checked) total += 3000;
+                if (document.getElementById('extraRevision').checked) total += 2000;
+                if (document.getElementById('extraModel').checked) total += 2300;
+
+                // Update display
+                document.getElementById('orderTotal').textContent = '₹' + total.toLocaleString('en-IN');
+                document.getElementById('paymentTerms').textContent = '50% upfront • 50% on delivery';
+                document.getElementById('totalSection').style.opacity = '1';
+            }
+
+            function resetForm() {
+                currentPlan = null;
+
+                // Hide plan summary
+                document.getElementById('planSummary').style.display = 'none';
+
+                // Disable all sections
+                disableSection('modelDescriptionSection');
+                disableSection('addonsSection');
+
+                // Hide custom notice
+                document.getElementById('customNotice').style.display = 'none';
+
+                // Reset total
+                document.getElementById('orderTotal').textContent = '₹0';
+                document.getElementById('paymentTerms').textContent = 'Select a package to see pricing';
+                document.getElementById('totalSection').style.opacity = '0.5';
+
+                // Disable submit button
+                const submitBtn = document.getElementById('submitBtn');
+                submitBtn.textContent = 'Select a Package to Continue →';
+                submitBtn.style.opacity = '0.5';
+                submitBtn.style.cursor = 'not-allowed';
+                submitBtn.disabled = true;
+            }
+
+            // Add hover effects to addon options
+            document.querySelectorAll('#addonsSection label').forEach(label => {
+                label.addEventListener('mouseenter', function() {
+                    if (!this.querySelector('input').disabled) {
+                        this.style.background = 'rgba(212, 175, 55, 0.1)';
+                    }
+                });
+                label.addEventListener('mouseleave', function() {
+                    this.style.background = 'transparent';
+                });
+            });
+        </script>
     </section>
 
 <section class="feedback-section">
@@ -1872,6 +2490,10 @@
             if (radioButton) {
                 radioButton.checked = true;
             }
+            // Scroll to order form
+            setTimeout(function() {
+                document.getElementById('order').scrollIntoView({behavior: 'smooth'});
+            }, 100);
         }
 
         // Update Form Package Selection
@@ -1888,6 +2510,14 @@
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Check if package is selected
+            const packageInput = document.querySelector('input[name="formPackage"]:checked');
+            if (!packageInput) {
+                alert('Please select a package from the pricing section above before submitting.');
+                document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
+                return;
+            }
+
             // Gather form data
             const formData = {
                 firstName: document.querySelector('input[name="firstName"]').value,
@@ -1896,108 +2526,135 @@
                 age: document.querySelector('select[name="age"]').value,
                 gender: document.querySelector('select[name="gender"]').value,
                 ethnicity: document.querySelector('select[name="ethnicity"]').value,
+                region: document.querySelector('select[name="region"]').value,
+                hairType: document.querySelector('select[name="hairType"]').value,
+                hairColor: document.querySelector('select[name="hairColor"]').value,
+                skinTone: document.querySelector('select[name="skinTone"]').value,
                 description: document.querySelector('textarea[name="description"]').value,
-                package: document.querySelector('input[name="formPackage"]:checked').value,
+                package: packageInput.value,
                 commercial: document.querySelector('input[name="commercial"]').checked,
-                rush: document.querySelector('input[name="rush"]').checked,
-            };
+                rush: document.querySelector('input[name="rush"]').checked
+            }
 
             // Send to Bitrix24
             sendToBitrix24(formData);
         });
 
         function sendToBitrix24(data) {
-            // REPLACE WITH YOUR BITRIX24 WEBHOOK URL
-            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+            // For testing: Show success message
+            // In production, replace with actual Bitrix24 webhook URL
 
-            // Format message for Bitrix24
-            const message = `
-New Order from Maison Model X:
+            // Prepare the data for submission
+            const orderDetails = `
+🎯 NEW ORDER FROM MAISON MODEL X
 
+━━━━━━━━━━━━━━━━━━━━━
+👤 CUSTOMER DETAILS
+━━━━━━━━━━━━━━━━━━━━━
 Name: ${data.firstName}
 Email: ${data.email}
 Phone: ${data.phone}
 
-Model Specs:
-- Age: ${data.age}
-- Gender: ${data.gender}
-- Ethnicity: ${data.ethnicity}
-- Description: ${data.description}
+━━━━━━━━━━━━━━━━━━━━━
+📦 PACKAGE SELECTED
+━━━━━━━━━━━━━━━━━━━━━
+${data.package}
 
-Package: ${data.package.toUpperCase()}
-Commercial License: ${data.commercial ? 'Yes (+₹5,000)' : 'No'}
-Rush Delivery: ${data.rush ? 'Yes (+₹2,000)' : 'No'}
+━━━━━━━━━━━━━━━━━━━━━
+👥 MODEL SPECIFICATIONS
+━━━━━━━━━━━━━━━━━━━━━
+Age: ${data.age}
+Gender: ${data.gender}
+Ethnicity: ${data.ethnicity}
+Region: ${data.region || 'Not specified'}
+Hair Type: ${data.hairType || 'Not specified'}
+Hair Color: ${data.hairColor || 'Not specified'}
+Skin Tone: ${data.skinTone || 'Not specified'}
 
-Contact for immediate follow-up.
+Description: ${data.description}
+
+━━━━━━━━━━━━━━━━━━━━━
+🎁 ADD-ONS
+━━━━━━━━━━━━━━━━━━━━━
+Commercial Rights: ${data.commercial ? 'Yes' : 'No'}
+Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             `;
 
-            // Send via fetch
+            // OPTION 1: For production with actual Bitrix24 webhook
+            // Uncomment and add your webhook URL below
+            /*
+            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+
             fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    text: message,
-                    firstName: data.firstName,
-                    email: data.email,
-                    phone: data.phone,
-                    package: data.package,
+                    fields: {
+                        TITLE: `Order from ${data.firstName}`,
+                        NAME: data.firstName,
+                        EMAIL: [{VALUE: data.email, VALUE_TYPE: "WORK"}],
+                        PHONE: [{VALUE: data.phone, VALUE_TYPE: "WORK"}],
+                        COMMENTS: orderDetails
+                    }
                 })
             })
-            .then(response => {
-                alert('Thank you! Your order has been submitted. We will contact you within 24 hours to confirm.');
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+                alert('✅ Order submitted successfully! We will contact you within 24 hours.');
                 document.getElementById('orderForm').reset();
+                window.location.href = '#thank-you';
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Order submitted! We will contact you soon.');
+                alert('❌ There was an error submitting your order. Please try again or contact us directly.');
             });
+            */
+
+            // OPTION 2: For demo/testing - Show confirmation screen
+            // Remove this section when you have a real webhook configured
+            console.log('Order Data:', orderDetails);
+
+            // Show confirmation screen
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'flex';
+            }
+
+            // Reset form
+            document.getElementById('orderForm').reset();
+
+            // Optional: Redirect to thank you page or home
+            // window.location.href = 'thank-you.html';
         }
 
-        // Feedback Form submission
-        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                type: 'Feedback',
-                name: document.querySelector('#feedbackForm input[name="fb_name"]').value,
-                email: document.querySelector('#feedbackForm input[name="fb_email"]').value,
-                subject: document.querySelector('#feedbackForm input[name="fb_subject"]').value,
-                message: document.querySelector('#feedbackForm textarea[name="fb_message"]').value,
-            };
+        // Function to close confirmation screen
+        function closeConfirmation() {
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'none';
+            }
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }</script>
 
-            // Replace with your Bitrix24 webhook URL
-            const webhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
 
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-            .then(() => {
-                alert('Thank you for your feedback!');
-                document.getElementById('feedbackForm').reset();
-            })
-            .catch(() => {
-                alert('Feedback submitted! We appreciate your input.');
-            });
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+    <!-- Order Confirmation Screen -->
+    <div id="orderConfirmation" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); padding: 60px; border-radius: 12px; border: 2px solid var(--gold); max-width: 600px; text-align: center; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);">
+            <div style="font-size: 72px; margin-bottom: 20px;">✓</div>
+            <h2 style="color: var(--gold); font-size: 32px; margin-bottom: 20px; font-weight: 700;">Order Submitted Successfully</h2>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 18px; line-height: 1.6; margin-bottom: 30px;">
+                Thank you for your order! We've received your request and will contact you within 24 hours to confirm payment and delivery details.
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.6); font-size: 14px; margin-bottom: 30px;">
+                Check your email for order confirmation.
+            </p>
+            <button class="btn btn-primary" onclick="closeConfirmation()" style="padding: 15px 40px; font-size: 16px;">Close</button>
+        </div>
+    </div>
 
     <!-- Scroll-to-Top Button Component -->
     <button id="scrollToTopBtn" aria-label="Scroll to top" title="Back to top">
