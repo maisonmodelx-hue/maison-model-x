@@ -200,15 +200,46 @@
         }
 
         .footer {
-            background: rgba(31, 33, 33, 1);
-            color: white;
+            max-width: 1400px;
+            margin: var(--space-32) auto 0;
+            padding: var(--space-32) var(--space-24);
+            border-top: 1px solid var(--color-border);
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
+        }
+
+        .footer-content {
+            margin-bottom: var(--space-24);
+        }
+
+        .footer h3 {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+            margin-bottom: var(--space-12);
         }
 
         .footer p {
-            margin: 5px 0;
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            margin-bottom: var(--space-8);
+        }
+
+        .footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .footer a:hover {
+            color: var(--color-primary-hover);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: var(--color-text-secondary);
+            font-size: var(--font-size-xs);
+            margin-top: var(--space-16);
         }
 
         .scroll-to-top {
@@ -291,906 +322,1407 @@
                 padding: 8px;
             }
         }
+    
     </style>
 </head>
 
 <body>
+    <header>
+        <h1>PRIVACY POLICY</h1>
+        <p>Maison Model X</p>
+    </header>
 
-<header>
-    <h1>Privacy Policy</h1>
-    <p>Maison Model X</p>
-</header>
+    <div class="container">
+        <div class="effective-date">
+            <strong>Effective Date:</strong> November 25, 2025
+        </div>
 
-<div class="container">
-    <div class="effective-date">
-        <strong>Effective Date:</strong> November 20, 2025
-    </div>
-
-    <div class="toc">
-        <h2 style="margin-top: 0; border: none; color: rgb(35, 158, 174);">Table of Contents</h2>
-        <ul>
-            <li><a href="#introduction">1. Introduction</a></li>
-            <li><a href="#definitions">2. Definitions</a></li>
-            <li><a href="#information-collection">3. Information Collection and Use</a></li>
-            <li><a href="#how-we-use">4. How We Use Your Information</a></li>
-            <li><a href="#data-storage">5. Data Storage, Retention, and Deletion</a></li>
-            <li><a href="#third-party-providers">6. Third-Party Service Providers</a></li>
-            <li><a href="#data-security">7. Data Security and Privacy</a></li>
-            <li><a href="#your-rights">8. Your Rights Under Indian Data Protection Law</a></li>
-            <li><a href="#contact-communication">9. Contact and Communication Preferences</a></li>
-            <li><a href="#intellectual-property">10. Intellectual Property and Content Ownership</a></li>
-            <li><a href="#international-transfers">11. International Data Transfers</a></li>
-            <li><a href="#children-privacy">12. Children's Privacy</a></li>
-            <li><a href="#cookies">13. Cookies and Tracking Technologies</a></li>
-            <li><a href="#third-party-links">14. Third-Party Links and Content</a></li>
-            <li><a href="#warranties">15. Warranties, Disclaimers, and Limitations of Liability</a></li>
-            <li><a href="#service-availability">16. Service Availability and Modifications</a></li>
-            <li><a href="#dispute-resolution">17. Dispute Resolution and Governing Law</a></li>
-            <li><a href="#changes">18. Changes to This Privacy Policy</a></li>
-            <li><a href="#grievance">19. Complaint and Grievance Redressal</a></li>
-            <li><a href="#india-compliance">20. Specific Disclosures for India Compliance</a></li>
-            <li><a href="#amendments">21. Amendments and Updates</a></li>
-            <li><a href="#contact-us">22. Contact Us</a></li>
-            <li><a href="#acknowledgment">Acknowledgment</a></li>
-        </ul>
-    </div>
-
-    <section id="introduction">
-        <h2>1. INTRODUCTION</h2>
-        <p>Welcome to Maison Model X ("Company," "we," "us," "our," or "MMX"). This Privacy Policy governs your visit to https://www.maisonmodelx.com (the "Website") and related services, and explains how we collect, use, safeguard, and disclose information that results from your use of our Service.</p>
-        
-        <p><strong>Maison Model X</strong> is an AI-powered fashion and jewelry model photography service that generates high-quality, customized AI model images for brands, designers, and e-commerce businesses. We leverage generative artificial intelligence technology to deliver professional-grade digital models without the need for traditional photoshoots.</p>
-        
-        <p>By accessing, browsing, or using our Service, you acknowledge that you have read, understood, and agree to be bound by all the terms and conditions of this Privacy Policy.</p>
-    </section>
-
-    <section id="definitions">
-        <h2>2. DEFINITIONS</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Term</th>
-                    <th>Definition</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Personal Data</strong></td>
-                    <td>Any information relating to an identified or identifiable individual, including name, email address, billing address, and order details.</td>
-                </tr>
-                <tr>
-                    <td><strong>Client Content</strong></td>
-                    <td>Information, specifications, images, descriptions, and other content you provide when placing an order.</td>
-                </tr>
-                <tr>
-                    <td><strong>Generated Content</strong></td>
-                    <td>The AI-generated model images and photography we create based on your order specifications.</td>
-                </tr>
-                <tr>
-                    <td><strong>Service</strong></td>
-                    <td>Our website, order platform, and AI model generation services.</td>
-                </tr>
-                <tr>
-                    <td><strong>Third-Party Service Provider</strong></td>
-                    <td>External platforms and service providers we use to process orders, store data, and deliver services.</td>
-                </tr>
-                <tr>
-                    <td><strong>Processing</strong></td>
-                    <td>Any operation performed on Personal Data, such as collection, storage, use, transfer, or deletion.</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <section id="information-collection">
-        <h2>3. INFORMATION COLLECTION AND USE</h2>
-        
-        <h3>3.1 What Information We Collect</h3>
-        <p>We collect personal data <strong>only when you place an order</strong> through our order form on the Website. This includes:</p>
-        
-        <div class="section-box">
-            <h4>Information You Provide at Order:</h4>
+        <!-- TABLE OF CONTENTS -->
+        <div class="toc">
+            <h2>Table of Contents</h2>
             <ul>
-                <li>Full name</li>
-                <li>Email address</li>
-                <li>Billing address</li>
-                <li>Phone number (if provided)</li>
-                <li>Payment information (name, address, card details)</li>
-                <li>Order specifications and Client Content (model description, preferences, design details)</li>
+                <li><a href="#introduction">Introduction and Overview</a></li>
+                <li><a href="#legal-basis">Legal Basis and Regulatory Compliance</a></li>
+                <li><a href="#definitions">Key Definitions</a></li>
+                <li><a href="#data-collection">1. Data Collection and Personal Data We Collect</a></li>
+                <li><a href="#legal-basis-processing">2. Legal Basis for Data Processing</a></li>
+                <li><a href="#use-data">3. How We Use Your Personal Data</a></li>
+                <li><a href="#retention">4. Data Retention and Deletion</a></li>
+                <li><a href="#third-party">5. Third-Party Data Processing and Service Providers</a></li>
+                <li><a href="#security">6. Security Measures and Data Protection</a></li>
+                <li><a href="#payment">7. Payment Processing and Financial Data</a></li>
+                <li><a href="#breach">8. Data Breach Notification</a></li>
+                <li><a href="#rights">9. Your Data Protection Rights</a></li>
+                <li><a href="#response">10. Response to Data Subject Rights Requests</a></li>
+                <li><a href="#ip-rights">11. Intellectual Property Rights Regarding Your Data</a></li>
+                <li><a href="#international">12. International Data Transfers</a></li>
+                <li><a href="#children">13. Children's Data Protection</a></li>
+                <li><a href="#third-party-links">14. Third-Party Links and External Websites</a></li>
+                <li><a href="#cookies">15. Cookies and Tracking Technologies</a></li>
+                <li><a href="#email">16. Email Communications and Preferences</a></li>
+                <li><a href="#contact">17. Contact and Complaint Procedures</a></li>
+                <li><a href="#compliance">18. Compliance with Indian Laws</a></li>
+                <li><a href="#updates">19. Updates to This Privacy Policy</a></li>
+                <li><a href="#additional">20. Additional Privacy Protections</a></li>
+                <li><a href="#acknowledgment">21. Acknowledgment and Acceptance</a></li>
+                <li><a href="#final">22. Final Provisions</a></li>
             </ul>
         </div>
 
-        <div class="section-box">
-            <h4>Information We Do NOT Collect:</h4>
+        <!-- INTRODUCTION AND OVERVIEW -->
+        <section id="introduction">
+            <h2>INTRODUCTION AND OVERVIEW</h2>
+            <p>Welcome to Maison Model X ("Company," "we," "us," "our," or "MMX"). This Privacy Policy governs your visit to <strong>https://maisonmodelx.com/</strong> and related services (the "Website"), and explains how we collect, use, safeguard, and disclose information that results from your use of our Services.</p>
+
+            <p><strong>Maison Model X</strong> is an AI-powered fashion and jewelry model photography service that generates high-quality, customized AI model images and consistent face reference packs for brands, designers, photographers, and e-commerce businesses. We leverage generative artificial intelligence technology to deliver professional-grade digital models without the need for traditional photoshoots.</p>
+
+            <p><strong>By accessing, browsing, or using our Service, you acknowledge that you have read, understood, and agree to be bound by all terms and conditions of this Privacy Policy.</strong></p>
+        </section>
+
+        <!-- LEGAL BASIS -->
+        <section id="legal-basis">
+            <h2>LEGAL BASIS AND REGULATORY COMPLIANCE</h2>
+            <p>This Privacy Policy is prepared in compliance with:</p>
             <ul>
-                <li>We do not have user registration or account creation systems</li>
-                <li>We do not collect information through newsletter signups or contact forms</li>
-                <li>We do not have a mobile application or app-based data collection</li>
-                <li>We do not monitor browsing activity or tracking data</li>
+                <li><strong>Digital Personal Data Protection (DPDP) Act, 2023</strong> – India's primary data protection legislation</li>
+                <li><strong>Information Technology Act, 2000</strong> and related rules</li>
+                <li><strong>Consumer Protection Act, 2019</strong></li>
+                <li><strong>Indian Contract Act, 1872</strong></li>
+                <li><strong>International best practices</strong> for data protection and privacy</li>
             </ul>
-        </div>
+        </section>
 
-        <h3>3.2 Purpose and Legal Basis for Data Collection</h3>
-        <p>We collect and process your Personal Data for the following purposes and on the following legal bases:</p>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Purpose</th>
-                    <th>Legal Basis</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Order Processing and Fulfillment</strong></td>
-                    <td>Contractual necessity – to process your order and deliver your AI-generated models</td>
-                </tr>
-                <tr>
-                    <td><strong>Payment Processing</strong></td>
-                    <td>Contractual necessity – to complete payment transactions</td>
-                </tr>
-                <tr>
-                    <td><strong>Order Delivery</strong></td>
-                    <td>Contractual necessity – to send your completed models to your email</td>
-                </tr>
-                <tr>
-                    <td><strong>Customer Communication</strong></td>
-                    <td>Legitimate interest – to provide order updates and respond to inquiries via email</td>
-                </tr>
-                <tr>
-                    <td><strong>Legal Compliance</strong></td>
-                    <td>Legal obligation – to comply with Indian laws and regulations</td>
-                </tr>
-                <tr>
-                    <td><strong>Dispute Resolution</strong></td>
-                    <td>Legitimate interest – to address disputes and quality concerns</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- KEY DEFINITIONS -->
+        <section id="definitions">
+            <h2>KEY DEFINITIONS</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Term</th>
+                        <th>Definition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Personal Data</strong></td>
+                        <td>Any information relating to an identified or identifiable individual, including name, email address, billing address, phone number, and order details.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Client Content</strong></td>
+                        <td>Information, specifications, images, descriptions, reference materials, accessories, color palettes, and other content you provide when placing an order.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Generated Content</strong></td>
+                        <td>The AI-generated model images, reference packs, and photography we create based on your order specifications.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Service</strong></td>
+                        <td>Our website, order platform, AI model generation services, and Consistent Faces reference pack services.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Third-Party Service Provider</strong></td>
+                        <td>External platforms and service providers we use to process orders, store data, generate models, and deliver services.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Processing</strong></td>
+                        <td>Any operation performed on Personal Data, such as collection, storage, use, transfer, or deletion.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-        <div class="section-box">
-            <h4>We do NOT:</h4>
-            <ul>
-                <li>Provide technical support requiring data retention</li>
-                <li>Send marketing newsletters or promotional emails</li>
-                <li>Collect data for training our own AI models</li>
-                <li>Create personal AI models specific to individual users</li>
-            </ul>
-        </div>
-    </section>
 
-    <section id="how-we-use">
-        <h2>4. HOW WE USE YOUR INFORMATION</h2>
-        <p>Your Personal Data is used exclusively for the following purposes:</p>
-        
-        <ol>
-            <li><strong>Order Processing</strong> – To process your AI model generation request and fulfill your order</li>
-            <li><strong>Delivery</strong> – To send your completed AI-generated models to your email address</li>
-            <li><strong>Payment Coordination</strong> – To facilitate payment through secure third-party processors</li>
-            <li><strong>Communication</strong> – To communicate with you regarding your order status, refinements, or issues</li>
-            <li><strong>Legal Compliance</strong> – To comply with applicable Indian laws and regulations</li>
-            <li><strong>Dispute Resolution</strong> – To address complaints, refund requests, or quality concerns within the 7-day reporting period</li>
-        </ol>
+        <!-- SECTION 1: DATA COLLECTION -->
+        <section id="data-collection">
+            <h2>1. DATA COLLECTION AND PERSONAL DATA WE COLLECT</h2>
 
-        <div class="section-box">
-            <h4>Your Personal Data is <strong>not used for:</strong></h4>
-            <ul>
-                <li>Marketing or promotional purposes</li>
-                <li>AI model training or machine learning improvement</li>
-                <li>Automated decision-making or profiling</li>
-                <li>Sale to third parties</li>
-                <li>Any purpose beyond what is stated above</li>
-            </ul>
-        </div>
-    </section>
+            <h3>1.1 When We Collect Data</h3>
+            <p><strong>We collect personal data ONLY when you place an order</strong> through our order form on the Website. Browsing the Website without placing an order does not result in collection of personal data (except for standard technical data described below).</p>
 
-    <section id="data-storage">
-        <h2>5. DATA STORAGE, RETENTION, AND DELETION</h2>
-        
-        <h3>5.1 How Data Flows</h3>
-        <p>When you fill out our order form and submit your order:</p>
-        
-        <ol>
-            <li>Your Personal Data and order specifications are collected through our Website order form</li>
-            <li><strong>All data is transferred to third-party service providers</strong> who handle:
+            <h3>1.2 Personal Data Collected at Ordering</h3>
+            <p>When you submit an order, we collect:</p>
+
+            <div class="section-box">
+                <h4>Contact Information:</h4>
                 <ul>
-                    <li>Secure storage of your order and specifications</li>
-                    <li>Payment processing coordination</li>
-                    <li>Order management and fulfillment</li>
-                    <li>AI model generation</li>
-                    <li>File delivery coordination</li>
+                    <li>Full name or business name</li>
+                    <li>Email address</li>
+                    <li>Billing address (street, city, state/province, postal code, country)</li>
+                    <li>Phone number (if provided)</li>
                 </ul>
-            </li>
-            <li>We retrieve order details from third-party providers to coordinate model generation and delivery</li>
-            <li><strong>We do not store customer data locally</strong> – all data storage and management is handled by third-party service providers</li>
-        </ol>
+            </div>
 
-        <h3>5.2 Data Retention</h3>
-        <p>Personal Data is retained for the following periods:</p>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Data Type</th>
-                    <th>Retention Period</th>
-                    <th>Reason</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Order Information</strong></td>
-                    <td>7 days after delivery + 2 years</td>
-                    <td>To address refund requests (7-day window) and comply with legal/tax requirements</td>
-                </tr>
-                <tr>
-                    <td><strong>Payment Records</strong></td>
-                    <td>As required by law (typically 7 years)</td>
-                    <td>Legal and tax compliance under Indian regulations</td>
-                </tr>
-                <tr>
-                    <td><strong>Support Communications</strong></td>
-                    <td>Until dispute is resolved</td>
-                    <td>To document order issues and refinement requests</td>
-                </tr>
-                <tr>
-                    <td><strong>Delivery Records</strong></td>
-                    <td>2 years</td>
-                    <td>To verify delivery dates and support future disputes</td>
-                </tr>
-            </tbody>
-        </table>
+            <div class="section-box">
+                <h4>Payment Information:</h4>
+                <ul>
+                    <li>Card type (Visa, Mastercard, American Express, etc.)</li>
+                    <li>Last four digits of payment card</li>
+                    <li>Billing address (may differ from shipping address)</li>
+                    <li>Payment processor reference number</li>
+                </ul>
+            </div>
 
-        <p>After these retention periods, your Personal Data is deleted unless:</p>
-        <ul>
-            <li>Legal obligations require longer retention</li>
-            <li>An active dispute or refund claim exists</li>
-            <li>You have requested data retention</li>
-        </ul>
+            <div class="section-box">
+                <h4>Order and Specification Information:</h4>
+                <ul>
+                    <li>Order number and date</li>
+                    <li>Model specifications (age, ethnicity, body type, clothing, styling preferences)</li>
+                    <li>Accessories and customization details</li>
+                    <li>Color palettes and reference materials</li>
+                    <li>Number of angles/variations requested (for Consistent Faces)</li>
+                    <li>Delivery preferences (standard or rush)</li>
+                    <li>Special requests or customization notes</li>
+                </ul>
+            </div>
 
-        <h3>5.3 Your Right to Deletion</h3>
-        <p>You have the right to request deletion of your Personal Data at any time, subject to:</p>
-        <ul>
-            <li>Retention requirements under Indian law (tax, legal compliance)</li>
-            <li>Active disputes or refund claims within the 7-day reporting period</li>
-        </ul>
-        <p>To request deletion, contact us at <a href="mailto:maisonmodelx@gmail.com" style="color: rgba(33, 128, 141, 1);">maisonmodelx@gmail.com</a> with your order number.</p>
+            <div class="section-box">
+                <h4>Client Content:</h4>
+                <ul>
+                    <li>Any reference images you provide</li>
+                    <li>Design descriptions and creative direction</li>
+                    <li>Brand guidelines or style inspiration you submit</li>
+                    <li>Accessory images or product specifications</li>
+                </ul>
+            </div>
 
-        <h3>5.4 No Automatic Account Deletion</h3>
-        <p>Since we do not create user accounts, there are no account settings or profiles to delete. Deletion requests apply only to Personal Data associated with your specific order.</p>
-    </section>
+            <div class="section-box">
+                <h4>Service Tier Information:</h4>
+                <ul>
+                    <li>Service selected (General AI Model Generation or Consistent Faces)</li>
+                    <li>Pricing tier and payment amount</li>
+                    <li>Revision preferences and customization level</li>
+                    <li>Rush delivery request (if applicable)</li>
+                </ul>
+            </div>
 
-    <section id="third-party-providers">
-        <h2>6. THIRD-PARTY SERVICE PROVIDERS</h2>
-        
-        <h3>6.1 Reliance on Third Parties</h3>
-        <p><strong>All customer orders, data processing, and file delivery are managed through third-party service providers.</strong> We do not independently store, process, or manage customer data. Instead, we work with third-party providers to:</p>
-        
-        <ul>
-            <li>Accept and store your order information securely</li>
-            <li>Process payments</li>
-            <li>Manage order fulfillment and tracking</li>
-            <li>Store and deliver your AI-generated files</li>
-            <li>Handle customer communications and support requests</li>
-        </ul>
+            <div class="section-box">
+                <h4>Communication Data:</h4>
+                <ul>
+                    <li>Your email communications with us</li>
+                    <li>Refinement requests and support inquiries</li>
+                    <li>Feedback, complaints, or quality concerns</li>
+                </ul>
+            </div>
 
-        <h3>6.2 Data Transfer to Third Parties</h3>
-        <p>When you submit an order through our Website:</p>
-        
-        <ol>
-            <li>Your Personal Data and order specifications are transferred to third-party service providers</li>
-            <li>These providers handle all subsequent data processing, storage, and management</li>
-            <li><strong>You consent to this data transfer by submitting your order</strong></li>
-        </ol>
+            <div class="section-box">
+                <h4>Technical Data (automatically collected):</h4>
+                <ul>
+                    <li>IP address and device identifier</li>
+                    <li>Browser type and version</li>
+                    <li>Operating system</li>
+                    <li>Pages visited and features used</li>
+                    <li>Time and duration of visit</li>
+                    <li>Referring website</li>
+                </ul>
+            </div>
 
-        <h3>6.3 Third-Party Security Standards</h3>
-        <p>We select third-party service providers based on their implementation of:</p>
-        
-        <ul>
-            <li><strong>Encryption</strong> – All data in transit and at rest is encrypted using industry-standard protocols</li>
-            <li><strong>Access Controls</strong> – Strict user access controls and authentication mechanisms</li>
-            <li><strong>Security Monitoring</strong> – Continuous monitoring for unauthorized access or breaches</li>
-            <li><strong>Secure Backups</strong> – Regular encrypted backups to prevent data loss</li>
-            <li><strong>Compliance Standards</strong> – Adherence to international data protection standards including GDPR-equivalent protections</li>
-        </ul>
+            <h3>1.3 Client Content – Special Privacy Considerations</h3>
+            <div class="section-box">
+                <p><strong>Important:</strong> Client Content (reference images, design details, brand specifications you provide) is sensitive and is handled with heightened security:</p>
+                <ul>
+                    <li>Reference images are used solely to generate your custom models</li>
+                    <li>Design specifications are not retained longer than necessary to fulfill your order</li>
+                    <li>Client Content is never used to train AI models, improve our algorithms, or for any secondary purpose</li>
+                    <li>Accessory images and color palettes are deleted after order fulfillment and the 7-day revision window</li>
+                    <li>You retain full ownership of all Client Content</li>
+                </ul>
+            </div>
+        </section>
 
-        <h3>6.4 Specific Third-Party Relationships</h3>
-        <p>We work with third-party providers for:</p>
-        <ul>
-            <li><strong>CRM and Business Management</strong> – Order processing, communication, and customer data management</li>
-            <li><strong>AI Model Generation</strong> – Custom AI model creation based on your specifications</li>
-            <li><strong>Payment Processing</strong> – Secure payment gateway providers for transaction handling</li>
-            <li><strong>Cloud Storage</strong> – Secure file storage and delivery of generated models</li>
-        </ul>
+        <!-- SECTION 2: LEGAL BASIS FOR PROCESSING -->
+        <section id="legal-basis-processing">
+            <h2>2. LEGAL BASIS FOR DATA PROCESSING</h2>
+            <p>We process your Personal Data based on the following legal grounds:</p>
 
-        <p><strong>We do not disclose specific third-party company names</strong> to protect business operations and maintain service flexibility. All providers are contractually bound to maintain data security and comply with Indian data protection laws.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Purpose</th>
+                        <th>Legal Basis</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Order Processing & Fulfillment</strong></td>
+                        <td>Contractual necessity – to process your order and deliver AI models</td>
+                        <td>Duration of order fulfillment + 7 days</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Processing</strong></td>
+                        <td>Contractual necessity – to complete payment transactions</td>
+                        <td>Until payment confirmed</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Model Generation</strong></td>
+                        <td>Contractual necessity – to generate your custom models</td>
+                        <td>Duration of generation process</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Delivery</strong></td>
+                        <td>Contractual necessity – to send completed models to your email</td>
+                        <td>At time of delivery</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Customer Communication</strong></td>
+                        <td>Legitimate interest – to provide order updates, respond to inquiries</td>
+                        <td>During 7-day revision window + 30 days for support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Refinement Support</strong></td>
+                        <td>Contractual necessity – to process revision requests and deliver refinements</td>
+                        <td>Until order completion and 7-day window expires</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Legal Compliance</strong></td>
+                        <td>Legal obligation – to comply with Indian laws and regulations</td>
+                        <td>As required by law (typically 7 years for records)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dispute Resolution</strong></td>
+                        <td>Legitimate interest – to address disputes and quality concerns</td>
+                        <td>Until dispute resolved + 2 years for records</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fraud Prevention</strong></td>
+                        <td>Legitimate interest – to prevent fraudulent transactions</td>
+                        <td>2 years after transaction</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-        <h3>6.5 Your Acknowledgment</h3>
-        <p>By using our Service, you acknowledge and consent to:</p>
-        <ul>
-            <li>Your Personal Data being transferred to third-party service providers</li>
-            <li>Third-party processing and storage of your order and specifications</li>
-            <li>Third-party handling of payment processing and file delivery</li>
-            <li>Use of third-party platforms for service delivery</li>
-        </ul>
-    </section>
+        <!-- SECTION 3: HOW WE USE YOUR DATA -->
+        <section id="use-data">
+            <h2>3. HOW WE USE YOUR PERSONAL DATA</h2>
 
-    <section id="data-security">
-        <h2>7. DATA SECURITY AND PRIVACY</h2>
-        
-        <h3>7.1 Security Measures</h3>
-        <p>While we rely on third-party service providers' security infrastructure, we implement the following protections:</p>
-        
-        <ul>
-            <li><strong>Secure Data Transfer</strong> – All data transfers to third parties use encrypted connections (HTTPS/TLS)</li>
-            <li><strong>Limited Access</strong> – We restrict access to customer data to authorized personnel only</li>
-            <li><strong>Contractual Obligations</strong> – All third-party providers are contractually required to maintain security and confidentiality</li>
-            <li><strong>No Sensitive Data Storage Locally</strong> – We do not store full payment card numbers or sensitive financial information on our systems</li>
-            <li><strong>Regular Reviews</strong> – We periodically review third-party security practices</li>
-        </ul>
+            <h3>3.1 Primary Uses</h3>
+            <p>Your Personal Data is used exclusively for:</p>
 
-        <h3>7.2 Payment Security</h3>
-        <p><strong>Payment processing is handled exclusively by third-party payment processors.</strong> We do not store full credit card numbers. All payment information is encrypted and processed through secure, PCI-DSS compliant payment gateways.</p>
+            <div class="section-box">
+                <h4>Order Fulfillment:</h4>
+                <ul>
+                    <li>Processing your order and payment</li>
+                    <li>Generating your custom AI models based on your specifications</li>
+                    <li>Delivering digital files to your email</li>
+                    <li>Tracking order status and providing updates</li>
+                    <li>Managing refinements and revisions during the 7-day window</li>
+                </ul>
+            </div>
 
-        <h3>7.3 Data Breach Notification</h3>
-        <p>In the event of a personal data breach affecting our customers:</p>
-        
-        <ol>
-            <li>We will investigate the breach and determine the scope of exposed data</li>
-            <li><strong>We will notify affected users promptly</strong> by email at the address associated with your order</li>
-            <li>We will notify the Data Protection Board of India within <strong>72 hours</strong> as required by law</li>
-            <li>We will provide information about the breach, affected data, and recommended protective measures</li>
-            <li>We will cooperate with regulatory authorities as required</li>
-        </ol>
-    </section>
+            <div class="section-box">
+                <h4>Communication:</h4>
+                <ul>
+                    <li>Sending order confirmations and delivery notifications</li>
+                    <li>Providing updates on order status</li>
+                    <li>Responding to your inquiries and support requests</li>
+                    <li>Notifying you of refinement completion</li>
+                    <li>Communicating refund determinations</li>
+                </ul>
+            </div>
 
-    <section id="your-rights">
-        <h2>8. YOUR RIGHTS UNDER INDIAN DATA PROTECTION LAW</h2>
-        <p>Under India's <strong>Digital Personal Data Protection (DPDP) Act, 2023</strong> and related laws, you have the following rights regarding your Personal Data:</p>
+            <div class="section-box">
+                <h4>Service Improvement:</h4>
+                <ul>
+                    <li>Understanding how you use our Services</li>
+                    <li>Identifying and resolving technical issues</li>
+                    <li>Enhancing user experience and website performance</li>
+                    <li>Collecting feedback on service quality</li>
+                </ul>
+            </div>
 
-        <h3>8.1 Right to Access</h3>
-        <p>You have the right to request and receive:</p>
-        <ul>
-            <li>Confirmation of whether we hold your Personal Data</li>
-            <li>A copy of your Personal Data in a portable format</li>
-            <li>Information about how your data is processed</li>
-        </ul>
-        <p><strong>To exercise this right:</strong> Contact us at maisonmodelx@gmail.com with your order number. We will provide your requested information within 30 days.</p>
+            <div class="section-box">
+                <h4>Legal Compliance:</h4>
+                <ul>
+                    <li>Complying with applicable laws and regulations</li>
+                    <li>Responding to legal requests and court orders</li>
+                    <li>Maintaining records for tax and accounting purposes</li>
+                    <li>Documenting order history for dispute resolution</li>
+                </ul>
+            </div>
 
-        <h3>8.2 Right to Correction</h3>
-        <p>You have the right to request correction of inaccurate or incomplete Personal Data.</p>
-        <p><strong>To exercise this right:</strong> Contact us at maisonmodelx@gmail.com and specify which information is inaccurate. We will correct your data within 30 days.</p>
+            <h3>3.2 Purposes We DO NOT Use Your Data For</h3>
+            <div class="section-box">
+                <p><strong>We explicitly DO NOT use your Personal Data for:</strong></p>
+                <ul>
+                    <li>Training or improving our AI models</li>
+                    <li>Building customer profiles for analytics or behavioral tracking</li>
+                    <li>Marketing or promotional purposes (unless you separately opt-in)</li>
+                    <li>Selling to third parties</li>
+                    <li>Creating a customer database or mailing list</li>
+                    <li>Profiling or creating consumer insights</li>
+                    <li>Secondary commercial purposes</li>
+                    <li>Any purpose outside order fulfillment and legal compliance</li>
+                </ul>
+            </div>
+        </section>
 
-        <h3>8.3 Right to Erasure</h3>
-        <p>You have the right to request deletion of your Personal Data, subject to:</p>
-        <ul>
-            <li>Ongoing legal retention requirements</li>
-            <li>Active disputes or refund claims within the 7-day reporting period</li>
-            <li>Legal compliance obligations</li>
-        </ul>
-        <p><strong>To exercise this right:</strong> Contact us at maisonmodelx@gmail.com with your order number and reason for deletion. We will delete your data within 30 days unless legal reasons require retention.</p>
+        <!-- SECTION 4: DATA RETENTION -->
+        <section id="retention">
+            <h2>4. DATA RETENTION AND DELETION</h2>
 
-        <h3>8.4 Right to Withdraw Consent</h3>
-        <p>For any processing based on your consent, you have the right to withdraw that consent at any time.</p>
-        <p><strong>To exercise this right:</strong> Contact us at maisonmodelx@gmail.com. Withdrawal will not affect lawfulness of processing before withdrawal.</p>
+            <h3>4.1 Retention Periods by Data Type</h3>
+            <p>We retain Personal Data for specific periods based on the type of data and applicable legal requirements:</p>
 
-        <h3>8.5 Right to Nominate a Representative</h3>
-        <p>You have the right to nominate a representative (individual or organization) to exercise your data protection rights on your behalf.</p>
-        <p><strong>To nominate a representative:</strong> Contact us at maisonmodelx@gmail.com with written authorization from your representative.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Retention Period</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Order Information</strong></td>
+                        <td>7 days after delivery + 2 years</td>
+                        <td>Address refund requests (7-day window) + legal/tax compliance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Records</strong></td>
+                        <td>As required by law (typically 7 years)</td>
+                        <td>Compliance with Indian tax and financial regulations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support Communications</strong></td>
+                        <td>Until dispute is resolved + 2 years</td>
+                        <td>Document order issues, refinement requests, and disputes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Delivery Records</strong></td>
+                        <td>2 years</td>
+                        <td>Verify delivery dates and support future disputes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Client Content (reference images)</strong></td>
+                        <td>Until order completion + 7 days</td>
+                        <td>Generate models and process refinements; deleted after revision window</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Temporary Processing Files</strong></td>
+                        <td>Until order completion</td>
+                        <td>AI generation and optimization; deleted upon delivery</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Technical/Access Logs</strong></td>
+                        <td>30–90 days</td>
+                        <td>System security and performance monitoring</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Communication Records</strong></td>
+                        <td>Until resolution + 2 years</td>
+                        <td>Support and dispute documentation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Payment Processor Records</strong></td>
+                        <td>7 years (held by processor)</td>
+                        <td>Legal compliance; retained by payment processors, not by us</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <h3>8.6 Timeframe for Responding to Requests</h3>
-        <p>We will respond to your data access requests within <strong>30 days</strong>. If responding requires additional time due to complexity, we will notify you and provide a revised timeline (not exceeding 60 days total).</p>
-    </section>
-
-    <section id="intellectual-property">
-        <h2>10. INTELLECTUAL PROPERTY AND CONTENT OWNERSHIP</h2>
-        
-        <h3>10.1 Client Content Ownership</h3>
-        <p><strong>You retain full ownership</strong> of all Client Content (specifications, descriptions, reference images, design details) that you provide to us when placing an order.</p>
-        
-        <p>By submitting Client Content, you grant us a <strong>limited, non-exclusive license</strong> to use your Client Content solely for:</p>
-        <ul>
-            <li>Creating your ordered AI-generated models</li>
-            <li>Fulfilling your specific order</li>
-            <li>Communicating with you about your order</li>
-        </ul>
-        <p>This license terminates once your order is completed and delivered.</p>
-
-        <h3>10.2 Generated Content Ownership</h3>
-        <p><strong>Upon full payment of your order, you receive exclusive commercial rights</strong> to use the Generated Content (AI-generated model images) we create for you.</p>
-        
-        <p>Specifically, you receive:</p>
-        <ul>
-            <li><strong>Exclusive commercial usage rights</strong> – Use Generated Content for advertising, e-commerce, social media, marketing, and any lawful commercial purpose</li>
-            <li><strong>No royalty obligations</strong> – No ongoing fees or royalties owed to MMX for using Generated Content</li>
-            <li><strong>Transferable rights</strong> – You may sublicense or transfer these rights to clients, partners, or third parties</li>
-        </ul>
-
-        <p><strong>MMX retains no ownership rights</strong> to Generated Content after delivery and full payment. We do not use your Generated Content for:</p>
-        <ul>
-            <li>Marketing or promotional purposes (unless you provide explicit written permission)</li>
-            <li>AI training or model improvement</li>
-            <li>Sale or licensing to other parties</li>
-            <li>Any purpose beyond order fulfillment</li>
-        </ul>
-
-        <h3>10.3 Portfolio and Marketing Use</h3>
-        <p>If you wish to allow MMX to showcase your Generated Content in our portfolio, marketing materials, or social media:</p>
-        
-        <ul>
-            <li>We will request your <strong>explicit written permission</strong> via email</li>
-            <li>You may grant or deny permission at your sole discretion</li>
-            <li>Permission may be revoked at any time by emailing maisonmodelx@gmail.com</li>
-            <li>Denial or revocation will not affect your service or pricing</li>
-        </ul>
-
-        <h3>10.4 Restrictions on Generated Content Use</h3>
-        <p>While you receive exclusive commercial rights to Generated Content, you agree not to use Generated Content for:</p>
-        
-        <ul>
-            <li><strong>Illegal purposes</strong> – Any activity that violates Indian laws or international laws</li>
-            <li><strong>Deepfakes or non-consensual content</strong> – Creating fake images of real individuals without their consent, especially intimate or defamatory content</li>
-            <li><strong>Harmful misinformation</strong> – Spreading false information intended to harm individuals, organizations, or public safety</li>
-            <li><strong>Harassment or abuse</strong> – Targeting, bullying, or harassing individuals or groups</li>
-            <li><strong>Trademark or copyright infringement</strong> – Using Generated Content in ways that infringe on others' intellectual property rights</li>
-            <li><strong>Hate speech or discrimination</strong> – Promoting violence, hatred, or discrimination based on race, ethnicity, religion, gender, sexual orientation, or disability</li>
-        </ul>
-
-        <p><strong>Violation of these restrictions</strong> may result in:</p>
-        <ul>
-            <li>Immediate termination of service access</li>
-            <li>Legal action to enforce compliance</li>
-            <li>Cooperation with law enforcement authorities</li>
-        </ul>
-
-        <h3>10.5 Reporting Misuse</h3>
-        <p>If you become aware of Generated Content being used for prohibited purposes, report it immediately to maisonmodelx@gmail.com. We will investigate and take appropriate action, which may include:</p>
-        
-        <ul>
-            <li>Contacting the violating party to cease misuse</li>
-            <li>Reporting to relevant authorities if illegal activity is suspected</li>
-            <li>Providing information to law enforcement as legally required</li>
-        </ul>
-    </section>
-
-    <section id="contact-communication">
-        <h2>9. CONTACT AND COMMUNICATION PREFERENCES</h2>
-        
-        <h3>9.1 How We Communicate With You</h3>
-        <p>We communicate with you exclusively via <strong>email</strong> to the address provided in your order. We send communications for:</p>
-        
-        <ul>
-            <li>Order confirmation and status updates</li>
-            <li>Delivery notifications</li>
-            <li>Refinement requests or clarifications</li>
-            <li>Refund decisions and updates</li>
-        </ul>
-
-        <h3>9.2 Communication Frequency</h3>
-        <p>We only send emails related to:</p>
-        <ul>
-            <li>Your specific order</li>
-            <li>Your request for refinements or modifications</li>
-            <li>Response to your inquiries</li>
-        </ul>
-
-        <div class="section-box">
-            <h4>We do NOT send:</h4>
+            <h3>4.2 Automatic Deletion</h3>
+            <p>After retention periods expire, Personal Data is <strong>automatically deleted</strong> from our systems and third-party service providers' systems, unless:</p>
             <ul>
-                <li>Marketing emails or newsletters</li>
-                <li>Promotional content or offers</li>
-                <li>SMS messages or push notifications</li>
-                <li>Unsolicited bulk communications</li>
-            </ul>
-        </div>
-
-        <h3>9.3 Communication Channels</h3>
-        <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com" style="color: rgba(33, 128, 141, 1);">maisonmodelx@gmail.com</a></p>
-        <p>This is our sole contact channel. There are no alternative contact forms, phone lines, or chat support systems.</p>
-
-        <h3>9.4 Email Preferences</h3>
-        <p>Since we only send order-specific communications, there are no email preferences to modify. All communications are necessary for order fulfillment and cannot be opted out of.</p>
-        <p>If you do not wish to receive order-related communications, you may opt out of using our Service entirely.</p>
-    </section>
-
-    <section id="international-transfers">
-        <h2>11. INTERNATIONAL DATA TRANSFERS</h2>
-        
-        <h3>10.1 Data Location</h3>
-        <p>The Service is hosted and operated in <strong>India</strong>. All data processing, storage, and management occur on servers located in India or through Indian-based third-party providers.</p>
-
-        <h3>10.2 Cross-Border Transfers</h3>
-        <p>If you access the Service from outside India, your Personal Data will be transferred to India for processing and storage. By using our Service, you consent to:</p>
-        
-        <ul>
-            <li>Transfer of your Personal Data to India</li>
-            <li>Processing of your data in accordance with Indian laws</li>
-            <li>Storage of your data on Indian-based systems or Indian-based third-party providers</li>
-        </ul>
-
-        <h3>10.3 International Users</h3>
-        <p>Users from other countries (EU, US, etc.) acknowledge that:</p>
-        <ul>
-            <li>Indian data protection laws may differ from your local laws</li>
-            <li>Your data will be processed under Indian legal standards</li>
-            <li>You consent to this transfer and processing by using the Service</li>
-        </ul>
-    </section>
-
-    <section id="children-privacy">
-        <h2>12. CHILDREN'S PRIVACY</h2>
-        <p>We do not knowingly collect Personal Data from children under 13 years of age.</p>
-
-        <h3>11.1 Age Requirements</h3>
-        <ul>
-            <li>Our Service is intended for users 13 years and older</li>
-            <li>If you are under 18, you must have parental or guardian permission to use our Service</li>
-            <li>Parents or guardians are responsible for supervising children's use</li>
-        </ul>
-
-        <h3>11.2 Collection of Children's Data</h3>
-        <p>If we become aware that we have collected Personal Data from a child under 13 without verifiable parental consent, we will delete such data immediately.</p>
-        <p><strong>To report:</strong> If you believe we have collected data from a child under 13, contact us at maisonmodelx@gmail.com immediately.</p>
-    </section>
-
-    <section id="cookies">
-        <h2>13. COOKIES AND TRACKING TECHNOLOGIES</h2>
-        
-        <h3>12.1 Limited Use of Cookies</h3>
-        <p>Our Website may use basic session cookies necessary for:</p>
-        <ul>
-            <li>Website functionality and navigation</li>
-            <li>Session management during order placement</li>
-            <li>Basic website performance tracking</li>
-        </ul>
-
-        <div class="section-box">
-            <h4>We do not use:</h4>
-            <ul>
-                <li>Tracking cookies for user profiling</li>
-                <li>Persistent cookies for behavioral tracking</li>
-                <li>Third-party cookies for analytics or advertising</li>
-                <li>Pixels or tracking tags for user surveillance</li>
-            </ul>
-        </div>
-
-        <h3>12.2 Your Cookie Preferences</h3>
-        <p>Most browsers allow you to refuse cookies or alert you when cookies are being sent. If you disable cookies, you may be unable to complete the order process on our Website.</p>
-    </section>
-
-    <section id="third-party-links">
-        <h2>14. THIRD-PARTY LINKS AND CONTENT</h2>
-        <p>Our Website may contain links to third-party websites and services. <strong>We are not responsible for:</strong></p>
-        
-        <ul>
-            <li>Privacy practices of third-party websites</li>
-            <li>Accuracy or content of third-party services</li>
-            <li>Data collection by third parties</li>
-            <li>Your interactions with third-party platforms</li>
-        </ul>
-
-        <p>When you click links to third-party websites, this Privacy Policy no longer applies. We recommend reviewing the privacy policies of any third-party services before providing your information.</p>
-
-        <div class="section-box">
-            <h4>We are not liable for:</h4>
-            <ul>
-                <li>Data breaches at third-party websites</li>
-                <li>Misuse of your information by third parties</li>
-                <li>Loss or damage resulting from third-party data handling</li>
-            </ul>
-        </div>
-    </section>
-
-    <section id="warranties">
-        <h2>15. WARRANTIES, DISCLAIMERS, AND LIMITATIONS OF LIABILITY</h2>
-        
-        <h3>15.1 Service Provided "AS-IS"</h3>
-        <p>THE SERVICE IS PROVIDED ON AN "AS-IS" AND "AS-AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:</p>
-        
-        <ul>
-            <li><strong>Warranties of merchantability</strong> – No guarantee that the Service is suitable for commercial purposes</li>
-            <li><strong>Warranties of fitness for a particular purpose</strong> – No guarantee that Generated Content will meet your specific requirements</li>
-            <li><strong>Warranties of accuracy</strong> – No guarantee that Generated Content will be error-free or match your exact specifications</li>
-            <li><strong>Warranties of non-infringement</strong> – No guarantee that Generated Content will not infringe third-party rights</li>
-        </ul>
-
-        <h3>15.2 No Guarantee of Results</h3>
-        <p>We do not guarantee that:</p>
-        <ul>
-            <li>Generated Content will achieve specific business results or sales</li>
-            <li>Generated Content will be accepted by advertising platforms, social media, or e-commerce sites</li>
-            <li>The Service will be uninterrupted, timely, secure, or error-free</li>
-            <li>Any defects or errors will be corrected within a specific timeframe</li>
-        </ul>
-
-        <h3>15.3 Limitation of Liability</h3>
-        <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY INDIAN LAW:</strong></p>
-        
-        <p><strong>MMX's total aggregate liability</strong> arising out of or related to your use of the Service, whether in contract, tort, or otherwise, <strong>shall not exceed the amount you paid for the specific order</strong> giving rise to the claim.</p>
-
-        <p><strong>MMX shall not be liable for:</strong></p>
-        <ul>
-            <li><strong>Indirect, incidental, special, consequential, or punitive damages</strong>, including loss of profits, revenue, data, business opportunities, or goodwill</li>
-            <li><strong>Damages resulting from third-party actions</strong>, including third-party service provider failures, data breaches, or payment processing issues</li>
-            <li><strong>Business losses</strong> resulting from use or inability to use Generated Content</li>
-            <li><strong>Delays in delivery</strong> caused by force majeure events, third-party service interruptions, or circumstances beyond MMX's reasonable control</li>
-        </ul>
-
-        <h3>15.4 Force Majeure</h3>
-        <p>MMX is not liable for any failure or delay in performance due to circumstances beyond our reasonable control, including:</p>
-        
-        <ul>
-            <li>Acts of God (natural disasters, earthquakes, floods, pandemics)</li>
-            <li>War, terrorism, civil unrest, or government actions</li>
-            <li>Third-party service provider outages or failures</li>
-            <li>Internet service disruptions or cyberattacks</li>
-            <li>Power failures or infrastructure breakdowns</li>
-        </ul>
-
-        <h3>15.5 Third-Party Service Provider Limitations</h3>
-        <p>Since MMX relies on third-party service providers for data storage, payment processing, and AI model generation:</p>
-        
-        <ul>
-            <li><strong>MMX is not responsible</strong> for failures, security breaches, or data losses caused by third-party providers</li>
-            <li><strong>MMX's liability is limited</strong> to coordinating with third-party providers to resolve issues</li>
-            <li><strong>You acknowledge</strong> that third-party limitations may affect service availability and performance</li>
-        </ul>
-
-        <h3>15.6 Indemnification</h3>
-        <p>You agree to <strong>indemnify, defend, and hold harmless</strong> MMX, its officers, employees, and affiliates from any claims, damages, losses, liabilities, and expenses (including reasonable legal fees) arising from:</p>
-        
-        <ul>
-            <li>Your violation of this Privacy Policy or applicable laws</li>
-            <li>Your misuse of Generated Content for prohibited purposes (deepfakes, illegal activities, harassment)</li>
-            <li>Your infringement of third-party intellectual property rights</li>
-            <li>Your Client Content or order specifications</li>
-            <li>Your breach of any representations or warranties</li>
-        </ul>
-    </section>
-
-    <section id="service-availability">
-        <h2>16. SERVICE AVAILABILITY AND MODIFICATIONS</h2>
-        
-        <h3>16.1 Right to Modify Service</h3>
-        <p>MMX reserves the right to:</p>
-        
-        <ul>
-            <li><strong>Modify or discontinue</strong> any aspect of the Service at any time, with or without notice</li>
-            <li><strong>Change pricing</strong> for future orders with 30 days' notice (existing orders honored at original price)</li>
-            <li><strong>Update service features</strong> including AI model generation capabilities, delivery timelines, or customization options</li>
-            <li><strong>Modify third-party integrations</strong> as needed for service improvement or compliance</li>
-        </ul>
-
-        <h3>16.2 Service Interruptions</h3>
-        <p>MMX does not guarantee uninterrupted service availability. The Service may be temporarily unavailable due to:</p>
-        
-        <ul>
-            <li>Scheduled maintenance or upgrades</li>
-            <li>Third-party service provider outages</li>
-            <li>Technical difficulties or system failures</li>
-            <li>Force majeure events</li>
-        </ul>
-
-        <p><strong>We will make reasonable efforts</strong> to notify users of scheduled maintenance via email or website notice when possible.</p>
-
-        <h3>16.3 Termination of Service</h3>
-        <p>MMX reserves the right to terminate or suspend access to the Service immediately, without prior notice, if:</p>
-        
-        <ul>
-            <li>You violate this Privacy Policy or Terms and Conditions</li>
-            <li>You use Generated Content for prohibited purposes</li>
-            <li>You engage in fraudulent or illegal activities</li>
-            <li>Legal or regulatory requirements mandate termination</li>
-        </ul>
-
-        <p>Upon termination:</p>
-        <ul>
-            <li>Your right to use the Service immediately ceases</li>
-            <li>You retain rights to Generated Content from completed and paid orders</li>
-            <li>MMX may delete your Personal Data subject to legal retention requirements</li>
-        </ul>
-    </section>
-
-    <section id="dispute-resolution">
-        <h2>17. DISPUTE RESOLUTION AND GOVERNING LAW</h2>
-        
-        <h3>17.1 Governing Law</h3>
-        <p>This Privacy Policy and any disputes arising from your use of the Service shall be governed by and construed in accordance with the <strong>laws of India</strong>, without regard to conflict of law principles.</p>
-
-        <h3>17.2 Jurisdiction</h3>
-        <p>Any legal action, suit, or proceeding arising out of or related to this Privacy Policy or the Service shall be instituted exclusively in the courts located in <strong>Mumbai, Maharashtra, India</strong>.</p>
-        
-        <p><strong>You consent to the exclusive jurisdiction</strong> of such courts and waive any objection to venue or inconvenient forum.</p>
-
-        <h3>17.3 Dispute Resolution Process</h3>
-        <p>Before initiating legal proceedings, you agree to:</p>
-        
-        <ol>
-            <li><strong>Contact MMX directly</strong> at maisonmodelx@gmail.com with a detailed description of the dispute</li>
-            <li><strong>Allow 30 days</strong> for MMX to investigate and attempt to resolve the dispute amicably</li>
-            <li><strong>Escalate to consumer protection authorities</strong> if unresolved (Data Protection Board of India, Consumer Forums)</li>
-            <li><strong>Pursue legal remedies</strong> only after exhausting alternative dispute resolution</li>
-        </ol>
-
-        <h3>17.4 Consumer Protection Rights</h3>
-        <p>Nothing in this Privacy Policy limits your rights under the <strong>Consumer Protection Act, 2019</strong>, including:</p>
-        
-        <ul>
-            <li>Right to file complaints with Consumer Forums</li>
-            <li>Right to seek redressal for deficiency in services</li>
-            <li>Right to compensation for proven damages</li>
-        </ul>
-    </section>
-
-    <section id="changes">
-        <h2>18. CHANGES TO THIS PRIVACY POLICY</h2>
-        <p>We reserve the right to modify this Privacy Policy at any time. Changes will be effective immediately upon posting to our Website.</p>
-
-        <h3>Notification of Changes:</h3>
-        <ul>
-            <li>We will update the "Effective Date" at the top of this Privacy Policy</li>
-            <li>For material changes, we will notify users via email if the change significantly affects how we handle Personal Data</li>
-            <li>Your continued use of the Service after changes constitutes acceptance of the modified Privacy Policy</li>
-        </ul>
-
-        <p><strong>Significant Changes</strong> requiring notification include:</p>
-        <ul>
-            <li>New purposes for data collection</li>
-            <li>Changes to how we share or process data</li>
-            <li>Expansion of third-party service providers with access to data</li>
-            <li>Changes to content ownership or usage rights</li>
-        </ul>
-    </section>
-
-    <section id="grievance">
-        <h2>19. COMPLAINT AND GRIEVANCE REDRESSAL</h2>
-        
-        <h3>15.1 Grievance Officer</h3>
-        <p>Maison Model X designates <strong>maisonmodelx@gmail.com</strong> as our point of contact for data protection grievances and complaints.</p>
-
-        <h3>15.2 Filing a Complaint</h3>
-        <p>If you have a complaint or concern about our data handling practices, you may:</p>
-
-        <div class="section-box">
-            <h4>1. Contact Us First:</h4>
-            <ul>
-                <li>Email: maisonmodelx@gmail.com</li>
-                <li>Provide your order number, specific concern, and requested resolution</li>
-                <li>Allow 7-10 business days for our response</li>
+                <li>You request extended retention for legitimate business purposes</li>
+                <li>Legal requirements mandate continued retention</li>
+                <li>Dispute or legal action is ongoing</li>
+                <li>You provide consent for alternative uses</li>
             </ul>
 
-            <h4>2. Escalate if Unresolved:</h4>
+            <h3>4.3 Your Right to Request Deletion</h3>
+            <div class="section-box">
+                <p><strong>You have the right to request deletion of your Personal Data at any time</strong>, subject to:</p>
+                <ul>
+                    <li>Legal retention requirements (we cannot delete records required by law)</li>
+                    <li>Ongoing disputes or active orders (we retain data during resolution)</li>
+                    <li>Fraud investigations or security concerns (we retain data as needed)</li>
+                </ul>
+
+                <h4>To request deletion:</h4>
+                <ol>
+                    <li>Email <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number</li>
+                    <li>State your reason for deletion request</li>
+                    <li>Include "Data Deletion Request" in subject line</li>
+                    <li>We will respond within 30 days</li>
+                </ol>
+
+                <p><strong>Important Note:</strong> Since we do not create user accounts or maintain profiles, deletion applies only to Personal Data associated with your specific order(s). We do not maintain a persistent customer database that requires account deletion.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: THIRD-PARTY PROCESSING -->
+        <section id="third-party">
+            <h2>5. THIRD-PARTY DATA PROCESSING AND SERVICE PROVIDERS</h2>
+
+            <h3>5.1 Third-Party Service Provider Use</h3>
+            <div class="section-box">
+                <p><strong>All customer orders, data processing, and file delivery are managed through third-party service providers.</strong> We do not independently store, process, or manage customer data in our own systems.</p>
+
+                <p><strong>We work with third-party providers to:</strong></p>
+                <ul>
+                    <li>Store and secure order information</li>
+                    <li>Process payments and payment authorization</li>
+                    <li>Generate AI models based on your specifications</li>
+                    <li>Store and organize deliverable files</li>
+                    <li>Manage email delivery of generated models</li>
+                    <li>Provide CRM and business management functions</li>
+                    <li>Maintain data backups and disaster recovery</li>
+                    <li>Handle customer support and order tracking</li>
+                </ul>
+            </div>
+
+            <h3>5.2 Specific Third-Party Functions</h3>
+            <p>When you submit an order through our Website:</p>
+            <ol>
+                <li><strong>Order Form Submission:</strong> Your order form data is transmitted to third-party CRM/order management platforms (e.g., Bitrix24 or similar)</li>
+                <li><strong>Payment Processing:</strong> Payment information is sent to PCI-DSS compliant payment processors (e.g., Stripe, PayPal)</li>
+                <li><strong>Model Generation:</strong> Your order specifications are transmitted to AI generation platforms (e.g., Lovart.ai or similar)</li>
+                <li><strong>File Storage and Delivery:</strong> Generated files are stored on secure cloud hosting and delivered via email</li>
+                <li><strong>Communication:</strong> Support communications and updates are managed through third-party email and customer management systems</li>
+            </ol>
+
+            <h3>5.3 Third-Party Service Provider Selection Criteria</h3>
+            <p>We select third-party service providers based on their implementation of:</p>
             <ul>
-                <li>If your complaint is not resolved within 30 days, you may escalate to relevant regulatory authorities</li>
-                <li>In India, you may file complaints with the Data Protection Board of India or relevant consumer protection authorities</li>
+                <li><strong>Encryption standards:</strong> Data encrypted in transit (TLS 1.2+) and at rest (AES-256 or equivalent)</li>
+                <li><strong>Access controls:</strong> Role-based access, multi-factor authentication, staff training</li>
+                <li><strong>Security monitoring:</strong> Regular security audits, vulnerability assessments, intrusion detection</li>
+                <li><strong>Compliance:</strong> GDPR compliance (for international standards), SOC 2 certification, ISO 27001</li>
+                <li><strong>Data protection:</strong> Contractual data protection agreements, data processing terms, liability clauses</li>
+                <li><strong>Incident response:</strong> Breach notification procedures, incident response plans, remediation processes</li>
+                <li><strong>Backup and recovery:</strong> Secure backups, disaster recovery protocols, business continuity plans</li>
             </ul>
-        </div>
 
-        <h3>15.3 Legal Recourse</h3>
-        <p>You retain the right to:</p>
-        <ul>
-            <li>Pursue disputes through the consumer protection framework under the Consumer Protection Act, 2019</li>
-            <li>File complaints with the Data Protection Board of India</li>
-            <li>Seek legal remedies through appropriate judicial channels</li>
-        </ul>
-    </section>
+            <h3>5.4 Data Processing Agreements</h3>
+            <div class="section-box">
+                <p><strong>We do not disclose specific third-party company names</strong> to protect business operations and maintain service flexibility. All third-party providers are contractually bound to:</p>
+                <ul>
+                    <li>Maintain data security and implement required protections</li>
+                    <li>Comply with Indian data protection laws (DPDP Act, 2023)</li>
+                    <li>Process data only for the purposes specified</li>
+                    <li>Not disclose data to unauthorized parties</li>
+                    <li>Delete data upon completion or at our instruction</li>
+                    <li>Cooperate with data subject rights requests</li>
+                    <li>Notify us of any security breaches or incidents</li>
+                </ul>
+            </div>
+        </section>
 
-    <section id="india-compliance">
-        <h2>20. SPECIFIC DISCLOSURES FOR INDIA COMPLIANCE</h2>
-        
-        <h3>16.1 Digital Personal Data Protection Act, 2023 Compliance</h3>
-        <p>We comply with the <strong>Digital Personal Data Protection (DPDP) Act, 2023</strong> by:</p>
-        
-        <ul>
-            <li><strong>Consent:</strong> Obtaining your consent when collecting Personal Data through the order form</li>
-            <li><strong>Purpose Limitation:</strong> Using Personal Data only for order fulfillment and stated purposes</li>
-            <li><strong>Data Minimization:</strong> Collecting only information necessary for service delivery</li>
-            <li><strong>Accuracy:</strong> Taking steps to keep your data accurate and current</li>
-            <li><strong>Security:</strong> Implementing reasonable security measures through third-party providers</li>
-            <li><strong>User Rights:</strong> Providing mechanisms for you to exercise access, correction, and deletion rights</li>
-            <li><strong>Grievance Redressal:</strong> Maintaining a grievance officer for complaint resolution</li>
-        </ul>
+        <!-- SECTION 6: SECURITY MEASURES -->
+        <section id="security">
+            <h2>6. SECURITY MEASURES AND DATA PROTECTION</h2>
 
-        <h3>16.2 IT Act, 2000 Compliance</h3>
-        <p>We comply with the <strong>Information Technology Act, 2000</strong> and related rules by:</p>
-        
-        <ul>
-            <li><strong>Sensitive Personal Data Protection:</strong> Securing sensitive information (payment data, address) through third-party encrypted systems</li>
-            <li><strong>Data Protection Rules:</strong> Adhering to SPDI Rules, 2011 for handling sensitive personal data</li>
-            <li><strong>Lawful Processing:</strong> Processing data only for lawful, stated purposes</li>
-            <li><strong>User Consent:</strong> Obtaining clear consent for data processing through your order submission</li>
-        </ul>
+            <h3>6.1 Security Infrastructure</h3>
+            <p>While we rely on third-party service providers' security infrastructure, we implement the following protections:</p>
 
-        <h3>16.3 Consumer Protection Act, 2019</h3>
-        <p>As a digital service provider, we comply with the <strong>Consumer Protection Act, 2019</strong> by:</p>
-        
-        <ul>
-            <li><strong>Transparency:</strong> Clearly disclosing our data practices and service terms</li>
-            <li><strong>Consumer Rights:</strong> Respecting consumer rights to information, choice, and grievance redressal</li>
-            <li><strong>Fair Practices:</strong> Processing data fairly without unfair or deceptive practices</li>
-            <li><strong>Dispute Resolution:</strong> Providing mechanisms for resolving consumer complaints</li>
-        </ul>
-    </section>
+            <div class="section-box">
+                <h4>Data in Transit:</h4>
+                <ul>
+                    <li>All data transmitted between your device and our servers uses HTTPS with TLS 1.2+ encryption</li>
+                    <li>Secure transmission protocols protect order data, payment information, and Client Content</li>
+                    <li>Email communications use encrypted channels where available</li>
+                </ul>
+            </div>
 
-    <section id="amendments">
-        <h2>21. AMENDMENTS AND UPDATES</h2>
-        <p>This Privacy Policy is effective as of <strong>November 20, 2025</strong>.</p>
+            <div class="section-box">
+                <h4>Data at Rest:</h4>
+                <ul>
+                    <li>Personal Data stored on third-party platforms is encrypted using AES-256 or equivalent</li>
+                    <li>Access is restricted to authorized personnel only</li>
+                    <li>Multi-factor authentication is required for administrative access</li>
+                    <li>Regular security updates and patches are applied</li>
+                </ul>
+            </div>
 
-        <p><strong>History of Changes:</strong></p>
-        <ul>
-            <li><strong>November 20, 2025:</strong> Initial version – Comprehensive policy including content ownership, prohibited use clauses, warranties, disclaimers, liability limitations, and India legal compliance</li>
-        </ul>
-    </section>
+            <div class="section-box">
+                <h4>Payment Security:</h4>
+                <ul>
+                    <li>We do not store full credit card numbers locally</li>
+                    <li>Payment processing is handled by PCI-DSS compliant third-party processors</li>
+                    <li>All payment information is encrypted and processed through secure gateways</li>
+                    <li>Tokenization is used to prevent unauthorized card reuse</li>
+                </ul>
+            </div>
 
-    <section id="contact-us">
-        <h2>22. CONTACT US</h2>
-        <p>For questions, complaints, or to exercise your data protection rights, please contact:</p>
+            <div class="section-box">
+                <h4>Access Controls:</h4>
+                <ul>
+                    <li>Personal Data is accessible only to MMX staff with legitimate business needs</li>
+                    <li>Staff sign confidentiality agreements</li>
+                    <li>Access is logged and monitored</li>
+                    <li>Unnecessary data access is prevented through role-based permissions</li>
+                </ul>
+            </div>
 
+            <div class="section-box">
+                <h4>System Security:</h4>
+                <ul>
+                    <li>Regular security audits and vulnerability assessments</li>
+                    <li>Intrusion detection and prevention systems</li>
+                    <li>Regular software updates and security patches</li>
+                    <li>Firewalls and network segmentation</li>
+                    <li>Security monitoring and incident response procedures</li>
+                </ul>
+            </div>
+
+            <h3>6.2 Your Security Responsibilities</h3>
+            <div class="section-box">
+                <p><strong>To protect your Personal Data, you agree to:</strong></p>
+                <ul>
+                    <li>Keep your email password confidential and unique</li>
+                    <li>Do not share your order information with unauthorized individuals</li>
+                    <li>Report any suspicious activity immediately</li>
+                    <li>Use secure internet connections (not public WiFi) for sensitive transactions</li>
+                    <li>Update your browser and security software regularly</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 7: PAYMENT PROCESSING -->
+        <section id="payment">
+            <h2>7. PAYMENT PROCESSING AND FINANCIAL DATA</h2>
+
+            <h3>7.1 Payment Processing</h3>
+            <p><strong>Payment processing is handled exclusively by third-party payment processors</strong> (Stripe, PayPal, or similar). We do not handle payment information directly.</p>
+
+            <div class="section-box">
+                <h4>How Payment Processing Works:</h4>
+                <ol>
+                    <li>You enter payment information on our secure payment form (hosted by processor)</li>
+                    <li>Payment information never passes through our servers</li>
+                    <li>Processor authorizes the transaction and notifies us of success/failure</li>
+                    <li>We receive only a transaction reference number and authorization status</li>
+                    <li>Your payment method is securely stored (encrypted) by the processor, not by us</li>
+                </ol>
+            </div>
+
+            <h3>7.2 Credit Card Information</h3>
+            <div class="section-box">
+                <p><strong>We do NOT store:</strong></p>
+                <ul>
+                    <li>Full credit card numbers</li>
+                    <li>CVV/CVC security codes</li>
+                    <li>Expiration dates</li>
+                    <li>Other sensitive card details</li>
+                </ul>
+
+                <p><strong>Payment processors securely store:</strong></p>
+                <ul>
+                    <li>Tokenized payment method information (encrypted, non-usable data)</li>
+                    <li>Transaction history</li>
+                    <li>Payment authorization records</li>
+                </ul>
+            </div>
+
+            <h3>7.3 Payment Information Security</h3>
+            <p>All payment information is:</p>
+            <ul>
+                <li>Encrypted using industry-standard protocols (TLS 1.2+)</li>
+                <li>Processed through PCI-DSS compliant payment gateways</li>
+                <li>Protected by additional security measures (fraud detection, address verification)</li>
+                <li>Never transmitted in plain text or unencrypted form</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 8: DATA BREACH NOTIFICATION -->
+        <section id="breach">
+            <h2>8. DATA BREACH NOTIFICATION</h2>
+
+            <h3>8.1 Breach Response Procedures</h3>
+            <p>In the event of a personal data breach affecting our customers, we will:</p>
+
+            <ol>
+                <li><strong>Immediate Investigation:</strong> Identify the scope and nature of the breach</li>
+                <li><strong>Customer Notification:</strong> Notify affected customers <strong>as soon as possible</strong> (within 72 hours when feasible)</li>
+                <li><strong>Regulatory Notification:</strong> Notify the <strong>Data Protection Board of India (DPBI)</strong> within <strong>72 hours</strong> as required by law</li>
+                <li><strong>Breach Communication:</strong> Provide clear information about:
+                    <ul>
+                        <li>What data was compromised</li>
+                        <li>When the breach occurred</li>
+                        <li>Measures we are taking to address it</li>
+                        <li>Steps customers should take to protect themselves</li>
+                    </ul>
+                </li>
+                <li><strong>Remediation:</strong> Implement corrective measures to prevent similar breaches</li>
+                <li><strong>Documentation:</strong> Maintain detailed records of the breach, notification, and remediation</li>
+            </ol>
+
+            <h3>8.2 Breach Documentation</h3>
+            <p>We maintain records of any security incidents, including:</p>
+            <ul>
+                <li>Date and time of discovery</li>
+                <li>Scope of affected Personal Data</li>
+                <li>Affected individuals</li>
+                <li>Remediation steps taken</li>
+                <li>Notifications sent</li>
+                <li>Outcome and lessons learned</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 9: YOUR DATA PROTECTION RIGHTS -->
+        <section id="rights">
+            <h2>9. YOUR DATA PROTECTION RIGHTS</h2>
+            <p>Under India's <strong>Digital Personal Data Protection (DPDP) Act, 2023</strong>, you have the following rights regarding your Personal Data:</p>
+
+            <h3>9.1 Right to Access</h3>
+            <div class="section-box">
+                <p><strong>You have the right to request and receive:</strong></p>
+                <ul>
+                    <li>A complete copy of your Personal Data we hold</li>
+                    <li>Details of how your data is being processed</li>
+                    <li>Purposes for which your data is used</li>
+                    <li>Duration of data retention</li>
+                    <li>Recipients of your data (third parties)</li>
+                    <li>Source of your data (if collected from others)</li>
+                </ul>
+
+                <p><strong>To exercise this right:</strong></p>
+                <ul>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number</li>
+                    <li>Include "Data Access Request" in the subject line</li>
+                    <li>We will provide your information within <strong>30 days</strong></li>
+                    <li>Information will be provided in a portable, machine-readable format (CSV, PDF, etc.)</li>
+                </ul>
+            </div>
+
+            <h3>9.2 Right to Correction</h3>
+            <div class="section-box">
+                <p><strong>You have the right to request correction of inaccurate or incomplete Personal Data.</strong></p>
+
+                <p>This includes:</p>
+                <ul>
+                    <li>Correcting spelling errors in your name or address</li>
+                    <li>Updating email or contact information</li>
+                    <li>Correcting billing or payment details</li>
+                    <li>Clarifying ambiguous or incomplete information</li>
+                </ul>
+
+                <p><strong>To exercise this right:</strong></p>
+                <ul>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></li>
+                    <li>Clearly specify which information is inaccurate</li>
+                    <li>Provide corrected information</li>
+                    <li>Include "Data Correction Request" in subject line</li>
+                    <li>We will correct your data within <strong>30 days</strong></li>
+                    <li>We will notify you of the correction</li>
+                </ul>
+            </div>
+
+            <h3>9.3 Right to Deletion (Right to Be Forgotten)</h3>
+            <div class="section-box">
+                <p><strong>You have the right to request deletion of your Personal Data</strong>, subject to:</p>
+                <ul>
+                    <li><strong>Legal retention requirements</strong> – We cannot delete records required by law (e.g., payment records required for 7 years by tax law)</li>
+                    <li><strong>Ongoing disputes</strong> – We retain data during active refund claims or disputes</li>
+                    <li><strong>Fraud investigations</strong> – We retain data during fraud investigations or security incidents</li>
+                    <li><strong>Legitimate business interest</strong> – In limited circumstances where retention is necessary</li>
+                </ul>
+
+                <p><strong>Grounds for Deletion:</strong></p>
+                <ul>
+                    <li>Your data is no longer necessary for the original purpose</li>
+                    <li>You withdraw consent for processing</li>
+                    <li>You object to processing and there is no overriding reason to retain data</li>
+                    <li>Your data has been processed unlawfully</li>
+                    <li>Legal obligation requires deletion</li>
+                </ul>
+
+                <p><strong>To exercise this right:</strong></p>
+                <ul>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number</li>
+                    <li>Clearly state your reason for deletion</li>
+                    <li>Include "Data Deletion Request" in subject line</li>
+                    <li>We will delete your data within <strong>30 days</strong> unless legal reasons require retention</li>
+                    <li>We will notify you of the deletion or reasons for non-compliance</li>
+                </ul>
+            </div>
+
+            <h3>9.4 Right to Restrict Processing</h3>
+            <div class="section-box">
+                <p><strong>You have the right to request that we restrict processing of your Personal Data</strong> while we verify accuracy or investigate disputed claims.</p>
+
+                <p>This means:</p>
+                <ul>
+                    <li>Your data will be stored securely but not actively processed</li>
+                    <li>We will not use your data for marketing, analytics, or secondary purposes</li>
+                    <li>We may continue processing for legal compliance or legitimate business reasons</li>
+                </ul>
+
+                <p><strong>To exercise this right:</strong></p>
+                <ul>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></li>
+                    <li>Include "Data Restriction Request" in subject line</li>
+                    <li>We will restrict processing within <strong>30 days</strong></li>
+                </ul>
+            </div>
+
+            <h3>9.5 Right to Withdraw Consent</h3>
+            <div class="section-box">
+                <p><strong>For any processing based on your consent, you have the right to withdraw that consent at any time.</strong></p>
+                <ul>
+                    <li>Withdrawal will be effective immediately upon receipt</li>
+                    <li>Withdrawal does not affect the lawfulness of processing before withdrawal</li>
+                    <li>We will not continue processing based on withdrawn consent (but may continue for other legal reasons)</li>
+                </ul>
+
+                <p><strong>To exercise this right:</strong></p>
+                <ul>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></li>
+                    <li>Include "Consent Withdrawal Request" in subject line</li>
+                    <li>Specify which consent you are withdrawing</li>
+                    <li>We will acknowledge withdrawal within <strong>30 days</strong></li>
+                </ul>
+            </div>
+
+            <h3>9.6 Right to Nominate a Representative</h3>
+            <div class="section-box">
+                <p><strong>You have the right to nominate a representative</strong> (an individual or organization) to exercise your data protection rights on your behalf.</p>
+
+                <p>This is particularly useful for individuals who are:</p>
+                <ul>
+                    <li>Minors</li>
+                    <li>In custody or care arrangements</li>
+                    <li>Unable to assert rights independently</li>
+                </ul>
+
+                <p><strong>To nominate a representative:</strong></p>
+                <ul>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></li>
+                    <li>Provide written authorization from your representative</li>
+                    <li>Include "Representative Nomination" in subject line</li>
+                    <li>We will require proof of authorization and legal standing</li>
+                </ul>
+            </div>
+
+            <h3>9.7 Right to Complain</h3>
+            <div class="section-box">
+                <p><strong>You have the right to lodge a complaint with the Data Protection Board of India</strong> if you believe we have violated your data protection rights.</p>
+
+                <p><strong>Contact Information for Complaints:</strong></p>
+                <ul>
+                    <li><strong>Data Protection Board of India (DPBI)</strong> – formal complaints regarding DPDP Act violations</li>
+                    <li><strong>District Consumer Commission</strong> – for consumer protection complaints</li>
+                    <li><strong>Contact through:</strong> Your state's official channels or the DPBI portal</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 10: RESPONSE TO RIGHTS REQUESTS -->
+        <section id="response">
+            <h2>10. RESPONSE TO DATA SUBJECT RIGHTS REQUESTS</h2>
+
+            <h3>10.1 Response Timeline</h3>
+            <p><strong>We will respond to your data protection rights requests within 30 days</strong> from the date of receipt. This includes:</p>
+            <ul>
+                <li>Confirming receipt of your request</li>
+                <li>Providing requested information or taking requested action</li>
+                <li>Explaining any delays or reasons for non-compliance</li>
+            </ul>
+
+            <h3>10.2 Request Extension</h3>
+            <p><strong>If responding to your request requires significant additional time</strong> due to complexity or volume:</p>
+            <ul>
+                <li>We will notify you within 30 days</li>
+                <li>We will provide a revised timeline (not exceeding <strong>60 days total</strong>)</li>
+                <li>We will explain the reason for the extension</li>
+            </ul>
+
+            <h3>10.3 Verification of Identity</h3>
+            <p>To protect your privacy and prevent unauthorized access to your data:</p>
+            <ul>
+                <li>We may request verification of your identity</li>
+                <li>We may ask for your order number</li>
+                <li>We may request additional identifying information</li>
+                <li>This verification process will not unreasonably delay your request</li>
+            </ul>
+
+            <h3>10.4 Reasonable Requests</h3>
+            <div class="section-box">
+                <p><strong>We will honor all reasonable requests</strong> that comply with applicable law. Requests that are:</p>
+                <ul>
+                    <li>Frivolous, vexatious, or repetitive</li>
+                    <li>Manifestly unfounded or excessive</li>
+                    <li>Impossible to fulfill</li>
+                    <li>Potentially harmful to our business or others' privacy</li>
+                </ul>
+                <p>...may be declined, and we will explain our reasoning.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 11: INTELLECTUAL PROPERTY RIGHTS -->
+        <section id="ip-rights">
+            <h2>11. INTELLECTUAL PROPERTY RIGHTS REGARDING YOUR DATA</h2>
+
+            <h3>11.1 Your Ownership of Client Content</h3>
+            <p><strong>You retain full ownership</strong> of all Client Content (specifications, descriptions, reference images, design details, accessories, color palettes, and other materials) that you provide to us when placing an order.</p>
+
+            <h3>11.2 Limited License to MMX</h3>
+            <div class="section-box">
+                <p>By submitting Client Content, you grant us a <strong>limited, non-exclusive license</strong> to use your Client Content solely for:</p>
+                <ul>
+                    <li>Generating your custom AI models and images</li>
+                    <li>Fulfilling your order</li>
+                    <li>Providing refinements and revisions within the 7-day window</li>
+                    <li>Quality assurance and technical optimization</li>
+                    <li>Improving our generation processes (only in aggregate, anonymized form)</li>
+                </ul>
+                <p><strong>This license terminates once your order is completed and delivered.</strong></p>
+            </div>
+
+            <h3>11.3 Your Rights to Generated Content</h3>
+            <div class="section-box">
+                <p><strong>Upon full payment of your order, you receive exclusive commercial rights</strong> to use the Generated Content (AI-generated model images and reference packs we create for you).</p>
+
+                <p>Specifically, you receive:</p>
+                <ul>
+                    <li><strong>Worldwide, perpetual, royalty-free commercial license</strong> for all lawful uses</li>
+                    <li><strong>Full ownership</strong> of Generated Content upon delivery and payment</li>
+                    <li><strong>Right to modify, adapt, or create derivatives</strong> of Generated Content for your use</li>
+                    <li><strong>Right to use across all platforms</strong> without geographic limitation</li>
+                    <li><strong>Right to sublicense only</strong> for specific commercial partnerships (with separate agreements)</li>
+                </ul>
+            </div>
+
+            <h3>11.4 MMX Rights to Generated Content</h3>
+            <div class="section-box">
+                <p><strong>MMX retains NO ownership rights</strong> to Generated Content after delivery and full payment. We explicitly do NOT:</p>
+                <ul>
+                    <li>Retain copies of Generated Content after delivery</li>
+                    <li>Use your Generated Content for marketing, portfolio display, or promotion (without your consent)</li>
+                    <li>Use your Generated Content to train or improve our AI models</li>
+                    <li>Use your Generated Content for secondary commercial purposes</li>
+                    <li>Share your Generated Content with third parties</li>
+                </ul>
+            </div>
+
+            <h3>11.5 Portfolio Use – Optional Permission</h3>
+            <div class="section-box">
+                <p>If you wish to allow MMX to showcase your Generated Content in our portfolio, marketing materials, case studies, testimonials, or social media:</p>
+                <ul>
+                    <li>You may grant this permission <strong>separately in writing</strong></li>
+                    <li>Permission is <strong>entirely optional</strong> and not required for service</li>
+                    <li>You may <strong>revoke permission at any time</strong></li>
+                    <li>We will remove your content from public display within <strong>30 days</strong> of revocation</li>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> to authorize or revoke portfolio use</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 12: INTERNATIONAL DATA TRANSFERS -->
+        <section id="international">
+            <h2>12. INTERNATIONAL DATA TRANSFERS</h2>
+
+            <h3>12.1 Data Processing Location</h3>
+            <div class="section-box">
+                <p><strong>The Services are hosted and operated in India.</strong> All data processing, storage, and management occur on:</p>
+                <ul>
+                    <li>Servers located in India, OR</li>
+                    <li>Third-party service providers based in India, OR</li>
+                    <li>Secure cloud infrastructure with data residency in India</li>
+                </ul>
+            </div>
+
+            <h3>12.2 Cross-Border Data Transfers</h3>
+            <p>If you access the Services from outside India, your Personal Data will be:</p>
+            <ol>
+                <li><strong>Transferred to India</strong> for processing and storage</li>
+                <li><strong>Processed according to Indian law</strong> (DPDP Act, 2023, IT Act, 2000)</li>
+                <li><strong>Protected by Indian data protection standards</strong> and MMX security measures</li>
+                <li><strong>Stored in India</strong> unless you authorize alternative arrangements</li>
+            </ol>
+
+            <h3>12.3 Your Consent to International Transfer</h3>
+            <div class="section-box">
+                <p><strong>By using our Services, you consent to:</strong></p>
+                <ul>
+                    <li>Transfer of your Personal Data to India</li>
+                    <li>Processing of your data according to Indian law</li>
+                    <li>Storage of your data on Indian or India-based infrastructure</li>
+                    <li>Potential differences in data protection standards between India and your home country</li>
+                </ul>
+            </div>
+
+            <h3>12.4 Non-Indian Users – Important Acknowledgments</h3>
+            <div class="section-box">
+                <p><strong>Users from other countries (EU, US, Canada, etc.) acknowledge that:</strong></p>
+                <ul>
+                    <li>Indian data protection laws may differ from your home country's laws</li>
+                    <li>You may have fewer statutory protections than in your home jurisdiction</li>
+                    <li>Your data will be transferred out of your country of residence</li>
+                    <li>You are voluntarily submitting to Indian jurisdiction and Indian law</li>
+                    <li>You waive any claim that data transfer violates your home country's laws</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 13: CHILDREN'S DATA PROTECTION -->
+        <section id="children">
+            <h2>13. CHILDREN'S DATA PROTECTION</h2>
+
+            <h3>13.1 Age Restrictions</h3>
+            <p><strong>We do not knowingly collect Personal Data from children under 13 years of age.</strong></p>
+            <p>The Services are intended for users 13 years and older. Minors under 18 must have parental or guardian permission to use the Services.</p>
+
+            <h3>13.2 Parental Consent for Minors</h3>
+            <p>If a minor (under 18) uses our Services with parental consent:</p>
+            <ul>
+                <li>Parents/guardians are responsible for reviewing this Privacy Policy</li>
+                <li>Parents/guardians authorize data collection on behalf of the minor</li>
+                <li>Parents/guardians accept liability for the minor's use</li>
+                <li>Children must provide accurate information and comply with our Terms</li>
+            </ul>
+
+            <h3>13.3 Accidental Collection from Children</h3>
+            <div class="section-box">
+                <p><strong>If we become aware that we have collected Personal Data from a child under 13 without verifiable parental consent:</strong></p>
+                <ol>
+                    <li>We will delete such data immediately</li>
+                    <li>We will notify parents/guardians of the data collection</li>
+                    <li>We will delete the child's account (if created)</li>
+                    <li>We will not process the child's data further</li>
+                </ol>
+            </div>
+
+            <h3>13.4 Reporting Children's Data Collection</h3>
+            <div class="section-box">
+                <p><strong>To report:</strong> If you believe we have collected data from a child under 13 without proper consent:</p>
+                <ul>
+                    <li>Contact us immediately at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></li>
+                    <li>Include "Child Data Protection Concern" in subject line</li>
+                    <li>Provide the child's details and circumstances</li>
+                    <li>We will investigate and respond within <strong>24 hours</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 14: THIRD-PARTY LINKS -->
+        <section id="third-party-links">
+            <h2>14. THIRD-PARTY LINKS AND EXTERNAL WEBSITES</h2>
+
+            <h3>14.1 Third-Party Links</h3>
+            <p>Our Website may contain links to third-party websites and services. <strong>This Privacy Policy applies only to our Services.</strong></p>
+
+            <h3>14.2 No Responsibility for Third Parties</h3>
+            <div class="section-box">
+                <p><strong>We are not responsible for:</strong></p>
+                <ul>
+                    <li>Privacy practices of third-party websites</li>
+                    <li>Data collection or processing by third parties</li>
+                    <li>Third-party terms of service or privacy policies</li>
+                    <li>Accuracy, completeness, or legality of third-party content</li>
+                    <li>Harm caused by third-party services or content</li>
+                </ul>
+            </div>
+
+            <h3>14.3 Third-Party Privacy Policies</h3>
+            <p>When you access third-party websites:</p>
+            <ul>
+                <li>This Privacy Policy no longer applies</li>
+                <li>The third party's privacy policy governs your data</li>
+                <li>We recommend reviewing third-party privacy policies before providing information</li>
+                <li>We are not liable for third-party data practices</li>
+            </ul>
+
+            <h3>14.4 User Responsibility</h3>
+            <div class="section-box">
+                <p><strong>By accessing third-party links, you:</strong></p>
+                <ul>
+                    <li>Assume all risks associated with third-party services</li>
+                    <li>Waive claims against MMX for third-party conduct</li>
+                    <li>Agree to third-party terms and privacy practices</li>
+                    <li>Accept responsibility for your own data protection</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 15: COOKIES -->
+        <section id="cookies">
+            <h2>15. COOKIES AND TRACKING TECHNOLOGIES</h2>
+
+            <h3>15.1 Website Cookies</h3>
+            <p>Our Website may use cookies and similar tracking technologies to:</p>
+            <ul>
+                <li>Remember your preferences</li>
+                <li>Understand how you use our Services</li>
+                <li>Improve website performance</li>
+                <li>Track analytics and usage patterns</li>
+            </ul>
+
+            <h3>15.2 Types of Cookies</h3>
+            <div class="section-box">
+                <h4>Essential Cookies (Required):</h4>
+                <ul>
+                    <li>Session cookies for order processing</li>
+                    <li>Security cookies for protection against fraud</li>
+                    <li>Necessary for core functionality</li>
+                </ul>
+            </div>
+
+            <div class="section-box">
+                <h4>Analytics Cookies (Optional):</h4>
+                <ul>
+                    <li>Google Analytics or similar tools</li>
+                    <li>Understand traffic patterns and user behavior</li>
+                    <li>Improve website experience</li>
+                </ul>
+            </div>
+
+            <h3>15.3 Cookie Consent</h3>
+            <p>By using our Website, you consent to cookie use. You may:</p>
+            <ul>
+                <li>Disable cookies in your browser settings</li>
+                <li>Opt out of analytics tracking</li>
+                <li>Clear cookies from your device</li>
+            </ul>
+            <p><strong>Note:</strong> Disabling essential cookies may prevent use of certain Services.</p>
+
+            <h3>15.4 No Third-Party Tracking Pixels</h3>
+            <div class="section-box">
+                <p>We do NOT use:</p>
+                <ul>
+                    <li>Third-party tracking pixels</li>
+                    <li>Spyware or malware</li>
+                    <li>Hidden data collection mechanisms</li>
+                    <li>Unauthorized tracking software</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 16: EMAIL COMMUNICATIONS -->
+        <section id="email">
+            <h2>16. EMAIL COMMUNICATIONS AND PREFERENCES</h2>
+
+            <h3>16.1 Email Communications Only</h3>
+            <div class="section-box">
+                <p><strong>We communicate with you exclusively via email</strong> at the email address you provide during ordering.</p>
+
+                <p>We only send emails related to:</p>
+                <ul>
+                    <li>Order confirmation and status updates</li>
+                    <li>Delivery notifications and file links</li>
+                    <li>Refinement request acknowledgments</li>
+                    <li>Refund determinations</li>
+                    <li>Customer support and responses to your inquiries</li>
+                    <li>Service-related announcements (if critical)</li>
+                </ul>
+            </div>
+
+            <h3>16.2 Email Address</h3>
+            <div class="contact-box">
+                <h3>Contact Us</h3>
+                <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></p>
+                <p><strong>Alternative contact methods:</strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <li>We do not maintain phone lines, chat support, or contact forms</li>
+                    <li>Email is our sole communication channel</li>
+                    <li>Response time: 5–10 business days</li>
+                </ul>
+            </div>
+
+            <h3>16.3 No Optional Communications</h3>
+            <div class="section-box">
+                <p><strong>Since we only send order-specific communications:</strong></p>
+                <ul>
+                    <li>There are no email preferences to modify</li>
+                    <li>All communications are necessary for order fulfillment</li>
+                    <li>You cannot opt out of order-related emails</li>
+                    <li>Communications cannot be deferred or delayed</li>
+                </ul>
+            </div>
+
+            <h3>16.4 Opting Out of Service</h3>
+            <p>If you do not wish to receive any communications from us:</p>
+            <ul>
+                <li>You must opt out of using our Services entirely</li>
+                <li>Do not place orders</li>
+                <li>Discontinue use of our Website</li>
+                <li>Contact us to request account data deletion</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 17: CONTACT AND COMPLAINT PROCEDURES -->
+        <section id="contact">
+            <h2>17. CONTACT AND COMPLAINT PROCEDURES</h2>
+
+            <h3>17.1 Contact Information</h3>
+            <div class="contact-box">
+                <h3>Contact Us</h3>
+                <p><strong>Maison Model X</strong></p>
+                <p><strong>Location:</strong> Mumbai, Maharashtra, India</p>
+                <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></p>
+                <p><strong>Website:</strong> <a href="https://maisonmodelx.com/" target="_blank">https://maisonmodelx.com/</a></p>
+            </div>
+
+            <h3>17.2 Response Timeframe</h3>
+            <p>We will respond to your inquiries within:</p>
+            <ul>
+                <li><strong>Initial acknowledgment:</strong> 24 hours</li>
+                <li><strong>Full response:</strong> 5–10 business days</li>
+                <li><strong>Data access requests:</strong> 30 days (as required by law)</li>
+                <li><strong>Complex requests:</strong> up to 60 days with notice</li>
+            </ul>
+
+            <h3>17.3 Data Protection Grievances</h3>
+            <div class="section-box">
+                <p><strong>For data protection complaints specifically:</strong></p>
+                <ol>
+                    <li>Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></li>
+                    <li>Include "Data Protection Complaint" in subject line</li>
+                    <li>Describe the issue in detail</li>
+                    <li>Include relevant dates and order numbers</li>
+                    <li>We will respond within <strong>30 days</strong></li>
+                </ol>
+            </div>
+
+            <h3>17.4 Escalation to Authorities</h3>
+            <div class="section-box">
+                <p><strong>You retain the right to:</strong></p>
+                <ul>
+                    <li>Lodge a complaint with the <strong>Data Protection Board of India (DPBI)</strong></li>
+                    <li>File a complaint with the <strong>District Consumer Commission</strong></li>
+                    <li>Pursue legal action through Indian courts</li>
+                    <li>Contact other relevant regulatory bodies</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 18: COMPLIANCE WITH INDIAN LAWS -->
+        <section id="compliance">
+            <h2>18. COMPLIANCE WITH INDIAN LAWS</h2>
+
+            <h3>18.1 Digital Personal Data Protection (DPDP) Act, 2023</h3>
+            <div class="section-box">
+                <p>We comply with the <strong>DPDP Act, 2023</strong> by:</p>
+                <ul>
+                    <li>Collecting only necessary and relevant Personal Data</li>
+                    <li>Processing data based on lawful grounds (consent, contract, legal obligation, legitimate interest)</li>
+                    <li>Maintaining data accuracy and completeness</li>
+                    <li>Implementing security measures to protect Personal Data</li>
+                    <li>Honoring data subject rights (access, correction, deletion, withdrawal of consent)</li>
+                    <li>Notifying data breaches within 72 hours</li>
+                    <li>Maintaining records of data processing</li>
+                    <li>Providing clear transparency about data practices</li>
+                </ul>
+            </div>
+
+            <h3>18.2 Information Technology Act, 2000</h3>
+            <div class="section-box">
+                <p>We comply with the <strong>Information Technology Act, 2000</strong> by:</p>
+                <ul>
+                    <li>Implementing adequate security measures (Rule 8)</li>
+                    <li>Maintaining reasonable data security standards</li>
+                    <li>Following secure practices for password and access management</li>
+                    <li>Implementing encryption and authentication controls</li>
+                    <li>Conducting regular security audits</li>
+                    <li>Maintaining incident response procedures</li>
+                </ul>
+            </div>
+
+            <h3>18.3 Consumer Protection Act, 2019</h3>
+            <div class="section-box">
+                <p>We comply with the <strong>Consumer Protection Act, 2019</strong> by:</p>
+                <ul>
+                    <li>Providing clear, accurate information about our Services</li>
+                    <li>Processing complaints and disputes fairly</li>
+                    <li>Offering reasonable refund options</li>
+                    <li>Protecting consumer data and privacy</li>
+                    <li>Maintaining transparency in pricing and terms</li>
+                    <li>Honoring consumer protection rights</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 19: UPDATES TO PRIVACY POLICY -->
+        <section id="updates">
+            <h2>19. UPDATES TO THIS PRIVACY POLICY</h2>
+
+            <h3>19.1 Right to Modify</h3>
+            <p>We reserve the right to modify this Privacy Policy at any time. Changes will be effective immediately upon posting to our Website.</p>
+
+            <h3>19.2 Notification of Significant Changes</h3>
+            <div class="section-box">
+                <p><strong>For significant changes</strong> (material alterations to data practices, new uses of data, or reduced privacy protections):</p>
+                <ul>
+                    <li>We will provide notice via email when feasible</li>
+                    <li>We will post notice prominently on our Website</li>
+                    <li>We will provide a 15-day notice period before changes take effect</li>
+                </ul>
+
+                <p><strong>Significant changes include:</strong></p>
+                <ul>
+                    <li>Changes to types of data collected</li>
+                    <li>Changes to data retention periods</li>
+                    <li>New purposes for processing data</li>
+                    <li>Changes to data sharing practices</li>
+                    <li>Changes to your data protection rights</li>
+                </ul>
+            </div>
+
+            <h3>19.3 Last Updated</h3>
+            <p>This Privacy Policy was last updated on <strong>November 25, 2025</strong>.</p>
+
+            <div class="section-box">
+                <p><strong>Version History:</strong></p>
+                <ul>
+                    <li><strong>v1.0</strong> (November 20, 2025): Initial publication</li>
+                    <li><strong>v2.0</strong> (November 25, 2025): Consolidated with Consistent Faces Service; enhanced compliance and clarity</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 20: ADDITIONAL PRIVACY PROTECTIONS -->
+        <section id="additional">
+            <h2>20. ADDITIONAL PRIVACY PROTECTIONS</h2>
+
+            <h3>20.1 Transparency Commitment</h3>
+            <div class="section-box">
+                <p>We are committed to transparency about data practices:</p>
+                <ul>
+                    <li>We clearly explain what data we collect</li>
+                    <li>We explain why we collect data</li>
+                    <li>We explain how we use and protect data</li>
+                    <li>We explain how long we retain data</li>
+                    <li>We explain your rights regarding your data</li>
+                </ul>
+            </div>
+
+            <h3>20.2 Data Minimization Principle</h3>
+            <div class="section-box">
+                <p>We collect only the data necessary to:</p>
+                <ul>
+                    <li>Process your order</li>
+                    <li>Deliver our Services</li>
+                    <li>Fulfill legal obligations</li>
+                    <li>Protect business interests</li>
+                </ul>
+                <p>We do NOT engage in unnecessary or excessive data collection.</p>
+            </div>
+
+            <h3>20.3 Purpose Limitation Principle</h3>
+            <div class="section-box">
+                <p>Your Personal Data is used <strong>only for purposes:</strong></p>
+                <ul>
+                    <li>Disclosed in this Privacy Policy</li>
+                    <li>Authorized by you explicitly</li>
+                    <li>Required by law</li>
+                    <li>Reasonably related to our Services</li>
+                </ul>
+            </div>
+
+            <h3>20.4 Integrity and Confidentiality</h3>
+            <div class="section-box">
+                <p>We ensure Personal Data is:</p>
+                <ul>
+                    <li>Accurate and kept current</li>
+                    <li>Protected against unauthorized access</li>
+                    <li>Kept strictly confidential</li>
+                    <li>Handled only by authorized individuals</li>
+                    <li>Deleted securely when no longer needed</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 21: ACKNOWLEDGMENT AND ACCEPTANCE -->
+        <section id="acknowledgment">
+            <h2>21. ACKNOWLEDGMENT AND ACCEPTANCE</h2>
+
+            <h3>21.1 Your Acknowledgment</h3>
+            <div class="section-box">
+                <p><strong>By using Maison Model X's Services, you acknowledge that:</strong></p>
+                <ul>
+                    <li>You have read, understood, and agree to this Privacy Policy</li>
+                    <li>You understand how your Personal Data is collected, used, and protected</li>
+                    <li>You consent to the processing of your Personal Data as described</li>
+                    <li>You understand your data protection rights</li>
+                    <li>You understand data transfer to India</li>
+                    <li>You have the right to withdraw consent or file complaints</li>
+                </ul>
+            </div>
+
+            <h3>21.2 Acceptance</h3>
+            <p>Your use of our Services constitutes your full acceptance of this Privacy Policy, including all data practices, protections, and limitations described.</p>
+
+            <h3>21.3 Disagreement</h3>
+            <div class="section-box">
+                <p><strong>If you do not agree with any provision of this Privacy Policy, you must discontinue use of the Services immediately.</strong></p>
+                <p>Continued use constitutes acceptance.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 22: FINAL PROVISIONS -->
+        <section id="final">
+            <h2>22. FINAL PROVISIONS</h2>
+            <p>This Privacy Policy was created to protect your Personal Data while enabling Maison Model X to provide high-quality AI model generation and Consistent Faces services. We are committed to complying with Indian data protection laws, maintaining security, and respecting your privacy rights.</p>
+
+            <p><strong>For questions, clarifications, or to exercise your data protection rights, contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a>.</strong></p>
+        </section>
+
+        <!-- FINAL CONTACT BOX -->
         <div class="contact-box">
-            <h3>Maison Model X</h3>
-            <p><strong>Location:</strong> Mumbai, India</p>
+            <h3>Contact Us</h3>
+            <p><strong>Maison Model X</strong></p>
+            <p><strong>Location:</strong> Mumbai, Maharashtra, India</p>
             <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></p>
-            <p><strong>Website:</strong> <a href="https://www.maisonmodelx.com/" target="_blank" rel="noopener noreferrer">https://www.maisonmodelx.com/</a></p>
-            <p><strong>Response Timeframe:</strong> We will respond to your inquiries within 7-10 business days.</p>
+            <p><strong>Website:</strong> <a href="https://maisonmodelx.com/" target="_blank">https://maisonmodelx.com/</a></p>
+            <p><strong>Response Timeframe:</strong> We will respond to your inquiries within 5-10 business days.</p>
         </div>
-    </section>
 
-    <section id="acknowledgment">
-        <h2>ACKNOWLEDGMENT</h2>
-        <p>By using Maison Model X's Service, you acknowledge that you have read, understood, and agree to this Privacy Policy. Your use of our Service constitutes acceptance of these terms, including:</p>
-        
-        <ul>
-            <li>Data collection and processing practices</li>
-            <li>Third-party service provider reliance</li>
-            <li>Content ownership and usage rights</li>
-            <li>Prohibited use restrictions</li>
-            <li>Warranties, disclaimers, and liability limitations</li>
-            <li>Dispute resolution and governing law provisions</li>
-        </ul>
+        <div style="text-align: center; margin-top: 40px; padding: 20px; color: rgba(167, 169, 169, 1);">
+            <p><strong>END OF PRIVACY POLICY</strong></p>
+            <p style="font-size: 0.9em;">Last Updated: November 25, 2025</p>
+        </div>
 
-        <p><strong>If you do not agree with any provision of this Privacy Policy, you must discontinue use of the Service immediately.</strong></p>
-    </section>
+    </div>
 
-</div>
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Contact Us</h3>
+            <p>For questions or support, please email us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></p>
+            <p><strong>Maison Model X</strong><br>Mumbai, India<br><a href="https://maisonmodelx.com/">https://maisonmodelx.com/</a></p>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Maison Model X. All rights reserved.</p>
+        </div>
+    </footer>
 
-<div class="footer">
-    <p><strong>Last Updated:</strong> November 20, 2025</p>
-    <p>© 2025 Maison Model X. All rights reserved.</p>
-</div>
+    <button class="scroll-to-top" id="scrollToTop" title="Go to top">
+        ↑
+    </button>
 
-<button class="scroll-to-top" onclick="scrollToTop()" aria-label="Scroll to top">^</button>
+    <script>
+        // Scroll to top functionality
+        const scrollButton = document.getElementById('scrollToTop');
 
-<script>
-    // Scroll to top button functionality
-    window.onscroll = function() {
-        const scrollBtn = document.querySelector('.scroll-to-top');
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            scrollBtn.classList.add('show');
-        } else {
-            scrollBtn.classList.remove('show');
-        }
-    };
-
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollButton.classList.add('show');
+            } else {
+                scrollButton.classList.remove('show');
             }
         });
-    });
-</script>
 
+        scrollButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
