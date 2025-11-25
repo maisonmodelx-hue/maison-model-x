@@ -2684,7 +2684,7 @@
             };
         
             // ✅ CRITICAL: Collect ALL models data from wizard
-            formData.models = window.modelsData || [];  // This contains all model specifications
+            formData.models = window.modelsData || [];
             
             // If no wizard data (single model), collect from form directly
             if (formData.models.length === 0) {
@@ -2704,7 +2704,7 @@
         });
         
         function sendToBitrix24(data) {
-            const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/6nwy9eg8i6kc8lva8/crm.deal.add.json";
+            const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/6nwy9eg8i6kc8lva8/crm.deal.add";  // ✅ FIXED: Removed .json
             
             // Package pricing mapping
             const packagePrices = {
@@ -2725,10 +2725,15 @@
             if (data.extraRevision) { addOns.push('Extra Revision Round - ₹1,500'); basePrice += 1500; }
             if (data.extraModel) { addOns.push('Additional Model - ₹8,000'); basePrice += 8000; }
         
-            // ✅ Format ALL models specifications
+            // ✅ FIX: Safely handle models array
+            const models = data.models || [];
+            const modelCount = models.length || 1;
+            
+            // Format ALL models specifications
             let modelsDetails = '';
-            data.models.forEach((model, index) => {
-                modelsDetails += `
+            if (models.length > 0) {
+                models.forEach((model, index) => {
+                    modelsDetails += `
         ━━━━━━━━━━━━━━━━━━━━━
         👥 MODEL ${index + 1} SPECIFICATIONS
         ━━━━━━━━━━━━━━━━━━━━━
@@ -2741,7 +2746,8 @@
         Skin Tone: ${model.skinTone || 'Not specified'}
         Description: ${model.description || 'None provided'}
         `;
-            });
+                });
+            }
         
             // Format complete order details
             const orderDetails = `
@@ -2758,7 +2764,7 @@
         📦 PACKAGE SELECTED
         ━━━━━━━━━━━━━━━━━━━━━
         ${data.packageSelection}
-        Total Models: ${data.models.length}
+        Total Models: ${modelCount}
         
         ${modelsDetails}
         
@@ -2778,7 +2784,7 @@
             // Prepare Bitrix24 Deal data
             const bitrixData = {
                 fields: {
-                    TITLE: `Order from ${data.firstName} - ${data.packageSelection} (${data.models.length} models)`,
+                    TITLE: `Order from ${data.firstName} - ${data.packageSelection} (${modelCount} models)`,
                     NAME: data.firstName,
                     EMAIL: [{"VALUE": data.email, "VALUE_TYPE": "WORK"}],
                     PHONE: [{"VALUE": data.phone, "VALUE_TYPE": "WORK"}],
@@ -2798,12 +2804,16 @@
             })
             .then(response => response.json())
             .then(result => {
+                console.log('Bitrix24 Response:', result);  // ✅ Debug logging
+                
                 if (result.result) {
                     alert('✅ Order submitted successfully! We will contact you within 24 hours.');
                     document.getElementById('orderForm').reset();
                     
                     // Clear models data
-                    window.modelsData = [];
+                    if (window.modelsData) {
+                        window.modelsData = [];
+                    }
                     
                     // Show confirmation screen
                     const confirmationScreen = document.getElementById('orderConfirmation');
@@ -2811,7 +2821,7 @@
                         confirmationScreen.style.display = 'flex';
                     }
                 } else {
-                    throw new Error('Submission failed');
+                    throw new Error(result.error_description || 'Submission failed');
                 }
             })
             .catch(error => {
@@ -2819,6 +2829,16 @@
                 alert('❌ There was an error submitting your order. Please email us at maisonmodelx@gmail.com or try again.');
             });
         }
+        
+        // Close confirmation screen function
+        function closeConfirmation() {
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'none';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
 
 
         
@@ -3212,6 +3232,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
