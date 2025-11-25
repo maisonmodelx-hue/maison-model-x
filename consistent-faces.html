@@ -2683,7 +2683,12 @@
                 extraModel: document.querySelector('input[name="extraModel"]')?.checked || false,
                 customRequirements: document.querySelector('textarea[name="customRequirements"]')?.value || ''
             };
-        
+
+            // ✅ FIX: Expose wizard data to global scope
+            if (typeof wizardState !== 'undefined' && wizardState.modelData) {
+                window.modelsData = Object.values(wizardState.modelData).filter(m => m && Object.keys(m).length > 0);
+            }
+
             // ✅ CRITICAL: Collect ALL models data from wizard
             formData.models = window.modelsData || [];
             
@@ -3253,6 +3258,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
