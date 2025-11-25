@@ -2300,7 +2300,8 @@
             // Add hover effects to addon options
             document.querySelectorAll('#addonsSection label').forEach(label => {
                 label.addEventListener('mouseenter', function() {
-                    if (!this.querySelector('input').disabled) {
+                    const input = this.querySelector('input');
+                    if (input && !input.disabled) {
                         this.style.background = 'rgba(212, 175, 55, 0.1)';
                     }
                 });
@@ -3232,6 +3233,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
