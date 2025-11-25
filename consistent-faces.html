@@ -2343,7 +2343,7 @@
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const webhookUrl = "YOUR_WEBHOOK_URL_HERE";
+            const Url = "YOUR_WEBHOOK_URL_HERE";
 
             const formData = {
                 fb_name: document.querySelector('input[name="fb_name"]').value,
@@ -2352,7 +2352,7 @@
                 fb_message: document.querySelector('textarea[name="fb_message"]').value
             };
 
-            fetch(webhookUrl, {
+            fetch(Url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -2384,7 +2384,7 @@
             const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add.json?Title%3DFeedback%2520from%2520%257B%257Bfb_name%257D%257D%26Name%3D%257B%257Bfb_name%257D%257D%26Email%3D%255B%257B%2522VALUE%2522%253A%2522%257B%257Bfb_email%257D%257D%2522%252C%2522VALUE_TYPE%2522%253A%2522WORK%2522%257D%255D%26Comments%3DSubject%253A%2520%257B%257Bfb_subject%257D%257D%255Cn%255CnMessage%253A%2520%257B%257Bfb_message%257D%257D";
 
             // Check if webhook URL is configured
-            if (webhookUrl === "YOUR_BITRIX24_WEBHOOK_URL_HERE") {
+            if (webhookUrl === "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add.json?Title%3DFeedback%2520from%2520%257B%257Bfb_name%257D%257D%26Name%3D%257B%257Bfb_name%257D%257D%26Email%3D%255B%257B%2522VALUE%2522%253A%2522%257B%257Bfb_email%257D%257D%2522%252C%2522VALUE_TYPE%2522%253A%2522WORK%2522%257D%255D%26Comments%3DSubject%253A%2520%257B%257Bfb_subject%257D%257D%255Cn%255CnMessage%253A%2520%257B%257Bfb_message%257D%257D") {
                 console.error('Bitrix24 webhook URL not configured');
                 alert('❌ Feedback system is not configured yet. Please contact us directly at maisonmodelx@gmail.com');
                 return;
@@ -2956,6 +2956,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
