@@ -2655,7 +2655,161 @@
         }
 
         // Form Submission to Bitrix24
+
+        // Order Form Submission
         document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+        
+            // Check if package is selected
+            const packageInput = document.querySelector('input[name="formPackage"]:checked');
+            if (!packageInput) {
+                alert('Please select a package from the pricing section above before submitting.');
+                document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
+                return;
+            }
+        
+            // Collect all form data
+            const formData = {
+                firstName: document.querySelector('input[name="firstName"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                phone: document.querySelector('input[name="phone"]').value,
+                packageSelection: packageInput.value,
+                age: document.querySelector('select[name="age"]').value,
+                gender: document.querySelector('select[name="gender"]').value,
+                ethnicity: document.querySelector('select[name="ethnicity"]').value,
+                region: document.querySelector('select[name="region"]').value,
+                hairType: document.querySelector('select[name="hairType"]').value,
+                hairColor: document.querySelector('select[name="hairColor"]').value,
+                skinTone: document.querySelector('select[name="skinTone"]').value,
+                description: document.querySelector('textarea[name="description"]').value,
+                rush: document.querySelector('input[name="rush"]')?.checked || false,
+                extraImages: document.querySelector('input[name="extraImages"]')?.checked || false,
+                ageProgression: document.querySelector('input[name="ageProgression"]')?.checked || false,
+                extraRevision: document.querySelector('input[name="extraRevision"]')?.checked || false,
+                extraModel: document.querySelector('input[name="extraModel"]')?.checked || false,
+                customRequirements: document.querySelector('textarea[name="customRequirements"]')?.value || ''
+            };
+        
+            sendToBitrix24(formData);
+        });
+        
+        function sendToBitrix24(data) {
+            const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/6nwy9eg8i6kc8lva8/crm.deal.add.json";
+            
+            // Package pricing mapping
+            const packagePrices = {
+                'Prélude — 30 images': 3999,
+                'Élan — 50 images': 10999,
+                'Signature — 100 images': 19999,
+                'Couture — 250 images': 37999,
+                'Légende — Custom': 0
+            };
+        
+            // Calculate total with add-ons
+            let basePrice = packagePrices[data.packageSelection] || 0;
+            let addOns = [];
+            
+            if (data.rush) { addOns.push('Rush Delivery (12h) - ₹5,000'); basePrice += 5000; }
+            if (data.extraImages) { addOns.push('Extra 20 Images - ₹2,000'); basePrice += 2000; }
+            if (data.ageProgression) { addOns.push('Age Progression - ₹3,000'); basePrice += 3000; }
+            if (data.extraRevision) { addOns.push('Extra Revision Round - ₹1,500'); basePrice += 1500; }
+            if (data.extraModel) { addOns.push('Additional Model - ₹8,000'); basePrice += 8000; }
+        
+            // Format order details for Comments field
+            const orderDetails = `
+        🎯 NEW ORDER - MAISON MODEL X
+        
+        ━━━━━━━━━━━━━━━━━━━━━
+        👤 CUSTOMER DETAILS
+        ━━━━━━━━━━━━━━━━━━━━━
+        Name: ${data.firstName}
+        Email: ${data.email}
+        Phone: ${data.phone}
+        
+        ━━━━━━━━━━━━━━━━━━━━━
+        📦 PACKAGE SELECTED
+        ━━━━━━━━━━━━━━━━━━━━━
+        ${data.packageSelection}
+        
+        ━━━━━━━━━━━━━━━━━━━━━
+        👥 MODEL SPECIFICATIONS
+        ━━━━━━━━━━━━━━━━━━━━━
+        Age: ${data.age}
+        Gender: ${data.gender}
+        Ethnicity: ${data.ethnicity}
+        Region: ${data.region || 'Not specified'}
+        Hair Type: ${data.hairType || 'Not specified'}
+        Hair Color: ${data.hairColor || 'Not specified'}
+        Skin Tone: ${data.skinTone || 'Not specified'}
+        
+        Description: ${data.description || 'None provided'}
+        
+        ━━━━━━━━━━━━━━━━━━━━━
+        🎁 ADD-ONS
+        ━━━━━━━━━━━━━━━━━━━━━
+        ${addOns.length > 0 ? addOns.join('\n') : 'None'}
+        
+        ${data.customRequirements ? `\n━━━━━━━━━━━━━━━━━━━━━\n✨ CUSTOM REQUIREMENTS\n━━━━━━━━━━━━━━━━━━━━━\n${data.customRequirements}` : ''}
+        
+        ━━━━━━━━━━━━━━━━━━━━━
+        💰 TOTAL AMOUNT
+        ━━━━━━━━━━━━━━━━━━━━━
+        ₹${basePrice.toLocaleString('en-IN')}
+            `;
+        
+            // Prepare Bitrix24 Deal data
+            const bitrixData = {
+                fields: {
+                    TITLE: `Order from ${data.firstName} - ${data.packageSelection}`,
+                    NAME: data.firstName,
+                    EMAIL: [{"VALUE": data.email, "VALUE_TYPE": "WORK"}],
+                    PHONE: [{"VALUE": data.phone, "VALUE_TYPE": "WORK"}],
+                    OPPORTUNITY: basePrice,
+                    CURRENCY_ID: "INR",
+                    COMMENTS: orderDetails
+                }
+            };
+        
+            // Submit to Bitrix24
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bitrixData)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.result) {
+                    alert('✅ Order submitted successfully! We will contact you within 24 hours.');
+                    document.getElementById('orderForm').reset();
+                    
+                    // Optional: Show confirmation screen if you have one
+                    const confirmationScreen = document.getElementById('orderConfirmation');
+                    if (confirmationScreen) {
+                        confirmationScreen.style.display = 'flex';
+                    }
+                } else {
+                    throw new Error('Submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('❌ There was an error submitting your order. Please email us at maisonmodelx@gmail.com or try again.');
+            });
+        }
+        
+        // Close confirmation screen function (if you have one)
+        function closeConfirmation() {
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'none';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        
+     /*   document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Check if package is selected
@@ -2763,7 +2917,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 
             // OPTION 2: For demo/testing - Show confirmation screen
             // Remove this section when you have a real webhook configured
-            console.log('Order Data:', orderDetails);
+    /*        console.log('Order Data:', orderDetails);
 
             // Show confirmation screen
             const confirmationScreen = document.getElementById('orderConfirmation');
@@ -2785,8 +2939,10 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
                 confirmationScreen.style.display = 'none';
             }
             // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }</script>
+            window.scrollTo({ top: 0, behavior: 'smooth' });     
+        }     */
+    
+    </script>
 
 
     <!-- Order Confirmation Screen -->
@@ -3004,6 +3160,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
