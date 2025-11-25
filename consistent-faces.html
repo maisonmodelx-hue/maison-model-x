@@ -2381,38 +2381,7 @@
             e.preventDefault();
 
             // TODO: Replace with your actual Bitrix24 webhook URL
-          /*  const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add"; */
-
-            const params = new URLSearchParams({
-                fb_name: formData.fb_name,
-                fb_email: formData.fb_email,
-                fb_subject: formData.fb_subject,
-                fb_message: formData.fb_message
-            });
-                
             const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add";
-            
-            fetch(`${webhookUrl}?${params.toString()}`, {
-                method: "POST"
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('✓ Thank you for your feedback!');
-                        document.getElementById('feedbackForm').reset();
-                    } 
-                    else {
-                        throw new Error('Server error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('✗ Error submitting. Please email us directly at maisonmodelx@gmail.com');
-                })
-                .finally(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                });
-
 
             // Check if webhook URL is configured
             /*if (webhookUrl === "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add") {
@@ -2988,6 +2957,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
