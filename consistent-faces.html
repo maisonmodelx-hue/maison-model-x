@@ -2403,13 +2403,27 @@
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
 
-            fetch(webhookUrl, {
+       /*     fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
+*/
+            const params = new URLSearchParams({
+                fb_name: formData.fb_name,
+                fb_email: formData.fb_email,
+                fb_subject: formData.fb_subject,
+                fb_message: formData.fb_message
+            });
+            
+            fetch(`${webhookUrl}?${params.toString()}`, {
+                method: "POST"
+            });
+
+
+                
             .then(response => {
                 if (response.ok) {
                     alert('✅ Thank you for submitting your feedback. We appreciate your input!');
@@ -2956,6 +2970,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
