@@ -163,6 +163,7 @@
     --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
     --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
     --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
   }
 }
 
@@ -177,16 +178,12 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-  font-size: var(--font-size-base);
-}
-
 body {
   font-family: var(--font-family-base);
-  background-color: var(--color-background);
-  color: var(--color-text);
+  font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -194,17 +191,11 @@ body {
 .header {
   position: sticky;
   top: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  z-index: 100;
+  background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-  z-index: 1000;
   padding: var(--space-16) 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  .header {
-    background: rgba(31, 33, 33, 0.95);
-  }
+  box-shadow: var(--shadow-sm);
 }
 
 .header-content {
@@ -217,7 +208,7 @@ body {
 }
 
 .logo {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
   text-decoration: none;
@@ -236,8 +227,9 @@ body {
 .nav a {
   color: var(--color-text-secondary);
   text-decoration: none;
-  font-size: var(--font-size-md);
-  transition: color var(--duration-fast) var(--ease-standard);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: color var(--duration-fast);
 }
 
 .nav a:hover {
@@ -245,7 +237,7 @@ body {
 }
 
 .main-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: var(--space-32) var(--space-24);
 }
@@ -253,6 +245,7 @@ body {
 .hero {
   text-align: center;
   padding: var(--space-32) 0;
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: var(--space-32);
 }
 
@@ -260,43 +253,30 @@ body {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
-  margin-bottom: var(--space-16);
+  margin-bottom: var(--space-12);
   letter-spacing: var(--letter-spacing-tight);
 }
 
 .last-updated {
   color: var(--color-text-secondary);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
 }
 
 .content-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: var(--space-32);
-  margin-top: var(--space-32);
-}
-
-@media (max-width: 968px) {
-  .content-layout {
-    grid-template-columns: 1fr;
-  }
-  
-  .toc-container {
-    position: static !important;
-    height: auto !important;
-  }
+  align-items: start;
 }
 
 .toc-container {
   position: sticky;
   top: 100px;
-  height: fit-content;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  padding: var(--space-20);
   background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
+  padding: var(--space-24);
+  box-shadow: var(--shadow-sm);
 }
 
 .toc-title {
@@ -315,172 +295,172 @@ body {
 }
 
 .toc-link {
-  display: block;
-  padding: var(--space-8) var(--space-12);
   color: var(--color-text-secondary);
   text-decoration: none;
   font-size: var(--font-size-sm);
-  border-radius: var(--radius-sm);
-  transition: all var(--duration-fast) var(--ease-standard);
+  transition: color var(--duration-fast);
+  display: block;
+  padding: var(--space-4) 0;
 }
 
 .toc-link:hover {
-  background: var(--color-secondary);
   color: var(--color-primary);
-}
-
-.toc-link.active {
-  background: var(--color-secondary);
-  color: var(--color-primary);
-  font-weight: var(--font-weight-medium);
 }
 
 .content {
   background: var(--color-surface);
-  padding: var(--space-32);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-card-border);
+  padding: var(--space-32);
+  box-shadow: var(--shadow-sm);
 }
 
-.agreement-section {
-  background: var(--color-bg-1);
-  padding: var(--space-24);
-  border-radius: var(--radius-md);
+.content section {
   margin-bottom: var(--space-32);
-  border-left: 4px solid var(--color-primary);
 }
 
-.agreement-section h2 {
+.content section:last-child {
+  margin-bottom: 0;
+}
+
+.content h2 {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
   margin-bottom: var(--space-16);
-}
-
-.agreement-section p {
-  margin-bottom: var(--space-12);
-  line-height: 1.7;
-}
-
-.agreement-section strong {
-  color: var(--color-text);
-  font-weight: var(--font-weight-semibold);
-}
-
-.contact-info {
-  background: var(--color-bg-2);
-  padding: var(--space-16);
-  border-radius: var(--radius-sm);
-  margin: var(--space-16) 0;
-}
-
-.age-requirements {
-  background: var(--color-bg-3);
-  padding: var(--space-16);
-  border-radius: var(--radius-sm);
-  margin: var(--space-16) 0;
-}
-
-.section {
-  margin-bottom: var(--space-32);
-  scroll-margin-top: 100px;
-}
-
-.section h2 {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text);
-  margin-bottom: var(--space-20);
   padding-bottom: var(--space-12);
   border-bottom: 2px solid var(--color-border);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
-.section h3 {
+.content h3 {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
-  margin-top: var(--space-24);
-  margin-bottom: var(--space-16);
+  margin: var(--space-24) 0 var(--space-12);
 }
 
-.section h4 {
+.content h4 {
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text);
-  margin-top: var(--space-20);
-  margin-bottom: var(--space-12);
+  margin: var(--space-16) 0 var(--space-8);
 }
 
-.section p {
+.content p {
   margin-bottom: var(--space-16);
-  line-height: 1.7;
   color: var(--color-text);
+  line-height: 1.7;
 }
 
-.section ul, .section ol {
-  margin: var(--space-16) 0;
+.content ul, .content ol {
+  margin-bottom: var(--space-16);
   padding-left: var(--space-24);
 }
 
-.section li {
+.content li {
   margin-bottom: var(--space-8);
-  line-height: 1.7;
   color: var(--color-text);
+  line-height: 1.7;
 }
 
-.section strong {
+.content a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--duration-fast);
+}
+
+.content a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+
+.content strong {
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
 }
 
-.highlight-box {
-  background: var(--color-bg-4);
-  padding: var(--space-20);
-  border-radius: var(--radius-md);
-  margin: var(--space-20) 0;
-  border-left: 4px solid var(--color-error);
+.content em {
+  font-style: italic;
+  color: var(--color-text);
 }
 
-.info-box {
-  background: var(--color-bg-1);
-  padding: var(--space-20);
-  border-radius: var(--radius-md);
-  margin: var(--space-20) 0;
+.highlight {
+  background-color: var(--color-secondary);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.important-notice {
+  background-color: rgba(var(--color-teal-500-rgb), 0.08);
   border-left: 4px solid var(--color-primary);
+  padding: var(--space-16);
+  margin: var(--space-24) 0;
+  border-radius: var(--radius-base);
 }
 
-.warning-box {
-  background: var(--color-bg-6);
-  padding: var(--space-20);
-  border-radius: var(--radius-md);
-  margin: var(--space-20) 0;
+.warning-notice {
+  background-color: rgba(var(--color-orange-500-rgb), 0.08);
   border-left: 4px solid var(--color-warning);
-}
-
-.success-box {
-  background: var(--color-bg-3);
-  padding: var(--space-20);
-  border-radius: var(--radius-md);
-  margin: var(--space-20) 0;
-  border-left: 4px solid var(--color-success);
+  padding: var(--space-16);
+  margin: var(--space-24) 0;
+  border-radius: var(--radius-base);
 }
 
 .footer {
-  margin-top: var(--space-32);
-  padding: var(--space-32) 0;
-  text-align: center;
+  max-width: 1400px;
+  margin: var(--space-32) auto 0;
+  padding: var(--space-32) var(--space-24);
   border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.footer-content {
+  margin-bottom: var(--space-24);
+}
+
+.footer h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-12);
+}
+
+.footer p {
   color: var(--color-text-secondary);
   font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: var(--space-8);
 }
 
 .footer a {
   color: var(--color-primary);
   text-decoration: none;
+  font-weight: var(--font-weight-medium);
 }
 
 .footer a:hover {
+  color: var(--color-primary-hover);
   text-decoration: underline;
+}
+
+.copyright {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  margin-top: var(--space-16);
+}
+
+@media (max-width: 1024px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toc-container {
+    position: relative;
+    top: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -495,16 +475,12 @@ body {
     align-items: center;
   }
 
-  .main-container {
-    padding: var(--space-16);
+  .hero h1 {
+    font-size: var(--font-size-3xl);
   }
 
   .content {
-    padding: var(--space-20);
-  }
-
-  .hero h1 {
-    font-size: var(--font-size-3xl);
+    padding: var(--space-24);
   }
 }
     </style>
@@ -519,7 +495,7 @@ body {
                 <a href="https://maisonmodelx.com/">Home</a>
                 <a href="mailto:maisonmodelx@gmail.com">Contact</a>
                 <a href="privacy-policy.html">Privacy Policy</a>
-                <a href="cancellation-refund-policy.html">Cancellation & Refund Policy</a>
+                <a href="cancellation-refund-policy.html">Cancellation &amp; Refund Policy</a>
             </nav>
         </div>
     </header>
@@ -527,7 +503,7 @@ body {
     <main class="main-container">
         <div class="hero">
             <h1>Terms of Service</h1>
-            <p class="last-updated">Last Updated: November 20, 2025</p>
+            <p class="last-updated">Effective Date: November 25, 2025</p>
         </div>
 
         <div class="content-layout">
@@ -535,730 +511,1337 @@ body {
                 <h2 class="toc-title">Table of Contents</h2>
                 <ul class="toc-list">
                     <li class="toc-item"><a href="#agreement" class="toc-link">Agreement to Legal Terms</a></li>
+                    <li class="toc-item"><a href="#modifications" class="toc-link">Modifications to These Terms</a></li>
+                    <li class="toc-item"><a href="#age-requirements" class="toc-link">Age Requirements and User Eligibility</a></li>
                     <li class="toc-item"><a href="#section-1" class="toc-link">1. Our Services</a></li>
                     <li class="toc-item"><a href="#section-2" class="toc-link">2. Intellectual Property Rights</a></li>
-                    <li class="toc-item"><a href="#section-3" class="toc-link">3. User Representations</a></li>
-                    <li class="toc-item"><a href="#section-4" class="toc-link">4. Products, Delivery, and Refinements</a></li>
-                    <li class="toc-item"><a href="#section-5" class="toc-link">5. Purchases and Payment</a></li>
+                    <li class="toc-item"><a href="#section-3" class="toc-link">3. User Representations and Warranties</a></li>
+                    <li class="toc-item"><a href="#section-4" class="toc-link">4. Service Specifications, Delivery, and Quality Standards</a></li>
+                    <li class="toc-item"><a href="#section-5" class="toc-link">5. Purchases, Payment, and Pricing</a></li>
                     <li class="toc-item"><a href="#section-6" class="toc-link">6. Refunds and Returns Policy</a></li>
                     <li class="toc-item"><a href="#section-7" class="toc-link">7. Commercial License and Acceptable Use</a></li>
                     <li class="toc-item"><a href="#section-8" class="toc-link">8. Prohibited Activities</a></li>
                     <li class="toc-item"><a href="#section-9" class="toc-link">9. AI-Generated Content Disclaimer</a></li>
                     <li class="toc-item"><a href="#section-10" class="toc-link">10. Data Protection and Privacy</a></li>
-                    <li class="toc-item"><a href="#section-11" class="toc-link">11. User Data and Contributions</a></li>
-                    <li class="toc-item"><a href="#section-12" class="toc-link">12. Third-Party Websites and Content</a></li>
-                    <li class="toc-item"><a href="#section-13" class="toc-link">13. Services Management</a></li>
-                    <li class="toc-item"><a href="#section-14" class="toc-link">14. Term and Termination</a></li>
-                    <li class="toc-item"><a href="#section-15" class="toc-link">15. Modifications and Interruptions</a></li>
-                    <li class="toc-item"><a href="#section-16" class="toc-link">16. Disclaimer of Warranties</a></li>
-                    <li class="toc-item"><a href="#section-17" class="toc-link">17. Limitation of Liability</a></li>
-                    <li class="toc-item"><a href="#section-18" class="toc-link">18. Indemnification</a></li>
-                    <li class="toc-item"><a href="#section-19" class="toc-link">19. Governing Law</a></li>
-                    <li class="toc-item"><a href="#section-20" class="toc-link">20. Dispute Resolution</a></li>
-                    <li class="toc-item"><a href="#section-21" class="toc-link">21. Electronic Communications and Signatures</a></li>
-                    <li class="toc-item"><a href="#section-22" class="toc-link">22. Miscellaneous</a></li>
-                    <li class="toc-item"><a href="#section-23" class="toc-link">23. Contact Us</a></li>
+                    <li class="toc-item"><a href="#section-11" class="toc-link">11. Third-Party Websites and Content</a></li>
+                    <li class="toc-item"><a href="#section-12" class="toc-link">12. Services Management</a></li>
+                    <li class="toc-item"><a href="#section-13" class="toc-link">13. Term and Termination</a></li>
+                    <li class="toc-item"><a href="#section-14" class="toc-link">14. Modifications and Service Interruptions</a></li>
+                    <li class="toc-item"><a href="#section-15" class="toc-link">15. Warranty Disclaimers</a></li>
+                    <li class="toc-item"><a href="#section-16" class="toc-link">16. Limitation of Liability</a></li>
+                    <li class="toc-item"><a href="#section-17" class="toc-link">17. Indemnification</a></li>
+                    <li class="toc-item"><a href="#section-18" class="toc-link">18. Governing Law and Jurisdiction</a></li>
+                    <li class="toc-item"><a href="#section-19" class="toc-link">19. Dispute Resolution</a></li>
+                    <li class="toc-item"><a href="#section-20" class="toc-link">20. Electronic Communications</a></li>
+                    <li class="toc-item"><a href="#section-21" class="toc-link">21. Miscellaneous Provisions</a></li>
+                    <li class="toc-item"><a href="#section-22" class="toc-link">22. Contact Information</a></li>
+                    <li class="toc-item"><a href="#section-23" class="toc-link">23. Updates to These Terms</a></li>
+                    <li class="toc-item"><a href="#section-24" class="toc-link">24. Consumer Protection</a></li>
+                    <li class="toc-item"><a href="#section-25" class="toc-link">25. Acknowledgment and Acceptance</a></li>
                 </ul>
             </aside>
 
             <div class="content">
-                <section id="agreement" class="agreement-section">
+                <section id="agreement">
                     <h2>AGREEMENT TO LEGAL TERMS</h2>
-                    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you (whether personally or on behalf of an entity) and <strong>Maison Model X</strong> ("MMX," "we," "us," "our") concerning your access to and use of our website at https://maisonmodelx.com/ (the "Website") and all related services (collectively, the "Services").</p>
+                    <p>These Terms of Service ("Terms") constitute a legally binding agreement between you (whether personally or on behalf of an entity) and <strong>Maison Model X</strong> ("MMX," "we," "us," "our") concerning your access to and use of our website at <strong><a href="https://maisonmodelx.com/">https://maisonmodelx.com/</a></strong> and all related services (collectively, the "Services").</p>
                     
-                    <p><strong>MaisonModelX</strong> is an AI-powered digital modeling platform that enables brands, designers, and agencies to purchase custom AI-generated digital models and professional model photography for commercial use. We offer fully customizable digital model creations with unique attributes (ethnicity, body type, style) and instant delivery for advertising, e-commerce, and social media campaigns.</p>
+                    <p><strong>Maison Model X</strong> is an AI-powered digital modeling platform that enables brands, designers, photographers, e-commerce businesses, and creative professionals to purchase custom AI-generated digital models and professional model photography for commercial use. We offer:</p>
                     
-                    <p><strong>BY ACCESSING OR USING THE SERVICES, YOU AGREE TO BE BOUND BY THESE TERMS.</strong> If you do not agree with all provisions of these Terms, you are expressly prohibited from using the Services and must discontinue use immediately.</p>
-                    
-                    <div class="contact-info">
-                        <p><strong>Contact Information:</strong><br>
-                        Email: maisonmodelx@gmail.com<br>
-                        Location: Mumbai, India</p>
-                    </div>
-                    
-                    <p>We reserve the right to modify these Terms at any time. We will alert you to changes by updating the "Last Updated" date. Your continued use of the Services after modifications constitutes acceptance of the revised Terms.</p>
-                    
-                    <div class="age-requirements">
-                        <p><strong>Age Requirements:</strong> The Services are intended for users at least 13 years of age. Minors (under 18) must have parental or guardian permission and direct supervision to use the Services.</p>
-                    </div>
-                </section>
-
-                <section id="section-1" class="section">
-                    <h2>1. OUR SERVICES</h2>
-                    <p>The Services provide AI-generated digital models and images for commercial and personal use. The information and content provided through the Services are not intended for distribution in any jurisdiction where such distribution would be contrary to law or would subject us to registration requirements.</p>
-                    
-                    <h3>Your Responsibilities:</h3>
                     <ul>
-                        <li>You agree to comply with all applicable laws and regulations in your jurisdiction regarding use of the Services.</li>
-                        <li>You are solely responsible for ensuring your use of the Services complies with local laws.</li>
-                        <li>The Services are not tailored to comply with industry-specific regulations (HIPAA, FISMA, GLBA, etc.). If your use would be subject to such laws, do not use the Services.</li>
+                        <li><strong>General AI Model Generation Service:</strong> Fully customizable digital model creations with unique attributes (ethnicity, body type, style) and instant delivery for advertising, e-commerce, and social media campaigns.</li>
+                        <li><strong>Consistent Faces Service:</strong> Custom reference packs featuring photorealistic multi-angle face consistency (95%+ fidelity) for use across AI generation platforms, with dedicated revision support and priority rush delivery options.</li>
                     </ul>
+                    
+                    <div class="important-notice">
+                        <p><strong>BY ACCESSING OR USING THE SERVICES, YOU AGREE TO BE BOUND BY THESE TERMS.</strong> If you do not agree with all provisions of these Terms, you are expressly prohibited from using the Services and must discontinue use immediately.</p>
+                    </div>
+                    
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a><br>
+                    <strong>Location:</strong> Mumbai, India<br>
+                    <strong>Website:</strong> <a href="https://maisonmodelx.com/">https://maisonmodelx.com/</a></p>
                 </section>
 
-                <section id="section-2" class="section">
+                <section id="modifications">
+                    <h2>MODIFICATIONS TO THESE TERMS</h2>
+                    <p>We reserve the right to modify these Terms at any time. We will alert you to changes by updating the "Last Updated" date at the top of this document. Your continued use of the Services after modifications constitutes acceptance of the revised Terms. We recommend reviewing these Terms periodically to stay informed of any changes.</p>
+                </section>
+
+                <section id="age-requirements">
+                    <h2>AGE REQUIREMENTS AND USER ELIGIBILITY</h2>
+                    <p>The Services are intended for users at least 13 years of age. Minors under 18 must have parental or guardian permission and direct supervision to use the Services. By using the Services, you represent that you meet these age requirements or have obtained necessary parental consent.</p>
+                </section>
+
+                <section id="section-1">
+                    <h2>1. OUR SERVICES – DESCRIPTION AND SCOPE</h2>
+                    
+                    <h3>1.1 General AI Model Generation Service</h3>
+                    <p>We provide custom AI-generated digital models and images for commercial and personal use. Clients submit specifications (age, ethnicity, body type, clothing, styling preferences, accessories) through our order form. Our AI systems generate custom models based on these specifications, which are delivered digitally within 24–48 hours.</p>
+                    
+                    <h3>1.2 Consistent Faces Service</h3>
+                    <p>Our Consistent Faces Service creates custom reference packs featuring photorealistic facial consistency for repeated use across AI generation platforms (including but not limited to Midjourney, Seedream, Nano Banana, and similar tools). Deliverables include:</p>
+                    <ul>
+                        <li>Multi-angle face reference captures (front, side, ¾ angle, full-body, close-up details)</li>
+                        <li>Multiple expressions and poses as specified</li>
+                        <li>95%+ facial consistency guarantees across different AI platforms</li>
+                        <li>4K resolution output files</li>
+                        <li>Unlimited revisions during the production phase (included within base price)</li>
+                        <li>Optional rush delivery (24-hour turnaround available at additional cost)</li>
+                    </ul>
+                    
+                    <h3>1.3 Service Limitations</h3>
+                    <p>The Services are <strong>not</strong> intended for distribution in jurisdictions where such distribution would be contrary to law or would subject us to registration requirements. You are solely responsible for ensuring your use of the Services complies with local laws and regulations in your jurisdiction.</p>
+                    <p>The Services are <strong>not</strong> tailored to comply with industry-specific regulations (HIPAA, FISMA, GLBA, medical licensing, pharmaceutical regulations, etc.). If your use would be subject to such laws, do not use the Services.</p>
+                </section>
+
+                <section id="section-2">
                     <h2>2. INTELLECTUAL PROPERTY RIGHTS</h2>
                     
-                    <h3>Our Intellectual Property</h3>
-                    <p>We are the owner or licensee of all intellectual property rights in the Services, including all source code, databases, functionality, software, website designs, audio, video, text, photographs, graphics (collectively, "Platform Content"), and the trademarks, service marks, and logos ("Marks").</p>
+                    <h3>2.1 Our Intellectual Property</h3>
+                    <p>We are the owner or licensee of all intellectual property rights in the Services, including all source code, databases, functionality, software, website designs, audio, video, text, photographs, graphics, design systems, and generation algorithms (collectively, "Platform Content"), and the trademarks, service marks, and logos (the "Marks").</p>
+                    <p>Our Platform Content and Marks are protected by Indian copyright and trademark laws, international treaties, and trade secret protections. The Services, Platform Content, and Marks are provided "AS IS" for your use in accordance with these Terms.</p>
                     
-                    <p>Our Platform Content and Marks are protected by Indian copyright and trademark laws and international treaties. The Services, Platform Content, and Marks are provided "AS IS" for your use in accordance with these Terms.</p>
-                    
-                    <h3>Your Use of the Services</h3>
+                    <h3>2.2 Restrictions on Platform Use</h3>
                     <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to access the Services solely for lawful purposes.</p>
-                    
-                    <div class="warning-box">
-                        <p><strong>Restrictions:</strong> You may not copy, reproduce, aggregate, republish, upload, post, publicly display, encode, translate, transmit, distribute, sell, license, or otherwise exploit any part of the Services, Platform Content, or Marks for any commercial purpose without our express prior written permission.</p>
-                    </div>
-                    
-                    <p>Any breach of these Intellectual Property Rights constitutes a material breach and your right to use the Services will terminate immediately.</p>
-                </section>
-
-                <section id="section-3" class="section">
-                    <h2>3. USER REPRESENTATIONS</h2>
-                    <p>By using the Services, you represent and warrant that:</p>
-                    <ol>
-                        <li>You have legal capacity and agree to comply with these Terms.</li>
-                        <li>You are not under the age of 13.</li>
-                        <li>If you are a minor (under 18), you have received parental permission to use the Services.</li>
-                        <li>You will not access the Services through automated or non-human means (bots, scripts, etc.).</li>
-                        <li>You will not use the Services for any illegal or unauthorized purpose.</li>
-                        <li>Your use will not violate any applicable law or regulation.</li>
-                    </ol>
-                    
-                    <p>If you provide information that is untrue, inaccurate, not current, or incomplete, we may suspend or terminate your account and refuse current or future use of the Services.</p>
-                </section>
-
-                <section id="section-4" class="section">
-                    <h2>4. PRODUCTS, DELIVERY, AND REFINEMENTS</h2>
-                    <p>All digital models, assets, and images are custom-created using AI technology and delivered digitally upon purchase.</p>
-                    
-                    <h3>Availability</h3>
-                    <p>Products are subject to availability. We reserve the right to discontinue any products at any time for any reason. Prices are subject to change without notice.</p>
-                    
-                    <div class="info-box">
-                        <h4>Initial Delivery</h4>
-                        <p>Digital products are delivered electronically within <strong>24-48 hours</strong> of order confirmation to the email address provided at checkout.</p>
-                    </div>
-                    
-                    <h3>Request Clarifications and Reporting Period</h3>
-                    <p>If you believe your delivered product does not meet your specifications, you must report any issues or request clarifications within <strong>1 week (7 calendar days)</strong> of delivery. After this period, no complaints, refinement requests, or refund claims will be accepted. This allows us to investigate and act promptly on legitimate concerns.</p>
-                    
-                    <h3>Refinements and Changes</h3>
-                    <p>You may request reasonable refinements or modifications to your delivered model within the 7-day reporting period. Reasonable refinements include:</p>
+                    <p><strong>You may not:</strong></p>
                     <ul>
-                        <li>Minor color adjustments (skin tone, hair color, outfit color)</li>
-                        <li>Small style modifications within original specifications</li>
-                        <li>Pose or angle adjustments</li>
-                        <li>Accessories, or prop changes</li>
-                        <li>Attribute clarifications (size, style consistency)</li>
+                        <li>Copy, reproduce, aggregate, republish, upload, post, publicly display, encode, translate, transmit, or distribute any part of the Services, Platform Content, or Marks for any commercial purpose without express prior written permission</li>
+                        <li>Reverse engineer, decompile, disassemble, or attempt to discover the source code or algorithms of our AI generation systems</li>
+                        <li>Use automated systems (bots, scrapers, spiders, data mining tools) to extract data or generate models in bulk</li>
+                        <li>Create competing AI model generation services based on our Platform Content</li>
+                        <li>Sublicense or transfer your access rights to third parties</li>
+                        <li>Use the Services to train or develop competing AI models</li>
+                    </ul>
+                    <p>Any breach of these Intellectual Property Rights constitutes a material breach and your right to use the Services will terminate immediately, without refund.</p>
+                    
+                    <h3>2.3 Your Intellectual Property – Client Content</h3>
+                    <p><strong>You retain full ownership</strong> of all Client Content—information, specifications, descriptions, reference images, design details, accessories, color palettes, and other materials you provide when placing an order with us.</p>
+                    <p>By submitting Client Content, you grant us a <strong>limited, non-exclusive license</strong> to use your Client Content solely for:</p>
+                    <ul>
+                        <li>Generating your custom AI models and images</li>
+                        <li>Fulfilling your order</li>
+                        <li>Providing refinements and revisions within the 7-day window</li>
+                        <li>Quality assurance and technical optimization</li>
+                    </ul>
+                    <p>This license terminates once your order is completed and delivered.</p>
+                    <p><strong>You represent and warrant</strong> that:</p>
+                    <ul>
+                        <li>You own or have necessary rights to all Client Content you provide</li>
+                        <li>Your Client Content does not infringe third-party intellectual property rights</li>
+                        <li>You have permission to use any reference images, design elements, or specifications you submit</li>
+                        <li>You take full responsibility for the originality and lawfulness of your Client Content</li>
                     </ul>
                     
-                    <div class="highlight-box">
-                        <p><strong>You cannot make unreasonable demands.</strong> Unreasonable demands include requesting completely different models, changing core specifications, requesting unreasonable unlimited revisions, or demands that require re-generation of the entire model as a new product.</p>
-                    </div>
+                    <h3>2.4 Your Intellectual Property – Generated Content and Commercial Rights</h3>
+                    <p><strong>Upon full payment of your order, you receive exclusive commercial rights</strong> to use the Generated Content (AI-generated model images) we create for you.</p>
+                    <p>Specifically, you receive:</p>
+                    <ul>
+                        <li><strong>Worldwide, perpetual, royalty-free commercial license</strong> to use Generated Content for advertising, e-commerce, social media, content creation, and commercial enterprises</li>
+                        <li><strong>Non-exclusive rights</strong> unless otherwise specified (other clients may purchase identical or similar models)</li>
+                        <li><strong>Sublicensing prohibited</strong> – you cannot sell, transfer, or license Generated Content to third parties</li>
+                        <li><strong>Unlimited derivative uses</strong> of Generated Content for your lawful commercial purposes</li>
+                        <li><strong>Attribution not required</strong> (though we appreciate if you credit MMX)</li>
+                    </ul>
+                    <p><strong>MMX retains no ownership rights</strong> to Generated Content after delivery and full payment. We do not use your Generated Content for:</p>
+                    <ul>
+                        <li>Marketing or promotional purposes without your written consent</li>
+                        <li>Training or improving our AI models</li>
+                        <li>Portfolio display (unless you explicitly authorize)</li>
+                        <li>Any secondary commercial purpose</li>
+                    </ul>
                     
-                    <h4>Refinement Turnaround</h4>
-                    <p>Approved refinement requests will be completed and delivered within <strong>24-48 hours</strong> of your request. Our response time to acknowledge your refinement request is <strong>24 hours.</strong> Complex refinements may take up to <strong>48 hours.</strong></p>
+                    <h3>2.5 Consistent Faces Reference Packs – Ownership and Usage</h3>
+                    <p>Upon full payment for the Consistent Faces Service, you receive:</p>
+                    <ul>
+                        <li><strong>Exclusive ownership</strong> of the reference face data pack you commissioned</li>
+                        <li><strong>Perpetual, worldwide commercial license</strong> to use reference packs across any AI generation platforms for unlimited generations</li>
+                        <li><strong>No additional licensing fees</strong> for using your reference pack across different platforms</li>
+                        <li><strong>Right to modify</strong> reference packs for your personal use (you may crop, adjust, or adapt for your specific workflow)</li>
+                    </ul>
+                    <p><strong>You may not:</strong></p>
+                    <ul>
+                        <li>Sell or transfer your reference pack to third parties</li>
+                        <li>Sublicense or redistribute your reference pack</li>
+                        <li>Allow others to use your reference pack without direct authorization</li>
+                        <li>Use your reference pack to create competing reference pack services</li>
+                    </ul>
+                    <p>If a third party requests to purchase or use your reference pack, they must contact MMX directly to commission their own custom reference pack.</p>
                     
-                    <h3>No Exchanges for Preference Reasons</h3>
-                    <p>Once delivered, products cannot be exchanged for alternative designs due to personal preference, change of mind, or dissatisfaction if the original product meets your stated specifications.</p>
-                    
-                    <h3>No Physical Returns</h3>
-                    <p>As this is a digital service, there are no physical returns, exchanges, or traditional "return windows." All transactions are final except as outlined in the Refunds and Returns Policy (Section 6).</p>
+                    <h3>2.6 Portfolio and Marketing Use</h3>
+                    <p>If you wish to allow MMX to showcase your Generated Content or Consistent Faces results in our portfolio, marketing materials, case studies, social media, or testimonials, you may grant this permission separately in writing. This permission is optional and not required as a condition of purchase.</p>
+                    <p><strong>You may revoke this permission at any time</strong> by contacting us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a>.</p>
                 </section>
 
-                <section id="section-5" class="section">
-                    <h2>5. PURCHASES AND PAYMENT</h2>
+                <section id="section-3">
+                    <h2>3. USER REPRESENTATIONS AND WARRANTIES</h2>
+                    <p>By using the Services, you represent and warrant that:</p>
+                    <ul>
+                        <li>You have legal capacity to enter into binding contracts and agree to comply with all provisions of these Terms</li>
+                        <li>You are not under the age of 13; if under 18, you have obtained verifiable parental permission</li>
+                        <li>You will not access the Services through automated or non-human means (bots, scripts, scrapers, etc.)</li>
+                        <li>You will not use the Services for any illegal, unlawful, fraudulent, or unauthorized purpose</li>
+                        <li>You will not violate any applicable law, regulation, or third-party rights</li>
+                        <li>All information you provide (name, email, payment details, specifications) is true, accurate, current, and complete</li>
+                        <li>Any Client Content you provide is original, lawful, and does not infringe third-party rights</li>
+                        <li>You have the right to use any reference images or design specifications you provide</li>
+                        <li>You will use Generated Content in compliance with all applicable laws and regulations</li>
+                        <li>You will not use Generated Content to impersonate real individuals, create deepfakes for fraud, or misrepresent AI content as real photography</li>
+                    </ul>
+                    <div class="warning-notice">
+                        <p><strong>If any representation is untrue, inaccurate, not current, or incomplete, we may:</strong></p>
+                        <ul>
+                            <li>Suspend or terminate your account immediately</li>
+                            <li>Refuse current or future service requests</li>
+                            <li>Deny refunds for orders already placed</li>
+                            <li>Pursue legal remedies for damages caused by false representations</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="section-4">
+                    <h2>4. SERVICE SPECIFICATIONS, DELIVERY, AND QUALITY STANDARDS</h2>
                     
-                    <h3>Accepted Payment Methods:</h3>
+                    <h3>4.1 Service Workflow and Ordering Process</h3>
+                    <p><strong>Step 1: Order Submission</strong><br>
+                    You submit a completed order form providing:</p>
+                    <ul>
+                        <li>Your contact information (name, email, billing address)</li>
+                        <li>Model specifications (age, ethnicity, body type, clothing, styling, accessories, color preferences)</li>
+                        <li>For Consistent Faces: additional reference images, expression requirements, angle preferences</li>
+                        <li>Any special requests or customization details</li>
+                    </ul>
+                    
+                    <p><strong>Step 2: Order Confirmation</strong><br>
+                    We confirm receipt of your order via email within 2–4 hours and provide an estimated delivery date.</p>
+                    
+                    <p><strong>Step 3: Generation and Production</strong><br>
+                    Our AI systems generate your custom model(s) based on your specifications. During this phase, quality checks are performed to ensure alignment with your requirements.</p>
+                    
+                    <p><strong>Step 4: Delivery</strong><br>
+                    Completed digital files are delivered to your email address in agreed-upon formats (typically PNG, JPG, or TIFF at 4K resolution).</p>
+                    
+                    <p><strong>Step 5: Revision Window</strong><br>
+                    You have 7 calendar days from delivery to request refinements or report non-conformance (see Section 4.4).</p>
+                    
+                    <h3>4.2 Initial Delivery Standards</h3>
+                    <p><strong>Delivery Timeframe:</strong></p>
+                    <ul>
+                        <li>Standard delivery: <strong>24–48 hours</strong> from order confirmation</li>
+                        <li>Rush delivery (Consistent Faces only): <strong>24 hours</strong> from order confirmation (additional fee applies)</li>
+                        <li>Complex orders with extensive customization may require up to <strong>72 hours</strong>; you will be notified at order confirmation</li>
+                    </ul>
+                    
+                    <p><strong>Delivery Method:</strong><br>
+                    All products are delivered electronically to the email address provided at checkout. No physical shipment is offered.</p>
+                    
+                    <p><strong>File Formats and Resolution:</strong></p>
+                    <ul>
+                        <li>Default format: High-quality PNG or JPG (as specified at checkout)</li>
+                        <li>Resolution: 4K (3840 × 2160 pixels) or lower resolution as specified</li>
+                        <li>File size: Optimized for web and print use</li>
+                        <li>Consistent Faces: Multi-angle reference files organized by angle and expression</li>
+                    </ul>
+                    
+                    <h3>4.3 Product Specifications and Performance Standards</h3>
+                    <p><strong>General AI Model Generation:</strong></p>
+                    <ul>
+                        <li>Models will be generated based on your submitted specifications</li>
+                        <li>Skin tone, ethnicity, body type, clothing, and styling will match your specifications within reasonable artistic interpretation</li>
+                        <li>Generated models will appear photorealistic and professional-grade</li>
+                        <li>We make <strong>no guarantee</strong> that models will be 100% identical to reference images or celebrity likenesses</li>
+                    </ul>
+                    
+                    <p><strong>Consistent Faces Service Guarantees:</strong></p>
+                    <ul>
+                        <li><strong>95%+ facial consistency guarantee:</strong> Facial features (bone structure, proportions, distinguishing characteristics) will maintain 95%+ consistency across multiple angles and expressions</li>
+                        <li><strong>Multi-angle delivery:</strong> Minimum 5 angles (front, side, ¾, full-body, close-up) plus multiple expressions as specified</li>
+                        <li><strong>Cross-platform consistency:</strong> Reference pack will maintain consistency when used across different AI platforms (with inherent platform-specific variations acknowledged)</li>
+                        <li><strong>4K resolution:</strong> All reference files delivered at 4K quality</li>
+                        <li><strong>Revision inclusion:</strong> Unlimited revisions during production phase to achieve consistency standards</li>
+                    </ul>
+                    
+                    <p><strong>Output Limitations:</strong></p>
+                    <ul>
+                        <li>Models are synthetic and do not represent real individuals</li>
+                        <li>We cannot guarantee models will look identical to any specific celebrity or real person (though we can create stylistically similar models within ethical guidelines)</li>
+                        <li>We cannot guarantee 100% consistency across all future AI generations (platform differences and algorithm updates affect output)</li>
+                        <li>Consistency is measured relative to your reference pack within reasonable AI generation parameters</li>
+                        <li>Natural variation in AI outputs across different tools is expected and not grounds for refunds</li>
+                    </ul>
+                    
+                    <h3>4.4 Reporting Period and Quality Disputes</h3>
+                    <div class="warning-notice">
+                        <p><strong>Reporting Window:</strong> If you believe your delivered product does not meet your specifications, you must report issues within <strong>7 calendar days</strong> of delivery. After this period, <strong>no complaints, refinement requests, or refund claims will be accepted.</strong></p>
+                    </div>
+                    <p>This window allows us to investigate and act promptly on legitimate concerns and prevents indefinite dispute periods.</p>
+                    
+                    <p><strong>Report Process:</strong></p>
+                    <ol>
+                        <li>Email <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number and detailed description of the issue</li>
+                        <li>Include screenshots or documentation showing the exact specification mismatch</li>
+                        <li>Clearly state what specification was not met and how it differs from your order</li>
+                        <li>Our team will acknowledge your report within <strong>24 hours</strong></li>
+                    </ol>
+                    
+                    <h3>4.5 Refinements and Reasonable Modifications</h3>
+                    <p><strong>Included Refinements (Covered Under Base Price):</strong></p>
+                    <p>You may request reasonable refinements or modifications to your delivered model within the 7-day reporting period. Reasonable refinements include:</p>
+                    <ul>
+                        <li>Minor color adjustments (skin tone, hair color, outfit color, accessory color)</li>
+                        <li>Small style modifications within original specifications</li>
+                        <li>Pose or angle adjustments</li>
+                        <li>Accessories or prop changes</li>
+                        <li>Attribute clarifications (size, style consistency, styling details)</li>
+                        <li>Expression or facial feature fine-tuning (eyes, smile, etc.)</li>
+                        <li>For Consistent Faces: adjustment of any angle to better match consistency standard</li>
+                    </ul>
+                    
+                    <p><strong>Unreasonable Demands (Not Covered):</strong></p>
+                    <p>You <strong>cannot make unreasonable demands</strong>. Unreasonable demands include:</p>
+                    <ul>
+                        <li>Requesting a completely different model (different ethnicity, body type, fundamental appearance)</li>
+                        <li>Changing core specifications beyond minor adjustments</li>
+                        <li>Requesting unlimited revisions beyond the 7-day window</li>
+                        <li>Demanding re-generation of the entire model as a new product</li>
+                        <li>Requesting models that require completely different artistic direction</li>
+                        <li>Requesting additional deliverables not included in your service tier</li>
+                    </ul>
+                    
+                    <p><strong>Refinement Turnaround:</strong></p>
+                    <ul>
+                        <li>Our acknowledgment time: <strong>24 hours</strong> from receipt of your refinement request</li>
+                        <li>Approved refinement completion: <strong>24–48 hours</strong> from request</li>
+                        <li>Complex refinements involving multi-angle regeneration (Consistent Faces): up to <strong>48 hours</strong></li>
+                    </ul>
+                    
+                    <p><strong>Refinement Delivery:</strong><br>
+                    Refined products are delivered via email to the same address as original delivery.</p>
+                    
+                    <h3>4.6 Non-Exchanges for Preference or Dissatisfaction</h3>
+                    <p><strong>Once delivered, products cannot be exchanged or replaced</strong> for:</p>
+                    <ul>
+                        <li>Personal preference or change of mind</li>
+                        <li>Dissatisfaction with the aesthetic or style (if specifications were met)</li>
+                        <li>Alternative designs (without grounds of non-conformance)</li>
+                        <li>Any reason other than non-conformance to specifications or non-delivery</li>
+                    </ul>
+                    <p>If you simply prefer a different model despite the current one meeting your specifications, you must place a new order and purchase a different model. No refund will be issued for preference-based requests.</p>
+                    
+                    <h3>4.7 No Physical Returns</h3>
+                    <p>As this is a digital service, there are <strong>no physical returns, exchanges, or traditional return windows.</strong> All transactions are final except as outlined in the Refunds and Returns Policy (Section 6).</p>
+                    <p>Once a digital product is delivered, it is your responsibility. We cannot "return" or delete digital files you have received.</p>
+                </section>
+
+                <section id="section-5">
+                    <h2>5. PURCHASES, PAYMENT, AND PRICING</h2>
+                    
+                    <h3>5.1 Accepted Payment Methods</h3>
+                    <p>We accept the following payment methods:</p>
                     <ul>
                         <li>Visa, Mastercard, American Express, Discover</li>
                         <li>PayPal</li>
                         <li>Other payment methods as displayed at checkout</li>
+                        <li>Bank transfers (when arranged in advance)</li>
                     </ul>
                     
-                    <h3>Your Obligations:</h3>
+                    <h3>5.2 Your Payment Obligations</h3>
+                    <p>You agree to:</p>
                     <ul>
-                        <li>Provide current, complete, and accurate purchase and account information.</li>
-                        <li>Promptly update payment information (email, payment method, card expiration date).</li>
-                        <li>Pay all charges at prices in effect at time of purchase.</li>
+                        <li>Provide current, complete, and accurate purchase and account information</li>
+                        <li>Promptly update payment information (email, payment method, card expiration date) if it changes</li>
+                        <li>Pay all charges at prices in effect at the time of purchase</li>
+                        <li>Pay all applicable taxes, duties, and fees as required by law</li>
+                        <li>Authorize charges to your payment method</li>
                     </ul>
                     
-                    <h3>Pricing and Taxes</h3>
-                    <p>Prices are in USD or the currency specified at checkout. Sales tax will be added as required by law. We reserve the right to correct pricing errors even after payment is requested or received.</p>
+                    <h3>5.3 Pricing, Currency, and Taxes</h3>
+                    <p><strong>Pricing Structure:</strong></p>
+                    <p>Prices vary based on service tier and customization level:</p>
+                    <ul>
+                        <li><strong>General AI Model Generation:</strong> $5–$40 USD per model (depending on complexity, angles, revisions included)</li>
+                        <li><strong>Consistent Faces Service:</strong> $80–$400 USD per reference pack (depending on complexity, number of angles, expressions, and revision inclusions)</li>
+                        <li><strong>Rush Delivery (24-hour):</strong> +$20–$50 USD additional fee</li>
+                    </ul>
+                    <p>Prices are displayed in USD or the currency specified at checkout. All prices are subject to change without notice.</p>
                     
-                    <h3>Order Refusal</h3>
-                    <p>We reserve the right to refuse any order. We may limit or cancel quantities purchased per person, household, or order. We may refuse orders that appear fraudulent, high-risk, or placed by dealers/resellers.</p>
+                    <p><strong>Sales Tax:</strong><br>
+                    Sales tax will be added as required by law. Tax rates vary by jurisdiction.</p>
                     
-                    <h3>Payment Processing</h3>
-                    <p>Payment processing is handled by third-party processors subject to their terms and conditions. Payment disputes must be resolved with your payment processor. We are not liable for payment processing failures or delays caused by third-party providers.</p>
+                    <p><strong>Pricing Errors:</strong><br>
+                    We reserve the right to correct pricing errors even after payment is requested or received. If a pricing error occurs, we will contact you before charging and offer the option to cancel.</p>
+                    
+                    <p><strong>Price Modifications:</strong><br>
+                    We reserve the right to change prices at any time. Price changes apply to new orders only, not orders already placed.</p>
+                    
+                    <h3>5.4 Order Refusal and Limitation</h3>
+                    <p>We reserve the right to refuse any order for any reason, without explanation, including:</p>
+                    <ul>
+                        <li>Orders that appear fraudulent or high-risk</li>
+                        <li>Orders placed by resellers or dealers</li>
+                        <li>Orders violating these Terms or applicable law</li>
+                        <li>Orders for prohibited purposes (deepfakes, identity fraud, harassment)</li>
+                        <li>Orders that would exceed our production capacity</li>
+                    </ul>
+                    <p>We may limit quantities purchased per person, household, or order to prevent abuse.</p>
+                    
+                    <h3>5.5 Payment Processing and Responsibility</h3>
+                    <p>Payment processing is handled by third-party payment processors (Stripe, PayPal, etc.) subject to their terms and conditions. We are not responsible for:</p>
+                    <ul>
+                        <li>Payment processing delays or failures</li>
+                        <li>Payment disputes or chargebacks</li>
+                        <li>Third-party processor errors or system failures</li>
+                        <li>Fraud or unauthorized use of payment methods</li>
+                    </ul>
+                    <p><strong>Payment disputes must be resolved directly with your payment processor.</strong> We will cooperate with legitimate dispute investigations.</p>
                 </section>
 
-                <section id="section-6" class="section">
+                <section id="section-6">
                     <h2>6. REFUNDS AND RETURNS POLICY</h2>
                     
-                    <h3>General Policy</h3>
-                    <div class="highlight-box">
-                        <p><strong>All sales are final.</strong> No refunds will be issued for standard product purchases except as specifically outlined below.</p>
+                    <h3>6.1 General Policy</h3>
+                    <div class="important-notice">
+                        <p><strong>ALL SALES ARE FINAL.</strong> No refunds will be issued for standard product purchases except as specifically outlined below in Section 6.2.</p>
                     </div>
                     
-                    <h3>Exceptions to Final Sale Policy</h3>
+                    <h3>6.2 Exceptions to Final Sale Policy – Refund Eligibility</h3>
                     <p>Refunds may be issued <strong>only</strong> in the following circumstances:</p>
                     
-                    <h4>1. Non-Delivery</h4>
-                    <p>If a purchased product is not delivered within <strong>1 week (7 calendar days)</strong> of order confirmation, you may request a <strong>full refund</strong> automatically.</p>
+                    <h4>6.2.1 Non-Delivery (Full Refund)</h4>
+                    <p><strong>Eligibility:</strong> If a purchased product is not delivered within <strong>7 calendar days</strong> of order confirmation.</p>
+                    <p><strong>Refund Amount:</strong> Full refund of order price (100%)</p>
+                    <p><strong>Process:</strong> Contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number. Full refund will be processed automatically with no further questions required.</p>
                     
-                    <h4>2. Requirements Not Met (50% Refund Only)</h4>
-                    <p>If the delivered product <strong>completely fails to meet the specifications agreed upon at purchase</strong> (meaning requirements are met <strong>less than 70%</strong>), you may request a <strong>50% partial refund</strong> within 7 days of delivery by providing clear evidence of the non-conformance.</p>
+                    <h4>6.2.2 Requirements Not Met – Partial Refund (50%)</h4>
+                    <p><strong>Eligibility:</strong> If the delivered product <strong>completely fails to meet the specifications agreed upon at purchase</strong>, meaning requirements are met <strong>less than 70%</strong> (i.e., major discrepancies exist, not minor issues).</p>
+                    <p><strong>Refund Amount:</strong> 50% partial refund of order price</p>
+                    <p><strong>Why 50% Partial Refund?</strong><br>
+                    MMX has already expended substantial resources (AI processing, server costs, software licenses, time) to create and deliver your model. A 50% partial refund acknowledges non-conformance while recognizing resource expenditure. Full refund is not appropriate for partial non-conformance.</p>
                     
-                    <div class="info-box">
-                        <h4>Conditions for 50% Partial Refund:</h4>
-                        <ul>
-                            <li>Requirements must be met <strong>less than 70%</strong> (i.e., major discrepancies exist, not minor issues).</li>
-                            <li>You must provide clear, detailed evidence with screenshots/documentation showing the exact specification mismatch.</li>
-                            <li>The defect must not be caused by user error, misunderstanding, or unclear specifications.</li>
-                            <li>Client demands must be reasonable and within the original specifications provided.</li>
-                            <li><strong>If requirements are met 70% or more, no refund applies</strong> – this is considered acceptable delivery per your specifications.</li>
-                        </ul>
-                        
-                        <p><strong>Why 50% Partial Refund?</strong> We provide this partial refund because MaisonModelX has already expended resources (AI processing, server costs, software licenses) to create and deliver the model. Full refund is not appropriate for partial non-conformance, though we acknowledge the inconvenience and offer 50% recovery of your investment.</p>
-                    </div>
-                    
-                    <h4>3. Full Refund – Non-Delivery After 1 Week</h4>
-                    <p>If a purchased product is <strong>not delivered within 1 week (7 calendar days)</strong> of order confirmation, a <strong>full refund</strong> will be automatically issued with no further questions required.</p>
-                    
-                    <h4>4. Compliance with Consumer Protection Laws</h4>
-                    <p>In jurisdictions with mandatory consumer protection rights (including India's Consumer Protection Act, 2019), additional refunds may be required by law. We comply with applicable local consumer protection requirements.</p>
-                    
-                    <h3>Important Limitations on Refunds</h3>
+                    <p><strong>Conditions for 50% Refund:</strong></p>
                     <ul>
-                        <li><strong>No Refund for Change of Mind:</strong> Refunds are not issued for change of mind, alternative preferences, or dissatisfaction with the final product if the product meets your agreed specifications (70% or higher conformance).</li>
-                        <li><strong>No Refund for Unreasonable Client Demands:</strong> Refunds will not be issued if your expectations were unreasonable or if you made demands outside the scope of the original order specifications.</li>
-                        <li><strong>No Refund for Refinement Requests:</strong> Refinement requests (covered in Section 4) are separate from refund claims. Refinements are provided at no additional cost; they are not grounds for refunds.</li>
-                        <li><strong>No Refund After Reporting Period Expires:</strong> All refund requests must be submitted within <strong>7 days of delivery.</strong> After this period, no refunds will be issued regardless of circumstances.</li>
+                        <li>Requirements must be met <strong>less than 70%</strong> (e.g., ordered a fair-skinned model but received dark-skinned model, or ordered female model but received male)</li>
+                        <li>You must provide clear, detailed evidence with screenshots or documentation showing the exact specification mismatch</li>
+                        <li>The defect must not result from user error, unclear specifications, or misunderstanding</li>
+                        <li>Client demands must be reasonable and within the original specifications provided</li>
+                        <li><strong>If requirements are met 70% or higher, no refund applies</strong> – this is considered acceptable delivery per your specifications</li>
                     </ul>
                     
-                    <h3>Refund Process</h3>
-                    <p>To request a refund under the above exceptions:</p>
+                    <p><strong>Proof Required:</strong></p>
+                    <ul>
+                        <li>Original order specifications (screenshot of order form)</li>
+                        <li>Delivered model screenshots showing the mismatch</li>
+                        <li>Written explanation of which specifications were not met and by how much</li>
+                        <li>Percentage estimate of non-conformance (e.g., "only 40% of specifications met")</li>
+                    </ul>
+                    
+                    <h4>6.2.3 Full Refund for Service Unavailability</h4>
+                    <p><strong>Eligibility:</strong> If MMX experiences catastrophic system failure or force majeure event preventing delivery.</p>
+                    <p><strong>Refund Amount:</strong> Full refund (100%)</p>
+                    <p><strong>Process:</strong> We will contact you and offer a full refund or remake of your order at no additional cost.</p>
+                    
+                    <h4>6.2.4 Compliance with Consumer Protection Laws</h4>
+                    <p>In jurisdictions with mandatory consumer protection rights (including India's <strong>Consumer Protection Act, 2019</strong>), additional refunds may be required by law. We comply with applicable local consumer protection requirements.</p>
+                    
+                    <h3>6.3 Important Limitations on Refunds</h3>
+                    <p><strong>NO REFUND FOR CHANGE OF MIND:</strong><br>
+                    Refunds are not issued for change of mind, alternative preferences, or aesthetic dissatisfaction with the final product if the product meets your agreed specifications (70% or higher conformance).</p>
+                    
+                    <p><strong>NO REFUND FOR UNREASONABLE DEMANDS:</strong><br>
+                    Refunds will not be issued if:</p>
+                    <ul>
+                        <li>Your expectations were unreasonable or unclear</li>
+                        <li>You made demands outside the scope of the original order specifications</li>
+                        <li>You requested unlimited revisions beyond what is reasonable</li>
+                        <li>You changed your requirements after delivery</li>
+                    </ul>
+                    
+                    <p><strong>NO REFUND FOR REFINEMENT REQUESTS:</strong><br>
+                    Refinement requests (covered in Section 4.5) are separate from refund claims. Refinements are provided at no additional cost within the 7-day window; they are not grounds for refunds.</p>
+                    
+                    <div class="warning-notice">
+                        <p><strong>NO REFUND AFTER REPORTING PERIOD EXPIRES:</strong><br>
+                        All refund requests must be submitted within <strong>7 calendar days of delivery.</strong> After this period, <strong>no refunds will be issued</strong> regardless of circumstances. This deadline is absolute and final.</p>
+                    </div>
+                    
+                    <p><strong>NO REFUND FOR MISUSE:</strong><br>
+                    If you misuse Generated Content (using for deepfakes, impersonation, fraud, or other prohibited purposes), your refund request will be denied and your account may be terminated.</p>
+                    
+                    <h3>6.4 Refund Process</h3>
+                    <p><strong>To request a refund:</strong></p>
                     <ol>
-                        <li>Contact us at maisonmodelx@gmail.com with your order number and detailed reason for the refund request within <strong>7 days of delivery</strong>.</li>
-                        <li>Provide supporting evidence (screenshots, specification documentation, detailed description of non-conformance).</li>
-                        <li>Clearly state the percentage of specifications you believe were not met (if claiming 50% refund for non-conformance).</li>
-                        <li>Allow <strong>5-10 business days</strong> for review and processing of your request.</li>
-                        <li>Upon approval, refunds will be issued to the original payment method within <strong>10-15 business days.</strong></li>
+                        <li><strong>Contact Us:</strong> Email <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number within 7 days of delivery</li>
+                        <li><strong>Provide Justification:</strong> Clearly state your refund reason and supporting evidence:
+                            <ul>
+                                <li>For non-delivery: order number and delivery deadline</li>
+                                <li>For non-conformance: specification mismatch documentation and percentage of non-conformance</li>
+                                <li>Screenshots and detailed description of the issue</li>
+                            </ul>
+                        </li>
+                        <li><strong>Wait for Review:</strong> Allow <strong>5–10 business days</strong> for our review and determination</li>
+                        <li><strong>Receive Decision:</strong> We will email you with our final determination (approval or denial)</li>
+                        <li><strong>Processing:</strong> Upon approval, refund will be issued to your original payment method within <strong>10–15 business days</strong></li>
                     </ol>
                     
-                    <div class="warning-box">
-                        <p><strong>Refund Decisions:</strong> We will review each refund request and make a final determination based on the evidence provided. Our decision is final and binding.</p>
-                    </div>
+                    <p><strong>Refund Decisions:</strong><br>
+                    Our determination is final and binding. We will consider all evidence and make a fair, objective decision. You may not appeal refund decisions or escalate to payment processors without our written consent.</p>
+                    
+                    <p><strong>Timing Matters:</strong><br>
+                    Refunds processed after the 7-day window will be denied. Timely submission is essential.</p>
                 </section>
 
-                <section id="section-7" class="section">
+                <section id="section-7">
                     <h2>7. COMMERCIAL LICENSE AND ACCEPTABLE USE</h2>
                     
-                    <h3>License Grant</h3>
-                    <p>When you purchase a model from MaisonModelX, you receive a <strong>limited, non-exclusive, worldwide, royalty-free, perpetual commercial license</strong> to use the purchased digital model subject to the following terms:</p>
+                    <h3>7.1 License Grant</h3>
+                    <p>When you purchase a model or Consistent Faces reference pack from MMX, you receive a <strong>limited, non-exclusive, worldwide, royalty-free, perpetual commercial license</strong> to use the purchased digital content subject to the following terms.</p>
+                    <p>This license is personal to you. You may not transfer, sublicense, or grant it to third parties.</p>
                     
-                    <h3>Permitted Uses</h3>
-                    <p>You may use purchased models for:</p>
+                    <h3>7.2 Permitted Uses</h3>
+                    <p>You may use purchased models or reference packs for:</p>
+                    
+                    <p><strong>Advertising and Marketing:</strong></p>
                     <ul>
-                        <li><strong>Advertising and Marketing:</strong> Digital, print, web, and multimedia advertising campaigns</li>
-                        <li><strong>E-commerce:</strong> Product listings, storefront imagery, promotional materials</li>
-                        <li><strong>Social Media:</strong> Posts, stories, promotional content, social campaigns</li>
-                        <li><strong>Content Creation:</strong> Blog posts, articles, newsletters, web content</li>
-                        <li><strong>Commercial Enterprises:</strong> Any lawful commercial venture not specifically restricted below</li>
+                        <li>Digital, print, web, and multimedia advertising campaigns</li>
+                        <li>Promotional materials and product launches</li>
+                        <li>Social campaigns and brand awareness initiatives</li>
                     </ul>
                     
-                    <h3>License Restrictions</h3>
+                    <p><strong>E-commerce:</strong></p>
                     <ul>
-                        <li><strong>Non-Transferable:</strong> You may not sell, transfer, license, or distribute the model to third parties.</li>
-                        <li><strong>Non-Exclusive:</strong> Multiple customers may purchase the same or similar models. You do not receive exclusive rights unless separately negotiated.</li>
-                        <li><strong>No Resale or Redistribution:</strong> You may not resell, redistribute, or sublicense the model or any derivative of it as a standalone digital asset.</li>
-                        <li><strong>No Competing Business:</strong> You may not use models to create a competing AI model platform or digital model service.</li>
-                        <li><strong>No Impersonation:</strong> Models may not be used to impersonate real individuals, suggest real identity, or create deepfakes for fraudulent or harmful purposes.</li>
-                        <li><strong>No Prohibited Industries:</strong> Models are not licensed for use in medical diagnosis, pharmaceutical advertising, or regulated industries requiring specialized approval without additional licensing agreements.</li>
-                        <li><strong>Duration:</strong> All licenses are perpetual (lifetime) for the purchased version of the model.</li>
-                        <li><strong>Geographic Scope:</strong> Licenses are worldwide unless otherwise specified at purchase.</li>
+                        <li>Product listings and storefront imagery</li>
+                        <li>Catalog photography and item showcases</li>
+                        <li>Promotional and seasonal campaigns</li>
                     </ul>
                     
-                    <div class="highlight-box">
-                        <h4>No Third-Party Resale or Licensing</h4>
-                        <p>The license to use the purchased model is personal to you and is non-transferable. If any third party requests to purchase, license, or obtain rights to use your purchased model (including requesting the same or similar model from you), that third party must contact MaisonModelX directly to negotiate their own separate license. You are not authorized to sell, transfer, license, sublicense, or grant any third party the right to use your purchased model. All such third-party requests must be directed to MaisonModelX at maisonmodelx@gmail.com to arrange a separate purchase and license agreement. Any unauthorized third-party use of your model resulting from your transfer or sublicense is a material breach of these Terms and your license will be terminated immediately with no refund.</p>
-                    </div>
+                    <p><strong>Social Media:</strong></p>
+                    <ul>
+                        <li>Posts, stories, reels, and promotional content</li>
+                        <li>Social campaigns and influencer-style content</li>
+                        <li>Portfolio building and self-promotion</li>
+                    </ul>
                     
-                    <h3>Similar or Duplicate Designs – No Responsibility</h3>
+                    <p><strong>Content Creation:</strong></p>
+                    <ul>
+                        <li>Blog posts, articles, newsletters, and web content</li>
+                        <li>Ebooks, guides, and informational materials</li>
+                        <li>YouTube thumbnails, video thumbnails, and streaming content</li>
+                    </ul>
+                    
+                    <p><strong>Commercial Enterprises:</strong></p>
+                    <ul>
+                        <li>Fashion and jewelry brand applications</li>
+                        <li>Photography and design service offerings</li>
+                        <li>Any lawful commercial venture (subject to restrictions below)</li>
+                    </ul>
+                    
+                    <p><strong>Editorial and Publishing:</strong></p>
+                    <ul>
+                        <li>Magazine covers and editorial imagery</li>
+                        <li>Book covers and promotional materials</li>
+                        <li>News and journalistic use (with ethical disclosure)</li>
+                    </ul>
+                    
+                    <h3>7.3 License Restrictions – Prohibited Uses</h3>
+                    
+                    <p><strong>Non-Transferable and Non-Exclusive:</strong></p>
+                    <ul>
+                        <li>Your license is personal to you and may not be sold, transferred, licensed, or distributed to third parties</li>
+                        <li>Multiple customers may purchase the same or similar models; you do not receive exclusive rights</li>
+                        <li>If any third party requests rights to your purchased model, they must contact MMX directly</li>
+                    </ul>
+                    
+                    <p><strong>No Resale or Redistribution:</strong></p>
+                    <ul>
+                        <li>You may not resell, redistribute, or sublicense the model or any derivative as a standalone digital asset</li>
+                        <li>You may not bundle your model with other products for sale</li>
+                        <li>You may not create competing model libraries using our Generated Content</li>
+                    </ul>
+                    
+                    <p><strong>No Competing Business:</strong></p>
+                    <ul>
+                        <li>You may not use models to create a competing AI model platform or digital model service</li>
+                        <li>You may not build a model library business based on MMX Generated Content</li>
+                        <li>You may not offer "similar models" as a competing service</li>
+                    </ul>
+                    
+                    <p><strong>No Impersonation or Deepfakes:</strong></p>
+                    <ul>
+                        <li>Models may not be used to impersonate real individuals or suggest real identity</li>
+                        <li>Models may not be used for fraudulent, deceptive, or malicious purposes</li>
+                        <li>Models may not be used to create deepfakes for harassment, defamation, or identity theft</li>
+                        <li>Models may not be used to mislead audiences about the authenticity of content</li>
+                    </ul>
+                    
+                    <p><strong>No Prohibited Industries (Without Additional Licensing):</strong><br>
+                    Models are not licensed for use in:</p>
+                    <ul>
+                        <li>Medical diagnosis or treatment recommendations</li>
+                        <li>Pharmaceutical advertising or regulated drug promotion</li>
+                        <li>Financial services advertising (without additional regulatory compliance)</li>
+                        <li>Political campaign advertising (without explicit approval)</li>
+                        <li>Misleading or deceptive commercial practices</li>
+                    </ul>
+                    <p>If your use falls into these categories, contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> to discuss additional licensing arrangements.</p>
+                    
+                    <p><strong>Geographic Scope:</strong><br>
+                    Licenses are worldwide unless otherwise specified at purchase. No geographic restrictions apply.</p>
+                    
+                    <p><strong>Duration:</strong><br>
+                    All licenses are perpetual (lifetime) for the purchased version of the model. Even if MMX discontinues its business, your license to use purchased content persists.</p>
+                    
+                    <h3>7.4 Similar or Duplicate Designs – No Responsibility</h3>
                     <p>We are not responsible for duplicate or similar designs in the following circumstances:</p>
                     
-                    <h4>1. Client-Sourced Design Similarities</h4>
-                    <p>If the design, clothing, or product specifications you provide to us are similar to or copied from existing designs (fashion items, styles, products from other brands or creators), we are <strong>not responsible</strong> for potential design infringement, copyright issues, or trademark claims. It is <strong>your responsibility</strong> to:</p>
-                    <ul>
-                        <li>Ensure all specifications and design requests are original or properly licensed.</li>
-                        <li>Verify you have the right to use any design elements, patterns, styles, or product descriptions you provide.</li>
-                        <li>Indemnify MaisonModelX from any third-party claims regarding design infringement or intellectual property violations arising from your specifications.</li>
-                    </ul>
+                    <h4>7.4.1 Client-Sourced Design Similarities</h4>
+                    <p>If the design, clothing, product specifications, accessories, or style you provide to us are similar to or copied from existing designs (fashion items, styles, products from other brands, designers, or creators), <strong>we are not responsible</strong> for potential design infringement, copyright issues, trademark claims, or intellectual property disputes.</p>
                     
-                    <h4>2. Similar Output Models – Not Our Responsibility</h4>
-                    <p>If your requested specifications produce an AI-generated model output that is similar to or identical to another customer's model (due to similar input parameters, overlapping attributes, or coincidental AI output similarity), this is <strong>not our responsibility.</strong></p>
+                    <p><strong>It is your responsibility to:</strong></p>
                     <ul>
-                        <li>AI models may produce similar outputs when input specifications are comparable (e.g., same ethnicity, body type, style).</li>
-                        <li>We do not maintain records of all customer outputs or guarantee uniqueness across all orders.</li>
-                        <li>Each model is generated fresh per your order specifications; similarity is a natural consequence of AI technology when similar parameters are used.</li>
-                        <li>You acknowledge that other customers may purchase similar or identical-looking models with overlapping specifications.</li>
+                        <li>Ensure all specifications and design requests are original or properly licensed from rights holders</li>
+                        <li>Verify you have the legal right to use any design elements, patterns, styles, or product descriptions you provide</li>
+                        <li>Obtain necessary permissions before requesting designs based on existing works</li>
+                        <li>Indemnify MMX from any third-party claims regarding design infringement</li>
+                    </ul>
+                    <p><strong>You assume complete liability</strong> for design originality and legal compliance regarding your specifications.</p>
+                    
+                    <h4>7.4.2 Similar Output Models – Not Our Responsibility</h4>
+                    <p>If your requested specifications produce an AI-generated model output that is similar to or identical to another customer's model (due to similar input parameters, overlapping attributes, or coincidental AI output similarity), <strong>this is not our responsibility.</strong></p>
+                    
+                    <p><strong>Important Acknowledgments:</strong></p>
+                    <ul>
+                        <li>AI models naturally produce similar outputs when input specifications are comparable (e.g., same ethnicity, body type, style, or clothing)</li>
+                        <li>We do not maintain records of all customer outputs or guarantee uniqueness across all orders</li>
+                        <li>Each model is generated fresh per your specifications; similarity is a natural consequence of AI technology</li>
+                        <li>You acknowledge that other customers may purchase similar or identical-looking models with overlapping specifications</li>
+                        <li>Similarity is not grounds for refunds or complaints</li>
                     </ul>
                     
                     <p><strong>You assume all responsibility for:</strong></p>
                     <ul>
-                        <li>Verifying your design specifications are original and legally usable.</li>
-                        <li>Accepting that similar input specifications may produce similar AI outputs.</li>
-                        <li>Not holding MaisonModelX liable for design similarities between your order and other customers' orders or existing designs.</li>
+                        <li>Verifying your design specifications are original and legally usable</li>
+                        <li>Accepting that similar input specifications may produce similar AI outputs</li>
+                        <li>Understanding AI output variability and natural similarities</li>
+                        <li>Not holding MMX liable for design similarities between your order and other customers' orders or existing publicly available designs</li>
                     </ul>
                 </section>
 
-                <section id="section-8" class="section">
-                    <h2>8. PROHIBITED ACTIVITIES</h2>
-                    <p>You may not use the Services for any purpose other than those for which we make the Services available. As a user, you agree <strong>not</strong> to:</p>
+                <section id="section-8">
+                    <h2>8. PROHIBITED ACTIVITIES AND CONTENT RESTRICTIONS</h2>
+                    <p>You may not use the Services for any purpose other than those for which we make them available. As a user, you agree <strong>not</strong> to:</p>
                     
+                    <p><strong>Data and System Abuse:</strong></p>
                     <ul>
-                        <li>Systematically retrieve data to create collections, compilations, databases, or directories without written permission.</li>
-                        <li>Trick, defraud, or mislead us or other users to obtain sensitive information.</li>
-                        <li>Circumvent, disable, or interfere with security features of the Services.</li>
-                        <li>Disparage, tarnish, or harm our reputation or the Services.</li>
-                        <li>Use information from the Services to harass, abuse, or harm another person.</li>
-                        <li>Make improper use of support services or submit false reports.</li>
-                        <li>Use the Services inconsistently with applicable laws or regulations.</li>
-                        <li>Engage in unauthorized framing or linking to the Services.</li>
-                        <li>Upload viruses, malware, or material that interferes with use of the Services.</li>
-                        <li>Engage in automated use of the system (scripts, bots, data mining, robots, scraping tools).</li>
-                        <li>Delete copyright or proprietary rights notices from any content.</li>
-                        <li>Attempt to impersonate another user or use another user's username.</li>
-                        <li>Upload passive or active information collection mechanisms (spyware, cookies, web bugs, tracking pixels) without authorization.</li>
-                        <li>Interfere with, disrupt, or create undue burden on the Services or connected networks.</li>
-                        <li>Harass, annoy, intimidate, or threaten our employees or agents.</li>
-                        <li>Attempt to bypass measures designed to prevent or restrict access to the Services.</li>
-                        <li>Copy, adapt, decipher, decompile, disassemble, or reverse engineer any software in the Services.</li>
-                        <li>Use automated systems (spiders, robots, scrapers, offline readers) except standard search engines or browsers.</li>
-                        <li>Make unauthorized use of the Services, including collecting user information for unsolicited communications.</li>
-                        <li>Use the Services to compete with us or for any revenue-generating endeavor beyond your licensed use of purchased models.</li>
+                        <li>Systematically retrieve data to create collections, compilations, databases, or directories without written permission</li>
+                        <li>Use automated systems (scripts, bots, scrapers, spiders, data miners) to extract models, specifications, or data</li>
+                        <li>Reverse engineer, decompile, or attempt to discover algorithms or source code</li>
+                        <li>Interfere with, disrupt, or create undue burden on the Services or our servers</li>
                     </ul>
                     
-                    <div class="warning-box">
-                        <p>Violation of these Prohibited Activities may result in termination or suspension of your rights to use the Services.</p>
+                    <p><strong>Fraud and Deception:</strong></p>
+                    <ul>
+                        <li>Trick, defraud, or mislead us or other users to obtain information or unauthorized access</li>
+                        <li>Provide false, fraudulent, or misleading information in your order or account</li>
+                        <li>Attempt to impersonate another user or pose as someone you are not</li>
+                        <li>Engage in unauthorized framing or linking to the Services for commercial gain</li>
+                    </ul>
+                    
+                    <p><strong>Security Violations:</strong></p>
+                    <ul>
+                        <li>Circumvent, disable, or interfere with security features of the Services</li>
+                        <li>Upload viruses, malware, ransomware, or material that interferes with use of the Services</li>
+                        <li>Upload passive or active information collection mechanisms (spyware, cookies, web bugs, tracking pixels) without authorization</li>
+                        <li>Attempt to bypass measures designed to prevent or restrict access to the Services</li>
+                    </ul>
+                    
+                    <p><strong>Harassment and Harm:</strong></p>
+                    <ul>
+                        <li>Use information from the Services to harass, abuse, threaten, defame, or harm another person</li>
+                        <li>Harass, annoy, intimidate, or threaten MMX employees, agents, or other users</li>
+                        <li>Create or distribute deepfakes intended to harm, defraud, or deceive others</li>
+                        <li>Use Generated Content for cyberbullying, stalking, or harassment</li>
+                    </ul>
+                    
+                    <p><strong>Misuse of Generated Content:</strong></p>
+                    <ul>
+                        <li>Use Generated Content to impersonate real individuals without disclosure</li>
+                        <li>Misrepresent AI-generated models as photographs of real people</li>
+                        <li>Use Generated Content for illegal purposes (fraud, identity theft, money laundering)</li>
+                        <li>Use Generated Content for medical diagnosis or treatment without proper disclaimers</li>
+                        <li>Use Generated Content for deceptive marketing or false advertising</li>
+                    </ul>
+                    
+                    <p><strong>Intellectual Property Violations:</strong></p>
+                    <ul>
+                        <li>Delete copyright or proprietary rights notices from any content</li>
+                        <li>Copy, reproduce, or distribute content without authorization</li>
+                        <li>Use the Services to develop competing AI platforms</li>
+                        <li>Claim ownership of Generated Content you did not purchase</li>
+                        <li>Violate third-party intellectual property rights</li>
+                    </ul>
+                    
+                    <p><strong>Competitive and Commercial Abuse:</strong></p>
+                    <ul>
+                        <li>Use the Services to compete directly with MMX's business model</li>
+                        <li>Resell Generated Content or reference packs as your own</li>
+                        <li>Create a derivative competing service using our outputs</li>
+                        <li>Use the Services for revenue-generating endeavors beyond your licensed use of purchased models</li>
+                    </ul>
+                    
+                    <p><strong>Violation of Applicable Law:</strong></p>
+                    <ul>
+                        <li>Use the Services inconsistently with applicable laws or regulations</li>
+                        <li>Create, distribute, or use content for illegal purposes</li>
+                        <li>Violate consumer protection laws or fraud statutes</li>
+                        <li>Violate data protection or privacy laws</li>
+                        <li>Engage in money laundering, terrorist financing, or sanctions violations</li>
+                    </ul>
+                    
+                    <p><strong>Destructive Activities:</strong></p>
+                    <ul>
+                        <li>Make improper use of support services or submit false reports of problems</li>
+                        <li>Make false abuse reports or spam complaints to our support team</li>
+                        <li>Attempt to extort or blackmail MMX or other users</li>
+                    </ul>
+                    
+                    <h3>8.1 Enforcement and Consequences</h3>
+                    <div class="warning-notice">
+                        <p><strong>Violation of these Prohibited Activities may result in:</strong></p>
+                        <ul>
+                            <li>Immediate termination of your access to the Services</li>
+                            <li>Forfeiture of refunds or credits</li>
+                            <li>Deletion of your account and associated data</li>
+                            <li>Reporting to law enforcement or relevant authorities</li>
+                            <li>Civil and criminal legal action</li>
+                        </ul>
                     </div>
+                    <p>We reserve the right to investigate suspected violations and take appropriate action.</p>
                 </section>
 
-                <section id="section-9" class="section">
+                <section id="section-9">
                     <h2>9. AI-GENERATED CONTENT DISCLAIMER</h2>
                     
-                    <h3>Synthetic Nature of Models</h3>
-                    <div class="info-box">
-                        <p><strong>All digital models and images created through MaisonModelX are synthetically generated using artificial intelligence technology.</strong> The models do not represent real, actual individuals. They are created entirely through AI algorithms and processes.</p>
+                    <h3>9.1 Synthetic Nature of Models</h3>
+                    <div class="important-notice">
+                        <p><strong>ALL digital models and images created through MaisonModelX are synthetically generated using artificial intelligence technology.</strong> The models are not real, actual individuals. They are created entirely through AI algorithms, machine learning processes, and computational generation. No real person posed for or appears in Generated Content.</p>
                     </div>
                     
-                    <h3>No Real Identity Representation</h3>
-                    <p>Any resemblance of AI-generated models to real persons, living or dead, is entirely unintentional and coincidental. We do not generate models intended to impersonate, misrepresent, or create the likeness of specific real individuals without consent.</p>
+                    <h3>9.2 No Real Identity Representation</h3>
+                    <p><strong>Any resemblance of AI-generated models to real persons, living or dead, is entirely unintentional and coincidental.</strong> We do not intentionally generate models designed to impersonate, misrepresent, or create the likeness of specific real individuals without express written consent from those individuals.</p>
                     
-                    <h3>User Responsibility for Lawful Use</h3>
-                    <p>You are solely responsible for how you use purchased models. You shall not:</p>
+                    <p><strong>We do not generate:</strong></p>
                     <ul>
-                        <li>Use models in a manner suggesting they represent real individuals without disclosure.</li>
-                        <li>Misrepresent AI-generated models as photographs of real people.</li>
-                        <li>Use models to defame, mislead, defraud, or harm third parties.</li>
-                        <li>Violate any laws or regulations regarding use of the models.</li>
-                        <li>Create deepfakes or synthetic media for unlawful purposes.</li>
+                        <li>Models designed to look exactly like celebrities or public figures without explicit consent</li>
+                        <li>Models intended to deceive audiences about their synthetic nature</li>
+                        <li>Deepfakes or synthetic media designed for fraud or harmful purposes</li>
                     </ul>
+                    <p><strong>If a model incidentally resembles a real person</strong>, this is a natural consequence of AI generation using human-like specifications and is not intentional.</p>
                     
-                    <p><strong>MaisonModelX is not liable for user misuse of purchased models in violation of this disclaimer.</strong></p>
+                    <h3>9.3 User Responsibility for Lawful Use</h3>
+                    <p><strong>You are solely responsible for how you use purchased models.</strong> You shall not:</p>
+                    <ul>
+                        <li>Use models in a manner suggesting they represent real individuals without clear disclosure that the image is AI-generated</li>
+                        <li>Misrepresent AI-generated models as photographs of real people</li>
+                        <li>Use models to defame, mislead, defraud, or harm third parties</li>
+                        <li>Violate any laws or regulations regarding use of the models</li>
+                        <li>Create deepfakes or synthetic media for unlawful purposes</li>
+                        <li>Use models to impersonate real individuals for fraud or identity theft</li>
+                    </ul>
+                    <p><strong>MMX is not liable for user misuse of purchased models in violation of this disclaimer.</strong></p>
                     
-                    <h3>Indemnification for Misuse</h3>
-                    <p>You indemnify and hold MaisonModelX harmless from any claims, damages, or liability arising from your misuse of models, including but not limited to defamation, fraud, identity theft, or false representation claims resulting from your conduct.</p>
+                    <h3>9.4 Transparency and Industry Best Practices</h3>
+                    <p>We recommend users disclose when images are AI-generated where such disclosure is:</p>
+                    <ul>
+                        <li>Required by law or regulation</li>
+                        <li>Industry best practice (e.g., advertising, media)</li>
+                        <li>Necessary for ethical or consumer protection reasons</li>
+                        <li>Expected by your audience or platforms</li>
+                    </ul>
+                    <p>Clear disclosure prevents deception and builds consumer trust.</p>
                     
-                    <h3>Transparency and Labeling</h3>
-                    <p>We recommend users disclose when images are AI-generated where such disclosure is required by law or industry best practices, particularly in advertising and commercial contexts.</p>
+                    <h3>9.5 Indemnification for Misuse</h3>
+                    <p><strong>You indemnify and hold MMX harmless</strong> from any claims, damages, or liability arising from your misuse of models, including but not limited to:</p>
+                    <ul>
+                        <li>Defamation or libel claims resulting from your use of models to suggest false identity</li>
+                        <li>Fraud or identity theft claims from misleading use of models</li>
+                        <li>Deepfake-related claims or legal action</li>
+                        <li>Harassment or cyberbullying claims arising from your use of models</li>
+                        <li>Any other third-party claims related to your conduct with Generated Content</li>
+                    </ul>
                 </section>
 
-                <section id="section-10" class="section">
+                <section id="section-10">
                     <h2>10. DATA PROTECTION AND PRIVACY</h2>
-                    <p>We are committed to protecting your personal data in accordance with India's <strong>Digital Personal Data Protection (DPDP) Act, 2025</strong> and applicable data protection laws.</p>
                     
-                    <h3>Data Collection and Use</h3>
+                    <h3>10.1 Regulatory Compliance</h3>
+                    <p>We are committed to protecting your personal data in accordance with India's <strong>Digital Personal Data Protection (DPDP) Act, 2023</strong>, the <strong>Information Technology Act, 2000</strong>, and applicable data protection laws.</p>
+                    <p>Our separate, comprehensive <strong>Privacy Policy</strong> is incorporated into these Terms by reference and provides detailed information about data collection, processing, retention, and your rights.</p>
+                    
+                    <h3>10.2 Data Collection and Use – Summary</h3>
                     <p>We collect personal data necessary to provide the Services, process orders, and communicate with you. This includes:</p>
                     <ul>
                         <li>Contact information (name, email, billing address)</li>
                         <li>Payment information (processed securely by third-party payment processors)</li>
                         <li>Order and transaction history</li>
+                        <li>Client Content and specifications you provide</li>
                         <li>Technical data (IP address, browser type, device information)</li>
                     </ul>
-                    
-                    <h3>Legal Basis for Processing</h3>
-                    <p>We process your personal data based on:</p>
+                    <p>Data is processed based on:</p>
                     <ul>
-                        <li><strong>Consent:</strong> You provide consent when you use our Services and provide your information.</li>
-                        <li><strong>Contract Performance:</strong> Processing is necessary to fulfill orders and deliver services.</li>
-                        <li><strong>Legal Obligations:</strong> Processing is required to comply with applicable laws.</li>
+                        <li><strong>Contractual necessity</strong> – to fulfill your order</li>
+                        <li><strong>Consent</strong> – you provide consent when using our Services</li>
+                        <li><strong>Legal obligation</strong> – to comply with applicable laws</li>
                     </ul>
                     
-                    <h3>Your Rights</h3>
+                    <h3>10.3 Third-Party Data Processing</h3>
+                    <p><strong>All customer orders, personal data, and Client Content are processed through third-party service providers</strong> (CRM platforms, payment processors, hosting providers, AI generation services). These providers:</p>
+                    <ul>
+                        <li>Store and manage your data securely</li>
+                        <li>Process payments and order fulfillment</li>
+                        <li>Handle customer communication and delivery</li>
+                        <li>Maintain data backups and security</li>
+                    </ul>
+                    <p><strong>You consent to this data transfer</strong> by submitting your order. All third-party providers are contractually bound to maintain data security and comply with Indian data protection laws.</p>
+                    
+                    <h3>10.4 Your Data Rights</h3>
                     <p>Under Indian data protection law, you have the right to:</p>
                     <ul>
-                        <li><strong>Access</strong> your personal data we hold about you.</li>
-                        <li><strong>Correct</strong> inaccurate or incomplete personal data.</li>
-                        <li><strong>Erase</strong> your personal data (subject to legal retention requirements).</li>
-                        <li><strong>Withdraw consent</strong> for processing based on consent.</li>
-                        <li><strong>Nominate</strong> a representative to exercise your rights on your behalf.</li>
+                        <li><strong>Access</strong> your personal data we hold about you</li>
+                        <li><strong>Correct</strong> inaccurate or incomplete personal data</li>
+                        <li><strong>Erase</strong> your personal data (subject to legal retention requirements)</li>
+                        <li><strong>Withdraw consent</strong> for processing based on consent</li>
+                        <li><strong>Nominate</strong> a representative to exercise your rights on your behalf</li>
                     </ul>
+                    <p><strong>To exercise these rights,</strong> contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> with your order number and specific request.</p>
                     
-                    <p>To exercise these rights, contact us at maisonmodelx@gmail.com.</p>
-                    
-                    <h3>Security Safeguards and Data Processing</h3>
-                    
-                    <h4>Third-Party Data Management</h4>
-                    <p>All customer orders, specifications, and personal data are collected through our order form on the Services. Upon form submission, all data is securely transferred to and processed through <strong>third-party service providers</strong> (including CRM and business management platforms). These third-party service providers handle:</p>
+                    <h3>10.5 Data Retention and Security</h3>
+                    <p><strong>Security Measures:</strong></p>
                     <ul>
-                        <li>Secure storage of customer orders and specifications</li>
-                        <li>Payment processing coordination</li>
-                        <li>Order management and fulfillment tracking</li>
-                        <li>Customer communication and support</li>
-                        <li>Data backup and retention</li>
+                        <li>Encryption of data in transit and at rest</li>
+                        <li>Access controls limiting data to authorized personnel</li>
+                        <li>Regular security monitoring and vulnerability assessments</li>
+                        <li>Secure backups and disaster recovery protocols</li>
+                        <li>No storage of full credit card numbers locally</li>
+                        <li>PCI-DSS compliance for all payment processing</li>
                     </ul>
                     
-                    <div class="info-box">
-                        <p><strong>Third-Party Service Provider Security:</strong> All third-party service providers are selected based on their implementation of enterprise-grade security measures including encryption, access controls, regular security monitoring, secure backups, and compliance with international data protection standards (including GDPR).</p>
-                    </div>
-                    
-                    <h4>Our Processing</h4>
-                    <p>From these third-party service providers, we retrieve order details and process your request to:</p>
+                    <h3>10.6 Data Breach Notification</h3>
+                    <p>In the event of a personal data breach affecting our customers, we will:</p>
                     <ul>
-                        <li>Generate your custom AI model</li>
-                        <li>Deliver your digital files</li>
-                        <li>Provide customer support and refinements</li>
+                        <li>Notify affected users promptly</li>
+                        <li>Notify the Data Protection Board of India within 72 hours as required by law</li>
+                        <li>Provide guidance on protective measures and remediation</li>
                     </ul>
                     
-                    <h4>Your Acknowledgment</h4>
-                    <p>By submitting your order through our form, you acknowledge that your personal data will be transferred to and processed through third-party service providers as necessary to fulfill your order and provide the Services. You consent to this data transfer.</p>
+                    <h3>10.7 International Data Transfers</h3>
+                    <p>The Services are hosted in India. If you access the Services from outside India, your data will be transferred to and processed in India. By using the Services, you consent to this transfer and acknowledge that data protection laws outside India may not provide equivalent protections.</p>
                     
-                    <h4>Security Responsibility</h4>
-                    <p>While we rely on third-party service providers' security infrastructure, we remain responsible for the lawful and secure processing of your personal data in compliance with India's DPDP Act, 2025. We do not store sensitive data (full credit card numbers) locally; all payment processing is handled securely by payment processors.</p>
-                    
-                    <h3>Data Breach Notification</h3>
-                    <p>In the event of a personal data breach, we will:</p>
-                    <ul>
-                        <li>Notify affected users promptly.</li>
-                        <li>Notify the Data Protection Board of India within 72 hours as required by law.</li>
-                    </ul>
-                    
-                    <h3>Data Retention</h3>
-                    <p>We retain personal data only for as long as necessary to fulfill the purposes for which it was collected, comply with legal obligations, and resolve disputes.</p>
-                    
-                    <h3>International Data Transfers</h3>
-                    <p>The Services are hosted in India. If you access the Services from outside India, your data will be transferred to and processed in India. By using the Services, you consent to this transfer.</p>
-                    
-                    <h3>Children's Data</h3>
-                    <p>We do not knowingly collect personal data from children under 13 without verifiable parental consent. If we learn we have collected such data, we will delete it promptly.</p>
-                    
-                    <p><strong>Full Privacy Policy:</strong> Our complete Privacy Policy is available separately and incorporated into these Terms by reference.</p>
+                    <h3>10.8 Children's Data Protection</h3>
+                    <p>We do not knowingly collect personal data from children under 13 without verifiable parental consent. If we become aware that we have collected such data without proper consent, we will delete it promptly.</p>
+                    <p>If you believe we have collected data from a child under 13 without consent, contact us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a> immediately.</p>
                 </section>
 
-                <section id="section-11" class="section">
-                    <h2>11. USER DATA AND CONTRIBUTIONS</h2>
+                <section id="section-11">
+                    <h2>11. THIRD-PARTY WEBSITES AND CONTENT</h2>
+                    <p>The Services may contain links to third-party websites ("Third-Party Websites") and third-party content ("Third-Party Content"). We do not investigate, monitor, or verify the accuracy, appropriateness, or completeness of Third-Party Websites or Third-Party Content.</p>
                     
-                    <h3>User Data</h3>
-                    <p>We will maintain certain data you transmit to the Services for performance management and usage analysis. Although we perform regular backups, you are solely responsible for all data you transmit or activity you undertake using the Services.</p>
-                    
-                    <div class="warning-box">
-                        <p><strong>We have no liability for loss or corruption of your data.</strong> You waive any right of action against us arising from loss or corruption of data.</p>
-                    </div>
-                    
-                    <h3>User Contributions</h3>
-                    <p>If you create, submit, or post content to the Services (comments, reviews, feedback, suggestions—collectively "Contributions"), you represent and warrant that:</p>
+                    <h3>11.1 Disclaimer of Responsibility</h3>
+                    <p><strong>We are not responsible for:</strong></p>
                     <ul>
-                        <li>Your Contributions do not infringe any third-party intellectual property rights.</li>
-                        <li>You own or have necessary licenses, rights, and permissions for your Contributions.</li>
-                        <li>Your Contributions are not false, inaccurate, or misleading.</li>
-                        <li>Your Contributions comply with all applicable laws.</li>
+                        <li>Content, accuracy, opinions, reliability, or privacy practices of Third-Party Websites</li>
+                        <li>Any purchases made through Third-Party Websites or Third-Party Content</li>
+                        <li>Harm, loss, or damage caused by Third-Party Content or Third-Party Websites</li>
+                        <li>Misleading, fraudulent, or deceptive third-party services</li>
                     </ul>
                     
-                    <h3>Contribution License</h3>
-                    <p>By posting Contributions, you grant us a worldwide, royalty-free, perpetual, irrevocable, non-exclusive, fully paid, assignable, and sublicensable right and license to use, reproduce, modify, translate, transmit, display, and distribute your Contributions.</p>
+                    <h3>11.2 Third-Party Terms Apply</h3>
+                    <p>When you access Third-Party Websites, these Terms no longer apply. You are subject to the terms, privacy policies, and practices of those third parties.</p>
+                    <p><strong>We recommend reviewing the terms and privacy policies of any Third-Party Websites you visit before providing your information.</strong></p>
                     
-                    <p>You retain full ownership of your Contributions. We are not liable for any statements in your Contributions. You are solely responsible for your Contributions and agree to hold us harmless from any claims related to your Contributions.</p>
+                    <h3>11.3 Indemnification</h3>
+                    <p>You agree to hold MMX harmless from any losses, damages, or claims relating to Third-Party Websites or Third-Party Content.</p>
                 </section>
 
-                <section id="section-12" class="section">
-                    <h2>12. THIRD-PARTY WEBSITES AND CONTENT</h2>
-                    <p>The Services may contain links to third-party websites ("Third-Party Websites") and third-party content ("Third-Party Content"). We do not investigate, monitor, or check the accuracy, appropriateness, or completeness of Third-Party Websites or Third-Party Content.</p>
-                    
-                    <h3>We are not responsible for:</h3>
-                    <ul>
-                        <li>Content, accuracy, opinions, reliability, or privacy practices of Third-Party Websites.</li>
-                        <li>Any purchases made through Third-Party Websites.</li>
-                        <li>Any harm caused by Third-Party Content or Third-Party Websites.</li>
-                    </ul>
-                    
-                    <p>If you access Third-Party Websites or use Third-Party Content, you do so at your own risk. These Terms no longer govern once you leave our Services. You should review the terms and privacy policies of any Third-Party Websites you visit.</p>
-                    
-                    <p>You agree to hold us harmless from any losses or harm relating to Third-Party Websites or Third-Party Content.</p>
-                </section>
-
-                <section id="section-13" class="section">
-                    <h2>13. SERVICES MANAGEMENT</h2>
+                <section id="section-12">
+                    <h2>12. SERVICES MANAGEMENT AND OUR RIGHTS</h2>
                     <p>We reserve the right, but not the obligation, to:</p>
-                    <ol>
-                        <li>Monitor the Services for violations of these Terms.</li>
-                        <li>Take appropriate legal action against anyone who violates the law or these Terms.</li>
-                        <li>Refuse, restrict access to, limit availability of, or disable any of your Contributions or portions thereof.</li>
-                        <li>Remove from the Services or disable files and content that are excessive in size or burdensome to our systems.</li>
-                        <li>Otherwise manage the Services to protect our rights and property and facilitate proper functioning.</li>
-                    </ol>
+                    <ul>
+                        <li>Monitor the Services for violations of these Terms and applicable law</li>
+                        <li>Take appropriate legal action against anyone who violates the law or these Terms</li>
+                        <li>Refuse, restrict access to, limit availability of, or disable any of your Contributions or portions thereof</li>
+                        <li>Remove from the Services or disable files, content, or orders that are excessively large, burdensome to our systems, or violate these Terms</li>
+                        <li>Modify, suspend, or discontinue any aspect of the Services</li>
+                        <li>Investigate and respond to complaints regarding your use of the Services</li>
+                        <li>Cooperate with law enforcement and regulatory authorities</li>
+                    </ul>
+                    <p><strong>We may take these actions immediately and without notice</strong> if we determine, in our sole discretion, that such action is necessary.</p>
                 </section>
 
-                <section id="section-14" class="section">
-                    <h2>14. TERM AND TERMINATION</h2>
+                <section id="section-13">
+                    <h2>13. TERM AND TERMINATION</h2>
                     <p>These Terms remain in full force and effect while you use the Services.</p>
                     
-                    <div class="highlight-box">
-                        <p><strong>We reserve the right to deny access to and use of the Services (including blocking IP addresses) to any person for any reason or no reason, including for breach of any representation, warranty, or covenant in these Terms or applicable law.</strong></p>
+                    <h3>13.1 Our Termination Rights</h3>
+                    <p><strong>We reserve the right to deny access to and use of the Services</strong> (including blocking your IP address, email, or account) to any person for any reason or no reason, including:</p>
+                    <ul>
+                        <li>Breach of any representation, warranty, or covenant in these Terms</li>
+                        <li>Violation of applicable law or regulations</li>
+                        <li>Fraudulent activity or suspected fraud</li>
+                        <li>Abusive, threatening, or harassing conduct</li>
+                        <li>Misuse of Generated Content</li>
+                        <li>Non-payment or payment disputes</li>
+                        <li>Repeated violations of our policies</li>
+                    </ul>
+                    <p><strong>We may terminate your use or participation, delete your account or content, and discontinue service immediately, without warning or notice</strong>, in our sole discretion.</p>
+                    
+                    <h3>13.2 Consequences of Termination</h3>
+                    <p>If we terminate or suspend your account:</p>
+                    <ul>
+                        <li>You are <strong>prohibited from creating a new account</strong> under your name, a fake name, or a third party's name</li>
+                        <li>You lose access to all Services and any pending orders</li>
+                        <li>Refunds will be denied unless termination results from our error</li>
+                        <li>We reserve the right to take appropriate legal action, including pursuing civil, criminal, and injunctive remedies</li>
+                        <li>You remain liable for any obligations incurred before termination</li>
+                    </ul>
+                    
+                    <h3>13.3 Survival of Terms</h3>
+                    <p>Sections regarding Intellectual Property Rights, Indemnification, Limitation of Liability, Dispute Resolution, Governing Law, and any other provisions intended to survive termination will remain in effect after termination.</p>
+                </section>
+
+                <section id="section-14">
+                    <h2>14. MODIFICATIONS AND SERVICE INTERRUPTIONS</h2>
+                    
+                    <h3>14.1 Right to Modify Services</h3>
+                    <p>We reserve the right to change, modify, or remove contents of the Services at any time without notice. We have no obligation to update information on the Services or notify you of changes.</p>
+                    <p>We may modify or discontinue all or part of the Services, including specific features or service offerings, without notice.</p>
+                    <p><strong>We are not liable for any modification, price change, suspension, or discontinuance of the Services.</strong></p>
+                    
+                    <h3>14.2 Service Availability and Downtime</h3>
+                    <p>We cannot guarantee the Services will be available at all times. We may experience:</p>
+                    <ul>
+                        <li>Hardware or software failures</li>
+                        <li>Maintenance and system updates</li>
+                        <li>Security issues or cyber attacks</li>
+                        <li>Hosting provider outages</li>
+                        <li>Force majeure events</li>
+                    </ul>
+                    <p>These may result in interruptions, delays, or errors in service delivery.</p>
+                    
+                    <h3>14.3 Downtime Procedures</h3>
+                    <ul>
+                        <li>We will make <strong>reasonable efforts</strong> to provide advance notice of scheduled maintenance via email or website notice when feasible</li>
+                        <li>Emergency maintenance may require immediate downtime without notice</li>
+                        <li>We are not liable for any losses or damages incurred during service interruptions</li>
+                    </ul>
+                    <p><strong>You agree that we have no liability for any loss, damage, or inconvenience caused by inability to access or use the Services during downtime or discontinuance.</strong></p>
+                </section>
+
+                <section id="section-15">
+                    <h2>15. WARRANTY DISCLAIMERS</h2>
+                    
+                    <h3>15.1 AS-IS and AS-AVAILABLE</h3>
+                    <div class="important-notice">
+                        <p><strong>THE SERVICES, GENERATED CONTENT, AND ALL DELIVERABLES ARE PROVIDED ON AN "AS-IS" AND "AS-AVAILABLE" BASIS.</strong></p>
+                        <p><strong>YOU AGREE THAT YOUR USE OF THE SERVICES IS AT YOUR SOLE RISK.</strong></p>
                     </div>
                     
-                    <p>We may terminate your use or participation, or delete your account or content, at any time without warning, in our sole discretion.</p>
-                    
-                    <h3>If we terminate or suspend your account:</h3>
+                    <h3>15.2 DISCLAIMER OF ALL WARRANTIES</h3>
+                    <p><strong>TO THE FULLEST EXTENT PERMITTED BY INDIAN LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING:</strong></p>
                     <ul>
-                        <li>You are prohibited from creating a new account under your name, a fake name, or a third party's name.</li>
-                        <li>We reserve the right to take appropriate legal action, including pursuing civil, criminal, and injunctive redress.</li>
+                        <li><strong>Implied warranties of merchantability</strong> (fitness for sale or commerce)</li>
+                        <li><strong>Implied warranties of fitness for a particular purpose</strong> (suitability for your specific needs)</li>
+                        <li><strong>Implied warranties of non-infringement</strong> (that services don't violate third-party rights)</li>
+                        <li><strong>Implied warranties of title</strong> (that we own what we deliver)</li>
+                        <li><strong>Warranties of accuracy, completeness, or reliability</strong> of service content</li>
+                    </ul>
+                    
+                    <h3>15.3 No Warranties About</h3>
+                    <p>We make <strong>no warranties or representations</strong> about:</p>
+                    <ul>
+                        <li>Accuracy or completeness of the Services' content or Generated Content</li>
+                        <li>Content of any websites or applications linked to the Services</li>
+                        <li>Prevention of errors, mistakes, or inaccuracies in content</li>
+                        <li>Personal injury or property damage resulting from your access to the Services</li>
+                        <li>Unauthorized access to secure servers or loss of personal/financial information</li>
+                        <li>Interruption or cessation of transmission to or from the Services</li>
+                        <li>Bugs, viruses, Trojan horses, or similar security threats transmitted through the Services</li>
+                        <li>Errors, omissions, or losses resulting from use of content</li>
+                        <li>Reliability, quality, or performance of Generated Content in your specific use case</li>
+                        <li>That Generated Content will work with all software, platforms, or applications</li>
+                        <li>That Consistent Faces reference packs will maintain 100% consistency across all future AI versions</li>
+                    </ul>
+                    
+                    <h3>15.4 Third-Party Disclaimers</h3>
+                    <p><strong>We do not warrant, endorse, guarantee, or assume responsibility for:</strong></p>
+                    <ul>
+                        <li>Any product or service advertised or offered by a third party through the Services</li>
+                        <li>Third-party payment processors, CRM platforms, or hosting providers</li>
+                        <li>Third-party AI platforms used with Consistent Faces reference packs</li>
+                    </ul>
+                    <p><strong>We will not be a party to or responsible for monitoring any transaction between you and third-party providers.</strong></p>
+                </section>
+
+                <section id="section-16">
+                    <h2>16. LIMITATION OF LIABILITY</h2>
+                    
+                    <h3>16.1 FULL LIMITATION OF LIABILITY</h3>
+                    <div class="warning-notice">
+                        <p><strong>TO THE FULLEST EXTENT PERMITTED BY LAW:</strong></p>
+                        <p><strong>IN NO EVENT WILL MMX, OUR DIRECTORS, EMPLOYEES, AGENTS, OR AFFILIATES BE LIABLE TO YOU OR ANY THIRD PARTY FOR:</strong></p>
+                        <ul>
+                            <li><strong>Any direct, indirect, consequential, exemplary, incidental, special, or punitive damages</strong></li>
+                            <li><strong>Lost profit, lost revenue, lost data, business interruption, or economic loss</strong></li>
+                            <li><strong>Reputational harm or emotional distress</strong></li>
+                            <li><strong>Any damages arising from your use of the Services, even if we have been advised of the possibility of such damages</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <h3>16.2 Liability Cap</h3>
+                    <p><strong>NOTWITHSTANDING ANYTHING TO THE CONTRARY, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER WILL AT ALL TIMES BE LIMITED TO THE LESSER OF:</strong></p>
+                    <ol>
+                        <li><strong>The amount paid by you to us in the 12 months preceding the claim,</strong> OR</li>
+                        <li><strong>₹10,000 INR (approximately $120 USD)</strong></li>
+                    </ol>
+                    <p>This cap applies to all claims, whether in contract, tort, warranty, or any other legal theory.</p>
+                    
+                    <h3>16.3 Applicable Law Limitations</h3>
+                    <p>Certain Indian laws and international laws do not allow limitations on implied warranties or exclusion of certain damages. If these laws apply to you, some of the above disclaimers or limitations may not apply, and you may have additional rights.</p>
+                    <p><strong>To the extent the law requires, we will honor mandatory consumer protections</strong> while maintaining this liability limitation for all other claims.</p>
+                </section>
+
+                <section id="section-17">
+                    <h2>17. INDEMNIFICATION</h2>
+                    
+                    <h3>17.1 General Indemnification</h3>
+                    <p>You agree to <strong>defend, indemnify, and hold harmless</strong> MMX and our officers, agents, partners, and employees from and against any loss, damage, liability, claim, or demand (including reasonable attorneys' fees and expenses) made by any third party due to or arising out of:</p>
+                    <ul>
+                        <li>Your use of the Services</li>
+                        <li>Your breach of these Terms</li>
+                        <li>Your breach of any representation, warranty, or covenant in these Terms</li>
+                        <li>Your violation of third-party rights, including intellectual property rights</li>
+                        <li>Any harmful act toward another user of the Services</li>
+                        <li>Your violation of applicable law or regulations</li>
+                    </ul>
+                    
+                    <h3>17.2 Design and Content Indemnification</h3>
+                    <p><strong>You specifically agree to defend, indemnify, and hold harmless MMX</strong> from any claims, damages, liability, or legal action arising from:</p>
+                    
+                    <p><strong>Design Infringement:</strong></p>
+                    <ul>
+                        <li>Any claim that the design specifications, clothing items, accessories, products, styles, or creative elements you provided infringe third-party intellectual property rights, copyrights, trademarks, or design rights</li>
+                    </ul>
+                    
+                    <p><strong>Client Content Liability:</strong></p>
+                    <ul>
+                        <li>Any claim that Generated Content violates laws, regulations, or third-party rights as a result of the specifications or instructions you provided</li>
+                    </ul>
+                    
+                    <p><strong>Similarity Claims:</strong></p>
+                    <ul>
+                        <li>Any claim of design similarity, duplication, copying, or infringement between your ordered model and:
+                            <ul>
+                                <li>Existing designs, products, or creative works by third parties</li>
+                                <li>Other customers' models generated through our Services</li>
+                                <li>Any other public or private source</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <p><strong>Fashion and Product Liability:</strong></p>
+                    <ul>
+                        <li>Any claim that your use of AI-generated models for fashion, apparel, product design, jewelry, or commercial purposes violates third-party rights or applicable regulations</li>
+                    </ul>
+                    
+                    <p><strong>Identity and Impersonation:</strong></p>
+                    <ul>
+                        <li>Any claim that you used Generated Content to impersonate, misrepresent, or deceptively reference real individuals</li>
+                    </ul>
+                    
+                    <h3>17.3 Assumption of Liability</h3>
+                    <p><strong>You assume complete liability and responsibility for:</strong></p>
+                    <ul>
+                        <li>All design content and specifications you provide</li>
+                        <li>Originality and legal compliance of Client Content</li>
+                        <li>Usage of Generated Content consistent with applicable law</li>
+                        <li>Proper disclosure of AI-generated nature when required</li>
+                    </ul>
+                    <p><strong>MMX is not liable for design infringement, similarity, copyright claims, or legal violations arising from your provided specifications or your use of Generated Content.</strong></p>
+                    
+                    <h3>17.4 Cooperation</h3>
+                    <p>You agree to cooperate fully with our defense of any indemnified claim, including:</p>
+                    <ul>
+                        <li>Providing necessary documentation and evidence</li>
+                        <li>Making reasonable adjustments to your defense strategy</li>
+                        <li>Not settling claims without our consent</li>
+                        <li>Responding promptly to legal inquiries</li>
                     </ul>
                 </section>
 
-                <section id="section-15" class="section">
-                    <h2>15. MODIFICATIONS AND INTERRUPTIONS</h2>
-                    <p>We reserve the right to change, modify, or remove contents of the Services at any time without notice. We have no obligation to update information on the Services.</p>
+                <section id="section-18">
+                    <h2>18. GOVERNING LAW AND JURISDICTION</h2>
                     
-                    <p>We may modify or discontinue all or part of the Services without notice. <strong>We are not liable for any modification, price change, suspension, or discontinuance of the Services.</strong></p>
+                    <h3>18.1 Governing Law</h3>
+                    <p>These Terms shall be governed by and construed in accordance with the <strong>laws of India</strong>, without regard to conflict of law principles or principles that would apply the laws of another jurisdiction.</p>
                     
-                    <h3>Service Availability</h3>
-                    <p>We cannot guarantee the Services will be available at all times. We may experience hardware, software, or maintenance issues resulting in interruptions, delays, or errors.</p>
+                    <h3>18.2 Exclusive Jurisdiction</h3>
+                    <p><strong>Any dispute arising out of or in connection with these Terms, including any question regarding existence, validity, or termination, shall be subject to the exclusive jurisdiction of the courts located in Mumbai, Maharashtra, India.</strong></p>
+                    <p><strong>You consent to the exclusive jurisdiction of such courts and waive any objection to venue or inconvenient forum.</strong></p>
                     
-                    <p>We reserve the right to change, revise, update, suspend, discontinue, or modify the Services at any time without notice. <strong>You agree we have no liability for any loss, damage, or inconvenience caused by inability to access or use the Services during downtime or discontinuance.</strong></p>
+                    <h3>18.3 Legal Process</h3>
+                    <p>You agree to submit to the personal jurisdiction of Indian courts and waive any claim that proceedings are inconvenient, improper, or subject to foreign jurisdiction.</p>
+                    <p>Any legal action or proceeding arising from these Terms must be brought exclusively in Mumbai courts and not elsewhere.</p>
                 </section>
 
-                <section id="section-16" class="section">
-                    <h2>16. DISCLAIMER OF WARRANTIES</h2>
+                <section id="section-19">
+                    <h2>19. DISPUTE RESOLUTION</h2>
                     
-                    <div class="highlight-box">
-                        <p><strong>THE SERVICES ARE PROVIDED ON AN "AS-IS" AND "AS-AVAILABLE" BASIS. YOU AGREE THAT YOUR USE OF THE SERVICES IS AT YOUR SOLE RISK.</strong></p>
-                        
-                        <p><strong>TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</strong></p>
-                    </div>
-                    
-                    <h3>We make no warranties or representations about:</h3>
+                    <h3>19.1 Informal Negotiation</h3>
+                    <p>Before pursuing formal legal action, you agree to first attempt to resolve any dispute informally by contacting us at <strong><a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></strong>. You will:</p>
                     <ol>
-                        <li>Accuracy or completeness of the Services' content.</li>
-                        <li>Content of any websites or applications linked to the Services.</li>
-                        <li>Prevention of errors, mistakes, or inaccuracies of content.</li>
-                        <li>Personal injury or property damage resulting from your access to the Services.</li>
-                        <li>Unauthorized access to our secure servers or personal/financial information.</li>
-                        <li>Interruption or cessation of transmission to or from the Services.</li>
-                        <li>Bugs, viruses, Trojan horses, or similar items transmitted to or through the Services.</li>
-                        <li>Errors or omissions in any content or loss or damage from use of content posted or transmitted via the Services.</li>
+                        <li>Provide a detailed written description of the dispute</li>
+                        <li>Include all relevant order numbers, dates, and documentation</li>
+                        <li>Propose a reasonable resolution</li>
+                        <li>Allow us <strong>15 business days</strong> to respond</li>
                     </ol>
+                    <p>We will attempt to resolve disputes through good-faith negotiation within this period.</p>
                     
-                    <p><strong>We do not warrant, endorse, guarantee, or assume responsibility for any product or service advertised or offered by a third party through the Services.</strong></p>
+                    <h3>19.2 Binding Arbitration</h3>
+                    <p>If informal negotiation does not resolve the dispute within 30 days, any dispute arising out of or related to these Terms shall be referred to and <strong>finally resolved by binding arbitration in Mumbai, India</strong> in accordance with the <strong>Arbitration and Conciliation Act, 1996</strong>.</p>
                     
-                    <p><strong>We will not be a party to or responsible for monitoring any transaction between you and third-party providers of products or services.</strong></p>
-                </section>
-
-                <section id="section-17" class="section">
-                    <h2>17. LIMITATION OF LIABILITY</h2>
+                    <p><strong>Arbitration Terms:</strong></p>
+                    <ul>
+                        <li><strong>Number of arbitrators:</strong> One (1)</li>
+                        <li><strong>Seat of arbitration:</strong> Mumbai, Maharashtra, India</li>
+                        <li><strong>Language:</strong> English</li>
+                        <li><strong>Governing law:</strong> Substantive law of India</li>
+                        <li><strong>Rules:</strong> Indian Arbitration and Conciliation Act, 1996</li>
+                        <li><strong>Costs:</strong> Each party bears its own legal costs; arbitrator fees split equally</li>
+                    </ul>
                     
-                    <div class="highlight-box">
-                        <p><strong>TO THE FULLEST EXTENT PERMITTED BY LAW:</strong></p>
-                        
-                        <p><strong>IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, LOST DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SERVICES, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</strong></p>
-                        
-                        <p><strong>NOTWITHSTANDING ANYTHING TO THE CONTRARY, OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER WILL AT ALL TIMES BE LIMITED TO THE LESSER OF:</strong></p>
-                        <ul>
-                            <li><strong>The amount paid by you to us in the 12 months preceding the claim, OR</strong></li>
-                            <li><strong>₹10,000 INR (approximately $120 USD)</strong></li>
-                        </ul>
-                    </div>
-                    
-                    <p><strong>Certain Indian laws and international laws do not allow limitations on implied warranties or exclusion of certain damages. If these laws apply to you, some of the above disclaimers or limitations may not apply, and you may have additional rights.</strong></p>
-                </section>
-
-                <section id="section-18" class="section">
-                    <h2>18. INDEMNIFICATION</h2>
-                    <p>You agree to defend, indemnify, and hold harmless MaisonModelX and our officers, agents, partners, and employees from and against any loss, damage, liability, claim, or demand, including reasonable attorneys' fees and expenses, made by any third party due to or arising out of:</p>
-                    <ol>
-                        <li>Your use of the Services.</li>
-                        <li>Breach of these Terms.</li>
-                        <li>Any breach of your representations and warranties in these Terms.</li>
-                        <li>Your violation of third-party rights, including intellectual property rights.</li>
-                        <li>Any harmful act toward another user of the Services.</li>
-                    </ol>
-                    
-                    <p>We reserve the right, at your expense, to assume exclusive defense and control of any matter for which you are required to indemnify us. You agree to cooperate with our defense of such claims.</p>
-                    
-                    <h3>Design and Content Indemnification</h3>
-                    <div class="warning-box">
-                        <p>In addition to all other indemnification obligations, you specifically agree to defend, indemnify, and hold harmless MaisonModelX from any claims, damages, liability, or legal action arising from:</p>
-                        <ol>
-                            <li><strong>Design Infringement:</strong> Any claim that the design specifications, clothing items, products, styles, or other creative elements you provided to us infringe on third-party intellectual property rights, copyrights, trademarks, or design rights.</li>
-                            <li><strong>Client Content Liability:</strong> Any claim that the model output violates laws, regulations, or third-party rights as a result of the specifications or instructions you provided.</li>
-                            <li><strong>Similarity Claims:</strong> Any claim of design similarity, duplication, or copying between your ordered model and:
-                                <ul>
-                                    <li>Existing designs, products, or creative works by third parties</li>
-                                    <li>Other customers' models generated through our Services</li>
-                                    <li>Any other source</li>
-                                </ul>
-                            </li>
-                            <li><strong>Fashion and Product Liability:</strong> Any claim that your use of the AI-generated models for fashion, apparel, product design, or commercial purposes violates any third-party rights or applicable regulations.</li>
-                        </ol>
-                        
-                        <p><strong>You assume complete liability and responsibility for all design content, specifications, and usage of the models you purchase. MaisonModelX is not liable for design infringement, similarity, or copyright claims arising from your provided specifications or your use of the delivered models.</strong></p>
-                    </div>
-                </section>
-
-                <section id="section-19" class="section">
-                    <h2>19. GOVERNING LAW</h2>
-                    <p>These Terms shall be governed by and construed in accordance with the <strong>laws of India</strong>.</p>
-                    
-                    <p>Any dispute arising out of or in connection with these Terms, including any question regarding existence, validity, or termination, shall be subject to the exclusive jurisdiction of the courts of <strong>Mumbai, India</strong>.</p>
-                </section>
-
-                <section id="section-20" class="section">
-                    <h2>20. DISPUTE RESOLUTION</h2>
-                    
-                    <h3>Informal Negotiation</h3>
-                    <p>Before pursuing formal legal action, you agree to first attempt to resolve any dispute informally by contacting us at maisonmodelx@gmail.com. We will attempt to resolve disputes through good-faith negotiation.</p>
-                    
-                    <h3>Binding Arbitration</h3>
-                    <p>If informal negotiation does not resolve the dispute within 30 days, any dispute arising out of or in connection with these Terms shall be referred to and finally resolved by <strong>arbitration in Mumbai, India</strong> in accordance with the Arbitration and Conciliation Act, 1996.</p>
-                    
-                    <div class="info-box">
-                        <h4>Arbitration Terms:</h4>
-                        <ul>
-                            <li>Number of arbitrators: One (1)</li>
-                            <li>Seat of arbitration: Mumbai, India</li>
-                            <li>Language: English</li>
-                            <li>Governing law: Substantive law of India</li>
-                        </ul>
-                    </div>
-                    
-                    <h3>Restrictions on Arbitration</h3>
+                    <h3>19.3 Arbitration Restrictions</h3>
                     <p>The parties agree that:</p>
-                    <ol>
-                        <li>No arbitration shall be joined with any other proceeding.</li>
-                        <li>There is no right to arbitrate on a class-action basis or use class-action procedures.</li>
-                        <li>There is no right for any dispute to be brought in a representative capacity on behalf of the general public or others.</li>
-                    </ol>
+                    <ul>
+                        <li>No arbitration shall be joined with any other proceeding or class action</li>
+                        <li>There is <strong>no right to arbitrate on a class-action basis</strong> or use class-action procedures</li>
+                        <li>There is <strong>no right for any dispute to be brought in a representative capacity</strong> on behalf of the general public or other individuals</li>
+                        <li>Disputes must be brought individually in your own name</li>
+                    </ul>
                     
-                    <h3>Exceptions to Arbitration</h3>
-                    <p>The following disputes are <strong>not</strong> subject to binding arbitration:</p>
-                    <ol>
-                        <li>Disputes seeking to enforce or protect intellectual property rights.</li>
-                        <li>Disputes related to theft, piracy, invasion of privacy, or unauthorized use.</li>
-                        <li>Any claim for injunctive relief.</li>
-                    </ol>
+                    <h3>19.4 Exceptions to Arbitration</h3>
+                    <p>The following disputes are <strong>NOT</strong> subject to binding arbitration and may be brought in court:</p>
+                    <ul>
+                        <li>Disputes seeking to enforce or protect intellectual property rights</li>
+                        <li>Disputes related to theft, piracy, invasion of privacy, or unauthorized use</li>
+                        <li>Any claim for injunctive relief (orders to stop conduct or prevent harm)</li>
+                        <li>Disputes involving willful or deliberate breach of these Terms</li>
+                    </ul>
+                    <p>If this arbitration provision is found illegal or unenforceable, such disputes shall be decided by a court of competent jurisdiction in Mumbai, India.</p>
                     
-                    <p>If this provision is found illegal or unenforceable, such disputes shall be decided by a court of competent jurisdiction in Mumbai, India.</p>
+                    <h3>19.5 Consumer Protections</h3>
+                    <p>Nothing in this section limits your rights under India's <strong>Consumer Protection Act, 2019</strong>, including the right to file complaints with consumer commissions or pursue statutory remedies.</p>
                 </section>
 
-                <section id="section-21" class="section">
-                    <h2>21. ELECTRONIC COMMUNICATIONS AND SIGNATURES</h2>
-                    <p>Visiting the Services, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications from us.</p>
+                <section id="section-20">
+                    <h2>20. ELECTRONIC COMMUNICATIONS AND SIGNATURES</h2>
                     
+                    <h3>20.1 Acceptance of Electronic Communications</h3>
+                    <p>Visiting the Services, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications from us, including:</p>
+                    <ul>
+                        <li>Order confirmations and delivery notifications</li>
+                        <li>Refinement requests and responses</li>
+                        <li>Refund determinations</li>
+                        <li>Policy updates and notices</li>
+                        <li>Support communications</li>
+                    </ul>
+                    
+                    <h3>20.2 Electronic Agreements and Signatures</h3>
                     <p><strong>You agree that all agreements, notices, disclosures, and other communications we provide electronically satisfy any legal requirement that such communications be in writing.</strong></p>
                     
-                    <div class="info-box">
-                        <p><strong>YOU AGREE TO THE USE OF ELECTRONIC SIGNATURES, CONTRACTS, ORDERS, AND OTHER RECORDS, AND TO ELECTRONIC DELIVERY OF NOTICES, POLICIES, AND RECORDS OF TRANSACTIONS INITIATED OR COMPLETED VIA THE SERVICES.</strong></p>
+                    <div class="important-notice">
+                        <p><strong>YOU AGREE TO THE USE OF:</strong></p>
+                        <ul>
+                            <li>Electronic signatures on contracts, orders, and other records</li>
+                            <li>Electronic delivery of notices, policies, and transaction records</li>
+                            <li>Digital signatures and cryptographic authentication</li>
+                            <li>Electronic receipts and confirmations</li>
+                        </ul>
                     </div>
                     
-                    <p>You waive any rights or requirements under any laws in any jurisdiction that require an original signature or delivery or retention of non-electronic records.</p>
+                    <p>You waive any rights or requirements under any laws in any jurisdiction that require:</p>
+                    <ul>
+                        <li>An original signature (handwritten or otherwise)</li>
+                        <li>Delivery or retention of non-electronic records</li>
+                        <li>Physical documentation or original documents</li>
+                    </ul>
+                    <p>All electronic communications and digital records are legally valid and binding.</p>
                 </section>
 
-                <section id="section-22" class="section">
-                    <h2>22. MISCELLANEOUS</h2>
+                <section id="section-21">
+                    <h2>21. MISCELLANEOUS PROVISIONS</h2>
                     
+                    <h3>21.1 Entire Agreement</h3>
+                    <p>These Terms and any policies posted on the Services (including our Privacy Policy, Refunds and Returns Policy, and any service-specific terms) constitute the <strong>entire agreement</strong> between you and MMX regarding the Services.</p>
+                    <p>These Terms supersede all prior agreements, understandings, and negotiations, whether written or oral.</p>
+                    
+                    <h3>21.2 No Waiver</h3>
+                    <p><strong>Our failure to exercise or enforce any right or provision of these Terms shall not operate as a waiver of such right or provision.</strong></p>
+                    <p>If we waive enforcement of a particular provision in one instance, this does not waive our right to enforce it in other instances or against other users.</p>
+                    
+                    <h3>21.3 Severability</h3>
+                    <p><strong>If any provision of these Terms is determined to be unlawful, void, unenforceable, or against public policy, that provision is deemed severable</strong> and does not affect the validity, legality, or enforceability of the remaining provisions.</p>
+                    <p>If a provision is severed, it will be replaced with an enforceable provision that achieves the original intent as closely as possible.</p>
+                    
+                    <h3>21.4 Assignment</h3>
+                    <p><strong>We may assign our rights and obligations under these Terms to third parties</strong> (including successors, acquirers, or affiliates) at any time without notice or your consent.</p>
+                    <p><strong>You may not assign or transfer your rights under these Terms</strong> without our prior written consent. Any unauthorized assignment is void.</p>
+                    
+                    <h3>21.5 Force Majeure</h3>
+                    <p><strong>MMX shall not be responsible for any failure or delay in performing obligations</strong> caused by events beyond our reasonable control, including:</p>
                     <ul>
-                        <li><strong>Entire Agreement:</strong> These Terms and any policies posted on the Services constitute the entire agreement between you and us.</li>
-                        <li><strong>Waiver:</strong> Our failure to exercise or enforce any right or provision shall not operate as a waiver of such right or provision.</li>
-                        <li><strong>Severability:</strong> If any provision of these Terms is determined to be unlawful, void, or unenforceable, that provision is deemed severable and does not affect the validity and enforceability of remaining provisions.</li>
-                        <li><strong>Assignment:</strong> We may assign our rights and obligations to others at any time. You may not assign or transfer your rights under these Terms without our written consent.</li>
-                        <li><strong>Force Majeure:</strong> We shall not be responsible for any failure or delay in performing obligations caused by events beyond our reasonable control, including acts of God, natural disasters, pandemics, war, terrorism, government actions, utility failures, or internet disruptions.</li>
-                        <li><strong>No Agency:</strong> There is no joint venture, partnership, employment, or agency relationship created between you and us as a result of these Terms or use of the Services.</li>
-                        <li><strong>Interpretation:</strong> These Terms will not be construed against us by virtue of having drafted them.</li>
+                        <li>Acts of God (earthquakes, floods, hurricanes, pandemics)</li>
+                        <li>Natural disasters or extreme weather</li>
+                        <li>War, terrorism, or government actions</li>
+                        <li>Civil unrest or riots</li>
+                        <li>Utility failures or power outages</li>
+                        <li>Internet disruptions or connectivity issues</li>
+                        <li>Supplier or vendor failures</li>
+                        <li>Strikes or labor disruptions</li>
+                        <li>Supply chain disruptions</li>
+                    </ul>
+                    <p>During force majeure events, we will make reasonable efforts to resume service, but we are not liable for delays or non-performance.</p>
+                    
+                    <h3>21.6 No Agency or Partnership</h3>
+                    <p><strong>There is no joint venture, partnership, employment, or agency relationship created</strong> between you and MMX as a result of these Terms or your use of the Services.</p>
+                    <p>Neither party is authorized to bind the other to agreements or make representations on behalf of the other.</p>
+                    
+                    <h3>21.7 Interpretation</h3>
+                    <p><strong>These Terms will not be construed against us by virtue of having drafted them.</strong> Both parties have had the opportunity to review and modify these Terms.</p>
+                    <p>Headings are for convenience only and do not affect meaning or interpretation.</p>
+                    
+                    <h3>21.8 Survival</h3>
+                    <p>Provisions regarding Intellectual Property, Indemnification, Limitation of Liability, Governing Law, Dispute Resolution, and any provisions that by their nature should survive termination will remain in effect indefinitely.</p>
+                </section>
+
+                <section id="section-22">
+                    <h2>22. CONTACT INFORMATION AND SUPPORT</h2>
+                    
+                    <h3>22.1 Primary Contact Channel</h3>
+                    <p>To resolve complaints regarding the Services, exercise your rights, or receive further information, please contact us:</p>
+                    
+                    <div class="important-notice">
+                        <p><strong>Maison Model X</strong></p>
+                        <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></p>
+                        <p><strong>Location:</strong> Mumbai, Maharashtra, India</p>
+                        <p><strong>Website:</strong> <a href="https://maisonmodelx.com/">https://maisonmodelx.com/</a></p>
+                    </div>
+                    
+                    <p>We do not maintain alternative contact channels (phone, chat, contact forms). Email is our sole communication method.</p>
+                    
+                    <h3>22.2 Response Times</h3>
+                    <p><strong>We will respond to inquiries, support requests, and complaints within:</strong></p>
+                    <ul>
+                        <li><strong>Initial acknowledgment:</strong> 24 hours</li>
+                        <li><strong>Full response:</strong> 5–10 business days</li>
+                        <li><strong>Data access requests:</strong> 30 days (as required by law)</li>
+                    </ul>
+                    <p>Response times may vary during high-volume periods or force majeure events.</p>
+                    
+                    <h3>22.3 Data Protection Officer Complaint</h3>
+                    <p>For data protection grievances specifically, you may contact:</p>
+                    <p><strong>Email:</strong> <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a><br>
+                    <strong>Subject Line:</strong> "Data Protection Complaint"</p>
+                    <p>We will respond to data protection complaints in accordance with the <strong>Digital Personal Data Protection (DPDP) Act, 2023</strong>.</p>
+                </section>
+
+                <section id="section-23">
+                    <h2>23. UPDATES TO THESE TERMS</h2>
+                    
+                    <h3>23.1 Right to Modify</h3>
+                    <p>We reserve the right to modify these Terms at any time. Changes will be effective immediately upon posting to our Website. Your continued use of the Services after modifications constitutes acceptance of the revised Terms.</p>
+                    
+                    <h3>23.2 Significant Changes Notification</h3>
+                    <p><strong>Significant changes</strong> requiring notification include:</p>
+                    <ul>
+                        <li>Changes to refund or payment policies</li>
+                        <li>Changes to prohibited activities or usage restrictions</li>
+                        <li>Changes to liability limitations or warranty disclaimers</li>
+                        <li>Changes to data processing or privacy practices</li>
+                        <li>Changes affecting your rights or obligations</li>
+                    </ul>
+                    <p>For significant changes, we will provide notice via email or prominent website notice when feasible.</p>
+                    
+                    <h3>23.3 Last Updated</h3>
+                    <p>These Terms were last updated on <strong>November 25, 2025</strong>.</p>
+                    <p><strong>Version History:</strong></p>
+                    <ul>
+                        <li><strong>v1.0</strong> (November 20, 2025): Initial publication</li>
+                        <li><strong>v2.0</strong> (November 25, 2025): Consolidated with Consistent Faces Service; enhanced clarity and legal compliance</li>
                     </ul>
                 </section>
 
-                <section id="section-23" class="section">
-                    <h2>23. CONTACT US</h2>
-                    <p>To resolve complaints regarding the Services or receive further information, please contact us:</p>
+                <section id="section-24">
+                    <h2>24. CONSUMER PROTECTION AND STATUTORY RIGHTS</h2>
                     
-                    <div class="contact-info">
-                        <p><strong>Maison Model X</strong><br>
-                        Mumbai, India<br>
-                        Email: maisonmodelx@gmail.com<br>
-                        Website: https://maisonmodelx.com/</p>
-                    </div>
+                    <h3>24.1 Consumer Protection Act Compliance</h3>
+                    <p>Nothing in these Terms limits your rights under India's <strong>Consumer Protection Act, 2019</strong>, including the right to:</p>
+                    <ul>
+                        <li>File complaints with the District Consumer Commission</li>
+                        <li>Seek remedies for defective services</li>
+                        <li>Claim compensation for unfair trade practices</li>
+                        <li>Request refunds or replacements for non-conforming products</li>
+                        <li>Appeal MMX's determinations through statutory processes</li>
+                    </ul>
+                    
+                    <h3>24.2 Legal Compliance</h3>
+                    <p>We comply with all applicable provisions of:</p>
+                    <ul>
+                        <li><strong>Information Technology Act, 2000</strong> and related rules</li>
+                        <li><strong>Digital Personal Data Protection (DPDP) Act, 2023</strong></li>
+                        <li><strong>Consumer Protection Act, 2019</strong></li>
+                        <li><strong>Indian Contract Act, 1872</strong></li>
+                        <li>All other applicable Indian laws and regulations</li>
+                    </ul>
                 </section>
 
-                <div class="footer">
-                    <p><strong>END OF TERMS AND CONDITIONS</strong></p>
-                    <p>These Terms of Service are effective and binding as of the date last updated: <strong>November 20, 2025</strong>.</p>
-                    <p>&copy; 2025 Maison Model X. All rights reserved.</p>
-                </div>
+                <section id="section-25">
+                    <h2>25. ACKNOWLEDGMENT AND ACCEPTANCE</h2>
+                    
+                    <h3>25.1 Your Acknowledgment</h3>
+                    <div class="important-notice">
+                        <p><strong>BY USING THE SERVICES, YOU ACKNOWLEDGE THAT:</strong></p>
+                        <ul>
+                            <li>You have read, understood, and agree to be bound by all provisions of these Terms</li>
+                            <li>You understand the synthetic and AI-generated nature of all Generated Content</li>
+                            <li>You accept the limitations of warranties and liability described herein</li>
+                            <li>You understand the refund policy and reporting deadline (7 days)</li>
+                            <li>You accept all risks associated with using AI-generated models</li>
+                            <li>You will comply with all laws and regulations</li>
+                            <li>You will use Generated Content lawfully and ethically</li>
+                            <li>You will not violate third-party rights or the rights of real individuals</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>25.2 Acceptance</h3>
+                    <p>Your use of the Services constitutes your full acceptance of these Terms, including all representations, warranties, disclaimers, and limitations of liability.</p>
+                    
+                    <h3>25.3 Disagreement</h3>
+                    <div class="warning-notice">
+                        <p><strong>IF YOU DO NOT AGREE WITH ANY PROVISION OF THESE TERMS, YOU MUST DISCONTINUE USE OF THE SERVICES IMMEDIATELY.</strong> Continued use constitutes acceptance.</p>
+                    </div>
+                </section>
             </div>
         </div>
     </main>
 
-    <script>
-        // Active navigation highlighting
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.section, .agreement-section');
-            const navLinks = document.querySelectorAll('.toc-link');
-            
-            const observerOptions = {
-                root: null,
-                rootMargin: '-20% 0px -75% 0px',
-                threshold: 0
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-            
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-            
-            // Smooth scroll for navigation links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    if (targetSection) {
-                        const headerOffset = 100;
-                        const elementPosition = targetSection.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                        
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <h3>Contact Us</h3>
+            <p>For questions or support, please email us at <a href="mailto:maisonmodelx@gmail.com">maisonmodelx@gmail.com</a></p>
+            <p><strong>Maison Model X</strong><br>Mumbai, India<br><a href="https://maisonmodelx.com/">https://maisonmodelx.com/</a></p>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Maison Model X. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
