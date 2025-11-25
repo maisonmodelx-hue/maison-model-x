@@ -2705,109 +2705,125 @@
         });
         
         function sendToBitrix24(data) {
-            const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/by5d9ncheb31kqt5/crm.deal.add";  
-            
-            // Package pricing mapping
-            const packagePrices = {
-                'Prélude — 30 images': 3999,
-                'Élan — 50 images': 10999,
-                'Signature — 100 images': 19999,
-                'Couture — 250 images': 37999,
-                'Légende — Custom': 0
-            };
+        const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/by5d9ncheb31kqt5/crm.deal.add";
         
-            // Calculate total with add-ons
-            let basePrice = packagePrices[data.packageSelection] || 0;
-            let addOns = [];
-            
-            if (data.rush) { addOns.push('Rush Delivery (12h) - ₹5,000'); basePrice += 5000; }
-            if (data.extraImages) { addOns.push('Extra 20 Images - ₹2,000'); basePrice += 2000; }
-            if (data.ageProgression) { addOns.push('Age Progression - ₹3,000'); basePrice += 3000; }
-            if (data.extraRevision) { addOns.push('Extra Revision Round - ₹1,500'); basePrice += 1500; }
-            if (data.extraModel) { addOns.push('Additional Model - ₹8,000'); basePrice += 8000; }
+        // Package pricing mapping
+        const packagePrices = {
+            'Prélude — 30 images': 3999,
+            'Élan — 50 images': 10999,
+            'Signature — 100 images': 19999,
+            'Couture — 250 images': 37999,
+            'Légende — Custom': 0
+        };
+    
+        // Calculate total with add-ons
+        let basePrice = packagePrices[data.packageSelection] || 0;
+        let addOns = [];
         
-            // ✅ FIX: Safely handle models array
-            const models = data.models || [];
-            const modelCount = models.length || 1;
-            
-            // Format ALL models specifications
-            let modelsDetails = '';
-            if (models.length > 0) {
-                models.forEach((model, index) => {
-                    modelsDetails += `
-        ━━━━━━━━━━━━━━━━━━━━━
-        👥 MODEL ${index + 1} SPECIFICATIONS
-        ━━━━━━━━━━━━━━━━━━━━━
-        Age: ${model.age || 'Not specified'}
-        Gender: ${model.gender || 'Not specified'}
-        Ethnicity: ${model.ethnicity || 'Not specified'}
-        Region: ${model.region || 'Not specified'}
-        Hair Type: ${model.hairType || 'Not specified'}
-        Hair Color: ${model.hairColor || 'Not specified'}
-        Skin Tone: ${model.skinTone || 'Not specified'}
-        Description: ${model.description || 'None provided'}
+        if (data.rush) { addOns.push('Rush Delivery (12h) - ₹5,000'); basePrice += 5000; }
+        if (data.extraImages) { addOns.push('Extra 20 Images - ₹2,000'); basePrice += 2000; }
+        if (data.ageProgression) { addOns.push('Age Progression - ₹3,000'); basePrice += 3000; }
+        if (data.extraRevision) { addOns.push('Extra Revision Round - ₹1,500'); basePrice += 1500; }
+        if (data.extraModel) { addOns.push('Additional Model - ₹8,000'); basePrice += 8000; }
+    
+        // Safely handle models array
+        const models = data.models || [];
+        const modelCount = models.length || 1;
+        
+        // Format ALL models specifications
+        let modelsDetails = '';
+        if (models.length > 0) {
+            models.forEach((model, index) => {
+                modelsDetails += `
+    ━━━━━━━━━━━━━━━━━━━━━
+    👥 MODEL ${index + 1} SPECIFICATIONS
+    ━━━━━━━━━━━━━━━━━━━━━
+    Age: ${model.age || 'Not specified'}
+    Gender: ${model.gender || 'Not specified'}
+    Ethnicity: ${model.ethnicity || 'Not specified'}
+    Region: ${model.region || 'Not specified'}
+    Hair Type: ${model.hairType || 'Not specified'}
+    Hair Color: ${model.hairColor || 'Not specified'}
+    Skin Tone: ${model.skinTone || 'Not specified'}
+    Description: ${model.description || 'None provided'}
+    `;
+            });
+        }
+    
+        // Format complete order details
+        const orderDetails = `
+    🎯 NEW ORDER - MAISON MODEL X
+    
+    ━━━━━━━━━━━━━━━━━━━━━
+    👤 CUSTOMER DETAILS
+    ━━━━━━━━━━━━━━━━━━━━━
+    Name: ${data.firstName}
+    Email: ${data.email}
+    Phone: ${data.phone}
+    
+    ━━━━━━━━━━━━━━━━━━━━━
+    📦 PACKAGE SELECTED
+    ━━━━━━━━━━━━━━━━━━━━━
+    ${data.packageSelection}
+    Total Models: ${modelCount}
+    
+    ${modelsDetails}
+    
+    ━━━━━━━━━━━━━━━━━━━━━
+    🎁 ADD-ONS
+    ━━━━━━━━━━━━━━━━━━━━━
+    ${addOns.length > 0 ? addOns.join('\n') : 'None'}
+    
+    ${data.customRequirements ? `\n━━━━━━━━━━━━━━━━━━━━━\n✨ CUSTOM REQUIREMENTS\n━━━━━━━━━━━━━━━━━━━━━\n${data.customRequirements}` : ''}
+    
+    ━━━━━━━━━━━━━━━━━━━━━
+    💰 TOTAL AMOUNT
+    ━━━━━━━━━━━━━━━━━━━━━
+    ₹${basePrice.toLocaleString('en-IN')}
         `;
-                });
+    
+        // Prepare Bitrix24 Deal data (without COMMENTS)
+        const bitrixData = {
+            fields: {
+                TITLE: `Order from ${data.firstName} - ${data.packageSelection} (${modelCount} models)`,
+                NAME: data.firstName,
+                EMAIL: [{"VALUE": data.email, "VALUE_TYPE": "WORK"}],
+                PHONE: [{"VALUE": data.phone, "VALUE_TYPE": "WORK"}]
             }
-        
-            // Format complete order details
-            const orderDetails = `
-        🎯 NEW ORDER - MAISON MODEL X
-        
-        ━━━━━━━━━━━━━━━━━━━━━
-        👤 CUSTOMER DETAILS
-        ━━━━━━━━━━━━━━━━━━━━━
-        Name: ${data.firstName}
-        Email: ${data.email}
-        Phone: ${data.phone}
-        
-        ━━━━━━━━━━━━━━━━━━━━━
-        📦 PACKAGE SELECTED
-        ━━━━━━━━━━━━━━━━━━━━━
-        ${data.packageSelection}
-        Total Models: ${modelCount}
-        
-        ${modelsDetails}
-        
-        ━━━━━━━━━━━━━━━━━━━━━
-        🎁 ADD-ONS
-        ━━━━━━━━━━━━━━━━━━━━━
-        ${addOns.length > 0 ? addOns.join('\n') : 'None'}
-        
-        ${data.customRequirements ? `\n━━━━━━━━━━━━━━━━━━━━━\n✨ CUSTOM REQUIREMENTS\n━━━━━━━━━━━━━━━━━━━━━\n${data.customRequirements}` : ''}
-        
-        ━━━━━━━━━━━━━━━━━━━━━
-        💰 TOTAL AMOUNT
-        ━━━━━━━━━━━━━━━━━━━━━
-        ₹${basePrice.toLocaleString('en-IN')}
-            `;
-        
-            // Prepare Bitrix24 Deal data
-            const bitrixData = {
-                fields: {
-                    TITLE: `Order from ${data.firstName} - ${data.packageSelection} (${modelCount} models)`,
-                    NAME: data.firstName,
-                    EMAIL: [{"VALUE": data.email, "VALUE_TYPE": "WORK"}],
-                    PHONE: [{"VALUE": data.phone, "VALUE_TYPE": "WORK"}],
-                    OPPORTUNITY: basePrice,
-                    CURRENCY_ID: "INR",
-                    COMMENTS: orderDetails
-                }
-            };
-        
-            // Submit to Bitrix24
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(bitrixData)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Bitrix24 Response:', result);  // ✅ Debug logging
+        };
+    
+        // Submit to Bitrix24
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bitrixData)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Bitrix24 Response:', result);
+            
+            if (result.result) {
+                // ✅ Deal created successfully, now add order details as timeline comment
+                const dealId = result.result;
+                const commentUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.timeline.comment.add";
                 
-                if (result.result) {
+                return fetch(commentUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: {
+                            ENTITY_ID: dealId,
+                            ENTITY_TYPE: "deal",
+                            COMMENT: orderDetails
+                        }
+                    })
+                })
+                .then(() => {
+                    // Success!
                     alert('✅ Order submitted successfully! We will contact you within 24 hours.');
                     document.getElementById('orderForm').reset();
                     
@@ -2821,15 +2837,17 @@
                     if (confirmationScreen) {
                         confirmationScreen.style.display = 'flex';
                     }
-                } else {
-                    throw new Error(result.error_description || 'Submission failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('❌ There was an error submitting your order. Please email us at maisonmodelx@gmail.com or try again.');
-            });
-        }
+                });
+            } else {
+                throw new Error(result.error_description || 'Submission failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('❌ There was an error submitting your order. Please email us at maisonmodelx@gmail.com or try again.');
+        });
+    }
+
         
         // Close confirmation screen function
         function closeConfirmation() {
@@ -3233,6 +3251,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
