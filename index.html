@@ -1766,6 +1766,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   initModelSpecifications();
+  toggleBackgroundDescriptionSection();
 });
 
 /* ---- Accessories Logic (Per Model) ---- */
@@ -1808,6 +1809,29 @@ function clearAccessoryInputs(num) {
     if (fileInput) fileInput.value = '';
   }
 }
+
+// ---- Background Description Visibility Logic ----
+function toggleBackgroundDescriptionSection() {
+  const planSelect = document.getElementById("planSelect");
+  const backgroundSection = document.getElementById("backgroundDescriptionSection");
+  const backgroundTextarea = document.getElementById("backgroundDescription");
+  
+  if (!planSelect || !backgroundSection) return;
+  
+  const selectedTier = planSelect.value;
+  
+  // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
+  const supportedTiers = ["couture", "atelier", "maison"];
+  
+  if (supportedTiers.includes(selectedTier)) {
+    backgroundSection.classList.remove("hidden-section");
+  } else {
+    backgroundSection.classList.add("hidden-section");
+    // Clear textarea when switching to unsupported tier
+    backgroundTextarea.value = "";
+  }
+}
+
 
 // ---- Background Description Visibility Logic ----
 function toggleBackgroundDescriptionSection() {
@@ -1972,6 +1996,29 @@ function toggleCountryRegionOther(num) {
     otherSection.classList.add("hidden-section");
   }
 }
+
+// ---- Pose Section Visibility Logic (Hidden for Artisan tier) ----
+function togglePoseSection(modelNumber) {
+  const planSelect = document.getElementById("planSelect");
+  const poseSection = document.getElementById(`pose_section_model${modelNumber}`);
+  
+  if (!planSelect || !poseSection) return;
+  
+  const selectedTier = planSelect.value;
+  
+  // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
+  const supportedTiers = ["couture", "atelier", "maison"];
+  
+  if (supportedTiers.includes(selectedTier)) {
+    poseSection.classList.remove("hidden-section");
+  } else {
+    poseSection.classList.add("hidden-section");
+    // Clear textarea when switching to unsupported tier
+    const poseTextarea = document.getElementById(`model_${modelNumber}_pose`);
+    if (poseTextarea) poseTextarea.value = "";
+  }
+}
+
 
 function toggleHandPoseOther(num) {
   const select = document.getElementById(`model_${num}_hand_pose`);
@@ -2652,7 +2699,7 @@ function onPlanChangeForEdition() {
                     <div class="form-grid full">
                         <div class="form-group">
                             <label>Select Your Package <span class="required-asterisk">*</span></label>
-                            <select name="plantype" id="planSelect" onchange="updatePlanOptions(); updateModelAccordion(); onPlanChangeForEdition();" required>
+                            <select name="plantype" id="planSelect" onchange="updatePlanOptions(); updateModelAccordion(); onPlanChangeForEdition(); toggleBackgroundDescriptionSection();" required>
                                 <option value="">-- Select a Plan --</option>
                                 <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy">Artisan - 6,000</option>
                                 <option value="couture"><img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy">Couture - 15,000</option>
@@ -3098,8 +3145,9 @@ function onPlanChangeForEdition() {
             height_appearance: '',
             weight_appearance: '',
             expression_preference: '',
-            hand_pose: '',
-            body_pose: '',
+            pose: '',
+           // hand_pose: '',
+           // body_pose: '',
             orientation: '',
             makeup_details: '',
             model_description: '',
@@ -3387,7 +3435,7 @@ function onPlanChangeForEdition() {
                                 <label>Specify Expression</label>
                                 <input type="text" id="expression_preference_other_model${modelNumber}" name="expression_preference_other_model${modelNumber}" placeholder="Describe the expression" value="${storedData.expression_preference_other || ''}">
                             </div>
-                            <div class="form-group">
+                    <!--        <div class="form-group">
                                 <label>Hand Pose</label>
                                 <select name="model_${modelNumber}_hand_pose" id="model_${modelNumber}_hand_pose" onchange="toggleHandPoseOther(${modelNumber})" value="${storedData.hand_pose || ''}">
                                     <option value="">-- Select Hand Pose --</option>
@@ -3402,8 +3450,8 @@ function onPlanChangeForEdition() {
                             <div id="hand_pose_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Your Hand Pose</label>
                                 <input type="text" id="hand_pose_other_model${modelNumber}" name="hand_pose_other_model${modelNumber}" placeholder="Describe the hand pose" value="${storedData.hand_pose_other || ''}">
-                            </div>
-                            <div class="form-group">
+                            </div>   -->
+                        <!--    <div class="form-group">
                                 <label>Body Pose</label>
                                 <select name="model_${modelNumber}_body_pose" id="model_${modelNumber}_body_pose" onchange="toggleBodyPoseOther(${modelNumber})" value="${storedData.body_pose || ''}">
                                     <option value="">-- Select Body Pose --</option>
@@ -3417,7 +3465,7 @@ function onPlanChangeForEdition() {
                             <div id="body_pose_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Body Pose</label>
                                 <input type="text" id="body_pose_other_model${modelNumber}" name="body_pose_other_model${modelNumber}" placeholder="Describe the pose" value="${storedData.body_pose_other || ''}">
-                            </div>
+                            </div>  -->
                             <div class="form-group">
                                 <label>Orientation</label>
                                 <select name="model_${modelNumber}_orientation" id="model_${modelNumber}_orientation" onchange="toggleOrientationOther(${modelNumber})" value="${storedData.orientation || ''}">
@@ -3449,6 +3497,15 @@ function onPlanChangeForEdition() {
                                 <textarea name="model_${modelNumber}_description" id="model_${modelNumber}_description" placeholder="Add any additional details or specific requirements for this model..." style="min-height: 100px;">${storedData.model_description || ''}</textarea>
                             </div>
                         </div>
+
+                        <!-- Pose Description - Hidden for Artisan tier -->
+                        <div class="form-grid full" id="pose_section_model${modelNumber}" class="hidden-section" style="margin-top: 30px;">
+                            <div class="form-group">
+                                <label>Model Pose</label>
+                                <textarea name="model_${modelNumber}_pose" id="model_${modelNumber}_pose" placeholder="Describe how you'd like the model to pose. E.g., Standing with hands in pockets, sitting cross-legged, leaning against wall, walking motion, etc." style="min-height: 100px;" value="${storedData.pose || ''}"></textarea>
+                            </div>
+                        </div>
+
 
                         <!-- Reference Image Upload -->
                      <!--   <div class="form-grid full" style="margin-top: 20px;">
@@ -3533,6 +3590,9 @@ function onPlanChangeForEdition() {
 
             // Update price display
             updatePriceDisplay();
+            for (let i = 1; i <= limit; i++) {
+                togglePoseSection(i);
+            }
         }
 
         // ============ UPDATE GARMENT UPLOAD INPUTS ============
