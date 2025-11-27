@@ -3579,6 +3579,18 @@ function onPlanChangeForEdition() {
                     // Build formatted message for Bitrix24
                     const bitrixMessage = formatBitrixMessage(orderData);
                     
+                    // Calculate total amount with add-ons
+                    let totalAmount = orderData.planDetails.basePrice || 0;
+
+                    // Add add-on amounts if any
+                    if (orderData.addOns) {
+                        if (orderData.addOns.extraModel) totalAmount += 2500;
+                        if (orderData.addOns.extraGarment) totalAmount += 500;
+                        if (orderData.addOns.fastDelivery) totalAmount += 1000;
+                        if (orderData.addOns.premiumRetouch) totalAmount += 1500;
+                        if (orderData.addOns.brandNamePlacement) totalAmount += 1000;
+                    }
+                    
                     // Prepare Bitrix24 payload - PAYMENT BYPASS
                     const bitrixPayload = {
                         fields: {
@@ -3598,6 +3610,9 @@ function onPlanChangeForEdition() {
                             ],
                             DESCRIPTION: bitrixMessage,
                             COMMENTS: JSON.stringify(orderData, null, 2), // Full JSON for reference
+                            VALUE: totalAmount,
+                            CURRENCY_ID: "INR",    
+
                         }
                     };
                     
@@ -4887,5 +4902,6 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
