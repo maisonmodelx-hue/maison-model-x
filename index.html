@@ -3429,12 +3429,20 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
+                
                 function sendToBitrix24(orderData) {
+                    // ✅ PAYMENT BYPASS: Webhook URL is pre-configured. No payment check needed.
+                    // Direct submission to Bitrix24 without payment validation.
+                    const BITRIX24_WEBHOOK_URL_DIRECT = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add";
+
+                
+           /*     function sendToBitrix24(orderData) {
                     if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
                         console.error('❌ Bitrix24 webhook URL not configured!');
                         alert('Payment system is not configured. Please contact support.');
                         return;
-                    }
+                    }  */
+                
 
                     // Show loading state
                     const submitBtn = document.getElementById('paymentSubmitBtn');
@@ -3444,8 +3452,8 @@ function onPlanChangeForEdition() {
 
                     // Build formatted message for Bitrix24
                     const bitrixMessage = formatBitrixMessage(orderData);
-
-                    // Prepare Bitrix24 payload
+                    
+                    // Prepare Bitrix24 payload - PAYMENT BYPASS
                     const bitrixPayload = {
                         fields: {
                             TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
@@ -3466,9 +3474,59 @@ function onPlanChangeForEdition() {
                             COMMENTS: JSON.stringify(orderData, null, 2), // Full JSON for reference
                         }
                     };
+                    
+                    // Send to Bitrix24 - PAYMENT BYPASS: Direct submission
+                    fetch(BITRIX24_WEBHOOK_URL_DIRECT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(bitrixPayload),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP Error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('✅ Bitrix24 Success:', data);
+                        
+                        // Show success message
+                        const messageDiv = document.getElementById('paymentMessage');
+                        messageDiv.textContent = '✅ Order submitted to Bitrix24 successfully! We\'ll contact you within 24 hours.';
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#d4edda';
+                        messageDiv.style.color = '#155724';
+                        messageDiv.style.borderLeft = '4px solid #28a745';
+    
+                        // Reset form
+                        setTimeout(() => {
+                            document.getElementById('orderForm').reset();
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        console.error('❌ Bitrix24 Error:', error);
+                        
+                        // Show error message
+                        const messageDiv = document.getElementById('paymentMessage');
+                        messageDiv.textContent = '❌ Error submitting order. Please try again or contact support.';
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#f8d7da';
+                        messageDiv.style.color = '#721c24';
+                        messageDiv.style.borderLeft = '4px solid #dc3545';
+    
+                        // Reset button
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+                }
+
 
                     // Send to Bitrix24
-                    fetch(BITRIX24_WEBHOOK_URL, {
+          /*          fetch(BITRIX24_WEBHOOK_URL, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -3514,7 +3572,7 @@ function onPlanChangeForEdition() {
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
                     });
-                }
+                }  */
 
                 // ========================================
                 // FORMAT MESSAGE FOR BITRIX24
@@ -4703,3 +4761,4 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
