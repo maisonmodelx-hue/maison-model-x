@@ -3256,8 +3256,7 @@ function onPlanChangeForEdition() {
                     
                     if (orderForm) {
                         orderForm.addEventListener('submit', function(e) {
-                            // Don't prevent default - let Razorpay handle payment flow
-                            // This listener will fire AFTER payment success
+                            e.preventDefault(); // Prevent default form submission
                         });
                     }
                     
@@ -3269,8 +3268,8 @@ function onPlanChangeForEdition() {
                             e.preventDefault();
                             collectAndSendToBitrix24();
                         });
-                    }
-                }); */
+                    }  */
+                }); 
 
                 // ========================================
                 // MAIN COLLECTION FUNCTION
@@ -4507,7 +4506,7 @@ function onPlanChangeForEdition() {
 
         // ============ FORM SUBMISSION (BYPASSING RAZORPAY FOR TESTING) ============
         document.addEventListener('DOMContentLoaded', function () {
-            const orderForm = document.getElementById('orderForm');
+         //   const orderForm = document.getElementById('orderForm');
             const submitBtn = document.getElementById('paymentSubmitBtn');
         
             if (submitBtn) {
@@ -4736,6 +4735,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
