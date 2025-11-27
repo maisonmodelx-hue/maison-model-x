@@ -3263,13 +3263,13 @@ function onPlanChangeForEdition() {
                     
                     // Hook into Razorpay success handler
                     // The existing paymentSubmitBtn click will trigger this flow
-                    const paymentSubmitBtn = document.getElementById('paymentSubmitBtn');
+             /*       const paymentSubmitBtn = document.getElementById('paymentSubmitBtn');
                     if (paymentSubmitBtn) {
                         paymentSubmitBtn.addEventListener('click', function(e) {
                             e.preventDefault();
                             collectAndSendToBitrix24();
                         });
-                    }
+                    }  */
                 });
 
                 // ========================================
@@ -3430,10 +3430,10 @@ function onPlanChangeForEdition() {
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
                 function sendToBitrix24(orderData) {
-                  /*  if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
+                    if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
                         console.error('❌ Bitrix24 webhook URL not configured!');
                         alert('Payment system is not configured. Please contact support.');
-                        return; */
+                        return;
                     }
 
                     // Show loading state
@@ -4505,8 +4505,42 @@ function onPlanChangeForEdition() {
             }
         });
 
-        // ============ RAZORPAY PAYMENT INTEGRATION ============
+
+        // ============ FORM SUBMISSION (BYPASSING RAZORPAY FOR TESTING) ============
         document.addEventListener('DOMContentLoaded', function () {
+            const orderForm = document.getElementById('orderForm');
+            const submitBtn = document.getElementById('paymentSubmitBtn');
+        
+            if (submitBtn) {
+                submitBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    // Validate required fields
+                    const clientName = document.querySelector('input[name="clientname"]').value;
+                    const clientEmail = document.querySelector('input[name="clientemail"]').value;
+                    const clientPhone = document.querySelector('input[name="clientphone"]').value;
+                    const selectedPlan = document.getElementById('planSelect').value;
+        
+                    if (!clientName || !clientEmail || !clientPhone) {
+                        alert('Please fill in all required contact information');
+                        return;
+                    }
+        
+                    if (!selectedPlan) {
+                        alert('Please select a plan');
+                        return;
+                    }
+        
+                    // For testing: bypass payment and go straight to Bitrix24
+                    collectAndSendToBitrix24();
+                });
+            }
+        });
+
+        
+
+        // ============ RAZORPAY PAYMENT INTEGRATION ============
+/*        document.addEventListener('DOMContentLoaded', function () {
             const orderForm = document.getElementById('orderForm');
             const submitBtn = document.getElementById('paymentSubmitBtn');
             const paymentContainer = document.getElementById('paymentMessage');
@@ -4554,7 +4588,7 @@ function onPlanChangeForEdition() {
                     });
 
                     const totalAmount = basePriceInPaisa + addonPaisaTotal;
-                    const orderId = 'order_' + Date.now();
+                    const orderId = 'order_' + Date.now(); */
 
                     // Razorpay options
           /*          const options = {
@@ -4586,7 +4620,7 @@ function onPlanChangeForEdition() {
                     rzp.on('payment.failed', function (response) {
                         showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
                     });     
-*/
+
                     rzp.open();
                 });
             }
@@ -4703,4 +4737,5 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
