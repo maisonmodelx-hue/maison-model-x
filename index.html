@@ -3430,10 +3430,10 @@ function onPlanChangeForEdition() {
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
                 function sendToBitrix24(orderData) {
-                    if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
+                  /*  if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
                         console.error('❌ Bitrix24 webhook URL not configured!');
                         alert('Payment system is not configured. Please contact support.');
-                        return;
+                        return; */
                     }
 
                     // Show loading state
@@ -4703,3 +4703,4 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
