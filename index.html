@@ -3256,17 +3256,6 @@ function onPlanChangeForEdition() {
                     
                     if (orderForm) {
                         orderForm.addEventListener('submit', function(e) {
-                            // Don't prevent default - let Razorpay handle payment flow
-                            // This listener will fire AFTER payment success
-                        });
-                    }
-                    
-                    // Hook into Razorpay success handler
-                    // The existing paymentSubmitBtn click will trigger this flow
-                    const paymentSubmitBtn = document.getElementById('paymentSubmitBtn');
-                    if (paymentSubmitBtn) {
-                        paymentSubmitBtn.addEventListener('click', function(e) {
-                            e.preventDefault();
                             collectAndSendToBitrix24();
                         });
                     }
@@ -3314,7 +3303,7 @@ function onPlanChangeForEdition() {
                     // -------- MODELS - DYNAMIC FIELDS --------
                     const numModels = getNumberOfModels(selectedPlan);
                     const models = [];
-                    
+
                     for (let i = 1; i <= numModels; i++) {
                         const model = {
                             modelNumber: i,
@@ -3327,11 +3316,25 @@ function onPlanChangeForEdition() {
                             description: document.querySelector(`textarea[name="model${i}description"]`)?.value || '',
                             pose: document.querySelector(`textarea[name="model${i}pose"]`)?.value || '',
                             
+                            // NEW: Pose & Orientation Attributes (Couture tier+)
+                            handpose: document.querySelector(`select[name="model${i}handpose"]`)?.value || '',
+                            handposeother: document.querySelector(`input[name="handposeother${i}"]`)?.value || '',
+                            orientation: document.querySelector(`select[name="model${i}orientation"]`)?.value || '',
+                            orientationother: document.querySelector(`input[name="orientationother${i}"]`)?.value || '',
+                            expressionpreference: document.querySelector(`select[name="model${i}expressionpreference"]`)?.value || '',
+                            expressionpreferenceother: document.querySelector(`input[name="expressionpreferenceother${i}"]`)?.value || '',
+                            bodypose: document.querySelector(`select[name="model${i}bodypose"]`)?.value || '',
+                            bodyposeother: document.querySelector(`input[name="bodyposeother${i}"]`)?.value || '',
+                            typeofshot: document.querySelector(`select[name="model${i}typeofshot"]`)?.value || '',
+                            typeofshotother: document.querySelector(`input[name="typeofshotother${i}"]`)?.value || '',
+                            bodytype: document.querySelector(`select[name="model${i}bodytype"]`)?.value || '',
+                            bodytypeother: document.querySelector(`input[name="bodytypeother${i}"]`)?.value || '',
+                            
                             // Tier-Dependent Fields
                             backgroundDescription: document.querySelector(`textarea[name="backgrounddescription${i}"]`)?.value || '',
                             backgroundSelect: document.querySelector(`select[name="backgroundselect${i}"]`)?.value || '',
                             lightningEffects: document.querySelector(`textarea[name="lightningeffects${i}"]`)?.value || '',
-                            
+        
                             // Accessories (Atelier/Maison only)
                             accessories: document.querySelector(`textarea[name="accessories${i}"]`)?.value || '',
                             
@@ -3344,6 +3347,7 @@ function onPlanChangeForEdition() {
                         models.push(model);
                     }
 
+                    
                     // -------- ADD-ONS --------
                     const addOns = {
                         extraModel: document.querySelector('input[name="addonextramodel"]')?.checked || false,
@@ -3519,78 +3523,109 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // FORMAT MESSAGE FOR BITRIX24
                 // ========================================
+
                 function formatBitrixMessage(orderData) {
-                    let message = `
-                    ═══════════════════════════════════════════════════════
-                    NEW ORDER - MAISON MODEL X
-                    ═══════════════════════════════════════════════════════
-                    👤 CUSTOMER INFORMATION
-                    ───────────────────────────────────────────────────────
-                    Name: ${orderData.customerInfo.fullName}
-                    Email: ${orderData.customerInfo.email}
-                    Phone: +${orderData.customerInfo.countryCode} ${orderData.customerInfo.phone}
-                    Brand: ${orderData.customerInfo.brandName}
-
-                    📋 PLAN & PRICING
-                    ───────────────────────────────────────────────────────
-                    Tier: ${orderData.planDetails.tier.toUpperCase()}
-                    Base Price: ₹${orderData.planDetails.basePrice}
-                    Total Models: ${orderData.models.length}
-
-                    🎨 MODELS (Total: ${orderData.models.length})
-                    ───────────────────────────────────────────────────────
-                    `;
+                    let message = `╔════════════════════════════════════════╗\n`;
+                    message += `║   NEW ORDER - MAISON MODEL X          ║\n`;
+                    message += `╚════════════════════════════════════════╝\n\n`;
+    
+                    // CUSTOMER DETAILS
+                    message += `👤 CUSTOMER DETAILS\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Name: ${orderData.customerInfo.fullName || 'Not specified'}\n`;
+                    message += `Email: ${orderData.customerInfo.email || 'Not specified'}\n`;
+                    message += `Phone: ${orderData.customerInfo.countryCode || ''} ${orderData.customerInfo.phone || 'Not specified'}\n`;
+                    message += `Brand: ${orderData.customerInfo.brandName || 'Not specified'}\n\n`;
+                    
+                    // PACKAGE SELECTED
+                    message += `🎁 PACKAGE SELECTED\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Plan Tier: ${orderData.planDetails.tier.toUpperCase() || 'Not specified'}\n`;
+                    message += `Base Price: ₹${orderData.planDetails.basePrice.toLocaleString('en-IN')}\n`;
+                    message += `Total Models: ${orderData.models.length}\n\n`;
+                    
+                    // MODEL SPECIFICATIONS
+                    message += `📸 MODEL SPECIFICATIONS\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                     orderData.models.forEach((model, idx) => {
-                        message += `
-                        Model ${idx + 1}:
-                        • Specifications: ${model.specifications || 'Not specified'}
-                        • Product Name: ${model.productName || 'Not specified'}
-                        • Description: ${model.description || 'Not specified'}
-                        • Pose: ${model.pose || 'Not specified'}
-                        • Background: ${model.backgroundSelect || 'Standard'}
-                        • Images Uploaded: ${model.images.length}
-                        `;
+                        message += `\nModel ${idx + 1}:\n`;
+                        message += `  • Specifications: ${model.specifications || 'Not specified'}\n`;
+                        message += `  • Product Name: ${model.productName || 'Not specified'}\n`;
+                        message += `  • Description: ${model.description || 'Not specified'}\n`;
+                        message += `  • Pose: ${model.pose || 'Not specified'}\n`;
+                        message += `  • Hand Pose: ${model.handpose || 'Not specified'}\n`;
+                        message += `  • Orientation: ${model.orientation || 'Not specified'}\n`;
+                        message += `  • Expression: ${model.expressionpreference || 'Not specified'}\n`;
+                        message += `  • Body Pose: ${model.bodypose || 'Not specified'}\n`;
+                        message += `  • Shot Type: ${model.typeofshot || 'Not specified'}\n`;
+                        message += `  • Body Type: ${model.bodytype || 'Not specified'}\n`;
+                        message += `  • Background: ${model.backgroundSelect || 'Not specified'}\n`;
+                        message += `  • Lightning: ${model.lightningEffects || 'Not specified'}\n`;
+                        message += `  • Accessories: ${model.accessories || 'None'}\n`;
+                        message += `  • Brand Placement: ${model.brandPlacement || 'None'}\n`;
+                        message += `  • Images Uploaded: ${model.images?.length || 0}\n`;
                     });
-
-                    if (Object.values(orderData.brandName).some(v => v)) {
-                        message += `
-                        🏷️ BRAND NAME PLACEMENT
-                        ───────────────────────────────────────────────────────
-                        Text: ${orderData.brandName.brandNameText || 'Not specified'}
-                        Font: ${orderData.brandName.brandFontStyle || 'Default'}
-                        Placement: ${orderData.brandName.brandPlacementSelect || 'Not specified'}
-                        `;
-                    }
-
-                    if (Object.values(orderData.addOns).some(v => v)) {
-                        message += `
-                        ➕ ADD-ONS
-                        ───────────────────────────────────────────────────────
-                        ${orderData.addOns.extraModel ? '✓ Extra Model' : ''}
-                        ${orderData.addOns.extraGarment ? '✓ Extra Garment' : ''}
-                        ${orderData.addOns.fastDelivery ? '✓ Fast Delivery' : ''}
-                        ${orderData.addOns.premiumRetouch ? '✓ Premium Retouching' : ''}
-                        ${orderData.addOns.brandNamePlacement ? '✓ Brand Name Placement' : ''}
-                        `;
+                    
+                    message += `\n`;
+                    
+                    // BRAND NAME PLACEMENT (if applicable)
+                    if (Object.values(orderData.brandName || {}).some(v => v)) {
+                        message += `🏷️ BRAND NAME PLACEMENT\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `Text: ${orderData.brandName.brandNameText || 'Not specified'}\n`;
+                        message += `Font Style: ${orderData.brandName.brandFontStyle || 'Default'}\n`;
+                        message += `Placement: ${orderData.brandName.brandPlacementSelect || 'Not specified'}\n`;
+                        if (orderData.brandName.brandPlacementOther) {
+                            message += `Custom Placement: ${orderData.brandName.brandPlacementOther}\n`;
+                        }
+                        message += `\n`;
                     }
                     
-                    message += `
-                    🚚 DELIVERY PREFERENCES
-                    ───────────────────────────────────────────────────────
-                    Format: ${orderData.deliveryPreferences.format || 'Not specified'}
-                    File Naming: ${orderData.deliveryPreferences.fileNamingConvention || 'Default'}
-                    Special Instructions: ${orderData.deliveryPreferences.additionalInstructions || 'None'}
-
-                    🌐 PROJECT BRIEF
-                    ───────────────────────────────────────────────────────
-                    ${orderData.customerInfo.projectDescription || 'No additional details provided'}
-
-                    ═══════════════════════════════════════════════════════
-                    Timestamp: ${orderData.timestamp}
-                    ═══════════════════════════════════════════════════════
-                    `;
+                    // ADD-ONS
+                    if (Object.values(orderData.addOns || {}).some(v => v)) {
+                        message += `➕ ADD-ONS\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        if (orderData.addOns.extraModel) message += `✓ Extra Model\n`;
+                        if (orderData.addOns.extraGarment) message += `✓ Extra Garment\n`;
+                        if (orderData.addOns.fastDelivery) message += `✓ Fast Delivery (12h)\n`;
+                        if (orderData.addOns.premiumRetouch) message += `✓ Premium Retouching\n`;
+                        if (orderData.addOns.brandNamePlacement) message += `✓ Brand Name Placement\n`;
+                        message += `\n`;
+                    }
+                    
+                    // FILE DELIVERY PREFERENCES
+                    message += `📦 FILE DELIVERY PREFERENCES\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Format: ${orderData.deliveryPreferences.format || 'Not specified'}\n`;
+                    message += `File Naming: ${orderData.deliveryPreferences.fileNamingConvention || 'Default'}\n`;
+                    if (orderData.deliveryPreferences.additionalInstructions) {
+                        message += `Instructions: ${orderData.deliveryPreferences.additionalInstructions}\n`;
+                    }
+                    message += `\n`;
+                    
+                    // PROJECT BRIEF
+                    if (orderData.customerInfo.projectDescription) {
+                        message += `📝 PROJECT BRIEF\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.customerInfo.projectDescription}\n\n`;
+                    }
+                    
+                    // SPECIAL REQUIREMENTS
+                    if (orderData.customerInfo.specialRequirements) {
+                        message += `⚡ SPECIAL REQUIREMENTS\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.customerInfo.specialRequirements}\n\n`;
+                    }
+                    
+                    // TIMESTAMP
+                    message += `⏰ ORDER TIMESTAMP\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `${orderData.timestamp || new Date().toISOString()}\n`;
+                    
                     return message;
                 }
+
+
             </script>
 
 
@@ -4703,3 +4738,4 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
