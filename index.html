@@ -3266,8 +3266,42 @@ function onPlanChangeForEdition() {
                     const paymentSubmitBtn = document.getElementById('paymentSubmitBtn');
                     if (paymentSubmitBtn) {
                         paymentSubmitBtn.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            collectAndSendToBitrix24();
+                        e.preventDefault();
+                        
+                        // Collect all form data
+                        const orderData = {
+                          timestamp: new Date().toISOString(),
+                          customerInfo: {
+                            fullName: document.querySelector('input[name="clientname"]')?.value || '',
+                            email: document.querySelector('input[name="clientemail"]')?.value || '',
+                            phone: document.querySelector('input[name="clientphone"]')?.value || '',
+                            countryCode: document.querySelector('select[name="countrycode"]')?.value || '',
+                            brandName: document.querySelector('input[name="brandname"]')?.value || '',
+                          },
+                          planDetails: {
+                            tier: document.querySelector('select[name="plantype"]')?.value || '',
+                            basePrice: 0 // Will calculate based on tier
+                          },
+                          models: [], // Collect all model data
+                          addOns: {
+                            extraModel: document.querySelector('input[name="addonextramodel"]')?.checked || false,
+                            extraGarment: document.querySelector('input[name="addonextragarment"]')?.checked || false,
+                            fastDelivery: document.querySelector('input[name="addonfastdelivery"]')?.checked || false,
+                            premiumRetouch: document.querySelector('input[name="addonpremiumretouch"]')?.checked || false,
+                            brandNamePlacement: document.querySelector('input[name="addonbrandnameplacement"]')?.checked || false,
+                          },
+                          deliveryPreferences: {
+                            format: document.querySelector('select[name="deliveryformat"]')?.value || '',
+                            fileNamingConvention: document.querySelector('input[name="filenaming"]')?.value || '',
+                            additionalInstructions: document.querySelector('textarea[name="deliveryinstructions"]')?.value || '',
+                          }
+                        };
+                        
+                        // Send formatted data to Bitrix24
+                        sendToBitrix24(orderData);
+                      });
+                    }
+
                         });
                     }
                 });
@@ -3503,10 +3537,13 @@ function onPlanChangeForEdition() {
                         colorPickers: colorPickers,
                         deliveryPreferences: deliveryPreferences,
                     };
-
-                    // -------- SEND TO BITRIX24 --------
+                    
+                    // Store globally for later use in sendToBitrix24
+                    window.orderData = completeOrder;
+                    
+                    // Now send to Bitrix24 with formatted message
                     sendToBitrix24(completeOrder);
-                }
+
 
                 // ========================================
                 // GET NUMBER OF MODELS BY TIER
@@ -3555,34 +3592,27 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
-                
-                function sendToBitrix24(orderData) {
-                    // ✅ PAYMENT BYPASS: Webhook URL is pre-configured. No payment check needed.
-                    // Direct submission to Bitrix24 without payment validation.
-                    const BITRIX24_WEBHOOK_URL_DIRECT = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add";
-
-                
-           /*     function sendToBitrix24(orderData) {
-                    if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
-                        console.error('❌ Bitrix24 webhook URL not configured!');
+                function sendToBitrix24orderData {
+                    // Webhook URL - replace with your actual Bitrix24 webhook
+                    const BITRIX24_WEBHOOK_URL = 'https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add';
+                    
+                    if (!BITRIX24_WEBHOOK_URL) {
+                        console.error('Bitrix24 webhook URL not configured!');
                         alert('Payment system is not configured. Please contact support.');
                         return;
-                    }  */
-                
-
+                    }
+                    
                     // Show loading state
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Sending to Bitrix24...';
                     submitBtn.disabled = true;
-
-                    // Build formatted message for Bitrix24
+                    
+                    // Build formatted message for Bitrix24 using new function
                     const bitrixMessage = formatBitrixMessage(orderData);
                     
                     // Calculate total amount with add-ons
                     let totalAmount = orderData.planDetails.basePrice || 0;
-
-                    // Add add-on amounts if any
                     if (orderData.addOns) {
                         if (orderData.addOns.extraModel) totalAmount += 2500;
                         if (orderData.addOns.extraGarment) totalAmount += 500;
@@ -3591,79 +3621,69 @@ function onPlanChangeForEdition() {
                         if (orderData.addOns.brandNamePlacement) totalAmount += 1000;
                     }
                     
-                    // Prepare Bitrix24 payload - PAYMENT BYPASS
+                    // Prepare Bitrix24 payload - CLEAN FORMATTED
                     const bitrixPayload = {
                         fields: {
                             TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
-                            NAME: orderData.customerInfo.fullName,
-                            EMAIL: [
-                                {
-                                    VALUE: orderData.customerInfo.email,
-                                    VALUE_TYPE: 'WORK',
-                                }
-                            ],
-                            PHONE: [
-                                {
-                                    VALUE: orderData.customerInfo.phone,
-                                    VALUE_TYPE: 'WORK',
-                                }
-                            ],
-                            DESCRIPTION: bitrixMessage,
-                            COMMENTS: JSON.stringify(orderData, null, 2), // Full JSON for reference
-                            VALUE: totalAmount.toString(),
-                            CURRENCY_ID: "INR",    
-
+                          NAME: orderData.customerInfo.fullName,
+                          EMAIL: [{ VALUE: orderData.customerInfo.email, VALUETYPE: 'WORK' }],
+                          PHONE: [{ VALUE: orderData.customerInfo.phone, VALUETYPE: 'WORK' }],
+                          DESCRIPTION: bitrixMessage, // NOW FORMATTED BEAUTIFULLY
+                          COMMENTS: JSON.stringify(orderData, null, 2), // Full JSON for reference
+                          OPPORTUNITY: totalAmount.toString(),
+                          CURRENCY_ID: 'INR'
                         }
                     };
                     
-                    // Send to Bitrix24 - PAYMENT BYPASS: Direct submission
-                    fetch(BITRIX24_WEBHOOK_URL_DIRECT, {
+                    // Send to Bitrix24
+                    fetch(BITRIX24_WEBHOOK_URL, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
+                            'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(bitrixPayload),
+                        body: JSON.stringify(bitrixPayload)
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP Error: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('✅ Bitrix24 Success:', data);
-                        
-                        // Show success message
-                        const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '✅ Order submitted to Bitrix24 successfully! We\'ll contact you within 24 hours.';
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#d4edda';
-                        messageDiv.style.color = '#155724';
-                        messageDiv.style.borderLeft = '4px solid #28a745';
-    
-                        // Reset form
-                        setTimeout(() => {
-                            document.getElementById('orderForm').reset();
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP Error: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Bitrix24 Success:', data);
+                            
+                            // Show success message
+                            const messageDiv = document.getElementById('paymentMessage');
+                            messageDiv.textContent = 'Order submitted to Bitrix24 successfully! We\'ll contact you within 24 hours.';
+                            messageDiv.style.display = 'block';
+                            messageDiv.style.backgroundColor = '#d4edda';
+                            messageDiv.style.color = '#155724';
+                            messageDiv.style.borderLeft = '4px solid #28a745';
+                            
+                            // Reset form
+                            setTimeout(() => {
+                                document.getElementById('orderForm').reset();
+                                submitBtn.textContent = originalText;
+                                submitBtn.disabled = false;
+                            }, 2000);
+                        })
+                        .catch(error => {
+                            console.error('Bitrix24 Error:', error);
+                            
+                            // Show error message
+                            const messageDiv = document.getElementById('paymentMessage');
+                            messageDiv.textContent = 'Error submitting order. Please try again or contact support.';
+                            messageDiv.style.display = 'block';
+                            messageDiv.style.backgroundColor = '#f8d7da';
+                            messageDiv.style.color = '#721c24';
+                            messageDiv.style.borderLeft = '4px solid #dc3545';
+                            
+                            // Reset button
                             submitBtn.textContent = originalText;
                             submitBtn.disabled = false;
-                        }, 2000);
-                    })
-                    .catch(error => {
-                        console.error('❌ Bitrix24 Error:', error);
-                        
-                        // Show error message
-                        const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '❌ Error submitting order. Please try again or contact support.';
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#f8d7da';
-                        messageDiv.style.color = '#721c24';
-                        messageDiv.style.borderLeft = '4px solid #dc3545';
-    
-                        // Reset button
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    });
+                        });
                 }
+
 
 
                     // Send to Bitrix24
@@ -3718,78 +3738,70 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // FORMAT MESSAGE FOR BITRIX24
                 // ========================================
-                function formatBitrixMessage(orderData) {
-                    let message = `
-                    ═══════════════════════════════════════════════════════
-                    NEW ORDER - MAISON MODEL X
-                    ═══════════════════════════════════════════════════════
-                    👤 CUSTOMER INFORMATION
-                    ───────────────────────────────────────────────────────
-                    Name: ${orderData.customerInfo.fullName}
-                    Email: ${orderData.customerInfo.email}
-                    Phone: +${orderData.customerInfo.countryCode} ${orderData.customerInfo.phone}
-                    Brand: ${orderData.customerInfo.brandName}
-
-                    📋 PLAN & PRICING
-                    ───────────────────────────────────────────────────────
-                    Tier: ${orderData.planDetails.tier.toUpperCase()}
-                    Base Price: ₹${orderData.planDetails.basePrice}
-                    Total Models: ${orderData.models.length}
-
-                    🎨 MODELS (Total: ${orderData.models.length})
-                    ───────────────────────────────────────────────────────
-                    `;
-                    orderData.models.forEach((model, idx) => {
-                        message += `
-                        Model ${idx + 1}:
-                        • Specifications: ${model.specifications || 'Not specified'}
-                        • Product Name: ${model.productName || 'Not specified'}
-                        • Description: ${model.description || 'Not specified'}
-                        • Pose: ${model.pose || 'Not specified'}
-                        • Background: ${model.backgroundSelect || 'Standard'}
-                        • Images Uploaded: ${model.images.length}
-                        `;
-                    });
-
-                    if (Object.values(orderData.brandName).some(v => v)) {
-                        message += `
-                        🏷️ BRAND NAME PLACEMENT
-                        ───────────────────────────────────────────────────────
-                        Text: ${orderData.brandName.brandNameText || 'Not specified'}
-                        Font: ${orderData.brandName.brandFontStyle || 'Default'}
-                        Placement: ${orderData.brandName.brandPlacementSelect || 'Not specified'}
-                        `;
+                // FORMAT MESSAGE FOR BITRIX24 - CLEAN STRUCTURED OUTPUT
+                function formatBitrixMessageorderData {
+                    let message = '';
+                      message += '👤 CUSTOMER DETAILS\n';
+                      message += '─────────────────\n';
+                      message += `Name: ${orderData.customerInfo.fullName}\n`;
+                      message += `Email: ${orderData.customerInfo.email}\n`;
+                      message += `Phone: ${orderData.customerInfo.countryCode} ${orderData.customerInfo.phone}\n`;
+                      message += `Brand: ${orderData.customerInfo.brandName || 'Not specified'}\n\n`;
+                      
+                      message += '📦 PACKAGE SELECTED\n';
+                      message += '────────────────────\n';
+                      message += `Plan: ${orderData.planDetails.tier.toUpperCase()}\n`;
+                      message += `Base Price: ₹${orderData.planDetails.basePrice}\n`;
+                      message += `Total Models: ${orderData.models.length}\n\n`;
+                    
+                    // MODEL SPECIFICATIONS
+                    if (orderData.models && orderData.models.length > 0) {
+                        message += '🎭 MODEL SPECIFICATIONS\n';
+                        message += '───────────────────────\n';
+                        orderData.models.forEach((model, idx) => {
+                            message += `\nModel ${idx + 1}:\n`;
+                              message += `  • Specifications: ${model.specifications || 'Not specified'}\n`;
+                              message += `  • Product Name: ${model.productName || 'Not specified'}\n`;
+                              message += `  • Gender: ${model.gender || 'Not specified'}\n`;
+                              message += `  • Ethnicity: ${model.ethnicity || 'Not specified'}\n`;
+                              message += `  • Skin Tone: ${model.skinTone || 'Not specified'}\n`;
+                              message += `  • Hair Type: ${model.hairType || 'Not specified'}\n`;
+                              message += `  • Hair Color: ${model.hairColor || 'Not specified'}\n`;
+                              message += `  • Hair Style: ${model.hairStyle || 'Not specified'}\n`;
+                              message += `  • Eye Color: ${model.eyeColor || 'Not specified'}\n`;
+                              message += `  • Age: ${model.ageAppearance || 'Not specified'}\n`;
+                              message += `  • Height: ${model.heightAppearance || 'Not specified'}\n`;
+                              message += `  • Weight: ${model.weightAppearance || 'Not specified'}\n`;
+                              message += `  • Description: ${model.description || 'None'}\n`;
+                        });
+                        message += '\n';
                     }
-
-                    if (Object.values(orderData.addOns).some(v => v)) {
-                        message += `
-                        ➕ ADD-ONS
-                        ───────────────────────────────────────────────────────
-                        ${orderData.addOns.extraModel ? '✓ Extra Model' : ''}
-                        ${orderData.addOns.extraGarment ? '✓ Extra Garment' : ''}
-                        ${orderData.addOns.fastDelivery ? '✓ Fast Delivery' : ''}
-                        ${orderData.addOns.premiumRetouch ? '✓ Premium Retouching' : ''}
-                        ${orderData.addOns.brandNamePlacement ? '✓ Brand Name Placement' : ''}
-                        `;
+                    // ADD-ONS
+                    if (orderData.addOns && Object.values(orderData.addOns).some(v => v)) {
+                        message += '🎁 ADD-ONS\n';
+                        message += '─────────\n';
+                        if (orderData.addOns.extraModel) message += '  ✓ Extra Model (₹2,500)\n';
+                        if (orderData.addOns.extraGarment) message += '  ✓ Extra Garment (₹500)\n';
+                        if (orderData.addOns.fastDelivery) message += '  ✓ Fast Delivery (₹1,000)\n';
+                        if (orderData.addOns.premiumRetouch) message += '  ✓ Premium Retouching (₹1,500)\n';
+                        if (orderData.addOns.brandNamePlacement) message += '  ✓ Brand Name Placement (₹1,000)\n';
+                        message += '\n';
+                    }
+                    // DELIVERY PREFERENCES
+                    if (orderData.deliveryPreferences) {
+                        message += '📮 DELIVERY PREFERENCES\n';
+                        message += '──────────────────────\n';
+                        message += `Format: ${orderData.deliveryPreferences.format || 'Not specified'}\n`;
+                        message += `File Naming: ${orderData.deliveryPreferences.fileNamingConvention || 'Default'}\n`;
+                        message += `Instructions: ${orderData.deliveryPreferences.additionalInstructions || 'None'}\n\n`;
                     }
                     
-                    message += `
-                    🚚 DELIVERY PREFERENCES
-                    ───────────────────────────────────────────────────────
-                    Format: ${orderData.deliveryPreferences.format || 'Not specified'}
-                    File Naming: ${orderData.deliveryPreferences.fileNamingConvention || 'Default'}
-                    Special Instructions: ${orderData.deliveryPreferences.additionalInstructions || 'None'}
-
-                    🌐 PROJECT BRIEF
-                    ───────────────────────────────────────────────────────
-                    ${orderData.customerInfo.projectDescription || 'No additional details provided'}
-
-                    ═══════════════════════════════════════════════════════
-                    Timestamp: ${orderData.timestamp}
-                    ═══════════════════════════════════════════════════════
-                    `;
+                    message += '⏰ TIMESTAMP\n';
+                    message += '────────────\n';
+                    message += `${orderData.timestamp}\n`;
                     return message;
                 }
+               
             </script>
 
 
@@ -4902,6 +4914,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
