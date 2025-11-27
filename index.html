@@ -3242,30 +3242,34 @@ function onPlanChangeForEdition() {
 
 
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
+            <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
             <script>
                 // ========================================
                 // BITRIX24 WEBHOOK CONFIGURATION
                 // ========================================
-                const BITRIX24_WEBHOOK_URL = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add"; // Replace with your actual webhook
-
+                const BITRIX24_WEBHOOK_URL = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add";
+            
                 // ========================================
-                // COLLECT ALL FORM DATA AND SEND TO BITRIX24
+                // ATTACH FORM SUBMIT HANDLER
                 // ========================================
-              /*  document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function() {
                     const orderForm = document.getElementById('orderForm');
                     
                     if (orderForm) {
                         orderForm.addEventListener('submit', function(e) {
-                            e.preventDefault();
+                            e.preventDefault(); // CRITICAL: Stop default form submission
+                            console.log('🎯 Form submitted! Collecting data...');
                             collectAndSendToBitrix24();
                         });
                     }
-                }); */
-
+                });
+            
                 // ========================================
                 // MAIN COLLECTION FUNCTION
                 // ========================================
                 function collectAndSendToBitrix24() {
+                    console.log('📦 Collecting form data...');
+                    
                     // -------- CUSTOMER INFO --------
                     const customerInfo = {
                         fullName: document.querySelector('input[name="clientname"]')?.value || '',
@@ -3276,7 +3280,7 @@ function onPlanChangeForEdition() {
                         projectDescription: document.querySelector('textarea[name="projectdescription"]')?.value || '',
                         specialRequirements: document.querySelector('textarea[name="specialrequirements"]')?.value || '',
                     };
-
+            
                     // -------- PLAN DETAILS --------
                     const selectedPlan = document.querySelector('select[name="plantype"]')?.value || '';
                     const planPrices = {
@@ -3290,9 +3294,9 @@ function onPlanChangeForEdition() {
                         tier: selectedPlan,
                         basePrice: planPrices[selectedPlan] || 0,
                     };
-
+            
                     // -------- TIER-DEPENDENT FIELDS (Brand Name) --------
-                    const brandNameSection = document.getElementById('brandNameSection');
+                    const brandNameSection = document.getElementById('clientBrandSection');
                     const brandNameFields = {};
                     if (brandNameSection && !brandNameSection.classList.contains('hidden-section')) {
                         brandNameFields.brandNameText = document.querySelector('input[name="brandNameInput"]')?.value || '';
@@ -3302,11 +3306,11 @@ function onPlanChangeForEdition() {
                         brandNameFields.brandPlacementOther = document.querySelector('input[name="brandPlacementOtherInput"]')?.value || '';
                         brandNameFields.brandColor = document.querySelector('input[name="brandColorHiddenInput"]')?.value || '';
                     }
-
+            
                     // -------- MODELS - DYNAMIC FIELDS --------
                     const numModels = getNumberOfModels(selectedPlan);
                     const models = [];
-
+            
                     for (let i = 1; i <= numModels; i++) {
                         const model = {
                             modelNumber: i,
@@ -3358,30 +3362,23 @@ function onPlanChangeForEdition() {
                         };
                         models.push(model);
                     }
-
-                    
+            
                     // -------- ADD-ONS --------
                     const addOns = {
-                        extraModel: document.querySelector('input[name="addonextramodel"]')?.checked || false,
-                        extraGarment: document.querySelector('input[name="addonextragarment"]')?.checked || false,
-                        fastDelivery: document.querySelector('input[name="addonfastdelivery"]')?.checked || false,
-                        premiumRetouch: document.querySelector('input[name="addonpremiumretouch"]')?.checked || false,
+                        extraModel: document.querySelector('input[name="addon_extra_model"]')?.checked || false,
+                        extraGarment: document.querySelector('input[name="addon_extra_garment"]')?.checked || false,
+                        fastDelivery: document.querySelector('input[name="addon_fast_delivery"]')?.checked || false,
+                        premiumRetouch: document.querySelector('input[name="addon_premium_retouch"]')?.checked || false,
                         brandNamePlacement: document.querySelector('input[name="addonbrandnameplacement"]')?.checked || false,
                     };
-
-                    // -------- COLOR PICKERS --------
-                    const colorPickers = {
-                        brandColor: document.querySelector('input[name="brandcolor"]')?.value || '#d4af37',
-                        backgroundColor: document.querySelector('input[name="backgroundcolor"]')?.value || '#0b0b0b',
-                    };
-
+            
                     // -------- FILE DELIVERY --------
                     const deliveryPreferences = {
                         format: document.querySelector('select[name="deliveryformat"]')?.value || '',
                         fileNamingConvention: document.querySelector('input[name="filenaming"]')?.value || '',
                         additionalInstructions: document.querySelector('textarea[name="deliveryinstructions"]')?.value || '',
                     };
-
+            
                     // -------- BUILD FINAL OBJECT --------
                     const completeOrder = {
                         timestamp: new Date().toISOString(),
@@ -3390,14 +3387,15 @@ function onPlanChangeForEdition() {
                         brandName: brandNameFields,
                         models: models,
                         addOns: addOns,
-                        colorPickers: colorPickers,
                         deliveryPreferences: deliveryPreferences,
                     };
-
+            
+                    console.log('✅ Data collected successfully:', completeOrder);
+            
                     // -------- SEND TO BITRIX24 --------
                     sendToBitrix24(completeOrder);
                 }
-
+            
                 // ========================================
                 // GET NUMBER OF MODELS BY TIER
                 // ========================================
@@ -3411,57 +3409,28 @@ function onPlanChangeForEdition() {
                     };
                     return tierModels[tier] || 1;
                 }
-
-                // ========================================
-                // EXTRACT IMAGES (BASE64 OR BLOB URLs)
-                // ========================================
-                function getModelImages(modelNumber) {
-                    const images = [];
-                    const imageInputs = document.querySelectorAll(`input[name="model${modelNumber}images"]`);
-                    
-                    imageInputs.forEach((input, idx) => {
-                        if (input.files && input.files.length > 0) {
-                            const file = input.files[0];
-                            const reader = new FileReader();
-                            
-                            reader.onload = function(e) {
-                                images.push({
-                                    filename: file.name,
-                                    base64: e.target.result, // Base64 encoded image
-                                    size: file.size,
-                                    type: file.type,
-                                    modelNumber: modelNumber,
-                                    imageIndex: idx + 1,
-                                });
-                            };
-                            
-                            reader.readAsDataURL(file); // Convert to Base64
-                        }
-                    });
-                    
-                    return images;
-                }
-
+            
                 // ========================================
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
                 function sendToBitrix24(orderData) {
                     console.log('📤 Sending to Bitrix24...', orderData);
-                    if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
+                    
+                    if (!BITRIX24_WEBHOOK_URL) {
                         console.error('❌ Bitrix24 webhook URL not configured!');
                         alert('Payment system is not configured. Please contact support.');
                         return;
                     }
-
+            
                     // Show loading state
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Sending to Bitrix24...';
                     submitBtn.disabled = true;
-
+            
                     // Build formatted message for Bitrix24
                     const bitrixMessage = formatBitrixMessage(orderData);
-
+            
                     // Prepare Bitrix24 payload
                     const bitrixPayload = {
                         fields: {
@@ -3479,11 +3448,12 @@ function onPlanChangeForEdition() {
                                     VALUE_TYPE: 'WORK',
                                 }
                             ],
-                            DESCRIPTION: bitrixMessage,
-                            COMMENTS: JSON.stringify(orderData, null, 2), // Full JSON for reference
+                            COMMENTS: bitrixMessage,
                         }
                     };
-
+            
+                    console.log('📨 Bitrix24 Payload:', bitrixPayload);
+            
                     // Send to Bitrix24
                     fetch(BITRIX24_WEBHOOK_URL, {
                         method: 'POST',
@@ -3493,6 +3463,7 @@ function onPlanChangeForEdition() {
                         body: JSON.stringify(bitrixPayload),
                     })
                     .then(response => {
+                        console.log('📡 Response status:', response.status);
                         if (!response.ok) {
                             throw new Error(`HTTP Error: ${response.status}`);
                         }
@@ -3503,12 +3474,12 @@ function onPlanChangeForEdition() {
                         
                         // Show success message
                         const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '✅ Order submitted to Bitrix24 successfully! We\'ll contact you within 24 hours.';
+                        messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
                         messageDiv.style.display = 'block';
                         messageDiv.style.backgroundColor = '#d4edda';
                         messageDiv.style.color = '#155724';
                         messageDiv.style.borderLeft = '4px solid #28a745';
-
+            
                         // Reset form
                         setTimeout(() => {
                             document.getElementById('orderForm').reset();
@@ -3526,28 +3497,27 @@ function onPlanChangeForEdition() {
                         messageDiv.style.backgroundColor = '#f8d7da';
                         messageDiv.style.color = '#721c24';
                         messageDiv.style.borderLeft = '4px solid #dc3545';
-
+            
                         // Reset button
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
                     });
                 }
-
+            
                 // ========================================
                 // FORMAT MESSAGE FOR BITRIX24
                 // ========================================
-
                 function formatBitrixMessage(orderData) {
                     let message = `╔════════════════════════════════════════╗\n`;
                     message += `║   NEW ORDER - MAISON MODEL X          ║\n`;
                     message += `╚════════════════════════════════════════╝\n\n`;
-    
+            
                     // CUSTOMER DETAILS
                     message += `👤 CUSTOMER DETAILS\n`;
                     message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                     message += `Name: ${orderData.customerInfo.fullName || 'Not specified'}\n`;
                     message += `Email: ${orderData.customerInfo.email || 'Not specified'}\n`;
-                    message += `Phone: ${orderData.customerInfo.countryCode || ''} ${orderData.customerInfo.phone || 'Not specified'}\n`;
+                    message += `Phone: +${orderData.customerInfo.countryCode || ''} ${orderData.customerInfo.phone || 'Not specified'}\n`;
                     message += `Brand: ${orderData.customerInfo.brandName || 'Not specified'}\n\n`;
                     
                     // PACKAGE SELECTED
@@ -3562,37 +3532,22 @@ function onPlanChangeForEdition() {
                     message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                     orderData.models.forEach((model, idx) => {
                         message += `\nModel ${idx + 1}:\n`;
-                        message += `  • Specifications: ${model.specifications || 'Not specified'}\n`;
-                        message += `  • Product Name: ${model.productName || 'Not specified'}\n`;
-                        message += `  • Description: ${model.description || 'Not specified'}\n`;
-                        message += `  • Pose: ${model.pose || 'Not specified'}\n`;
-                        message += `  • Hand Pose: ${model.handpose || 'Not specified'}\n`;
+                        message += `  • Gender: ${model.gender || 'Not specified'}\n`;
+                        message += `  • Ethnicity: ${model.ethnicity || 'Not specified'}\n`;
+                        message += `  • Country/Region: ${model.countryRegion || 'Not specified'}\n`;
+                        message += `  • Skin Tone: ${model.skinTone || 'Not specified'}\n`;
+                        message += `  • Hair: ${model.hairType || ''} ${model.hairColor || ''} ${model.hairStyle || ''}\n`;
+                        message += `  • Eye Color: ${model.eyeColor || 'Not specified'}\n`;
+                        message += `  • Age: ${model.ageAppearance || 'Not specified'}\n`;
+                        message += `  • Body Type: ${model.bodyType || 'Not specified'}\n`;
+                        message += `  • Shot Type: ${model.typeOfShot || 'Not specified'}\n`;
+                        message += `  • Expression: ${model.expressionPreference || 'Not specified'}\n`;
                         message += `  • Orientation: ${model.orientation || 'Not specified'}\n`;
-                        message += `  • Expression: ${model.expressionpreference || 'Not specified'}\n`;
-                        message += `  • Body Pose: ${model.bodypose || 'Not specified'}\n`;
-                        message += `  • Shot Type: ${model.typeofshot || 'Not specified'}\n`;
-                        message += `  • Body Type: ${model.bodytype || 'Not specified'}\n`;
-                        message += `  • Background: ${model.backgroundSelect || 'Not specified'}\n`;
-                        message += `  • Lightning: ${model.lightningEffects || 'Not specified'}\n`;
-                        message += `  • Accessories: ${model.accessories || 'None'}\n`;
-                        message += `  • Brand Placement: ${model.brandPlacement || 'None'}\n`;
-                        message += `  • Images Uploaded: ${model.images?.length || 0}\n`;
+                        if (model.description) message += `  • Description: ${model.description}\n`;
+                        if (model.pose) message += `  • Pose: ${model.pose}\n`;
                     });
                     
                     message += `\n`;
-                    
-                    // BRAND NAME PLACEMENT (if applicable)
-                    if (Object.values(orderData.brandName || {}).some(v => v)) {
-                        message += `🏷️ BRAND NAME PLACEMENT\n`;
-                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                        message += `Text: ${orderData.brandName.brandNameText || 'Not specified'}\n`;
-                        message += `Font Style: ${orderData.brandName.brandFontStyle || 'Default'}\n`;
-                        message += `Placement: ${orderData.brandName.brandPlacementSelect || 'Not specified'}\n`;
-                        if (orderData.brandName.brandPlacementOther) {
-                            message += `Custom Placement: ${orderData.brandName.brandPlacementOther}\n`;
-                        }
-                        message += `\n`;
-                    }
                     
                     // ADD-ONS
                     if (Object.values(orderData.addOns || {}).some(v => v)) {
@@ -3600,34 +3555,10 @@ function onPlanChangeForEdition() {
                         message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                         if (orderData.addOns.extraModel) message += `✓ Extra Model\n`;
                         if (orderData.addOns.extraGarment) message += `✓ Extra Garment\n`;
-                        if (orderData.addOns.fastDelivery) message += `✓ Fast Delivery (12h)\n`;
+                        if (orderData.addOns.fastDelivery) message += `✓ Fast Delivery\n`;
                         if (orderData.addOns.premiumRetouch) message += `✓ Premium Retouching\n`;
                         if (orderData.addOns.brandNamePlacement) message += `✓ Brand Name Placement\n`;
                         message += `\n`;
-                    }
-                    
-                    // FILE DELIVERY PREFERENCES
-                    message += `📦 FILE DELIVERY PREFERENCES\n`;
-                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    message += `Format: ${orderData.deliveryPreferences.format || 'Not specified'}\n`;
-                    message += `File Naming: ${orderData.deliveryPreferences.fileNamingConvention || 'Default'}\n`;
-                    if (orderData.deliveryPreferences.additionalInstructions) {
-                        message += `Instructions: ${orderData.deliveryPreferences.additionalInstructions}\n`;
-                    }
-                    message += `\n`;
-                    
-                    // PROJECT BRIEF
-                    if (orderData.customerInfo.projectDescription) {
-                        message += `📝 PROJECT BRIEF\n`;
-                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                        message += `${orderData.customerInfo.projectDescription}\n\n`;
-                    }
-                    
-                    // SPECIAL REQUIREMENTS
-                    if (orderData.customerInfo.specialRequirements) {
-                        message += `⚡ SPECIAL REQUIREMENTS\n`;
-                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                        message += `${orderData.customerInfo.specialRequirements}\n\n`;
                     }
                     
                     // TIMESTAMP
@@ -3637,11 +3568,7 @@ function onPlanChangeForEdition() {
                     
                     return message;
                 }
-
-
             </script>
-
-
 
 
             <!-- Color Picker Modal (Shared) -->
@@ -4751,5 +4678,6 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
