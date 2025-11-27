@@ -3429,11 +3429,11 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
-                function sendToBitrix24(orderData) {  /*
+                function sendToBitrix24(orderData) {
                     if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
                         console.error('❌ Bitrix24 webhook URL not configured!');
                         alert('Payment system is not configured. Please contact support.');
-                        return; */
+                        return;
                     }
 
                     // Show loading state
@@ -4506,32 +4506,7 @@ function onPlanChangeForEdition() {
         });
 
         // ============ RAZORPAY PAYMENT INTEGRATION ============
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const orderForm = document.getElementById("orderForm");
-            const submitBtn = document.getElementById("paymentSubmitBtn");
-            const paymentContainer = document.getElementById("paymentMessage");
-            
-            if (orderForm) {
-                orderForm.addEventListener("submit", function(e) {
-                    e.preventDefault();
-                    // Razorpay disabled - submit directly to Bitrix24
-                    collectAndSendToBitrix24();
-                });
-            }
-            
-            if (submitBtn) {
-                submitBtn.addEventListener("click", function(e) {
-                    e.preventDefault();
-            // Razorpay disabled - submit directly to Bitrix24
-                    collectAndSendToBitrix24();
-                });
-            }
-        });
-
-
-        
-     /*   document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const orderForm = document.getElementById('orderForm');
             const submitBtn = document.getElementById('paymentSubmitBtn');
             const paymentContainer = document.getElementById('paymentMessage');
@@ -4558,9 +4533,7 @@ function onPlanChangeForEdition() {
                             orderForm.submit();
                         }, 1000);
                         return;
-                    }   */
-
-        
+                    }
 
                     // Calculate payment amount (in paisa for Razorpay)
                     const basePriceInPaisa = (planPrices[selectedPlan] * 100) || 50000 * 100;
@@ -4730,5 +4703,3 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
-
-
