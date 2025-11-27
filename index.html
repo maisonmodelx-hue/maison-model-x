@@ -3231,7 +3231,7 @@ function onPlanChangeForEdition() {
 
                 <!-- SUBMIT BUTTON -->
                 <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(212, 175, 55, 0.2);">
-                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Your payment is secured through Razorpay. We'll send a confirmation email with the next steps.</p>
+              <!--     <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Your payment is secured through Razorpay. We'll send a confirmation email with the next steps.</p>   -->
                     <button type="submit" class="btn btn-primary" id="paymentSubmitBtn">Proceed to Payment</button>
                 </div>
 
@@ -3239,6 +3239,363 @@ function onPlanChangeForEdition() {
                 
 
             </form>
+
+
+            <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
+            <script>
+                // ========================================
+                // BITRIX24 WEBHOOK CONFIGURATION
+                // ========================================
+                const BITRIX24_WEBHOOK_URL = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add"; // Replace with your actual webhook
+
+                // ========================================
+                // COLLECT ALL FORM DATA AND SEND TO BITRIX24
+                // ========================================
+                document.addEventListener('DOMContentLoaded', function() {
+                    const orderForm = document.getElementById('orderForm');
+                    
+                    if (orderForm) {
+                        orderForm.addEventListener('submit', function(e) {
+                            // Don't prevent default - let Razorpay handle payment flow
+                            // This listener will fire AFTER payment success
+                        });
+                    }
+                    
+                    // Hook into Razorpay success handler
+                    // The existing paymentSubmitBtn click will trigger this flow
+                    const paymentSubmitBtn = document.getElementById('paymentSubmitBtn');
+                    if (paymentSubmitBtn) {
+                        paymentSubmitBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            collectAndSendToBitrix24();
+                        });
+                    }
+                });
+
+                // ========================================
+                // MAIN COLLECTION FUNCTION
+                // ========================================
+                function collectAndSendToBitrix24() {
+                    // -------- CUSTOMER INFO --------
+                    const customerInfo = {
+                        fullName: document.querySelector('input[name="clientname"]')?.value || '',
+                        email: document.querySelector('input[name="clientemail"]')?.value || '',
+                        phone: document.querySelector('input[name="clientphone"]')?.value || '',
+                        countryCode: document.querySelector('select[name="countrycode"]')?.value || '',
+                        brandName: document.querySelector('input[name="brandname"]')?.value || '',
+                        projectDescription: document.querySelector('textarea[name="projectdescription"]')?.value || '',
+                        specialRequirements: document.querySelector('textarea[name="specialrequirements"]')?.value || '',
+                    };
+
+                    // -------- PLAN DETAILS --------
+                    const selectedPlan = document.querySelector('select[name="plantype"]')?.value || '';
+                    const planPrices = {
+                        artisan: 5999,
+                        couture: 14999,
+                        atelier: 29999,
+                        maison: 74999,
+                        legacy: 0
+                    };
+                    const basePlan = {
+                        tier: selectedPlan,
+                        basePrice: planPrices[selectedPlan] || 0,
+                    };
+
+                    // -------- TIER-DEPENDENT FIELDS (Brand Name) --------
+                    const brandNameSection = document.getElementById('brandNameSection');
+                    const brandNameFields = {};
+                    if (brandNameSection && !brandNameSection.classList.contains('hidden-section')) {
+                        brandNameFields.brandNameText = document.querySelector('input[name="brandNameText"]')?.value || '';
+                        brandNameFields.brandFontStyle = document.querySelector('select[name="brandFontStyle"]')?.value || '';
+                        brandNameFields.brandPlacementSelect = document.querySelector('select[name="brandPlacementSelect"]')?.value || '';
+                        brandNameFields.brandPlacementOther = document.querySelector('input[name="brandPlacementOther"]')?.value || '';
+                    }
+
+                    // -------- MODELS - DYNAMIC FIELDS --------
+                    const numModels = getNumberOfModels(selectedPlan);
+                    const models = [];
+                    
+                    for (let i = 1; i <= numModels; i++) {
+                        const model = {
+                            modelNumber: i,
+                            // Product/Garment Fields
+                            specifications: document.querySelector(`select[name="model${i}specifications"]`)?.value || '',
+                            productName: document.querySelector(`input[name="productName"]`)?.value || '',
+                            itemMapping: document.querySelector(`input[name="modelItemMapping"]`)?.value || '',
+                            
+                            // Visual Description
+                            description: document.querySelector(`textarea[name="model${i}description"]`)?.value || '',
+                            pose: document.querySelector(`textarea[name="model${i}pose"]`)?.value || '',
+                            
+                            // Tier-Dependent Fields
+                            backgroundDescription: document.querySelector(`textarea[name="backgrounddescription${i}"]`)?.value || '',
+                            backgroundSelect: document.querySelector(`select[name="backgroundselect${i}"]`)?.value || '',
+                            lightningEffects: document.querySelector(`textarea[name="lightningeffects${i}"]`)?.value || '',
+                            
+                            // Accessories (Atelier/Maison only)
+                            accessories: document.querySelector(`textarea[name="accessories${i}"]`)?.value || '',
+                            
+                            // Brand Placement (Atelier/Maison only)
+                            brandPlacement: document.querySelector(`select[name="brandPlacement${i}"]`)?.value || '',
+                            
+                            // Image Upload
+                            images: getModelImages(i),
+                        };
+                        models.push(model);
+                    }
+
+                    // -------- ADD-ONS --------
+                    const addOns = {
+                        extraModel: document.querySelector('input[name="addonextramodel"]')?.checked || false,
+                        extraGarment: document.querySelector('input[name="addonextragarment"]')?.checked || false,
+                        fastDelivery: document.querySelector('input[name="addonfastdelivery"]')?.checked || false,
+                        premiumRetouch: document.querySelector('input[name="addonpremiumretouch"]')?.checked || false,
+                        brandNamePlacement: document.querySelector('input[name="addonbrandnameplacement"]')?.checked || false,
+                    };
+
+                    // -------- COLOR PICKERS --------
+                    const colorPickers = {
+                        brandColor: document.querySelector('input[name="brandcolor"]')?.value || '#d4af37',
+                        backgroundColor: document.querySelector('input[name="backgroundcolor"]')?.value || '#0b0b0b',
+                    };
+
+                    // -------- FILE DELIVERY --------
+                    const deliveryPreferences = {
+                        format: document.querySelector('select[name="deliveryformat"]')?.value || '',
+                        fileNamingConvention: document.querySelector('input[name="filenaming"]')?.value || '',
+                        additionalInstructions: document.querySelector('textarea[name="deliveryinstructions"]')?.value || '',
+                    };
+
+                    // -------- BUILD FINAL OBJECT --------
+                    const completeOrder = {
+                        timestamp: new Date().toISOString(),
+                        customerInfo: customerInfo,
+                        planDetails: basePlan,
+                        brandName: brandNameFields,
+                        models: models,
+                        addOns: addOns,
+                        colorPickers: colorPickers,
+                        deliveryPreferences: deliveryPreferences,
+                    };
+
+                    // -------- SEND TO BITRIX24 --------
+                    sendToBitrix24(completeOrder);
+                }
+
+                // ========================================
+                // GET NUMBER OF MODELS BY TIER
+                // ========================================
+                function getNumberOfModels(tier) {
+                    const tierModels = {
+                        artisan: 1,
+                        couture: 3,
+                        atelier: 5,
+                        maison: 10,
+                        legacy: 0
+                    };
+                    return tierModels[tier] || 1;
+                }
+
+                // ========================================
+                // EXTRACT IMAGES (BASE64 OR BLOB URLs)
+                // ========================================
+                function getModelImages(modelNumber) {
+                    const images = [];
+                    const imageInputs = document.querySelectorAll(`input[name="model${modelNumber}images"]`);
+                    
+                    imageInputs.forEach((input, idx) => {
+                        if (input.files && input.files.length > 0) {
+                            const file = input.files[0];
+                            const reader = new FileReader();
+                            
+                            reader.onload = function(e) {
+                                images.push({
+                                    filename: file.name,
+                                    base64: e.target.result, // Base64 encoded image
+                                    size: file.size,
+                                    type: file.type,
+                                    modelNumber: modelNumber,
+                                    imageIndex: idx + 1,
+                                });
+                            };
+                            
+                            reader.readAsDataURL(file); // Convert to Base64
+                        }
+                    });
+                    
+                    return images;
+                }
+
+                // ========================================
+                // SEND COMPLETE ORDER TO BITRIX24
+                // ========================================
+                function sendToBitrix24(orderData) {
+                    if (!BITRIX24_WEBHOOK_URL || BITRIX24_WEBHOOK_URL === "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add") {
+                        console.error('❌ Bitrix24 webhook URL not configured!');
+                        alert('Payment system is not configured. Please contact support.');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitBtn = document.getElementById('paymentSubmitBtn');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Sending to Bitrix24...';
+                    submitBtn.disabled = true;
+
+                    // Build formatted message for Bitrix24
+                    const bitrixMessage = formatBitrixMessage(orderData);
+
+                    // Prepare Bitrix24 payload
+                    const bitrixPayload = {
+                        fields: {
+                            TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
+                            NAME: orderData.customerInfo.fullName,
+                            EMAIL: [
+                                {
+                                    VALUE: orderData.customerInfo.email,
+                                    VALUE_TYPE: 'WORK',
+                                }
+                            ],
+                            PHONE: [
+                                {
+                                    VALUE: orderData.customerInfo.phone,
+                                    VALUE_TYPE: 'WORK',
+                                }
+                            ],
+                            DESCRIPTION: bitrixMessage,
+                            COMMENTS: JSON.stringify(orderData, null, 2), // Full JSON for reference
+                        }
+                    };
+
+                    // Send to Bitrix24
+                    fetch(BITRIX24_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(bitrixPayload),
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP Error: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('✅ Bitrix24 Success:', data);
+                        
+                        // Show success message
+                        const messageDiv = document.getElementById('paymentMessage');
+                        messageDiv.textContent = '✅ Order submitted to Bitrix24 successfully! We\'ll contact you within 24 hours.';
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#d4edda';
+                        messageDiv.style.color = '#155724';
+                        messageDiv.style.borderLeft = '4px solid #28a745';
+
+                        // Reset form
+                        setTimeout(() => {
+                            document.getElementById('orderForm').reset();
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    })
+                    .catch(error => {
+                        console.error('❌ Bitrix24 Error:', error);
+                        
+                        // Show error message
+                        const messageDiv = document.getElementById('paymentMessage');
+                        messageDiv.textContent = '❌ Error submitting order. Please try again or contact support.';
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#f8d7da';
+                        messageDiv.style.color = '#721c24';
+                        messageDiv.style.borderLeft = '4px solid #dc3545';
+
+                        // Reset button
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    });
+                }
+
+                // ========================================
+                // FORMAT MESSAGE FOR BITRIX24
+                // ========================================
+                function formatBitrixMessage(orderData) {
+                    let message = `
+                    ═══════════════════════════════════════════════════════
+                    NEW ORDER - MAISON MODEL X
+                    ═══════════════════════════════════════════════════════
+                    👤 CUSTOMER INFORMATION
+                    ───────────────────────────────────────────────────────
+                    Name: ${orderData.customerInfo.fullName}
+                    Email: ${orderData.customerInfo.email}
+                    Phone: +${orderData.customerInfo.countryCode} ${orderData.customerInfo.phone}
+                    Brand: ${orderData.customerInfo.brandName}
+
+                    📋 PLAN & PRICING
+                    ───────────────────────────────────────────────────────
+                    Tier: ${orderData.planDetails.tier.toUpperCase()}
+                    Base Price: ₹${orderData.planDetails.basePrice}
+                    Total Models: ${orderData.models.length}
+
+                    🎨 MODELS (Total: ${orderData.models.length})
+                    ───────────────────────────────────────────────────────
+                    `;
+                    orderData.models.forEach((model, idx) => {
+                        message += `
+                        Model ${idx + 1}:
+                        • Specifications: ${model.specifications || 'Not specified'}
+                        • Product Name: ${model.productName || 'Not specified'}
+                        • Description: ${model.description || 'Not specified'}
+                        • Pose: ${model.pose || 'Not specified'}
+                        • Background: ${model.backgroundSelect || 'Standard'}
+                        • Images Uploaded: ${model.images.length}
+                        `;
+                    });
+
+                    if (Object.values(orderData.brandName).some(v => v)) {
+                        message += `
+                        🏷️ BRAND NAME PLACEMENT
+                        ───────────────────────────────────────────────────────
+                        Text: ${orderData.brandName.brandNameText || 'Not specified'}
+                        Font: ${orderData.brandName.brandFontStyle || 'Default'}
+                        Placement: ${orderData.brandName.brandPlacementSelect || 'Not specified'}
+                        `;
+                    }
+
+                    if (Object.values(orderData.addOns).some(v => v)) {
+                        message += `
+                        ➕ ADD-ONS
+                        ───────────────────────────────────────────────────────
+                        ${orderData.addOns.extraModel ? '✓ Extra Model' : ''}
+                        ${orderData.addOns.extraGarment ? '✓ Extra Garment' : ''}
+                        ${orderData.addOns.fastDelivery ? '✓ Fast Delivery' : ''}
+                        ${orderData.addOns.premiumRetouch ? '✓ Premium Retouching' : ''}
+                        ${orderData.addOns.brandNamePlacement ? '✓ Brand Name Placement' : ''}
+                        `;
+                    }
+                    
+                    message += `
+                    🚚 DELIVERY PREFERENCES
+                    ───────────────────────────────────────────────────────
+                    Format: ${orderData.deliveryPreferences.format || 'Not specified'}
+                    File Naming: ${orderData.deliveryPreferences.fileNamingConvention || 'Default'}
+                    Special Instructions: ${orderData.deliveryPreferences.additionalInstructions || 'None'}
+
+                    🌐 PROJECT BRIEF
+                    ───────────────────────────────────────────────────────
+                    ${orderData.customerInfo.projectDescription || 'No additional details provided'}
+
+                    ═══════════════════════════════════════════════════════
+                    Timestamp: ${orderData.timestamp}
+                    ═══════════════════════════════════════════════════════
+                    `;
+                    return message;
+                }
+            </script>
+
+
+
+
             <!-- Color Picker Modal (Shared) -->
             <div id="colorPickerModal" class="color-picker-modal">
                 <div class="color-picker-modal-content">
@@ -3449,8 +3806,8 @@ function onPlanChangeForEdition() {
         </svg>
     </button>
 
-    <!-- RAZORPAY SCRIPT -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <!-- RAZORPAY SCRIPT -->  <!--
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
 
     <script>
         // ============ PLAN MODEL MAPPING ============
@@ -4200,7 +4557,7 @@ function onPlanChangeForEdition() {
                     const orderId = 'order_' + Date.now();
 
                     // Razorpay options
-                    const options = {
+          /*          const options = {
                         key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your key
                         amount: totalAmount,
                         currency: 'INR',
@@ -4228,13 +4585,13 @@ function onPlanChangeForEdition() {
                     const rzp = new Razorpay(options);
                     rzp.on('payment.failed', function (response) {
                         showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
-                    });
-
+                    });     
+*/
                     rzp.open();
                 });
             }
 
-            function handlePaymentSuccess(response) {
+    /*        function handlePaymentSuccess(response) {
                 // Add payment data to form
                 const paymentIdInput = document.createElement('input');
                 paymentIdInput.type = 'hidden';
@@ -4258,7 +4615,7 @@ function onPlanChangeForEdition() {
                 setTimeout(function () {
                     orderForm.submit();
                 }, 1500);
-            }
+            }  */
 
             function showPaymentMessage(message, type) {
                 paymentContainer.textContent = message;
