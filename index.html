@@ -3315,34 +3315,160 @@ function onPlanChangeForEdition() {
                     const numModels = getNumberOfModels(selectedPlan);
                     const models = [];
                     
+                    
                     for (let i = 1; i <= numModels; i++) {
                         const model = {
                             modelNumber: i,
-                            // Product/Garment Fields
-                            specifications: document.querySelector(`select[name="model${i}specifications"]`)?.value || '',
-                            productName: document.querySelector(`input[name="productName"]`)?.value || '',
-                            itemMapping: document.querySelector(`input[name="modelItemMapping"]`)?.value || '',
+                            // ===== PRODUCT/GARMENT FIELDS (GLOBAL) =====
+                            specifications: document.querySelector(`select#modelSpecifications`)?.value || "",
+                            productName: document.querySelector(`input#productName`)?.value || "",
+                            itemMapping: document.querySelector(`input#modelItemMapping`)?.value || "",
                             
-                            // Visual Description
-                            description: document.querySelector(`textarea[name="model${i}description"]`)?.value || '',
-                            pose: document.querySelector(`textarea[name="model${i}pose"]`)?.value || '',
+                            // ===== MODEL APPEARANCE =====
+                            gender: document.querySelector(`select#model_${i}_gender`)?.value || "",
+                            ethnicity: document.querySelector(`select#model_${i}_ethnicity`)?.value || "",
+                            ethnicityOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_ethnicity`);
+                                const elem = document.querySelector(`input#model_${i}_ethnicityOther`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            skinTone: document.querySelector(`select#model_${i}_skin_tone`)?.value || "",
+                            skinToneOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_skin_tone`);
+                                const elem = document.querySelector(`input#skin_tone_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            hairType: document.querySelector(`select#model_${i}_hair_type`)?.value || "",
+                            hairTypeOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_hair_type`);
+                                const elem = document.querySelector(`input#hair_type_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            hairColor: document.querySelector(`select#model_${i}_hair_color`)?.value || "",
+                            hairColorOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_hair_color`);
+                                const elem = document.querySelector(`input#hair_color_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            hairStyle: document.querySelector(`select#model_${i}_hair_style`)?.value || "",
+                            hairStyleOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_hair_style`);
+                                const elem = document.querySelector(`input#hair_style_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            eyeColor: document.querySelector(`select#model_${i}_eye_color`)?.value || "",
+                            eyeColorOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_eye_color`);
+                                const elem = document.querySelector(`input#eye_color_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            countryRegion: document.querySelector(`select#model_${i}_country_region`)?.value || "",
+                            countryRegionOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_country_region`);
+                                const elem = document.querySelector(`input#country_region_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            ageAppearance: document.querySelector(`input#model_${i}_ageAppearance`)?.value || "",
+                            heightAppearance: document.querySelector(`select#model_${i}_heightAppearance`)?.value || "",
+                            weightAppearance: document.querySelector(`select#model_${i}_weightAppearance`)?.value || "",
+                            makeupDetails: document.querySelector(`input#model_${i}_makeupDetails`)?.value || "",
                             
-                            // Tier-Dependent Fields
-                            backgroundDescription: document.querySelector(`textarea[name="backgrounddescription${i}"]`)?.value || '',
-                            backgroundSelect: document.querySelector(`select[name="backgroundselect${i}"]`)?.value || '',
-                            lightningEffects: document.querySelector(`textarea[name="lightningeffects${i}"]`)?.value || '',
+                            // ===== DESCRIPTION FIELDS =====
+                            description: document.querySelector(`textarea#model_${i}_description`)?.value || "",
                             
-                            // Accessories (Atelier/Maison only)
-                            accessories: document.querySelector(`textarea[name="accessories${i}"]`)?.value || '',
+                            // ===== POSE & EXPRESSION =====
+                            pose: document.querySelector(`textarea#model_${i}_pose`)?.value || "",
+                            handPose: document.querySelector(`select#model_${i}_hand_pose`)?.value || "",
+                            handPoseOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_hand_pose`);
+                                const elem = document.querySelector(`input#hand_pose_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            orientation: document.querySelector(`select#model_${i}_orientation`)?.value || "",
+                            orientationOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_orientation`);
+                                const elem = document.querySelector(`input#orientation_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            expressionPreference: document.querySelector(`select#model_${i}_expression_preference`)?.value || "",
+                            expressionPreferenceOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_expression_preference`);
+                                const elem = document.querySelector(`input#expression_preference_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            bodyPose: document.querySelector(`select#model_${i}_body_pose`)?.value || "",
+                            bodyPoseOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_body_pose`);
+                                const elem = document.querySelector(`input#body_pose_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            typeOfShot: document.querySelector(`select#model_${i}_type_of_shot`)?.value || "",
+                            typeOfShotOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_type_of_shot`);
+                                const elem = document.querySelector(`input#type_of_shot_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            bodyType: document.querySelector(`select#model_${i}_body_type`)?.value || "",
+                            bodyTypeOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_body_type`);
+                                const elem = document.querySelector(`input#body_type_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
                             
-                            // Brand Placement (Atelier/Maison only)
-                            brandPlacement: document.querySelector(`select[name="brandPlacement${i}"]`)?.value || '',
+                            // ===== TIER-DEPENDENT FIELDS (COUTURE+) =====
+                            backgroundDescription: document.querySelector(`textarea#backgroundDescription`)?.value || "",
+                            backgroundSelect: document.querySelector(`select#model_${i}_backgroundSelect`)?.value || "",
                             
-                            // Image Upload
-                            images: getModelImages(i),
+                            // ===== LIGHTNING EFFECTS (ATELIER & MAISON) =====
+                            lightningEffects: document.querySelector(`select#model_${i}_lightning_effects`)?.value || "",
+                            lightningEffectsOther: (() => {
+                                const sel = document.querySelector(`select#model_${i}_lightning_effects`);
+                                const elem = document.querySelector(`input#lightning_effects_other_model${i}`);
+                                return (sel?.value === "Other" && elem) ? elem.value : "";
+                            })(),
+                            
+                            // ===== ACCESSORIES (ATELIER & MAISON) =====
+                            accessoriesIncluded: document.querySelector(`select#accessories_included_model${i}`)?.value || "No",
+                            accessoriesCount: document.querySelector(`select#accessories_count_model${i}`)?.value || "1",
+                            accessoriesDescription: document.querySelector(`textarea#accessories_desc_model${i}`)?.value || "",
+                            accessoryItems: (() => {
+                                const items = [];
+                                const count = parseInt(document.querySelector(`select#accessories_count_model${i}`)?.value || "1", 10);
+                                for (let j = 1; j <= count && j <= 3; j++) {
+                                const typeSelect = document.querySelector(`select#accessory_type_${j}_model${i}`);
+                                const imageInput = document.querySelector(`input#accessories_image_${j}_model${i}`);
+                                items.push({
+                                    accessoryNumber: j,
+                                    accessoryType: typeSelect ? typeSelect.value : "",
+                                    accessoryImageName: (imageInput && imageInput.files && imageInput.files.length > 0) ? imageInput.files.name : "",
+                                });
+                            }
+                            return items;
+                        })(),
+                            
+                            // ===== IMAGES =====
+                            images: (() => {
+                                const images = [];
+                                for (let j = 1; j <= 10; j++) {
+                                    const imageInput = document.querySelector(`input[type="file"]#model_${i}_image_${j}`);
+                                    if (imageInput && imageInput.files && imageInput.files.length > 0) {
+                                        const file = imageInput.files;
+                                        images.push({
+                                            filename: file.name,
+                                            size: file.size,
+                                            type: file.type,
+                                            imageIndex: j,
+                                        });
+                                    }
+                                }
+                                return images;
+                            })(),
                         };
+                        
                         models.push(model);
                     }
+
+
 
                     // -------- ADD-ONS --------
                     const addOns = {
@@ -4761,4 +4887,5 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
