@@ -1736,11 +1736,13 @@ function closeColorModal() {
 }
 
 function confirmColorModal() {
-  if (currentColorModelNum !== null) {
-    const val = document.getElementById('colorPickerHexInput').value;
-    selectModelColor(val, currentColorModelNum);
-    closeColorModal();
-  }
+    if (window.currentEditingBrand) {
+        confirmBrandColorFromModal();
+    } else if (currentColorModelNum != null) {
+        const val = document.getElementById("colorPickerHexInput").value;
+        selectModelColor(val, currentColorModelNum);
+        closeColorModal();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -1809,29 +1811,6 @@ function clearAccessoryInputs(num) {
     if (fileInput) fileInput.value = '';
   }
 }
-
-// ---- Background Description Visibility Logic ----
-function toggleBackgroundDescriptionSection() {
-  const planSelect = document.getElementById("planSelect");
-  const backgroundSection = document.getElementById("backgroundDescriptionSection");
-  const backgroundTextarea = document.getElementById("backgroundDescription");
-  
-  if (!planSelect || !backgroundSection) return;
-  
-  const selectedTier = planSelect.value;
-  
-  // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
-  const supportedTiers = ["couture", "atelier", "maison"];
-  
-  if (supportedTiers.includes(selectedTier)) {
-    backgroundSection.classList.remove("hidden-section");
-  } else {
-    backgroundSection.classList.add("hidden-section");
-    // Clear textarea when switching to unsupported tier
-    backgroundTextarea.value = "";
-  }
-}
-
 
 // ---- Background Description Visibility Logic ----
 function toggleBackgroundDescriptionSection() {
@@ -1996,6 +1975,219 @@ function toggleCountryRegionOther(num) {
     otherSection.classList.add("hidden-section");
   }
 }
+
+// ---- Lightning Effects Other Toggle Logic ----
+function toggleLightningEffectsOther(num) {
+  const select = document.getElementById(`model_${num}_lightning_effects`);
+  const otherSection = document.getElementById(`lightning_effects_other_section_model${num}`);
+  if (!select || !otherSection) return;
+  if (select.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Client's Brand Name Section Visibility Logic (Atelier & Maison only) ---- */
+function toggleClientBrandSection() {
+    const planSelect = document.getElementById("planSelect");
+    const brandSection = document.getElementById("clientBrandSection");
+    
+    if (!planSelect || !brandSection) return;
+    
+    const selectedTier = planSelect.value;
+    
+    // Show section ONLY for Atelier and Maison, hide for Couture & Artisan
+    const supportedTiers = ["atelier", "maison"];
+    if (supportedTiers.includes(selectedTier)) {
+        brandSection.classList.remove("hidden-section");
+    } else {
+        brandSection.classList.add("hidden-section");
+        // Clear fields when switching to unsupported tier
+        clearBrandNameFields();
+    }
+}
+
+/* ---- Brand Placement Other Toggle Logic ---- */
+function toggleBrandPlacementOther() {
+    const placementSelect = document.getElementById("brandPlacementSelect");
+    const otherSection = document.getElementById("brandPlacementOtherSection");
+    
+    if (!placementSelect || !otherSection) return;
+    
+    if (placementSelect.value === "other") {
+        otherSection.classList.remove("hidden-section");
+    } else {
+        otherSection.classList.add("hidden-section");
+        // Clear the text input when not "Other"
+        const otherInput = document.getElementById("brandPlacementOtherInput");
+        if (otherInput) otherInput.value = "";
+    }
+}
+
+/* ---- Brand Font Style Other Toggle Logic ---- */
+function toggleBrandFontStyleOther() {
+    const fontStyleSelect = document.getElementById("brandFontStyleSelect");
+    const otherSection = document.getElementById("brandFontStyleOtherSection");
+    
+    if (!fontStyleSelect || !otherSection) return;
+    
+    if (fontStyleSelect.value === "other") {
+        otherSection.classList.remove("hidden-section");
+    } else {
+        otherSection.classList.add("hidden-section");
+        // Clear the text input when not "Other"
+        const otherInput = document.getElementById("brandFontStyleOtherInput");
+        if (otherInput) otherInput.value = "";
+    }
+}
+
+/* ---- Update Clear Brand Name Fields to include Font Style ---- */
+function clearBrandNameFields() {
+    const brandNameInput = document.getElementById("brandNameInput");
+    const fontStyleSelect = document.getElementById("brandFontStyleSelect");
+    const fontStyleOtherInput = document.getElementById("brandFontStyleOtherInput");
+    const placementSelect = document.getElementById("brandPlacementSelect");
+    const placementOtherInput = document.getElementById("brandPlacementOtherInput");
+    
+    if (brandNameInput) brandNameInput.value = "";
+    if (fontStyleSelect) fontStyleSelect.value = "";
+    if (fontStyleOtherInput) fontStyleOtherInput.value = "";
+    if (placementSelect) placementSelect.value = "";
+    if (placementOtherInput) placementOtherInput.value = "";
+    
+    // Reset color to default gold
+    document.getElementById("brandColorHiddenInput").value = "FFD700";
+    document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
+    document.getElementById("brandColorHexDisplay").textContent = "FFD700";
+}
+
+
+/* ---- Brand Color Picker Modal Functions ---- */
+function openBrandColorModal() {
+    const modal = document.getElementById("colorPickerModal");
+    if (!modal) return;
+    
+    modal.classList.add("active");
+    
+    // Load current color
+    const currentColor = document.getElementById("brandColorHiddenInput").value || "FFD700";
+    document.getElementById("colorPickerInput").value = "#" + currentColor;
+    document.getElementById("colorPickerHexInput").value = currentColor;
+    document.getElementById("colorPickerPreview").style.background = "#" + currentColor;
+    document.getElementById("colorPickerPreview").style.boxShadow = "0 0 12px " + "#" + currentColor + "40";
+    
+    // Store context that we're editing brand color (not model color)
+    window.currentEditingBrand = true;
+}
+
+function confirmBrandColorFromModal() {
+    if (window.currentEditingBrand) {
+        const hexValue = document.getElementById("colorPickerHexInput").value.replace("#", "");
+        document.getElementById("brandColorHiddenInput").value = hexValue;
+        document.getElementById("brandColorPreviewSwatch").style.background = "#" + hexValue;
+        document.getElementById("brandColorPreviewSwatch").style.boxShadow = "0 0 8px rgba(255, 215, 0, 0.4)";
+        document.getElementById("brandColorHexDisplay").textContent = hexValue.toUpperCase();
+        
+        // Close modal
+        const modal = document.getElementById("colorPickerModal");
+        if (modal) modal.classList.remove("active");
+        window.currentEditingBrand = false;
+    }
+}
+
+/* ---- Clear Brand Name Fields ---- */
+function clearBrandNameFields() {
+    const brandNameInput = document.getElementById("brandNameInput");
+    const placementSelect = document.getElementById("brandPlacementSelect");
+    const placementOtherInput = document.getElementById("brandPlacementOtherInput");
+    
+    if (brandNameInput) brandNameInput.value = "";
+    if (placementSelect) placementSelect.value = "";
+    if (placementOtherInput) placementOtherInput.value = "";
+    
+    // Reset color to default gold
+    document.getElementById("brandColorHiddenInput").value = "FFD700";
+    document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
+    document.getElementById("brandColorHexDisplay").textContent = "FFD700";
+}
+
+/* ---- Brand Name Placement Add-On Visibility Logic (Artisan & Couture only) ---- */
+function toggleBrandNamePlacementAddon() {
+    const planSelect = document.getElementById("planSelect");
+    const addonBrandNameItem = document.getElementById("addonBrandNamePlacementItem");
+    
+    if (!planSelect || !addonBrandNameItem) return;
+    
+    const selectedTier = planSelect.value;
+    
+    // Show add-on ONLY for Artisan and Couture, hide for Atelier and Maison
+    const supportedTiers = ["artisan", "couture"];
+    if (supportedTiers.includes(selectedTier)) {
+        addonBrandNameItem.classList.remove("hidden-section");
+    } else {
+        addonBrandNameItem.classList.add("hidden-section");
+        // Uncheck and clear if switching to unsupported tier
+        const checkbox = document.getElementById("addonBrandNamePlacement");
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+        updatePriceDisplay(); // Recalculate price
+    }
+}
+
+// ---- Lightning Effects Visibility Logic (Atelier & Maison only) ----
+/*function toggleLightningEffectsSection(modelNumber) {
+  const planSelect = document.getElementById("planSelect");
+  const lightningSection = document.getElementById(`lightning_effects_section_model${modelNumber}`);
+  const lightningOtherSection = document.getElementById(`lightning_effects_other_section_model${modelNumber}`);
+  
+  if (!planSelect || !lightningSection) return;
+  
+  const selectedTier = planSelect.value;
+  
+  // Show section ONLY for Atelier and Maison; hide for Artisan & Couture
+  const supportedTiers = ["atelier", "maison"];
+  
+  if (supportedTiers.includes(selectedTier)) {
+    lightningSection.classList.remove("hidden-section");
+  } else {
+    lightningSection.classList.add("hidden-section");
+    lightningOtherSection.classList.add("hidden-section");
+    // Clear fields when switching to unsupported tier
+    const lightningSelect = document.getElementById(`model_${modelNumber}_lightning_effects`);
+    const lightningOtherInput = document.getElementById(`lightning_effects_other_model${modelNumber}`);
+    if (lightningSelect) lightningSelect.value = "";
+    if (lightningOtherInput) lightningOtherInput.value = "";
+  }
+}  */
+
+// ---- Lightning Effects Visibility Logic (Atelier & Maison only) ----
+function toggleLightningEffectsSection(modelNumber) {
+  const planSelect = document.getElementById("planSelect");
+  const lightningSection = document.getElementById(`lightning_effects_section_model${modelNumber}`);
+  const lightningOtherSection = document.getElementById(`lightning_effects_other_section_model${modelNumber}`);
+  
+  if (!planSelect || !lightningSection) return;
+  
+  const selectedTier = planSelect.value;
+  
+  // Show section ONLY for Atelier and Maison; hide for Artisan & Couture
+  const supportedTiers = ["atelier", "maison"];
+  
+  if (supportedTiers.includes(selectedTier)) {
+    lightningSection.classList.remove("hidden-section");
+  } else {
+    lightningSection.classList.add("hidden-section");
+    lightningOtherSection.classList.add("hidden-section");
+    // Clear fields when switching to unsupported tier
+    const lightningSelect = document.getElementById(`model_${modelNumber}_lightning_effects`);
+    const lightningOtherInput = document.getElementById(`lightning_effects_other_model${modelNumber}`);
+    if (lightningSelect) lightningSelect.value = "";
+    if (lightningOtherInput) lightningOtherInput.value = "";
+  }
+}
+
 
 // ---- Pose Section Visibility Logic (Hidden for Artisan tier) ----
 function togglePoseSection(modelNumber) {
@@ -2181,6 +2373,8 @@ function onPlanChangeForEdition() {
             productNameInput.value = '';
         }
     }
+    toggleClientBrandSection();
+    toggleBrandNamePlacementAddon();
 }
 
 
@@ -2494,7 +2688,6 @@ function onPlanChangeForEdition() {
                     <li>1 customized AI model</li>
                     <li>2 images</li>
                     <li>1 Garment</li>
-                    <li>Your brand name</li>
                     <li>Standard background</li>
                     <li>1 revison round</li>
                     <li>24-48 hrs delivery</li>
@@ -2515,7 +2708,6 @@ function onPlanChangeForEdition() {
                     <li>3 customized AI models</li>
                     <li>9 images (3 per model)</li>
                     <li>Max 3 Garments/Jewelry</li>
-                    <li>Your brand name</li>
                     <li>Customized Poses</li>
                     <li>3 Customized background</li>
                     <li>6 Standard background</li>
@@ -2750,6 +2942,125 @@ function onPlanChangeForEdition() {
                     <div id="modelAccordionContainer"></div>
                 </div>
 
+                <!-- CLIENT'S BRAND NAME SECTION - Atelier & Maison Only -->
+                <div id="clientBrandSection" class="form-group hidden-section" style="margin-bottom: 25px;">
+                    <div style="padding: 15px; background: rgba(212, 175, 55, 0.08); border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.2); margin-bottom: 20px;">
+                        <h5 style="color: var(--gold); margin: 0 0 15px 0; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Your Brand Name</h5>
+                        
+                        <!-- Brand Name Text Input -->
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="brandNameInput" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Brand Name
+                            </label>
+                            <input 
+                                type="text" 
+                                id="brandNameInput" 
+                                name="brandNameInput" 
+                                placeholder="e.g., Maison Model X or MMX" 
+                                style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease;"/>
+                        </div>
+
+                        <!-- Brand Placement Dropdown -->
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="brandPlacementSelect" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Brand Placement
+                            </label>
+                            <select 
+                                id="brandPlacementSelect" 
+                                name="brandPlacementSelect" 
+                                onchange="toggleBrandPlacementOther()"
+                                style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; cursor: pointer; transition: all 0.4s ease;"
+                            >
+                                <option value="">-- Select Placement --</option>
+                                <option value="top-left">Top Left</option>
+                                <option value="top-center">Top Center</option>
+                                <option value="top-right">Top Right</option>
+                                <option value="center-left">Center Left</option>
+                                <option value="center">Center</option>
+                                <option value="center-right">Center Right</option>
+                                <option value="bottom-left">Bottom Left</option>
+                                <option value="bottom-center">Bottom Center</option>
+                                <option value="bottom-right">Bottom Right</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Brand Placement Other Text Input (Hidden by Default) -->
+                        <div id="brandPlacementOtherSection" class="form-group hidden-section" style="margin-bottom: 15px;">
+                            <label for="brandPlacementOtherInput" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Specify Placement
+                            </label>
+                            <input 
+                                type="text" 
+                                id="brandPlacementOtherInput" 
+                                name="brandPlacementOtherInput" 
+                                placeholder="e.g., MMX on right side top, or bottom left corner" 
+                                style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease;"/>
+                        </div>
+
+                        <!-- Brand Font Style Dropdown -->
+                        <div class="form-group" style="margin-bottom: 15px;">
+                            <label for="brandFontStyleSelect" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Font Style
+                            </label>
+                            <select 
+                                id="brandFontStyleSelect" 
+                                name="brandFontStyleSelect" 
+                                onchange="toggleBrandFontStyleOther()"
+                                style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; cursor: pointer; transition: all 0.4s ease;">
+                                <option value="">-- Select Font Style --</option>
+                                <option value="serif">Serif (Classic)</option>
+                                <option value="sans-serif">Sans-Serif (Modern)</option>
+                                <option value="elegant">Elegant (Luxury)</option>
+                                <option value="bold">Bold (Impact)</option>
+                                <option value="script">Script (Elegant Flow)</option>
+                                <option value="minimal">Minimal (Sleek)</option>
+                                <option value="geometric">Geometric (Contemporary)</option>
+                                <option value="decorative">Decorative (Artistic)</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Brand Font Style Other Text Input (Hidden by Default) -->
+                        <div id="brandFontStyleOtherSection" class="form-group hidden-section" style="margin-bottom: 15px;">
+                            <label for="brandFontStyleOtherInput" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Specify Font Style
+                            </label>
+                            <input 
+                                type="text" 
+                                id="brandFontStyleOtherInput" 
+                                name="brandFontStyleOtherInput" 
+                                placeholder="e.g., Futura, Garamond, Custom Sans, etc." 
+                                style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease;"/>
+                        </div>
+
+
+                        <!-- Brand Color Picker -->
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Brand Text Color
+                            </label>
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-link" 
+                                    onclick="openBrandColorModal()" 
+                                    style="padding: 8px 12px; font-size: 12px; color: var(--gold); text-decoration: underline; background: transparent; border: none; cursor: pointer;">
+                                    Choose Color
+                                </button>
+                                <div id="brandColorPreviewSwatch" style="width: 32px; height: 32px; border-radius: 4px; background: #FFD700; border: 2px solid var(--gold); box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);"></div>
+                                <span id="brandColorHexDisplay" style="font-family: monospace; font-size: 13px; color: var(--gold); letter-spacing: 0.5px; font-weight: 600;">FFD700</span>
+                            </div>
+                            <input 
+                                type="hidden" 
+                                id="brandColorHiddenInput" 
+                                name="brandColorHiddenInput" 
+                                value="FFD700"/>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- GARMENT/PRODUCT UPLOADS (Global) -->
                 <div id="garmentUploadSection" class="garment-upload-section">
                     <div class="form-section-title">Garment / Jewel / Product Images <span class="required-asterisk">*</span></div>
@@ -2836,6 +3147,14 @@ function onPlanChangeForEdition() {
                                     <span class="addon-price">+₹1,500</span>
                                 </label>
                             </div>
+                            <!-- Brand Name Placement Add-On (Artisan & Couture Only) -->
+                            <div id="addonBrandNamePlacementItem" class="addon-item hidden-section">
+                                <input type="checkbox" id="addonBrandNamePlacement" name="addonbrandnameplacement" value="1000" onchange="updatePriceDisplay()">
+                                <label for="addonBrandNamePlacement">
+                                    <span>Brand Name Placement</span>
+                                    <span class="addon-price">1,000</span>
+                                </label>
+                            </div>
                         </div>
 
                         <!-- Price Summary Box -->
@@ -2873,6 +3192,39 @@ function onPlanChangeForEdition() {
                         <div class="form-group">
                             <label>Additional Notes or Special Requests</label>
                             <textarea name="specialrequirements" placeholder="Any specific poses, expressions, styling details, or technical requirements? The more detail you provide, the better we can match your vision."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FILE DELIVERY PREFERENCES SECTION -->
+                <div class="form-section">
+                    <div class="form-section-title">
+                        <img src="package.png" alt="Delivery Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">File Delivery Preferences
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="deliveryFormat">Delivery Format</label>
+                            <select id="deliveryFormat" name="deliveryformat">
+                                <option value="">-- Select Delivery Format --</option>
+                                <option value="zip_archive">ZIP Archive (Organized by model)</option>
+                                <option value="zip_by_look">ZIP Archive (Organized by look/outfit)</option>
+                                <option value="cloud_link">Single Drive/Dropbox Link</option>
+                                <option value="cloud_organized">Cloud Link (Organized folders)</option>
+                                <option value="other">Other (Specify below)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fileNamingConvention">File Naming Convention (Optional)</label>
+                            <input type="text" id="fileNamingConvention" name="filenaming" placeholder="E.g., Brand_Model01_Look01.jpg or Custom preference">
+                        </div>
+                    </div>
+
+                    <div class="form-grid full">
+                        <div class="form-group">
+                            <label for="deliveryInstructions">Additional Delivery Instructions (Optional)</label>
+                            <textarea id="deliveryInstructions" name="deliveryinstructions" placeholder="E.g., organized by garment type, high-res separate folder, web-optimized versions, specific folder structure for CMS upload, etc."></textarea>
                         </div>
                     </div>
                 </div>
@@ -3150,6 +3502,8 @@ function onPlanChangeForEdition() {
            // body_pose: '',
             orientation: '',
             makeup_details: '',
+            lightning_effects: '',  
+            lightning_effects_other: '',
             model_description: '',
             reference_image: null
         };
@@ -3171,7 +3525,7 @@ function onPlanChangeForEdition() {
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Model Gender <span class="required-asterisk">*</span></label>
-                                <select name="modelmodelNumbergender" id="modelmodelNumbergender" required>
+                                <select name="model_${modelNumber}_gender" id="model_${modelNumber}_gender" required>
                                 <option value="">-- Select Gender --</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -3307,7 +3661,7 @@ function onPlanChangeForEdition() {
 
 
                             <!-- COLOR PICKER (per model) -->
-                            <div class="form-group model-color-picker-group">
+                      <!--      <div class="form-group model-color-picker-group">
                                 <label>Model Color Theme</label>
                                 <div class="color-swatches" id="swatchRow_model${modelNumber}">
                                     <span class="color-swatch" data-color="#ffd700" title="Gold" onclick="selectModelColor('#ffd700', ${modelNumber})"></span>
@@ -3328,7 +3682,7 @@ function onPlanChangeForEdition() {
                                         <span class="selected-color-hex" id="selectedColorHexText_model${modelNumber}" style="font-size:16px;font-weight:700;color:var(--gold);"></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- ACCESSORIES SECTION (per model) -->
                             <div class="form-group accessories-toggle-group">
@@ -3485,6 +3839,27 @@ function onPlanChangeForEdition() {
                                 <label>Makeup Details</label>
                                 <input type="text" name="model_${modelNumber}_makeup_details" id="model_${modelNumber}_makeup_details" placeholder="e.g., Natural, Bold, Neutral, Smokey" value="${storedData.makeup_details || ''}">
                             </div>
+                            <div class="form-group hidden-section" id="lightning_effects_section_model${modelNumber}">
+                                <label>Lightning Effects</label>
+                                <select name="model_${modelNumber}_lightning_effects" id="model_${modelNumber}_lightning_effects" onchange="toggleLightningEffectsOther(${modelNumber})" value="${storedData.lightning_effects || ''}">
+                                    <option value="">-- Select Lightning Effect --</option>
+                                    <option value="Natural Daylight">Natural Daylight</option>
+                                    <option value="Golden Hour">Golden Hour</option>
+                                    <option value="Soft Studio">Soft Studio</option>
+                                    <option value="Hard Spotlight">Hard Spotlight</option>
+                                    <option value="Rim Lighting">Rim Lighting</option>
+                                    <option value="Backlit">Backlit</option>
+                                    <option value="Neon Glow">Neon Glow</option>
+                                    <option value="Candlelight">Candlelight</option>
+                                    <option value="Dramatic Shadows">Dramatic Shadows</option>
+                                    <option value="Cinematic">Cinematic</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div id="lightning_effects_other_section_model${modelNumber}" class="form-group hidden-section">
+                                <label>Specify Lightning Effect</label>
+                                <input type="text" id="lightning_effects_other_model${modelNumber}" name="lightning_effects_other_model${modelNumber}" placeholder="Describe your custom lighting effect" value="${storedData.lightning_effects_other || ''}">
+                            </div>
                         </div>
                      
                         
@@ -3590,8 +3965,10 @@ function onPlanChangeForEdition() {
 
             // Update price display
             updatePriceDisplay();
-            for (let i = 1; i <= limit; i++) {
+
+            for (let i = 1; i <= numModels; i++) {
                 togglePoseSection(i);
+                toggleLightningEffectsSection(i);
             }
         }
 
@@ -3673,7 +4050,8 @@ function onPlanChangeForEdition() {
                 { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
                 { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
                 { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
-                { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 }
+                { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 },
+                { checkbox: document.getElementById("addonBrandNamePlacement"), value: 1000 }
             ];
 
             addons.forEach(addon => {
