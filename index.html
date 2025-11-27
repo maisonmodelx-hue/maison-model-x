@@ -4506,7 +4506,32 @@ function onPlanChangeForEdition() {
         });
 
         // ============ RAZORPAY PAYMENT INTEGRATION ============
-        document.addEventListener('DOMContentLoaded', function () {
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const orderForm = document.getElementById("orderForm");
+            const submitBtn = document.getElementById("paymentSubmitBtn");
+            const paymentContainer = document.getElementById("paymentMessage");
+            
+            if (orderForm) {
+                orderForm.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    // Razorpay disabled - submit directly to Bitrix24
+                    collectAndSendToBitrix24();
+                });
+            }
+            
+            if (submitBtn) {
+                submitBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+            // Razorpay disabled - submit directly to Bitrix24
+                    collectAndSendToBitrix24();
+                });
+            }
+        });
+
+
+        
+     /*   document.addEventListener('DOMContentLoaded', function () {
             const orderForm = document.getElementById('orderForm');
             const submitBtn = document.getElementById('paymentSubmitBtn');
             const paymentContainer = document.getElementById('paymentMessage');
@@ -4533,7 +4558,9 @@ function onPlanChangeForEdition() {
                             orderForm.submit();
                         }, 1000);
                         return;
-                    }
+                    }   */
+
+        
 
                     // Calculate payment amount (in paisa for Razorpay)
                     const basePriceInPaisa = (planPrices[selectedPlan] * 100) || 50000 * 100;
@@ -4703,4 +4730,5 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
