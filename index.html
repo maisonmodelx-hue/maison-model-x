@@ -4539,58 +4539,57 @@ function onPlanChangeForEdition() {
                 });
             }
         });
-        
 
         // ============ RAZORPAY PAYMENT INTEGRATION ============
-
-        // ========== RAZORPAY PAYMENT INTEGRATION (COMMENTED FOR TESTING) ==========
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const orderForm = document.getElementById('orderForm');
             const submitBtn = document.getElementById('paymentSubmitBtn');
-            
+            const paymentContainer = document.getElementById('paymentMessage');
+
             if (orderForm) {
                 orderForm.addEventListener('submit', function (e) {
-                // 🔴 RAZORPAY TEMPORARILY DISABLED FOR TESTING
-                // Uncomment the line below to restore Razorpay:
-                // e.preventDefault();
-                
-                console.log('🟢 TEST MODE: Razorpay bypassed. Form submitting to Bitrix24...');
-                // The form will submit normally, triggering collectAndSendToBitrix24()
-                
-                /*
-                ========== ORIGINAL RAZORPAY CODE (COMMENTED OUT) ==========
-                e.preventDefault();
-                
-                // Get form data
-                const clientName = document.querySelector('input[name="clientname"]').value;
-                const clientEmail = document.querySelector('input[name="clientemail"]').value;
-                const clientPhone = document.querySelector('input[name="clientphone"]').value;
-                const selectedPlan = document.getElementById('planSelect').value;
-                
-                if (!selectedPlan) {
-                    alert('Please select a plan');
-                    return;
-                }
-                
-                if (selectedPlan === 'legacy') {
-                    // Legacy plan - submit directly without payment
-                    showPaymentMessage('Submitting your inquiry...', 'success');
-                    setTimeout(() => {
-                        orderForm.submit();
-                    }, 1000);
-                    return;
-                }
-                
-                // Calculate payment amount in paisa for Razorpay
-                handlePayment();
-                ========== END ORIGINAL RAZORPAY CODE ==========
-                */
-            });
-        }
-    });
+                    e.preventDefault();
 
+                    // Get form data
+                    const clientName = document.querySelector('input[name="clientname"]').value;
+                    const clientEmail = document.querySelector('input[name="clientemail"]').value;
+                    const clientPhone = document.querySelector('input[name="clientphone"]').value;
+                    const selectedPlan = document.getElementById('planSelect').value;
 
-        
+                    if (!selectedPlan) {
+                        alert('Please select a plan');
+                        return;
+                    }
+
+                    if (selectedPlan === 'legacy') {
+                        // Legacy plan - submit directly without payment
+                        showPaymentMessage('Submitting your inquiry...', 'success');
+                        setTimeout(() => {
+                            orderForm.submit();
+                        }, 1000);
+                        return;
+                    }
+
+                    // Calculate payment amount (in paisa for Razorpay)
+                    const basePriceInPaisa = (planPrices[selectedPlan] * 100) || 50000 * 100;
+                    
+                    // Calculate add-ons in paisa
+                    let addonPaisaTotal = 0;
+                    const addons = [
+                        { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
+                        { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
+                        { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
+                        { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 }
+                    ];
+
+                    addons.forEach(addon => {
+                        if (addon.checkbox && addon.checkbox.checked) {
+                            addonPaisaTotal += addon.value * 100;
+                        }
+                    });
+
+                    const totalAmount = basePriceInPaisa + addonPaisaTotal;
+                    const orderId = 'order_' + Date.now();
 
                     // Razorpay options
           /*          const options = {
@@ -4623,9 +4622,9 @@ function onPlanChangeForEdition() {
                         showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
                     });     
 
-                    rzp.open(); 
+                    rzp.open(); */
                 });
-            } */
+            }
 
     /*        function handlePaymentSuccess(response) {
                 // Add payment data to form
@@ -4665,7 +4664,8 @@ function onPlanChangeForEdition() {
                     paymentContainer.style.color = '#721c24';
                     paymentContainer.style.borderLeft = '4px solid #dc3545';
                 }
-            });
+            }
+        });
 
         // ============ UPDATE PLAN OPTIONS ============
         function updatePlanOptions() {
@@ -4738,6 +4738,4 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
-
-
 
