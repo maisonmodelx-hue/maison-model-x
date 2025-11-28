@@ -3748,6 +3748,51 @@ function onPlanChangeForEdition() {
 
                 <button type="submit" class="btn btn-primary">Send Feedback</button>
             </form>
+            
+            <script>
+                
+                // Feedback Form Submission
+                document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/jqjj37bptkh5hza6/crm.lead.add";
+                    
+                    // Get form values
+                    const fbName = document.querySelector('input[name="fb_name"]').value;
+                    const fbEmail = document.querySelector('input[name="fb_email"]').value;
+                    const fbSubject = document.querySelector('input[name="fb_subject"]').value;
+                    const fbMessage = document.querySelector('textarea[name="fb_message"]').value;
+    
+                    // Format data for Bitrix24
+                    const bitrixData = {
+                        fields: {
+                            TITLE: `Feedback from ${fbName}`,
+                            NAME: fbName,
+                            EMAIL: [{"VALUE": fbEmail, "VALUE_TYPE": "WORK"}],
+                            COMMENTS: `Subject: ${fbSubject}\n\nMessage: ${fbMessage}`
+                        }
+                    };
+                    fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(bitrixData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.result) {
+                            alert('✅ Thank you for submitting your feedback!');
+                            document.getElementById('feedbackForm').reset();
+                        } else {
+                            alert('There was an error submitting your feedback. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error submitting your feedback. Please try again.');
+                    });
+                });
+            </script>       
         </div>
     </section>
 
@@ -4804,6 +4849,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
