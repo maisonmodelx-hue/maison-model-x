@@ -3608,39 +3608,79 @@ function onPlanChangeForEdition() {
                 // UPLOAD FILES TO BITRIX24
                 // ========================================
                 // ========================================
-                // UPLOAD FILES TO BITRIX24
+                // DOCUMENT FILES (No actual upload)
                 // ========================================
                 async function uploadFilesToBitrix24(dealId) {
-                    const uploadPromises = [];
+                    const filesList = [];
                     
-                    // Upload garment images
+                    // Collect garment files info
                     const garmentLimit = garmentLimits[currentSelectedPlan] || 1;
                     for (let i = 1; i <= garmentLimit; i++) {
                         const input = document.getElementById(`garment_${i}_file`);
                         if (input && input.files && input.files.length > 0) {
                             const file = input.files[0];
-                            uploadPromises.push(uploadSingleFile(dealId, file, `Garment ${i}`));
+                            filesList.push(`📦 Garment ${i}: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
                         }
                     }
-                    
-                    // Upload accessory images for all models
+
+                    // Collect accessory files info
                     const numModels = planModelMapping[currentSelectedPlan] || 1;
                     for (let modelNum = 1; modelNum <= numModels; modelNum++) {
                         for (let accessoryNum = 1; accessoryNum <= 3; accessoryNum++) {
                             const input = document.getElementById(`accessories_image_${accessoryNum}_model${modelNum}`);
                             if (input && input.files && input.files.length > 0) {
                                 const file = input.files[0];
-                                uploadPromises.push(uploadSingleFile(dealId, file, `Model ${modelNum} - Accessory ${accessoryNum}`));
+                                filesList.push(`🎨 Model ${modelNum} Accessory ${accessoryNum}: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
                             }
                         }
                     }
                     
-                    if (uploadPromises.length === 0) {
-                        console.log('📎 No files to upload');
+                    if (filesList.length === 0) {
+                        console.log('📎 No files selected');
                         return Promise.resolve();
                     }
+
+                    // Add file documentation to deal timeline
+                    const timelineUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.timeline.comment.add";
                     
-                    return Promise.all(uploadPromises);
+                    const filesMessage = `
+                ╔════════════════════════════════════════╗
+                ║       📎 FILES TO BE RECEIVED         ║
+                ╚════════════════════════════════════════╝
+                
+                Customer has selected the following files:
+                
+                ${filesList.join('\n')}
+                
+                ⚠️ ACTION REQUIRED:
+                Customer will send these files via:
+                - Email to: maisonmodelx@gmail.com
+                - Or request upload link
+
+                Deal ID: ${dealId}
+                Status: Awaiting file transfer
+                    `;
+                    
+                    try {
+                        await fetch(timelineUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                fields: {
+                                    ENTITY_ID: dealId,
+                                    ENTITY_TYPE: 'deal',
+                                    COMMENT: filesMessage
+                                }
+                            })
+                        });
+
+                        console.log('✅ File documentation added to deal');
+                        return Promise.resolve();
+                        
+                    } catch (error) {
+                        console.error('❌ Error documenting files:', error);
+                        return Promise.resolve(); // Don't fail the entire submission
+                    }
                 }
                 
                 async function uploadSingleFile(dealId, file, fieldName) {
@@ -4849,6 +4889,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
