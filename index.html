@@ -3318,6 +3318,8 @@ function onPlanChangeForEdition() {
                             specifications: document.getElementById('modelSpecifications')?.value || '',
                             productName: document.getElementById('productName')?.value || '',
                             itemMapping: document.getElementById('modelItemMapping')?.value || '',
+                            productDescription: document.querySelector('textarea[name="productdescription"]')?.value || '',
+                            backgroundDescription: document.querySelector('textarea[name="backgroundDescription"]')?.value || '',
                             gender: document.querySelector(`select[name="model_${i}_gender"]`)?.value || '',
                             ethnicity: document.querySelector(`select[name="model_${i}_ethnicity"]`)?.value || '',
                             ethnicityOther: document.querySelector(`input[name="model_${i}_ethnicity_other"]`)?.value || '',
@@ -3510,6 +3512,22 @@ function onPlanChangeForEdition() {
                     message += `Tier: ${orderData.planDetails.tier.toUpperCase()}\n`;
                     message += `Price: ₹${orderData.planDetails.basePrice.toLocaleString('en-IN')}\n`;
                     message += `Models: ${orderData.models.length}\n\n`;
+
+                    // Add this after the PACKAGE section
+                    if (orderData.models[0]?.productDescription) {
+                        message += `📦 PRODUCT/GARMENT DESCRIPTION\n━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.models[0].productDescription}\n\n`;
+                    }
+                    
+                    if (orderData.models[0]?.backgroundDescription) {
+                        message += `🎨 BACKGROUND DESCRIPTION\n━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.models[0].backgroundDescription}\n\n`;
+                    }
+                    
+                    if (orderData.models[0]?.itemMapping) {
+                        message += `🔗 MODEL → ITEM MAPPING\n━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.models[0].itemMapping}\n\n`;
+                    }
                     
                     message += `📸 MODELS\n━━━━━━━━━━━━━━━━━━━\n`;
                     orderData.models.forEach((model, idx) => {
@@ -3522,6 +3540,23 @@ function onPlanChangeForEdition() {
                         message += `  • Eyes: ${model.eyeColor}\n`;
                         message += `  • Age: ${model.ageAppearance}\n`;
                         message += `  • Shot: ${model.typeOfShot}\n\n`;
+                        if (model.description) {
+                            message += `  • Description: ${model.description}\n`;
+                        }
+                        if (model.pose) {
+                            message += `  • Pose: ${model.pose}\n`;
+                        }
+                        if (model.makeupDetails) {
+                            message += `  • Makeup: ${model.makeupDetails}\n`;
+                        }
+                        if (model.lightningEffects) {
+                            message += `  • Lighting: ${model.lightningEffects}\n`;
+                        }
+                        if (model.accessoriesIncluded === 'Yes') {
+                            message += `  • Accessories: ${model.accessoriesDescription || 'Yes'}\n`;
+                        }
+                        
+                        message += `\n`;
                     });
                     
                     if (Object.values(orderData.addOns).some(v => v)) {
@@ -3532,7 +3567,29 @@ function onPlanChangeForEdition() {
                         if (orderData.addOns.premiumRetouch) message += `✓ Premium Retouch\n`;
                         message += `\n`;
                     }
+
+                    // Add this before the timestamp
+                    if (orderData.customerInfo.projectDescription) {
+                        message += `📝 PROJECT VISION\n━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.customerInfo.projectDescription}\n\n`;
+                    }
                     
+                    if (orderData.customerInfo.specialRequirements) {
+                        message += `⚡ SPECIAL REQUESTS\n━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.customerInfo.specialRequirements}\n\n`;
+                    }
+                    
+                    if (orderData.deliveryPreferences.format) {
+                        message += `📦 DELIVERY\n━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `Format: ${orderData.deliveryPreferences.format}\n`;
+                        if (orderData.deliveryPreferences.fileNamingConvention) {
+                            message += `Naming: ${orderData.deliveryPreferences.fileNamingConvention}\n`;
+                        }
+                        if (orderData.deliveryPreferences.additionalInstructions) {
+                            message += `Notes: ${orderData.deliveryPreferences.additionalInstructions}\n`;
+                        }
+                        message += `\n`;
+                    }
                     message += `⏰ ${orderData.timestamp}\n`;
                     return message;
                 }
@@ -4646,6 +4703,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
