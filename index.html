@@ -3468,21 +3468,26 @@ function onPlanChangeForEdition() {
                         }
                     })
                     .then(result => {
-                        // Files are tricky with Bitrix24 webhooks - just note they exist
-                        console.log('📎 Note: File uploads detected in form');
+                        const dealId = result.dealId;
+                        console.log('📎 Uploading files to Deal ID:', dealId);
                         
-                        const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#d4edda';
-                        messageDiv.style.color = '#155724';
-                        messageDiv.style.borderLeft = '4px solid #28a745';
-                    
-                        setTimeout(() => {
-                            document.getElementById('orderForm').reset();
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        }, 2000);
+                        // Upload all files to Bitrix24
+                        return uploadFilesToBitrix24(dealId).then(() => {
+                            console.log('✅ All files uploaded successfully');
+                            
+                            const messageDiv = document.getElementById('paymentMessage');
+                            messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
+                            messageDiv.style.display = 'block';
+                            messageDiv.style.backgroundColor = '#d4edda';
+                            messageDiv.style.color = '#155724';
+                            messageDiv.style.borderLeft = '4px solid #28a745';
+                        
+                            setTimeout(() => {
+                                document.getElementById('orderForm').reset();
+                                submitBtn.textContent = originalText;
+                                submitBtn.disabled = false;
+                            }, 2000);
+                        });
                     })
                     .catch(error => {
                         console.error('❌ Bitrix24 Error:', error);
@@ -3602,51 +3607,92 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // UPLOAD FILES TO BITRIX24
                 // ========================================
-                async function uploadFilesToBitrix24(dealId, formData) {
+                // ========================================
+                // UPLOAD FILES TO BITRIX24
+                // ========================================
+                async function uploadFilesToBitrix24(dealId) {
                     const uploadPromises = [];
                     
                     // Upload garment images
-                    const garmentInputs = document.querySelectorAll('input[type="file"][name^="garment_"]');
-                    garmentInputs.forEach(input => {
-                        if (input.files && input.files.length > 0) {
+                    const garmentLimit = garmentLimits[currentSelectedPlan] || 1;
+                    for (let i = 1; i <= garmentLimit; i++) {
+                        const input = document.getElementById(`garment_${i}_file`);
+                        if (input && input.files && input.files.length > 0) {
                             const file = input.files[0];
-                            uploadPromises.push(uploadSingleFile(dealId, file, input.name));
+                            uploadPromises.push(uploadSingleFile(dealId, file, `Garment ${i}`));
                         }
-                    });
+                    }
                     
-                    // Upload accessory images
-                    const accessoryInputs = document.querySelectorAll('input[type="file"][name^="accessories_image_"]');
-                    accessoryInputs.forEach(input => {
-                        if (input.files && input.files.length > 0) {
-                            const file = input.files[0];
-                            uploadPromises.push(uploadSingleFile(dealId, file, input.name));
+                    // Upload accessory images for all models
+                    const numModels = planModelMapping[currentSelectedPlan] || 1;
+                    for (let modelNum = 1; modelNum <= numModels; modelNum++) {
+                        for (let accessoryNum = 1; accessoryNum <= 3; accessoryNum++) {
+                            const input = document.getElementById(`accessories_image_${accessoryNum}_model${modelNum}`);
+                            if (input && input.files && input.files.length > 0) {
+                                const file = input.files[0];
+                                uploadPromises.push(uploadSingleFile(dealId, file, `Model ${modelNum} - Accessory ${accessoryNum}`));
+                            }
                         }
-                    });
+                    }
+                    
+                    if (uploadPromises.length === 0) {
+                        console.log('📎 No files to upload');
+                        return Promise.resolve();
+                    }
                     
                     return Promise.all(uploadPromises);
                 }
                 
                 async function uploadSingleFile(dealId, file, fieldName) {
-                    const fileUploadUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/disk.folder.uploadfile";
+                    console.log(`📤 Uploading: ${fieldName} (${file.name})`);
+                    
+                    // Step 1: Upload file to Bitrix24 disk storage first
+                    const uploadUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/disk.storage.uploadfile";
                     
                     const formData = new FormData();
-                    formData.append('id', 'b27'); // Your Bitrix24 folder ID - you may need to adjust this
-                    formData.append('data', JSON.stringify({ NAME: file.name }));
+                    formData.append('id', 'b27'); // Use your storage ID - may need adjustment
+                    formData.append('data', JSON.stringify({ 
+                        NAME: `${fieldName} - ${file.name}` 
+                    }));
                     formData.append('fileContent', file);
                     
                     try {
-                        const response = await fetch(fileUploadUrl, {
+                        const uploadResponse = await fetch(uploadUrl, {
                             method: 'POST',
                             body: formData
                         });
-                        const data = await response.json();
-                        console.log(`✅ File uploaded: ${fieldName}`, data);
-                        return data;
+                        const uploadData = await uploadResponse.json();
+                        
+                        if (!uploadData.result || !uploadData.result.ID) {
+                            console.error(`❌ File upload failed for ${fieldName}:`, uploadData);
+                            return null;
+                        }
+                        
+                        console.log(`✅ File uploaded to storage: ${fieldName}`, uploadData.result.ID);
+                        
+                        // Step 2: Attach file to deal
+                        const attachUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.update";
+                        const attachResponse = await fetch(attachUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                id: dealId,
+                                fields: {
+                                    COMMENTS: `📎 Attached: ${fieldName}`
+                                }
+                            })
+                        });
+                        
+                        const attachData = await attachResponse.json();
+                        console.log(`✅ File attached to deal: ${fieldName}`);
+                        
+                        return attachData;
+                        
                     } catch (error) {
-                        console.error(`❌ File upload failed: ${fieldName}`, error);
+                        console.error(`❌ File upload error for ${fieldName}:`, error);
                         return null;
                     }
-                }    
+                }   
             </script>
 
 
@@ -4757,6 +4803,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
