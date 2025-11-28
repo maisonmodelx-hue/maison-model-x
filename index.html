@@ -3651,6 +3651,10 @@ function onPlanChangeForEdition() {
                     
                     const formData = new FormData();
                     formData.append('FOLDER_ID', '1'); 
+                    formData.append('id', '3'); // Use your storage ID - may need adjustment
+                    formData.append('data', JSON.stringify({ 
+                        NAME: `${fieldName} - ${file.name}` 
+                    }));
                     formData.append('fileContent', file);
                     
                     try {
@@ -4800,6 +4804,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
