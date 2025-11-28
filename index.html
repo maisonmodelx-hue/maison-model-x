@@ -3264,11 +3264,21 @@ function onPlanChangeForEdition() {
                         });
                     }
                 });
+
+                // Convert file to base64
+                async function fileToBase64(file) {
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result.split(',')[1]);
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                }
             
                 // ========================================
                 // MAIN COLLECTION FUNCTION
                 // ========================================
-                function collectAndSendToBitrix24() {
+                async function collectAndSendToBitrix24() {
                     console.log('📦 Collecting form data...');
                     
                     // -------- CUSTOMER INFO --------
@@ -3383,6 +3393,41 @@ function onPlanChangeForEdition() {
                         addOns: addOns,
                         deliveryPreferences: deliveryPreferences,
                     };
+
+                    // -------- COLLECT UPLOADED FILES --------
+                    const uploadedFiles = [];
+                    
+                    // Garment/Product images
+                    const garmentLimit = garmentLimits[selectedPlan] || 1;
+                    for (let i = 1; i <= garmentLimit; i++) {
+                        const fileInput = document.getElementById(`garment_${i}_file`);
+                        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+                            const file = fileInput.files[0];
+                            const base64 = await fileToBase64(file);
+                            uploadedFiles.push({
+                                name: `Garment_${i}_${file.name}`,
+                                data: base64
+                            });
+                        }
+                    }
+
+                    // Accessory images (if applicable)
+                    const numModels = getNumberOfModels(selectedPlan);
+                    for (let m = 1; m <= numModels; m++) {
+                        for (let a = 1; a <= 3; a++) {
+                            const accInput = document.getElementById(`accessories_image_${a}_model${m}`);
+                            if (accInput && accInput.files && accInput.files.length > 0) {
+                                const file = accInput.files[0];
+                                const base64 = await fileToBase64(file);
+                                uploadedFiles.push({
+                                    name: `Model${m}_Accessory${a}_${file.name}`,
+                                    data: base64
+                                });
+                            }
+                        }
+                    }
+                    
+                    completeOrder.uploadedFiles = uploadedFiles;
             
                     console.log('✅ Data collected successfully:', completeOrder);
                     sendToBitrix24(completeOrder);
@@ -3406,93 +3451,114 @@ function onPlanChangeForEdition() {
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
                 function sendToBitrix24(orderData) {
-                    console.log('📤 Sending to Bitrix24...', orderData);
+                console.log('📤 Sending to Bitrix24...', orderData);
+                
+                const submitBtn = document.getElementById('paymentSubmitBtn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Uploading files...';
+                submitBtn.disabled = true;
+            
+                const bitrixMessage = formatBitrixMessage(orderData);
+            
+                // STEP 1: Create Deal
+                const bitrixPayload = {
+                    fields: {
+                        TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
+                        CONTACT_ID: null,
+                        COMPANY_TITLE: orderData.customerInfo.brandName,
+                        OPPORTUNITY: orderData.planDetails.basePrice,
+                        CURRENCY_ID: 'INR',
+                        STAGE_ID: 'NEW',
+                        COMMENTS: bitrixMessage,
+                    }
+                };
+            
+                console.log('📨 Creating Deal...', bitrixPayload);
+            
+                fetch(BITRIX24_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bitrixPayload),
+                })
+                .then(response => response.json())
+                .then(async data => {
+                    console.log('✅ Deal Created:', data);
                     
-                    const submitBtn = document.getElementById('paymentSubmitBtn');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Sending to Bitrix24...';
-                    submitBtn.disabled = true;
-            
-                    const bitrixMessage = formatBitrixMessage(orderData);
-            
-                    // STEP 1: Create Deal
-                    const bitrixPayload = {
-                        fields: {
-                            TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
-                            CONTACT_ID: null,
-                            COMPANY_TITLE: orderData.customerInfo.brandName,
-                            OPPORTUNITY: orderData.planDetails.basePrice,
-                            CURRENCY_ID: 'INR',
-                            STAGE_ID: 'NEW',
-                            COMMENTS: bitrixMessage,
-                        }
-                    };
-            
-                    console.log('📨 Creating Deal...', bitrixPayload);
-            
-                    fetch(BITRIX24_WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(bitrixPayload),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('✅ Deal Created:', data);
+                    if (data.result) {
+                        const dealId = data.result;
                         
-                        if (data.result) {
-                            const dealId = data.result;
+                        // STEP 2: Upload Files
+                        if (orderData.uploadedFiles && orderData.uploadedFiles.length > 0) {
+                            submitBtn.textContent = `Uploading ${orderData.uploadedFiles.length} files...`;
                             
-                            // STEP 2: Add Timeline Comment
-                            const timelinePayload = {
-                                fields: {
-                                    ENTITY_ID: dealId,
-                                    ENTITY_TYPE: 'deal',
-                                    COMMENT: bitrixMessage,
-                                }
-                            };
-            
-                            console.log('💬 Adding Timeline Comment...', timelinePayload);
-            
-                            return fetch(BITRIX24_TIMELINE_URL, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(timelinePayload),
-                            });
-                        } else {
-                            throw new Error('Deal creation failed');
+                            for (const file of orderData.uploadedFiles) {
+                                await fetch('https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.update', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        id: dealId,
+                                        fields: {},
+                                        params: {
+                                            REGISTER_SONET_EVENT: 'Y'
+                                        },
+                                        files: {
+                                            [file.name]: file.data
+                                        }
+                                    })
+                                });
+                            }
                         }
-                    })
-                    .then(response => response.json())
-                    .then(commentData => {
-                        console.log('✅ Timeline Comment Added:', commentData);
                         
-                        const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#d4edda';
-                        messageDiv.style.color = '#155724';
-                        messageDiv.style.borderLeft = '4px solid #28a745';
+                        // STEP 3: Add Timeline Comment
+                        submitBtn.textContent = 'Finalizing...';
+                        const timelinePayload = {
+                            fields: {
+                                ENTITY_ID: dealId,
+                                ENTITY_TYPE: 'deal',
+                                COMMENT: bitrixMessage,
+                            }
+                        };
             
-                        setTimeout(() => {
-                            document.getElementById('orderForm').reset();
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        }, 2000);
-                    })
-                    .catch(error => {
-                        console.error('❌ Bitrix24 Error:', error);
-                        
-                        const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '❌ Error submitting order. Please try again.';
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#f8d7da';
-                        messageDiv.style.color = '#721c24';
-                        messageDiv.style.borderLeft = '4px solid #dc3545';
+                        return fetch(BITRIX24_TIMELINE_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(timelinePayload),
+                        });
+                    } else {
+                        throw new Error('Deal creation failed');
+                    }
+                })
+                .then(response => response.json())
+                .then(commentData => {
+                    console.log('✅ Order submitted with files!');
+                    
+                    const messageDiv = document.getElementById('paymentMessage');
+                    messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#d4edda';
+                    messageDiv.style.color = '#155724';
+                    messageDiv.style.borderLeft = '4px solid #28a745';
             
+                    setTimeout(() => {
+                        document.getElementById('orderForm').reset();
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
-                    });
-                }
+                    }, 2000);
+                })
+                .catch(error => {
+                    console.error('❌ Bitrix24 Error:', error);
+                    
+                    const messageDiv = document.getElementById('paymentMessage');
+                    messageDiv.textContent = '❌ Error submitting order. Please try again.';
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#f8d7da';
+                    messageDiv.style.color = '#721c24';
+                    messageDiv.style.borderLeft = '4px solid #dc3545';
+            
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
+            }
             
                 // ========================================
                 // FORMAT MESSAGE FOR BITRIX24
@@ -4703,6 +4769,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
