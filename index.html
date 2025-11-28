@@ -3248,6 +3248,7 @@ function onPlanChangeForEdition() {
                 // BITRIX24 WEBHOOK CONFIGURATION
                 // ========================================
                 const BITRIX24_WEBHOOK_URL = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.add";
+                const BITRIX24_TIMELINE_URL = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.timeline.comment.add";
             
                 // ========================================
                 // ATTACH FORM SUBMIT HANDLER
@@ -3257,7 +3258,7 @@ function onPlanChangeForEdition() {
                     
                     if (orderForm) {
                         orderForm.addEventListener('submit', function(e) {
-                            e.preventDefault(); // CRITICAL: Stop default form submission
+                            e.preventDefault();
                             console.log('🎯 Form submitted! Collecting data...');
                             collectAndSendToBitrix24();
                         });
@@ -3314,12 +3315,9 @@ function onPlanChangeForEdition() {
                     for (let i = 1; i <= numModels; i++) {
                         const model = {
                             modelNumber: i,
-                            // Product/Garment Fields
                             specifications: document.getElementById('modelSpecifications')?.value || '',
                             productName: document.getElementById('productName')?.value || '',
                             itemMapping: document.getElementById('modelItemMapping')?.value || '',
-                            
-                            // Visual Description
                             gender: document.querySelector(`select[name="model_${i}_gender"]`)?.value || '',
                             ethnicity: document.querySelector(`select[name="model_${i}_ethnicity"]`)?.value || '',
                             ethnicityOther: document.querySelector(`input[name="model_${i}_ethnicity_other"]`)?.value || '',
@@ -3340,8 +3338,6 @@ function onPlanChangeForEdition() {
                             bodyTypeOther: document.querySelector(`input[name="body_type_other_model${i}"]`)?.value || '',
                             heightAppearance: document.querySelector(`select[name="model_${i}_height_appearance"]`)?.value || '',
                             weightAppearance: document.querySelector(`select[name="model_${i}_weight_appearance"]`)?.value || '',
-                            
-                            // Pose & Expression
                             typeOfShot: document.querySelector(`select[name="model_${i}_type_of_shot"]`)?.value || '',
                             typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_model${i}"]`)?.value || '',
                             expressionPreference: document.querySelector(`select[name="model_${i}_expression_preference"]`)?.value || '',
@@ -3351,12 +3347,8 @@ function onPlanChangeForEdition() {
                             makeupDetails: document.querySelector(`input[name="model_${i}_makeup_details"]`)?.value || '',
                             lightningEffects: document.querySelector(`select[name="model_${i}_lightning_effects"]`)?.value || '',
                             lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
-                            
-                            // Descriptions
                             description: document.querySelector(`textarea[name="model_${i}_description"]`)?.value || '',
                             pose: document.querySelector(`textarea[name="model_${i}_pose"]`)?.value || '',
-                            
-                            // Accessories
                             accessoriesIncluded: document.querySelector(`select[name="accessories_included_model${i}"]`)?.value || '',
                             accessoriesDescription: document.querySelector(`textarea[name="accessories_desc_model${i}"]`)?.value || '',
                         };
@@ -3391,8 +3383,6 @@ function onPlanChangeForEdition() {
                     };
             
                     console.log('✅ Data collected successfully:', completeOrder);
-            
-                    // -------- SEND TO BITRIX24 --------
                     sendToBitrix24(completeOrder);
                 }
             
@@ -3416,63 +3406,64 @@ function onPlanChangeForEdition() {
                 function sendToBitrix24(orderData) {
                     console.log('📤 Sending to Bitrix24...', orderData);
                     
-                    if (!BITRIX24_WEBHOOK_URL) {
-                        console.error('❌ Bitrix24 webhook URL not configured!');
-                        alert('Payment system is not configured. Please contact support.');
-                        return;
-                    }
-            
-                    // Show loading state
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Sending to Bitrix24...';
                     submitBtn.disabled = true;
             
-                    // Build formatted message for Bitrix24
                     const bitrixMessage = formatBitrixMessage(orderData);
             
-                    // Prepare Bitrix24 payload
+                    // STEP 1: Create Deal
                     const bitrixPayload = {
                         fields: {
                             TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
-                            NAME: orderData.customerInfo.fullName,
-                            EMAIL: [
-                                {
-                                    VALUE: orderData.customerInfo.email,
-                                    VALUE_TYPE: 'WORK',
-                                }
-                            ],
-                            PHONE: [
-                                {
-                                    VALUE: orderData.customerInfo.phone,
-                                    VALUE_TYPE: 'WORK',
-                                }
-                            ],
+                            CONTACT_ID: null,
+                            COMPANY_TITLE: orderData.customerInfo.brandName,
+                            OPPORTUNITY: orderData.planDetails.basePrice,
+                            CURRENCY_ID: 'INR',
+                            STAGE_ID: 'NEW',
                             COMMENTS: bitrixMessage,
                         }
                     };
             
-                    console.log('📨 Bitrix24 Payload:', bitrixPayload);
+                    console.log('📨 Creating Deal...', bitrixPayload);
             
-                    // Send to Bitrix24
                     fetch(BITRIX24_WEBHOOK_URL, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(bitrixPayload),
                     })
-                    .then(response => {
-                        console.log('📡 Response status:', response.status);
-                        if (!response.ok) {
-                            throw new Error(`HTTP Error: ${response.status}`);
-                        }
-                        return response.json();
-                    })
+                    .then(response => response.json())
                     .then(data => {
-                        console.log('✅ Bitrix24 Success:', data);
+                        console.log('✅ Deal Created:', data);
                         
-                        // Show success message
+                        if (data.result) {
+                            const dealId = data.result;
+                            
+                            // STEP 2: Add Timeline Comment
+                            const timelinePayload = {
+                                fields: {
+                                    ENTITY_ID: dealId,
+                                    ENTITY_TYPE: 'deal',
+                                    COMMENT: bitrixMessage,
+                                }
+                            };
+            
+                            console.log('💬 Adding Timeline Comment...', timelinePayload);
+            
+                            return fetch(BITRIX24_TIMELINE_URL, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(timelinePayload),
+                            });
+                        } else {
+                            throw new Error('Deal creation failed');
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(commentData => {
+                        console.log('✅ Timeline Comment Added:', commentData);
+                        
                         const messageDiv = document.getElementById('paymentMessage');
                         messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
                         messageDiv.style.display = 'block';
@@ -3480,7 +3471,6 @@ function onPlanChangeForEdition() {
                         messageDiv.style.color = '#155724';
                         messageDiv.style.borderLeft = '4px solid #28a745';
             
-                        // Reset form
                         setTimeout(() => {
                             document.getElementById('orderForm').reset();
                             submitBtn.textContent = originalText;
@@ -3490,15 +3480,13 @@ function onPlanChangeForEdition() {
                     .catch(error => {
                         console.error('❌ Bitrix24 Error:', error);
                         
-                        // Show error message
                         const messageDiv = document.getElementById('paymentMessage');
-                        messageDiv.textContent = '❌ Error submitting order. Please try again or contact support.';
+                        messageDiv.textContent = '❌ Error submitting order. Please try again.';
                         messageDiv.style.display = 'block';
                         messageDiv.style.backgroundColor = '#f8d7da';
                         messageDiv.style.color = '#721c24';
                         messageDiv.style.borderLeft = '4px solid #dc3545';
             
-                        // Reset button
                         submitBtn.textContent = originalText;
                         submitBtn.disabled = false;
                     });
@@ -3512,60 +3500,40 @@ function onPlanChangeForEdition() {
                     message += `║   NEW ORDER - MAISON MODEL X          ║\n`;
                     message += `╚════════════════════════════════════════╝\n\n`;
             
-                    // CUSTOMER DETAILS
-                    message += `👤 CUSTOMER DETAILS\n`;
-                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    message += `Name: ${orderData.customerInfo.fullName || 'Not specified'}\n`;
-                    message += `Email: ${orderData.customerInfo.email || 'Not specified'}\n`;
-                    message += `Phone: +${orderData.customerInfo.countryCode || ''} ${orderData.customerInfo.phone || 'Not specified'}\n`;
-                    message += `Brand: ${orderData.customerInfo.brandName || 'Not specified'}\n\n`;
+                    message += `👤 CUSTOMER\n━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Name: ${orderData.customerInfo.fullName}\n`;
+                    message += `Email: ${orderData.customerInfo.email}\n`;
+                    message += `Phone: +${orderData.customerInfo.countryCode} ${orderData.customerInfo.phone}\n`;
+                    message += `Brand: ${orderData.customerInfo.brandName}\n\n`;
                     
-                    // PACKAGE SELECTED
-                    message += `🎁 PACKAGE SELECTED\n`;
-                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    message += `Plan Tier: ${orderData.planDetails.tier.toUpperCase() || 'Not specified'}\n`;
-                    message += `Base Price: ₹${orderData.planDetails.basePrice.toLocaleString('en-IN')}\n`;
-                    message += `Total Models: ${orderData.models.length}\n\n`;
+                    message += `🎁 PACKAGE\n━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Tier: ${orderData.planDetails.tier.toUpperCase()}\n`;
+                    message += `Price: ₹${orderData.planDetails.basePrice.toLocaleString('en-IN')}\n`;
+                    message += `Models: ${orderData.models.length}\n\n`;
                     
-                    // MODEL SPECIFICATIONS
-                    message += `📸 MODEL SPECIFICATIONS\n`;
-                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `📸 MODELS\n━━━━━━━━━━━━━━━━━━━\n`;
                     orderData.models.forEach((model, idx) => {
-                        message += `\nModel ${idx + 1}:\n`;
-                        message += `  • Gender: ${model.gender || 'Not specified'}\n`;
-                        message += `  • Ethnicity: ${model.ethnicity || 'Not specified'}\n`;
-                        message += `  • Country/Region: ${model.countryRegion || 'Not specified'}\n`;
-                        message += `  • Skin Tone: ${model.skinTone || 'Not specified'}\n`;
-                        message += `  • Hair: ${model.hairType || ''} ${model.hairColor || ''} ${model.hairStyle || ''}\n`;
-                        message += `  • Eye Color: ${model.eyeColor || 'Not specified'}\n`;
-                        message += `  • Age: ${model.ageAppearance || 'Not specified'}\n`;
-                        message += `  • Body Type: ${model.bodyType || 'Not specified'}\n`;
-                        message += `  • Shot Type: ${model.typeOfShot || 'Not specified'}\n`;
-                        message += `  • Expression: ${model.expressionPreference || 'Not specified'}\n`;
-                        message += `  • Orientation: ${model.orientation || 'Not specified'}\n`;
-                        if (model.description) message += `  • Description: ${model.description}\n`;
-                        if (model.pose) message += `  • Pose: ${model.pose}\n`;
+                        message += `Model ${idx + 1}:\n`;
+                        message += `  • Gender: ${model.gender}\n`;
+                        message += `  • Ethnicity: ${model.ethnicity}\n`;
+                        message += `  • Country: ${model.countryRegion}\n`;
+                        message += `  • Skin: ${model.skinTone}\n`;
+                        message += `  • Hair: ${model.hairType} ${model.hairColor} ${model.hairStyle}\n`;
+                        message += `  • Eyes: ${model.eyeColor}\n`;
+                        message += `  • Age: ${model.ageAppearance}\n`;
+                        message += `  • Shot: ${model.typeOfShot}\n\n`;
                     });
                     
-                    message += `\n`;
-                    
-                    // ADD-ONS
-                    if (Object.values(orderData.addOns || {}).some(v => v)) {
-                        message += `➕ ADD-ONS\n`;
-                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    if (Object.values(orderData.addOns).some(v => v)) {
+                        message += `➕ ADD-ONS\n━━━━━━━━━━━━━━━━━━━\n`;
                         if (orderData.addOns.extraModel) message += `✓ Extra Model\n`;
                         if (orderData.addOns.extraGarment) message += `✓ Extra Garment\n`;
                         if (orderData.addOns.fastDelivery) message += `✓ Fast Delivery\n`;
-                        if (orderData.addOns.premiumRetouch) message += `✓ Premium Retouching\n`;
-                        if (orderData.addOns.brandNamePlacement) message += `✓ Brand Name Placement\n`;
+                        if (orderData.addOns.premiumRetouch) message += `✓ Premium Retouch\n`;
                         message += `\n`;
                     }
                     
-                    // TIMESTAMP
-                    message += `⏰ ORDER TIMESTAMP\n`;
-                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    message += `${orderData.timestamp || new Date().toISOString()}\n`;
-                    
+                    message += `⏰ ${orderData.timestamp}\n`;
                     return message;
                 }
             </script>
@@ -4678,6 +4646,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
