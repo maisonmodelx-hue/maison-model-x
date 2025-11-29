@@ -3483,8 +3483,6 @@ function onPlanChangeForEdition() {
                         fields: {
                             TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
                             CONTACT_ID: contactId,
-                            const contactEmail = orderData.customerInfo.email;
-                            const contactName = orderData.customerInfo.fullName;
                             COMPANY_TITLE: orderData.customerInfo.brandName,
                             OPPORTUNITY: orderData.planDetails.basePrice,
                             CURRENCY_ID: 'INR',
@@ -4970,6 +4968,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
