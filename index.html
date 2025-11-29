@@ -1854,7 +1854,9 @@ function renderAccessoryInputs(num) {
           <option value="Other">Other</option>
         </select>
         <label for="accessories_image_${i}_model${num}">Upload Image</label>
-        <input type="file" id="accessories_image_${i}_model${num}" name="accessories_image_${i}_model${num}" accept="image/*" onchange="validateAccessoryUploads(${num})">
+        <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold);">
+            The image upload link will be sent to you for better quality and larger files.
+        </p>
       </div>
     `;
   }
@@ -4523,9 +4525,11 @@ function onPlanChangeForEdition() {
             for (let i = 1; i <= limit; i++) {
                 const inputHTML = `
                     <div style="margin-bottom: 15px; padding: 15px; background: rgba(212, 175, 55, 0.05); border: 1px dashed rgba(212, 175, 55, 0.3); border-radius: 6px;">
-                        <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 500; font-size: 12px;">Garment/Product/Jewel ${i}</label>
-                        <input type="file" name="garment_${i}_file" id="garment_${i}_file" accept="image/*" onchange="validateGarmentLimit()">
-                    </div>
+                    <label style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 500; font-size: 12px;">Garment/Product/Jewel ${i}</label>
+                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold);">
+                        The image upload link will be sent to you via email for better quality and larger files.
+                    </p>
+                </div>
                 `;
                 container.innerHTML += inputHTML;
             }
@@ -4889,6 +4893,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
