@@ -3403,6 +3403,62 @@ function onPlanChangeForEdition() {
                     };
                     return tierModels[tier] || 1;
                 }
+
+                // FIND OR CREATE CONTACT
+                async function getOrCreateContact(email, fullName) {
+                  // STEP 1: Search for existing contact by email
+                  const searchUrl = `https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.contact.list?filter[EMAIL]=${encodeURIComponent(email)}`;
+                  
+                  try {
+                    const searchResponse = await fetch(searchUrl);
+                    const searchData = await searchResponse.json();
+                    
+                    if (searchData.result && searchData.result.length > 0) {
+                      // Contact exists - return its ID
+                      const contactId = searchData.result[0].ID;
+                      console.log("Contact found:", contactId);
+                      return contactId;
+                    }
+                    
+                    // STEP 2: Contact doesn't exist - create new one
+                    console.log("Contact not found. Creating new...");
+                    
+                    const createUrl = `https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.contact.add`;
+                    
+                    const contactPayload = {
+                      fields: {
+                        NAME: fullName,
+                        EMAIL: [{
+                          VALUE: email,
+                          VALUE_TYPE: "WORK"
+                        }]
+                      }
+                    };
+                    
+                    const createResponse = await fetch(createUrl, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify(contactPayload)
+                    });
+                    
+                    const createData = await createResponse.json();
+                    
+                    if (createData.result) {
+                      const newContactId = createData.result;
+                      console.log("New contact created:", newContactId);
+                      return newContactId;
+                    } else {
+                      console.error("Failed to create contact:", createData);
+                      return null;
+                    }
+                    
+                  } catch (error) {
+                    console.error("Error getting/creating contact:", error);
+                    return null;
+                  }
+                }
+
+
             
                 // ========================================
                 // SEND COMPLETE ORDER TO BITRIX24
@@ -3418,10 +3474,17 @@ function onPlanChangeForEdition() {
                     const bitrixMessage = formatBitrixMessage(orderData);
             
                     // STEP 1: Create Deal
+                    const contactId = await getOrCreateContact(
+                        orderData.customerInfo.email,
+                        orderData.customerInfo.fullName
+                    );
+                        
                     const bitrixPayload = {
                         fields: {
                             TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
-                            CONTACT_ID: null,
+                            CONTACT_ID: contactId,
+                            const contactEmail = orderData.customerInfo.email;
+                            const contactName = orderData.customerInfo.fullName;
                             COMPANY_TITLE: orderData.customerInfo.brandName,
                             OPPORTUNITY: orderData.planDetails.basePrice,
                             CURRENCY_ID: 'INR',
@@ -4907,6 +4970,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
