@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Maison Model X - AI Fashion Photography</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 
@@ -4829,20 +4830,20 @@ function onPlanChangeForEdition() {
                     const orderId = 'order_' + Date.now();
 
                     // Razorpay options
-          /*          const options = {
-                        key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your key
+                    const options = {
+                        key: 'rzp_test_RlfywSc3dl1yTg', // Replace with your key
                         amount: totalAmount,
                         currency: 'INR',
                         name: 'Maison Model X',
                         description: `AI-Generated Fashion Model Photography - ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} Tier`,
-                        order_id: orderId,
+                        order_id: 'order_' + Date.now(),
                         prefill: {
                             name: clientName,
                             email: clientEmail,
                             contact: clientPhone
                         },
                         theme: {
-                            color: '#000000'
+                            color: '#d4af37'
                         },
                         handler: function (response) {
                             handlePaymentSuccess(response);
@@ -4854,16 +4855,23 @@ function onPlanChangeForEdition() {
                         }
                     };
 
+                    submitBtn.textContent = 'Opening Payment...';
+                    submitBtn.disabled = true;
+
                     const rzp = new Razorpay(options);
                     rzp.on('payment.failed', function (response) {
                         showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
+                        submitBtn.textContent = 'Proceed to Payment';
+                        submitBtn.disabled = false;
                     });     
 
-                    rzp.open(); */
+                    rzp.open(); 
                 });
             }
 
-    /*        function handlePaymentSuccess(response) {
+            function handlePaymentSuccess(response) {
+                console.log('✅ Payment successful:', response);
+                
                 // Add payment data to form
                 const paymentIdInput = document.createElement('input');
                 paymentIdInput.type = 'hidden';
@@ -4887,7 +4895,7 @@ function onPlanChangeForEdition() {
                 setTimeout(function () {
                     orderForm.submit();
                 }, 1500);
-            }  */
+            }
 
             function showPaymentMessage(message, type) {
                 paymentContainer.textContent = message;
@@ -4975,6 +4983,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
