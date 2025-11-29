@@ -3560,7 +3560,12 @@ function onPlanChangeForEdition() {
                         message += `  • Hair: ${model.hairType} ${model.hairColor} ${model.hairStyle}\n`;
                         message += `  • Eyes: ${model.eyeColor}\n`;
                         message += `  • Age: ${model.ageAppearance}\n`;
+                        message += `  • Body Type: ${model.bodyType}${model.bodyTypeOther ? ' (' + model.bodyTypeOther + ')' : ''}\n`;
+                        message += `  • Height: ${model.heightAppearance}\n`;
+                        message += `  • Weight: ${model.weightAppearance}\n`;
                         message += `  • Shot: ${model.typeOfShot}\n\n`;
+                        message += `  • Expression: ${model.expressionPreference}${model.expressionPreferenceOther ? ' (' + model.expressionPreferenceOther + ')' : ''}\n`;
+                        message += `  • Orientation: ${model.orientation}${model.orientationOther ? ' (' + model.orientationOther + ')' : ''}\n`;
                         if (model.description) {
                             message += `  • Description: ${model.description}\n`;
                         }
@@ -4902,6 +4907,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
