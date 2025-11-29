@@ -1613,7 +1613,7 @@
                 <button class="btn btn-primary" style="width: 80%;" onclick="event.stopPropagation(); window.location.href='mailto:maisonmodelx@gmail.com?subject=Légende Package Inquiry - Custom Quote&body=Hi Maison Model X Team,%0D%0A%0D%0AI am interested in the Légende package for 10+ models.%0D%0A%0D%0AProject Details:%0D%0ANumber of models needed: %0D%0AProject timeline: %0D%0ASpecific requirements: %0D%0A%0D%0APlease provide a custom quote.%0D%0A%0D%0AThank you!';">Contact Us</button>
             </div>
         </div>
-
+    
         <div style="text-align: center; margin-top: 60px; padding: 30px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; max-width: 800px; margin-left: auto; margin-right: auto;">
             <h4 style="color: var(--white); margin-bottom: 20px;">Enhance Your Order</h4>
             <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">• Rush Delivery (8 hrs): +₹2,000 | • Extra Image (angle/pose): +₹990 | • Age Progression: +₹2,200 | • Extra Revision: +₹2,000 | • Extra AI Model: +₹2,300 |</p>
@@ -3219,16 +3219,30 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     });
 
     // Helper function to calculate base amount
+    // Helper function to calculate base amount
     function calculateBaseAmount(packageValue) {
         const prices = {
-            'prelude': 3999,
-            'elan': 10999,
-            'signature': 19999,
-            'couture': 37999,
-            'legende': 0 // Custom
+            'Prélude - ₹3,999': 3999,
+            'Élan - ₹10,999': 10999,
+            'Signature - ₹19,999': 19999,
+            'Couture Ensemble - ₹37,999': 37999,
+            'Légende - Custom Pricing': 0 // Custom
         };
-        return prices[packageValue] || 0;
+        
+        // Try exact match first
+        if (prices[packageValue]) {
+            return prices[packageValue];
+        }
+        
+        // Fallback: extract from package name if format changes
+        const match = packageValue.match(/₹([\d,]+)/);
+        if (match) {
+            return parseInt(match[1].replace(/,/g, ''));
+        }
+        
+        return 0;
     }
+
 
     // Helper function to calculate addons
     function calculateAddonsAmount() {
@@ -3348,13 +3362,207 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     
         // Submit directly to Bitrix24 (use the existing sendToBitrix24 function)
         sendToBitrix24(formData);
-    }); */
+    });  */
 
-</script>
+    <script>
+    // Handle package selection changes
+    function handlePackageChange() {
+        const packageSelect = document.getElementById('packageSelection');
+        const selectedValue = packageSelect.value;
+    
+        if (!selectedValue) {
+            // Reset everything
+            document.getElementById('modelDescriptionSection').style.opacity = '0.5';
+            document.getElementById('modelDescriptionSection').style.pointerEvents = 'none';
+            document.getElementById('addonsSection').style.opacity = '0.5';
+            document.getElementById('addonsSection').style.pointerEvents = 'none';
+            
+            // Disable addon checkboxes
+            document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
+                cb.disabled = true;
+            });
+            
+            document.getElementById('totalSection').style.opacity = '0.5';
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').style.opacity = '0.5';
+            document.getElementById('submitBtn').textContent = 'Select Package to Proceed →';
+            document.getElementById('planSummary').style.display = 'none';
+            return;
+        }
+    
+        // Enable model description section
+        document.getElementById('modelDescriptionSection').style.opacity = '1';
+        document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
+    
+        // Get number of models for this package
+        const modelCounts = {
+            'prelude': 1,
+            'elan': 3,
+            'signature': 5,
+            'couture': 10,
+            'legende': 0
+        };
+    
+        // Extract package key from value (e.g., "Prélude - ₹3,999" → "prelude")
+        let packageKey = 'custom';
+        for (let key of Object.keys(modelCounts)) {
+            if (selectedValue.toLowerCase().includes(key)) {
+                packageKey = key;
+                break;
+            }
+        }
+    
+        const modelCount = modelCounts[packageKey] || 1;
+        document.getElementById('modelCountLabel').textContent = `(${modelCount} Model${modelCount > 1 ? 's' : ''})`;
+    
+        // Initialize model wizard
+        window.initializeModelWizard(modelCount);
+    
+        // Set selected radio button value
+        const radios = document.querySelectorAll('input[name="formPackage"]');
+        radios.forEach(radio => {
+            if (radio.value === selectedValue) {
+                radio.checked = true;
+            }
+        });
+    
+        // Update plan summary
+        updatePlanSummary(selectedValue, packageKey);
+    
+        // Update total amount
+        updateTotalAmount(selectedValue);
+    }
+    
+    // Update plan summary display
+    function updatePlanSummary(packageValue, packageKey) {
+        const summaryDiv = document.getElementById('planSummary');
+        
+        const features = {
+            'prelude': ['1 AI model', '3 angles/poses', '24–48 hour delivery', '1 revision round', 'Commercial Rights'],
+            'elan': ['3 AI models', '15 angles/poses (5 per model)', '24–48 hour delivery', '1 revision round', 'Commercial Rights'],
+            'signature': ['5 AI models', '30 angles/poses (6 per model)', '12–24 hour delivery', '2 revision rounds', 'Commercial Rights'],
+            'couture': ['10 AI models', '60 angles/poses (6 per model)', '24–36 hour delivery', '3 revision rounds', 'Commercial Rights'],
+            'legende': ['Custom', 'Custom', 'Custom delivery (varies)', '3 revisions', 'Commercial license']
+        };
+    
+        const prices = {
+            'Prélude - ₹3,999': '₹3,999',
+            'Élan - ₹10,999': '₹10,999',
+            'Signature - ₹19,999': '₹19,999',
+            'Couture Ensemble - ₹37,999': '₹37,999',
+            'Légende - Custom Pricing': 'Custom'
+        };
+    
+        const subtitles = {
+            'prelude': 'Creative Entry Point',
+            'elan': 'Distinctive Editorial Edge',
+            'signature': 'Campaign Essential',
+            'couture': 'Creative Suite',
+            'legende': 'Timeless Iconic Choice'
+        };
+    
+        document.getElementById('planName').textContent = packageValue.split(' - ')[0];
+        document.getElementById('planSubtitle').textContent = subtitles[packageKey] || 'Custom Package';
+        document.getElementById('planPrice').textContent = prices[packageValue] || 'Custom';
+    
+        const featureList = document.getElementById('planFeatures');
+        featureList.innerHTML = '';
+        (features[packageKey] || features.legende).forEach(feature => {
+            const li = document.createElement('li');
+            li.innerHTML = `✓ ${feature}`;
+            featureList.appendChild(li);
+        });
+    
+        summaryDiv.style.display = 'block';
+    }
+    
+    // Update total amount display and enable payment
+    function updateTotalAmount(packageValue) {
+        const baseAmount = calculateBaseAmount(packageValue);
+        const addonsAmount = calculateAddonsAmount();
+        const total = baseAmount + addonsAmount;
+    
+        document.getElementById('orderTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+    
+        // Enable submit button if package selected
+        if (total > 0) {
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').style.opacity = '1';
+            document.getElementById('submitBtn').style.pointerEvents = 'auto';
+            document.getElementById('submitBtn').textContent = 'Proceed to Payment →';
+    
+            document.getElementById('totalSection').style.opacity = '1';
+            document.getElementById('totalSection').style.pointerEvents = 'auto';
+    
+            // Enable addons
+            document.getElementById('addonsSection').style.opacity = '1';
+            document.getElementById('addonsSection').style.pointerEvents = 'auto';
+            document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
+                cb.disabled = false;
+            });
+        }
+    }
+    
+    // Listen for addon changes and update total
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'checkbox' && e.target.closest('#addonsSection')) {
+            const packageSelect = document.getElementById('packageSelection');
+            if (packageSelect.value) {
+                updateTotalAmount(packageSelect.value);
+            }
+        }
+    });
+    
+    // Function to calculate base amount
+    function calculateBaseAmount(packageValue) {
+        const prices = {
+            'Prélude - ₹3,999': 3999,
+            'Élan - ₹10,999': 10999,
+            'Signature - ₹19,999': 19999,
+            'Couture Ensemble - ₹37,999': 37999,
+            'Légende - Custom Pricing': 0
+        };
+        
+        if (prices[packageValue]) {
+            return prices[packageValue];
+        }
+        
+        // Fallback: extract from package name
+        const match = packageValue.match(/₹([\d,]+)/);
+        if (match) {
+            return parseInt(match[1].replace(/,/g, ''));
+        }
+        
+        return 0;
+    }
+    
+    // Function to calculate addon amount
+    function calculateAddonsAmount() {
+        let total = 0;
+        const addons = {
+            'rush': 2000,
+            'extraImages': 990,
+            'ageProgression': 2200,
+            'extraRevision': 2000,
+            'extraModel': 2300
+        };
+    
+        Object.keys(addons).forEach(addon => {
+            const checkbox = document.querySelector(`input[name="${addon}"]`);
+            if (checkbox && checkbox.checked) {
+                total += addons[addon];
+            }
+        });
+    
+        return total;
+    }
+    </script>
+
 
 </body>
 
 </html>
+
 
 
 
