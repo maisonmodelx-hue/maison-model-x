@@ -3427,6 +3427,15 @@ function onPlanChangeForEdition() {
                             CURRENCY_ID: 'INR',
                             STAGE_ID: 'NEW',
                             COMMENTS: bitrixMessage,
+/// change UF_CRM when acc changes
+                            UF_CRM_1764411506872: orderData.planDetails.tier,
+                            UF_CRM_1764411545161: orderData.models.length,
+                            UF_CRM_1764411558905: 0,
+                            UF_CRM_1764411575066: orderData.addOns ? Object.keys(orderData.addOns).filter(k => orderData.addOns[k] === true).join(", ") : "",
+                            UF_CRM_1764411612147: orderData.models[0]?.specifications || "",
+                            UF_CRM_1764411632230: orderData.models[0]?.productDescription || "",
+                            UF_CRM_1764411642341: "Pending",
+                            UF_CRM_1764411710802: "N/A",
                         }
                     };
             
@@ -4893,6 +4902,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
