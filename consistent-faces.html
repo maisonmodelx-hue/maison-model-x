@@ -2007,7 +2007,7 @@
                     </label>
                     <label id="extraImagesOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
                         <input type="checkbox" name="extraImages" id="extraImages" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
-                        <span>Extra Images <strong style="color: var(--gold);">+₹1,000</strong></span>
+                        <span>Extra Images <strong style="color: var(--gold);">+₹900</strong></span>
                     </label>
                     <label id="ageProgressionOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
                         <input type="checkbox" name="ageProgression" id="ageProgression" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
@@ -2015,11 +2015,11 @@
                     </label>
                     <label id="extraRevisionOption" style="display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
                         <input type="checkbox" name="extraRevision" id="extraRevision" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
-                        <span>Extra Revision Round <strong style="color: var(--gold);">+₹2,000</strong></span>
+                        <span>Extra Revision Round <strong style="color: var(--gold);">+₹2,200</strong></span>
                     </label>
                     <label id="extraModelOption" style="display: flex; align-items: center; cursor: pointer; padding: 10px; border-radius: 4px; transition: background 0.2s;">
                         <input type="checkbox" name="extraModel" id="extraModel" style="margin-right: 10px; cursor: pointer;" onchange="updateTotal()" disabled> 
-                        <span>Add Extra Model <strong style="color: var(--gold);">+₹2,300</strong></span>
+                        <span>Add Extra Model <strong style="color: var(--gold);">+₹2,000</strong></span>
                     </label>
                 </div>
             </div>
@@ -2038,8 +2038,9 @@
                 <p id="paymentTerms" style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Select a package to see pricing</p>
             </div>
 
-            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; font-size: 16px; opacity: 0.5; cursor: not-allowed;" disabled>Select a Package to Continue →</button>
-            <p style="text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">✓ Secure payment via Razorpay • ✓ 100% Satisfaction Guarantee • ✓ Delivery within promised time</p>
+            <button type="submit" id="submitBtn" style="width: 100%; padding: 16px; background: var(--gold); color: var(--black); border: none; font-weight: 700; font-size: 16px; border-radius: 4px; cursor: pointer; opacity: 0.5; pointer-events: none;" disabled>
+                Proceed to Payment →
+                <p style="text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">✓ Secure payment via Razorpay • ✓ 100% Satisfaction Guarantee • ✓ Delivery within promised time</p>
         </form>
 
         <script>
@@ -2140,94 +2141,78 @@
             let currentPlan = null;
 
             function handlePackageChange() {
-                const select = document.getElementById('packageSelection');
-                const selectedValue = select.value;
-
-                if (!selectedValue) {
-                    resetForm();
-                    return;
-                }
-
-                currentPlan = pricingPlans[selectedValue];
-
-                // Show plan summary
-                const summaryDiv = document.getElementById('planSummary');
-                summaryDiv.style.display = 'block';
-                document.getElementById('planName').textContent = currentPlan.name;
-                document.getElementById('planSubtitle').textContent = currentPlan.subtitle;
-                document.getElementById('planPrice').textContent = currentPlan.priceDisplay;
-
-                const featuresUl = document.getElementById('planFeatures');
-                featuresUl.innerHTML = '';
-                currentPlan.features.forEach(feature => {
-                    const li = document.createElement('li');
-                    li.textContent = feature;
-                    li.style.marginBottom = '5px';
-                    featuresUl.appendChild(li);
-                });
-
-                // Enable/disable sections based on plan
-                const isCustom = selectedValue === 'legende';
-
-                if (isCustom) {
-                    // For Légende (custom), show custom notice and minimal form
-                    enableSection('modelDescriptionSection', true);
-                    document.getElementById('modelCountLabel').textContent = '(Custom project)';
-                    document.getElementById('customNotice').style.display = 'block';
-                    document.getElementById('customRequirements').disabled = false;
-
-                    // Disable addons for custom
-                    disableSection('addonsSection');
-
-                    // Update total display
-                    document.getElementById('orderTotal').textContent = 'Custom Quote';
-                    document.getElementById('paymentTerms').textContent = 'Contact us for personalized pricing';
-                    document.getElementById('totalSection').style.opacity = '1';
-
-                    // Enable submit button
-                    const submitBtn = document.getElementById('submitBtn');
-                    submitBtn.textContent = 'Request Custom Quote →';
-                    submitBtn.style.opacity = '1';
-                    submitBtn.style.cursor = 'pointer';
-                    submitBtn.disabled = false;
-
-                } else {
-                    // Standard plans
-                    document.getElementById('customNotice').style.display = 'none';
-                    document.getElementById('customRequirements').disabled = true;
-
-                    enableSection('modelDescriptionSection', false);
-                    enableSection('addonsSection', false);
-                    enableSection('totalSection', false);
-
-                    // Update model count label
-                    const modelCount = currentPlan.models;
-                    document.getElementById('modelCountLabel').textContent = 
-                        `(Describe your ${modelCount === 1 ? 'model' : modelCount + ' models'})`;
-
-                    // Initialize multi-model wizard
-                    if (typeof window.initializeModelWizard === 'function') {
-                        window.initializeModelWizard(modelCount);
-                    }
-
-                    // Update total
-                    updateTotal();
-
-                    // Enable submit button (will be properly controlled by wizard for multi-model)
-                    const submitBtn = document.getElementById('submitBtn');
-                    if (modelCount === 1) {
-                        submitBtn.textContent = 'Generate My Model →';
-                        submitBtn.style.opacity = '1';
-                        submitBtn.style.cursor = 'pointer';
-                        submitBtn.disabled = false;
-                    } else {
-                        submitBtn.textContent = 'Complete All Models First';
-                        submitBtn.style.opacity = '0.5';
-                        submitBtn.style.cursor = 'not-allowed';
-                        submitBtn.disabled = true;
-                    }
-                }
+            const packageSelect = document.getElementById('packageSelection');
+            const selectedValue = packageSelect.value;
+        
+            if (!selectedValue) {
+                // Reset everything
+                document.getElementById('modelDescriptionSection').style.opacity = '0.5';
+                document.getElementById('modelDescriptionSection').style.pointerEvents = 'none';
+                document.getElementById('addonsSection').style.opacity = '0.5';
+                document.getElementById('addonsSection').style.pointerEvents = 'none';
+                document.getElementById('totalSection').style.opacity = '0.5';
+                document.getElementById('submitBtn').disabled = true;
+                return;
             }
+        
+            // Enable model description section
+            document.getElementById('modelDescriptionSection').style.opacity = '1';
+            document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
+        
+            // Get number of models for this package
+            const modelCounts = {
+                'prelude': 1,
+                'elan': 3,
+                'signature': 5,
+                'couture': 10,
+                'legende': 0
+            };
+        
+            const modelCount = modelCounts[selectedValue] || 1;
+            document.getElementById('modelCountLabel').textContent = `(${modelCount} Model${modelCount > 1 ? 's' : ''})`;
+        
+            // Initialize model wizard
+            window.initializeModelWizard(modelCount);
+        
+            // Set selected radio button value
+            const packageMap = {
+                'prelude': 'Prélude - ₹3,999',
+                'elan': 'Élan - ₹10,999',
+                'signature': 'Signature - ₹19,999',
+                'couture': 'Couture Ensemble - ₹37,999',
+                'legende': 'Légende - Custom Pricing'
+            };
+        
+            const radios = document.querySelectorAll('input[name="formPackage"]');
+            radios.forEach(radio => {
+                if (radio.value === packageMap[selectedValue]) {
+                    radio.checked = true;
+                }
+            });
+        
+            // Update plan summary
+            updatePlanSummary(selectedValue);
+        
+            // Update total amount
+            updateTotalAmount(selectedValue);
+        }
+        
+        function updateTotalAmount(packageValue) {
+            const prices = {
+                'prelude': 3999,
+                'elan': 10999,
+                'signature': 19999,
+                'couture': 37999,
+                'legende': 0
+            };
+        
+            const baseAmount = prices[packageValue] || 0;
+            const addonsAmount = calculateAddonsAmount();
+            const total = baseAmount + addonsAmount;
+        
+            document.getElementById('orderTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+        }
+
 
             function enableSection(sectionId, isCustom = false) {
                 const section = document.getElementById(sectionId);
@@ -3131,96 +3116,201 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-// Razorpay Payment Integration
+// Razorpay Payment Integration (CORRECTED)
 (function() {
     const orderForm = document.getElementById('orderForm');
 
-    // Store the original sendToBitrix24 function
-    const originalSendToBitrix24 = window.sendToBitrix24;
-
-    // Intercept form submission
     orderForm.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Collect form data
-        const formData = new FormData(orderForm);
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        });
-
-        // Get the total amount from the page
-        const totalElement = document.getElementById('orderTotal');
-        const totalText = totalElement ? totalElement.textContent : '₹0';
-        const amount = parseInt(totalText.replace(/[^0-9]/g, '')) || 0;
-
-        if (amount === 0) {
-            alert('Please select a package before proceeding.');
+        // Validation
+        const packageInput = document.querySelector('input[name="formPackage"]:checked');
+        if (!packageInput) {
+            alert('Please select a package before proceeding to payment.');
+            document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
             return;
         }
 
-        // Configure Razorpay options
+        // Get all form data
+        const formData = new FormData(orderForm);
+        const data = {
+            firstName: formData.get('firstName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            package: packageInput.value
+        };
+
+        // Calculate total amount (in paise)
+        const baseAmount = calculateBaseAmount(data.package);
+        const addonsAmount = calculateAddonsAmount();
+        const totalAmountInPaise = (baseAmount + addonsAmount) * 100;
+
+        if (totalAmountInPaise === 0) {
+            alert('Please select a valid package.');
+            return;
+        }
+
+        // STEP 1: Create order on backend (YOU MUST IMPLEMENT THIS ENDPOINT)
+        // This is where you call your backend to create a Razorpay order
+        // For now, we'll use a simulated order ID
+        // In production, replace with actual backend call
+        
+        const orderId = 'order_' + Date.now(); // Temporary - replace with backend order creation
+
+        // STEP 2: Configure Razorpay options
         const options = {
-            key: 'rzp_test_RlfywSc3dl1yTg', // Replace with your actual Razorpay Key ID
-            amount: amount * 100, // Amount in paise
+            key: 'rzp_test_RlfywSc3dl1yTg', // Replace with LIVE key in production
+            amount: totalAmountInPaise, // Amount in paise
             currency: 'INR',
-            order_id: 'order_' + Date.now(),
+            order_id: orderId, // Order ID from backend
             name: 'Maison Model X',
-            description: data.packageSelection || 'Custom Model Package',
-            image: 'https://www.maisonmodelx.com/logo.png', // Replace with your logo URL
-            handler: function(response) {
-                // Payment successful
-                console.log('Payment Success:', response);
-
-                // Add Razorpay payment details to form as hidden inputs
-                const paymentIdInput = document.createElement('input');
-                paymentIdInput.type = 'hidden';
-                paymentIdInput.name = 'razorpay_payment_id';
-                paymentIdInput.value = response.razorpay_payment_id;
-                orderForm.appendChild(paymentIdInput);
-
-                const orderIdInput = document.createElement('input');
-                orderIdInput.type = 'hidden';
-                orderIdInput.name = 'razorpay_order_id';
-                orderIdInput.value = response.razorpay_order_id || '';
-                orderForm.appendChild(orderIdInput);
-
-                const signatureInput = document.createElement('input');
-                signatureInput.type = 'hidden';
-                signatureInput.name = 'razorpay_signature';
-                signatureInput.value = response.razorpay_signature || '';
-                orderForm.appendChild(signatureInput);
-
-                // Now collect updated form data including payment details
-                const updatedFormData = new FormData(orderForm);
-                const updatedData = {};
-                updatedFormData.forEach((value, key) => {
-                    updatedData[key] = value;
-                });
-
-                // Submit to Bitrix24
-                originalSendToBitrix24(updatedData);
-            },
+            description: data.package,
             prefill: {
-                name: data.firstName || '',
-                email: data.email || '',
-                contact: data.phone || ''
+                name: data.firstName,
+                email: data.email,
+                contact: data.phone
             },
             theme: {
                 color: '#D4AF37'
             },
+            // STEP 3: Payment success callback
+            handler: function(response) {
+                console.log('Payment Success:', response);
+
+                // CRITICAL: Verify signature on backend (NOT HERE)
+                // This is a placeholder - actual verification must happen on backend
+                
+                // Add payment details to form
+                const hiddenFields = {
+                    'razorpay_payment_id': response.razorpay_payment_id,
+                    'razorpay_order_id': response.razorpay_order_id,
+                    'razorpay_signature': response.razorpay_signature
+                };
+
+                Object.keys(hiddenFields).forEach(key => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = hiddenFields[key];
+                    orderForm.appendChild(input);
+                });
+
+                // Now send to Bitrix24
+                sendToBitrix24WithPayment(data, response);
+            },
+            // Error handling
             modal: {
                 ondismiss: function() {
-                    alert('Payment failed or cancelled. Please try again.');
+                    console.log('Payment cancelled by user');
+                    alert('Payment cancelled. Please try again or contact support.');
                 }
             }
         };
 
-        // Open Razorpay checkout
-        const razorpayInstance = new Razorpay(options);
-        razorpayInstance.open();
+        // STEP 4: Open Razorpay checkout
+        const razorpay = new Razorpay(options);
+        
+        razorpay.on('payment.failed', function(response) {
+            console.error('Payment Error:', response.error);
+            alert('Payment failed: ' + response.error.description);
+        });
+
+        razorpay.open();
     });
-})();   
+
+    // Helper function to calculate base amount
+    function calculateBaseAmount(packageValue) {
+        const prices = {
+            'prelude': 3999,
+            'elan': 10999,
+            'signature': 19999,
+            'couture': 37999,
+            'legende': 0 // Custom
+        };
+        return prices[packageValue] || 0;
+    }
+
+    // Helper function to calculate addons
+    function calculateAddonsAmount() {
+        let total = 0;
+        const addons = {
+            'rush': 2000,
+            'extraImages': 990,
+            'ageProgression': 2200,
+            'extraRevision': 2000,
+            'extraModel': 2300
+        };
+
+        Object.keys(addons).forEach(addon => {
+            const checkbox = document.querySelector(`input[name="${addon}"]`);
+            if (checkbox && checkbox.checked) {
+                total += addons[addon];
+            }
+        });
+
+        return total;
+    }
+
+    // Send to Bitrix24 with payment confirmation
+    window.sendToBitrix24WithPayment = function(data, paymentResponse) {
+        const bitrix24WebhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
+
+        if (!bitrix24WebhookUrl || bitrix24WebhookUrl.includes('YOUR_')) {
+            // Demo mode - show confirmation
+            console.log('Order placed successfully!', data, paymentResponse);
+            
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'flex';
+            }
+            orderForm.reset();
+            return;
+        }
+
+        // Prepare data for Bitrix24
+        const bitrixData = {
+            fields: {
+                TITLE: `Order from ${data.firstName} - ${data.package}`,
+                NAME: data.firstName,
+                EMAIL: [{VALUE: data.email, VALUE_TYPE: "WORK"}],
+                PHONE: [{VALUE: data.phone, VALUE_TYPE: "WORK"}],
+                COMMENTS: `
+                Payment Confirmed:
+                Payment ID: ${paymentResponse.razorpay_payment_id}
+                Order ID: ${paymentResponse.razorpay_order_id}
+                Package: ${data.package}
+                Amount: ${calculateBaseAmount(data.package.split('-')[0])} INR
+                
+                Model Specifications: [Check form data]
+                `
+            }
+        };
+
+        // Send to Bitrix24
+        fetch(bitrix24WebhookUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(bitrixData)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Bitrix24 Success:', result);
+            
+            // Show confirmation
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'flex';
+            }
+            orderForm.reset();
+        })
+        .catch(error => {
+            console.error('Bitrix24 Error:', error);
+            alert('Order received but encountered an issue. We will contact you shortly.');
+            orderForm.reset();
+        });
+    };
+})();
+</script>
 
  /*   // TEMPORARY: Direct submission for testing (bypasses payment)
     document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -3265,6 +3355,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
