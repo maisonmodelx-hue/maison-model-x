@@ -2404,9 +2404,21 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    alert('There was an error submitting your feedback. Please try again.');
+                    console.error('Bitrix24 Error:', error);
+                    
+                    // ❌ DON'T reset form on error
+                    // alert('Order received but encountered an issue. We will contact you shortly.');
+                    
+                    // ✅ Instead: Show error but keep data for retry
+                    alert('Order received! Payment confirmed. There was a technical issue sending details to our system, but we have your payment and will contact you within 24 hours.');
+                    
+                    // Log for debugging
+                    console.log('Failed to send to Bitrix24. Payment details:', paymentResponse);
+                    
+                    // Optionally: Email backup notification
+                    // Send to a fallback email just in case
                 });
+
             });
 
             
@@ -3288,14 +3300,51 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
                 NAME: data.firstName,
                 EMAIL: [{VALUE: data.email, VALUE_TYPE: "WORK"}],
                 PHONE: [{VALUE: data.phone, VALUE_TYPE: "WORK"}],
+                const modelSpecs = Object.entries(window.getWizardState().modelData)
+                    .map(([modelNum, data]) => `
+                        Model ${modelNum}:
+                        - Age: ${data.age}
+                        - Gender: ${data.gender}
+                        - Ethnicity: ${data.ethnicity}
+                        - Region: ${data.region}
+                        - Hair: ${data.hairType}, ${data.hairColor}
+                        - Skin Tone: ${data.skinTone}
+                        - Notes: ${data.description}
+                    `).join('\n');
                 COMMENTS: `
+                // In sendToBitrix24WithPayment, add:
+                const selectedAddons = {
+                    rush: document.querySelector('input[name="rush"]')?.checked,
+                    extraImages: document.querySelector('input[name="extraImages"]')?.checked,
+                    ageProgression: document.querySelector('input[name="ageProgression"]')?.checked,
+                    extraRevision: document.querySelector('input[name="extraRevision"]')?.checked,
+                    extraModel: document.querySelector('input[name="extraModel"]')?.checked
+                };
+                
+                // Calculate addon total for reference
+                const addonCosts = {
+                    rush: 2000,
+                    extraImages: 990,
+                    ageProgression: 2200,
+                    extraRevision: 2000,
+                    extraModel: 2300
+                };
+                
+                let addonsDisplay = 'Add-ons:\n';
+                Object.entries(selectedAddons).forEach(([addon, selected]) => {
+                    if (selected) {
+                        addonsDisplay += `✓ ${addon}: ₹${addonCosts[addon]}\n`;
+                    }
+                });
+
                 Payment Confirmed:
                 Payment ID: ${paymentResponse.razorpay_payment_id}
                 Order ID: ${paymentResponse.razorpay_order_id}
                 Package: ${data.package}
-                Amount: ${calculateBaseAmount(data.package.split('-')[0])} INR
+                window.lastPaymentAmount = totalAmountInPaise / 100; // Convert back to rupees
+                Amount: ₹${window.lastPaymentAmount} INR
                 
-                Model Specifications: [Check form data]
+                ${modelSpecs}
                 `
             }
         };
@@ -3562,6 +3611,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
