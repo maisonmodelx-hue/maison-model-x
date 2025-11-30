@@ -3426,74 +3426,6 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         
         
         // Update plan summary display
-
-        // Handle package selection changes
-        function handlePackageChange() {
-            const packageSelect = document.getElementById('packageSelection');
-            const selectedValue = packageSelect.value;
-        
-            if (!selectedValue) {
-                // Reset everything
-                document.getElementById('modelDescriptionSection').style.opacity = '0.5';
-                document.getElementById('modelDescriptionSection').style.pointerEvents = 'none';
-                document.getElementById('addonsSection').style.opacity = '0.5';
-                document.getElementById('addonsSection').style.pointerEvents = 'none';
-                
-                // Disable addon checkboxes
-                document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
-                    cb.disabled = true;
-                });
-                
-                document.getElementById('totalSection').style.opacity = '0.5';
-                document.getElementById('submitBtn').disabled = true;
-                document.getElementById('submitBtn').style.opacity = '0.5';
-                document.getElementById('submitBtn').textContent = 'Select Package to Proceed →';
-                document.getElementById('planSummary').style.display = 'none';
-                return;
-            }
-        
-            // Enable model description section
-            document.getElementById('modelDescriptionSection').style.opacity = '1';
-            document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
-        
-            // Get number of models for this package
-            const modelCounts = {
-                'prelude': 1,
-                'elan': 3,
-                'signature': 5,
-                'couture': 10,
-                'legende': 0
-            };
-        
-            // Extract package key from value (e.g., "Prélude - ₹3,999" → "prelude")
-            let packageKey = 'custom';
-            for (let key of Object.keys(modelCounts)) {
-                if (selectedValue.toLowerCase().includes(key)) {
-                    packageKey = key;
-                    break;
-                }
-            }
-        
-            const modelCount = modelCounts[packageKey] || 1;
-            document.getElementById('modelCountLabel').textContent = `(${modelCount} Model${modelCount > 1 ? 's' : ''})`;
-        
-            // Initialize model wizard
-            window.initializeModelWizard(modelCount);
-        
-            // Set selected radio button value
-            const radios = document.querySelectorAll('input[name="formPackage"]');
-            radios.forEach(radio => {
-                if (radio.value === selectedValue) {
-                    radio.checked = true;
-                }
-            });
-        
-            // Update plan summary
-            updatePlanSummary(selectedValue, packageKey);
-        
-            // Update total amount
-            updateTotalAmount(selectedValue);
-        }
         
         // Update total amount display and enable payment
         function updateTotalAmount(packageValue) {
@@ -3623,6 +3555,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
