@@ -1776,23 +1776,30 @@ document.addEventListener('DOMContentLoaded', function() {
 function toggleAccessorySection(num) {
   const sel = document.getElementById(`accessories_included_model${num}`);
   const sec = document.getElementById(`accessories_section_model${num}`);
+  const toggleGroup = sel?.closest('.accessories-toggle-group');
   
   // Check if tier supports accessories
   const planSelect = document.getElementById('planSelect');
   const selectedPlan = planSelect ? planSelect.value : '';
-  const tierSupportsAccessories = selectedPlan === 'atelier' || selectedPlan === 'maison';
+  const tierSupportsAccessories = ['atelier', 'maison'].includes(selectedPlan);
   
   if (!tierSupportsAccessories) {
     // Hide and clear for unsupported tiers
-    sec.classList.add("hidden-section");
-    sel.value = "No";
+    if (toggleGroup) toggleGroup.style.display = 'none';
+    if (sec) sec.classList.add('hidden-section');
+    if (sel) sel.value = 'No';
     clearAccessoryInputs(num);
     return;
   }
+    
+  if (toggleGroup) toggleGroup.style.display = 'block';
   
   // Normal toggle for supported tiers
-  if (sel.value === "Yes") sec.classList.remove("hidden-section");
-  else sec.classList.add("hidden-section");
+  if (sel.value === 'Yes') {
+        sec.classList.remove('hidden-section');
+    } else {
+        sec.classList.add('hidden-section');
+    }
 }
 
 function clearAccessoryInputs(num) {
@@ -3233,7 +3240,7 @@ function onPlanChangeForEdition() {
                 <!-- SUBMIT BUTTON -->
                 <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(212, 175, 55, 0.2);">
                     <p style="font-size: 13px; color: rgba(255, 255, 255, 0.6); margin-bottom: 20px;">Your payment is secured through Razorpay. We'll send a confirmation email with the next steps.</p>
-                    <button type="submit" class="btn btn-primary" id="paymentSubmitBtn">Proceed to Payment</button>
+                    <button type="button" class="btn btn-primary" id="paymentSubmitBtn">Proceed to Payment</button>
                 </div>
 
                 <div id="paymentMessage" style="display: none; padding: 12px; margin: 1rem 0; border-radius: 6px; font-size: 0.95rem; text-align: center;"></div>
@@ -3256,15 +3263,57 @@ function onPlanChangeForEdition() {
                 // ========================================
                 document.addEventListener('DOMContentLoaded', function() {
                     const orderForm = document.getElementById('orderForm');
+                    const submitBtn = document.getElementById('paymentSubmitBtn');
                     
-                    if (orderForm) {
-                        orderForm.addEventListener('submit', function(e) {
-                            e.preventDefault();
-                            console.log('🎯 Form submitted! Collecting data...');
+                    // Remove the form submit event listener (or modify it)
+                    
+                    // Add click handler to button
+                    submitBtn.addEventListener('click', function() {
+                        const selectedPlan = document.getElementById('planSelect').value;
+                        
+                        if (!selectedPlan) {
+                            alert('Please select a plan');
+                            return;
+                        }
+                        
+                        // Legacy plan - skip payment
+                        if (selectedPlan === 'legacy') {
                             collectAndSendToBitrix24();
-                        });
-                    }
+                            return;
+                        }
+                        
+                        // Paid plans - initiate Razorpay payment
+                        initiateRazorpayPayment();
+                    });
                 });
+                
+                // After successful payment
+                function handlePaymentSuccess(response) {
+                    console.log('Payment successful!', response);
+                    
+                    // Add payment data to form
+                    const paymentIdInput = document.createElement('input');
+                    paymentIdInput.type = 'hidden';
+                    paymentIdInput.name = 'razorpay_payment_id';
+                    paymentIdInput.value = response.razorpay_payment_id;
+                    orderForm.appendChild(paymentIdInput);
+                    
+                    const orderIdInput = document.createElement('input');
+                    orderIdInput.type = 'hidden';
+                    orderIdInput.name = 'razorpay_order_id';
+                    orderIdInput.value = response.razorpay_order_id;
+                    orderForm.appendChild(orderIdInput);
+                    
+                    const signatureInput = document.createElement('input');
+                    signatureInput.type = 'hidden';
+                    signatureInput.name = 'razorpay_signature';
+                    signatureInput.value = response.razorpay_signature;
+                    orderForm.appendChild(signatureInput);
+                    
+                    // NOW send to Bitrix24
+                    collectAndSendToBitrix24();
+                }
+
             
                 // ========================================
                 // MAIN COLLECTION FUNCTION
@@ -4559,8 +4608,11 @@ function onPlanChangeForEdition() {
 
             // Set garment limit display
             const garmentLimit = garmentLimits[selectedPlan] || 1;
-            document.getElementById('maxGarmentsDisplay').textContent = garmentLimit;
-            document.getElementById('garmentMax').textContent = garmentLimit;
+            const maxDisplay = document.getElementById('maxGarmentsDisplay');
+            if (maxDisplay) maxDisplay.textContent = garmentLimit;
+                
+            const garmentMaxDisplay = document.getElementById('garmentMax');
+            if (garmentMaxDisplay) garmentMaxDisplay.textContent = garmentLimit;
 
             // Rebuild garment upload inputs
             updateGarmentUploadInputs(garmentLimit);
@@ -4602,20 +4654,37 @@ function onPlanChangeForEdition() {
         }
 
         // ============ UPDATE GARMENT UPLOAD INPUTS ============
+        // UPDATE GARMENT UPLOAD INPUTS
         function updateGarmentUploadInputs(limit) {
             const container = document.getElementById('garmentUploadContainer');
-            container.innerHTML = '';
-
-            for (let i = 1; i <= limit; i++) {
-                const inputHTML = `
-                    <div style="padding: 15px; background: rgba(212, 175, 55, 0.05); border: 1px dashed rgba(212, 175, 55, 0.3); border-radius: 6px;">
-                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold);">
-                        The image upload link will be sent to you via email for better quality and larger files.
+            
+            // Add the info panel FIRST
+            let infoPanel = `
+                <div style="padding: 15px; background: rgba(212, 175, 55, 0.08); border: 1px dashed rgba(212, 175, 55, 0.3); border-radius: 6px; margin-bottom: 20px;">
+                    <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold); margin: 0;">
+                        <strong style="color: var(--gold);">📧 Image Upload Info:</strong> The image upload link will be sent to you via email for better quality and larger files.
                     </p>
+                </div>
+            `;
+            
+            // Then add the upload inputs
+            let inputsHTML = infoPanel;
+            
+            for (let i = 1; i <= limit; i++) {
+                inputsHTML += `
+                    <div style="padding: 15px; background: rgba(212, 175, 55, 0.05); border: 1px dashed rgba(212, 175, 55, 0.3); border-radius: 6px; margin-bottom: 15px;">
+                        <label for="garment${i}file" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase;">
+                            Garment/Item ${i}
+                        </label>
+                        <input type="file" id="garment${i}file" name="garment${i}file" accept="image/*" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; color: white;" />
+                        <p style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-top: 8px; margin-bottom: 0;">
+                            Upload image or describe your garment/item. You'll receive a secure upload link via email if the file is large.
+                        </p>
                     </div>
                 `;
-                container.innerHTML += inputHTML;
             }
+            
+            container.innerHTML = inputsHTML;
         }
 
         // ============ VALIDATE GARMENT LIMIT ============
@@ -4983,6 +5052,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
