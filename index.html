@@ -3156,13 +3156,6 @@ function onPlanChangeForEdition() {
                                     <span class="addon-price">+₹1,000</span>
                                 </label>
                             </div>
-                            <div class="addon-item">
-                                <input type="checkbox" id="addonPremiumRetouch" name="addon_premium_retouch" value="1500" onchange="updatePriceDisplay()">
-                                <label for="addonPremiumRetouch">
-                                    <span>Premium Retouching</span>
-                                    <span class="addon-price">+₹1,500</span>
-                                </label>
-                            </div>
                             <!-- Brand Name Placement Add-On (Artisan & Couture Only) -->
                             <div id="addonBrandNamePlacementItem" class="addon-item hidden-section">
                                 <input type="checkbox" id="addonBrandNamePlacement" name="addonbrandnameplacement" value="1000" onchange="updatePriceDisplay()">
@@ -3346,7 +3339,6 @@ function onPlanChangeForEdition() {
                         { id: 'addonExtraModel', value: 2500 },
                         { id: 'addonExtraGarment', value: 500 },
                         { id: 'addonFastDelivery', value: 1000 },
-                        { id: 'addonPremiumRetouch', value: 1500 },
                         { id: 'addonBrandNamePlacement', value: 1000 }
                     ];
                 
@@ -3635,7 +3627,6 @@ function onPlanChangeForEdition() {
                         extraModel: document.querySelector('input[name="addon_extra_model"]')?.checked || false,
                         extraGarment: document.querySelector('input[name="addon_extra_garment"]')?.checked || false,
                         fastDelivery: document.querySelector('input[name="addon_fast_delivery"]')?.checked || false,
-                        premiumRetouch: document.querySelector('input[name="addon_premium_retouch"]')?.checked || false,
                         brandNamePlacement: document.querySelector('input[name="addonbrandnameplacement"]')?.checked || false,
                     };
             
@@ -3922,7 +3913,6 @@ function onPlanChangeForEdition() {
                         if (orderData.addOns.extraModel) message += `✓ Extra Model\n`;
                         if (orderData.addOns.extraGarment) message += `✓ Extra Garment\n`;
                         if (orderData.addOns.fastDelivery) message += `✓ Fast Delivery\n`;
-                        if (orderData.addOns.premiumRetouch) message += `✓ Premium Retouch\n`;
                         message += `\n`;
                     }
 
@@ -4966,7 +4956,6 @@ function onPlanChangeForEdition() {
                 { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
                 { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
                 { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
-                { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 },
                 { checkbox: document.getElementById("addonBrandNamePlacement"), value: 1000 }
             ];
 
@@ -5103,7 +5092,6 @@ function onPlanChangeForEdition() {
                         { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
                         { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
                         { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
-                        { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 }
                     ];
 
                     addons.forEach(addon => {
@@ -5269,6 +5257,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
