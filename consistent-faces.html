@@ -2038,7 +2038,7 @@
                 <p id="paymentTerms" style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Select a package to see pricing</p>
             </div>
 
-            <button type="button" class="btn btn-primary" id="submitBtn" onclick="initiateRazorpayPaymentConsistentFaces()">Proceed to Pay →</button>
+            <button type="button" class="btn btn-primary" id="submitBtn" onclick="initiateRazorpayPaymentConsistentFaces()">Submit Order</button>
             <p style="text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">✓ Secure payment via Razorpay • ✓ 100% Satisfaction Guarantee • ✓ Delivery within promised time</p>
         </form>
 
@@ -2695,11 +2695,11 @@
                 }
             
                 const packagePrices = {
-                    'Prelude - 3,999': 3999,
-                    'Elan - 10,999': 10999,
-                    'Signature - 19,999': 19999,
-                    'Couture Ensemble - 37,999': 37999,
-                    'Legende - Custom Pricing': 0
+                    'prelude': 3999,
+                    'elan': 10999,
+                    'signature': 19999,
+                    'couture': 37999,
+                    'legende': 0
                 };
             
                 const basePrice = packagePrices[packageInput.value] || 0;
@@ -3080,6 +3080,7 @@
 </body>
 
 </html>
+
 
 
 
