@@ -2158,7 +2158,15 @@
             // Enable model description section
             document.getElementById('modelDescriptionSection').style.opacity = '1';
             document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
-        
+
+            const fieldIds = ['age', 'gender', 'ethnicity', 'region', 'hairType', 'hairColor', 'skinTone', 'description'];
+            fieldIds.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.disabled = false;
+                }
+            });
+                    
             // Get number of models for this package
             const modelCounts = {
                 'prelude': 1,
@@ -3584,6 +3592,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
