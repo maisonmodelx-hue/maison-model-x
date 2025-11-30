@@ -3286,6 +3286,116 @@ function onPlanChangeForEdition() {
                         initiateRazorpayPayment();
                     });
                 });
+
+                // ============ INITIATE RAZORPAY PAYMENT FUNCTION ============
+                function initiateRazorpayPayment() {
+                    const orderForm = document.getElementById('orderForm');
+                    const submitBtn = document.getElementById('paymentSubmitBtn');
+                    const selectedPlan = document.getElementById('planSelect').value;
+                    const planPrices = {
+                        artisan: 5999,
+                        couture: 14999,
+                        atelier: 29999,
+                        maison: 74999,
+                        legacy: 0
+                    };
+                
+                    // Get customer info
+                    const clientName = document.querySelector('input[name="clientName"]').value;
+                    const clientEmail = document.querySelector('input[name="clientEmail"]').value;
+                    const clientPhone = document.querySelector('input[name="clientPhone"]').value;
+                
+                    if (!clientName || !clientEmail || !clientPhone) {
+                        alert('Please fill in your name, email, and phone number');
+                        return;
+                    }
+                
+                    // Calculate total amount
+                    const basePrice = planPrices[selectedPlan] || 0;
+                    const basePriceInPaisa = basePrice * 100;
+                
+                    // Calculate add-ons
+                    let addonPaisaTotal = 0;
+                    const addons = [
+                        { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
+                        { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
+                        { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
+                        { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 },
+                        { checkbox: document.getElementById('addonBrandNamePlacement'), value: 1000 }
+                    ];
+                
+                    addons.forEach(addon => {
+                        if (addon.checkbox && addon.checkbox.checked) {
+                            addonPaisaTotal += addon.value * 100;
+                        }
+                    });
+                
+                    const totalAmount = basePriceInPaisa + addonPaisaTotal;
+                
+                    console.log('Payment Details:', { basePrice, totalAmount, plan: selectedPlan });
+                
+                    // Razorpay options
+                    const options = {
+                        key: 'rzp_test_RlfywSc3dl1yTg',
+                        amount: totalAmount,
+                        currency: 'INR',
+                        name: 'Maison Model X',
+                        description: 'AI-Generated Fashion Model Photography - ' + selectedPlan.toUpperCase(),
+                        order_id: 'order_' + Date.now(),
+                        prefill: {
+                            name: clientName,
+                            email: clientEmail,
+                            contact: clientPhone
+                        },
+                        theme: { color: '#d4af37' },
+                        handler: handlePaymentSuccess,
+                        modal: {
+                            ondismiss: function() {
+                                submitBtn.textContent = 'Proceed to Payment';
+                                submitBtn.disabled = false;
+                            }
+                        }
+                    };
+                
+                    submitBtn.textContent = 'Opening Payment...';
+                    submitBtn.disabled = true;
+                
+                    try {
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error initializing payment');
+                        submitBtn.textContent = 'Proceed to Payment';
+                        submitBtn.disabled = false;
+                    }
+                }
+                
+                // ============ HANDLE PAYMENT SUCCESS ============
+                function handlePaymentSuccess(response) {
+                    const orderForm = document.getElementById('orderForm');
+                    
+                    // Add payment IDs to form
+                    ['razorpay_payment_id', 'razorpay_order_id', 'razorpay_signature'].forEach(field => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = field;
+                        input.value = response[field];
+                        orderForm.appendChild(input);
+                    });
+                
+                    // Show success message
+                    const msgDiv = document.getElementById('paymentMessage');
+                    msgDiv.textContent = 'Payment successful! Submitting order...';
+                    msgDiv.style.display = 'block';
+                    msgDiv.style.backgroundColor = '#d4edda';
+                    msgDiv.style.color = '#155724';
+                    msgDiv.style.borderLeft = '4px solid #28a745';
+                
+                    // Send to Bitrix24
+                    setTimeout(() => collectAndSendToBitrix24(), 1500);
+                }
+
                 
                 // After successful payment
                 function handlePaymentSuccess(response) {
@@ -4676,13 +4786,13 @@ function onPlanChangeForEdition() {
                         <label for="garment${i}file" style="display: block; margin-bottom: 8px; color: var(--gold); font-weight: 600; font-size: 12px; text-transform: uppercase;">
                             Garment/Item ${i}
                         </label>
-                        <input type="file" id="garment${i}file" name="garment${i}file" accept="image/*" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; color: white;" />
+                    <!--    <input type="file" id="garment${i}file" name="garment${i}file" accept="image/*" style="width: 100%; padding: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; color: white;" /> -->
                         <p style="font-size: 12px; color: rgba(255, 255, 255, 0.6); margin-top: 8px; margin-bottom: 0;">
                             Upload image or describe your garment/item. You'll receive a secure upload link via email if the file is large.
                         </p>
                     </div>
                 `;
-            }
+            }  
             
             container.innerHTML = inputsHTML;
         }
