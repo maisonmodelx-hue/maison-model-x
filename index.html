@@ -3301,10 +3301,9 @@ function onPlanChangeForEdition() {
                     };
                 
                     // Get customer info
-                    // ✅ NEW (FIXED)
-                    const clientNameInput = document.querySelector('input[name="clientName"]');
-                    const clientEmailInput = document.querySelector('input[name="clientEmail"]');
-                    const clientPhoneInput = document.querySelector('input[name="clientPhone"]');
+                    const clientNameInput = document.querySelector('input[name="clientname"]');
+                    const clientEmailInput = document.querySelector('input[name="clientemail"]');
+                    const clientPhoneInput = document.querySelector('input[name="clientphone"]');
                     
                     if (!clientNameInput || !clientEmailInput || !clientPhoneInput) {
                         alert('Customer info fields not found. Please refresh the page.');
@@ -3314,6 +3313,11 @@ function onPlanChangeForEdition() {
                     const clientName = clientNameInput.value;
                     const clientEmail = clientEmailInput.value;
                     const clientPhone = clientPhoneInput.value;
+
+                    if (!clientName || !clientEmail || !clientPhone) {
+                        alert('Please fill in your name, email, and phone number');
+                        return;
+                    }
 
                 
                     // Calculate total amount
@@ -5152,6 +5156,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
