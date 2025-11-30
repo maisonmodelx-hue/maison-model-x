@@ -1167,56 +1167,276 @@
         }
 
         @media (max-width: 768px) {
-            nav {
-                padding: 15px 30px;
-            }
-
-            nav ul {
+            /* HERO MOBILE */
+              .hero {
+                min-height: 90vh;
+                padding-top: 100px;
+                padding-bottom: 40px;
+              }
+            
+              .hero h1 {
+                font-size: 36px !important;
+                line-height: 1.2;
+                margin-bottom: 12px;
+              }
+            
+              .hero .tagline {
+                font-size: 24px;
+                margin-bottom: 20px;
+              }
+            
+              .hero p {
+                font-size: 15px;
+                line-height: 1.7;
+                margin-bottom: 30px;
+              }
+            
+              .cta-buttons {
                 gap: 15px;
+                margin-bottom: 40px;
+              }
+            
+              .btn {
+                padding: 12px 24px;
                 font-size: 11px;
+                width: auto;
+                white-space: nowrap;
+              }
+            
+              /* SECTIONS */
+              section {
+                padding: 50px 20px !important;
+              }
+            
+              .section-title {
+                font-size: 32px;
+                margin-bottom: 15px;
+              }
+            
+              .section-subtitle {
+                font-size: 13px;
+                margin-bottom: 40px;
+              }
+            
+              /* GALLERY GRID */
+              .gallery-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px;
+              }
+            
+              .gallery-item {
+                aspect-ratio: 0.8;
+              }
+            
+              /* PRICING GRID */
+              .pricing-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+              }
+            
+              .pricing-card {
+                padding: 20px 15px;
+                min-width: unset;
+              }
+            
+              .pricing-card .price {
+                font-size: 24px;
+              }
+            
+              .pricing-card ul {
+                margin: 20px 0;
+              }
+            
+              /* FEATURES/BENEFITS GRID */
+              .features-grid,
+              .benefits-grid,
+              .services-grid,
+              .why-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+              }
+            
+              .feature-card,
+              .benefit-card,
+              .service-card,
+              .why-card {
+                padding: 25px;
+              }
+            
+              /* STEPS GRID */
+              .steps-container {
+                grid-template-columns: 1fr !important;
+                gap: 20px;
+              }
+            
+              .steps-container::before {
+                display: none !important;
+              }
+            
+              .step-number {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+              }
+            
+              /* COMPARISON */
+              .comparison {
+                grid-template-columns: 1fr !important;
+                gap: 30px;
+              }
+            
+              .comparison-item {
+                padding: 25px;
+              }
+            
+              /* FORMS */
+              .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px;
+              }
+            
+              .form-container {
+                padding: 30px 20px;
+              }
+            
+              .form-group input,
+              .form-group select,
+              .form-group textarea {
+                font-size: 14px;
+                padding: 12px;
+              }
+            
+              /* ABOUT SECTION */
+              .about-content {
+                grid-template-columns: 1fr !important;
+                gap: 30px;
+              }
+            
+              .about-text h3 {
+                font-size: 24px;
+              }
+            
+              .about-text p {
+                font-size: 13px;
+              }
+            
+              /* FOOTER */
+              .footer-content {
+                grid-template-columns: 1fr !important;
+                gap: 30px;
+              }
+            
+              .footer-section h4 {
+                font-size: 12px;
+              }
+            
+              .social-links {
+                gap: 15px;
+              }
+            
+              .social-links a {
+                width: 40px;
+                height: 40px;
+              }
+            
+              .social-links img {
+                width: 20px;
+                height: 20px;
+              }
+            
+              /* NAVIGATION */
+              nav {
+                padding: 12px 20px;
+              }
+            
+              nav ul {
+                gap: 12px;
+                font-size: 10px;
+              }
+            
+              .logo {
+                font-size: 16px;
+              }
+            
+              /* SCROLL TO TOP */
+              .scroll-to-top-btn {
+                width: 45px;
+                height: 45px;
+                bottom: 20px;
+                right: 20px;
+              }
+            }
+            
+            /* EXTRA SMALL SCREENS (Mobile Phones) */
+            @media (max-width: 480px) {
+              .hero {
+                min-height: 85vh;
+                padding-top: 80px;
+              }
+            
+              .hero h1 {
+                font-size: 28px;
+              }
+            
+              .hero .tagline {
+                font-size: 20px;
+              }
+            
+              .hero p {
+                font-size: 14px;
+              }
+            
+              .cta-buttons {
+                flex-direction: column;
+                gap: 12px;
+              }
+            
+              .btn {
+                width: 100%;
+                padding: 12px 20px;
+              }
+            
+              section {
+                padding: 40px 15px !important;
+              }
+            
+              .section-title {
+                font-size: 26px;
+              }
+            
+              .gallery-grid {
+                grid-template-columns: 1fr !important;
+              }
+            
+              .pricing-card {
+                padding: 15px;
+              }
+            
+              .pricing-card .price {
+                font-size: 20px;
+              }
+            
+              .form-container {
+                padding: 20px 15px;
+              }
+            
+              nav {
+                padding: 10px 15px;
+              }
+            
+              nav ul {
+                gap: 8px;
+              }
+            
+              .logo {
+                font-size: 14px;
+              }
+            
+              .feedback-container {
+                padding: 25px 15px;
+              }
             }
 
-            section {
-                padding: 60px 30px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .section-title {
-                font-size: 36px;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .benefits-grid,
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .steps-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .steps-container::before {
-                display: none;
-            }
-
-            .form-container {
-                padding: 30px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
 
         /* ============ COLOR PICKER MODAL ============ */
         .color-picker-modal {
@@ -5405,6 +5625,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
