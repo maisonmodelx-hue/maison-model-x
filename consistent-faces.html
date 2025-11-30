@@ -1842,6 +1842,36 @@
                         } else {
                             progressDiv.style.display = 'none';
                             navDiv.style.display = 'none';
+                            enableStep4();
+                        }
+                    }
+
+                    // Helper function to enable Step 4 (addons section)
+                    function enableStep4() {
+                        const addonsSection = document.getElementById('addonsSection');
+                        if (addonsSection) {
+                            addonsSection.style.opacity = '1';
+                            addonsSection.style.pointerEvents = 'auto';
+                    
+                            // Enable addon checkboxes
+                            document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
+                                cb.disabled = false;
+                            });
+                        }
+                    
+                        // Enable total section
+                        const totalSection = document.getElementById('totalSection');
+                        if (totalSection) {
+                            totalSection.style.opacity = '1';
+                        }
+                    
+                        // Enable submit button
+                        const submitBtn = document.getElementById('submitBtn');
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.style.opacity = '1';
+                            submitBtn.style.cursor = 'pointer';
+                            submitBtn.textContent = 'Submit Order →';
                         }
                     }
 
@@ -3592,6 +3622,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
