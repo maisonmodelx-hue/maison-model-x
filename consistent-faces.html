@@ -3223,49 +3223,13 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     });
 })();  
 
-    // TEMPORARY: Direct submission for testing (bypasses payment)
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Check if package is selected
-        const packageInput = document.querySelector('input[name="formPackage"]:checked');
-        if (!packageInput) {
-            alert('Please select a package from the pricing section above before submitting.');
-            document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
-            return;
-        }
     
-        // Collect form data
-        const formData = {
-            firstName: document.querySelector('input[name="firstName"]').value,
-            email: document.querySelector('input[name="email"]').value,
-            phone: document.querySelector('input[name="phone"]').value,
-            packageSelection: packageInput.value,
-            age: document.querySelector('select[name="age"]').value,
-            gender: document.querySelector('select[name="gender"]').value,
-            ethnicity: document.querySelector('select[name="ethnicity"]').value,
-            region: document.querySelector('select[name="region"]').value,
-            hairType: document.querySelector('select[name="hairType"]').value,
-            hairColor: document.querySelector('select[name="hairColor"]').value,
-            skinTone: document.querySelector('select[name="skinTone"]').value,
-            description: document.querySelector('textarea[name="description"]').value,
-            rush: document.querySelector('input[name="rush"]')?.checked || false,
-            extraImages: document.querySelector('input[name="extraImages"]')?.checked || false,
-            ageProgression: document.querySelector('input[name="ageProgression"]')?.checked || false,
-            extraRevision: document.querySelector('input[name="extraRevision"]')?.checked || false,
-            extraModel: document.querySelector('input[name="extraModel"]')?.checked || false,
-            customRequirements: document.querySelector('textarea[name="customRequirements"]')?.value || ''
-        };
-    
-        // Submit directly to Bitrix24 (use the existing sendToBitrix24 function)
-        sendToBitrix24(formData);
-    });
-
 </script>
 
 </body>
 
 </html>
+
 
 
 
