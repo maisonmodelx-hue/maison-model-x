@@ -31,4 +31,22 @@ exports.handler = async (event) => {
     });
 
     return {
-      statusCode
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        orderId: order.id,
+        amount: order.amount,
+        currency: order.currency
+      })
+    };
+  } catch (error) {
+    console.error('Razorpay Error:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        success: false,
+        message: error.message || 'Failed to create order'
+      })
+    };
+  }
+};
