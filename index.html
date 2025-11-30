@@ -3301,14 +3301,20 @@ function onPlanChangeForEdition() {
                     };
                 
                     // Get customer info
-                    const clientName = document.querySelector('input[name="clientName"]').value;
-                    const clientEmail = document.querySelector('input[name="clientEmail"]').value;
-                    const clientPhone = document.querySelector('input[name="clientPhone"]').value;
-                
-                    if (!clientName || !clientEmail || !clientPhone) {
-                        alert('Please fill in your name, email, and phone number');
+                    // ✅ NEW (FIXED)
+                    const clientNameInput = document.querySelector('input[name="clientName"]');
+                    const clientEmailInput = document.querySelector('input[name="clientEmail"]');
+                    const clientPhoneInput = document.querySelector('input[name="clientPhone"]');
+                    
+                    if (!clientNameInput || !clientEmailInput || !clientPhoneInput) {
+                        alert('Customer info fields not found. Please refresh the page.');
                         return;
                     }
+                    
+                    const clientName = clientNameInput.value;
+                    const clientEmail = clientEmailInput.value;
+                    const clientPhone = clientPhoneInput.value;
+
                 
                     // Calculate total amount
                     const basePrice = planPrices[selectedPlan] || 0;
@@ -5146,6 +5152,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
