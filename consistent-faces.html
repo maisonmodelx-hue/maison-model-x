@@ -3278,9 +3278,11 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     }
 
     // Send to Bitrix24 with payment confirmation
+
+    // Send to Bitrix24 with payment confirmation
     window.sendToBitrix24WithPayment = function(data, paymentResponse) {
         const bitrix24WebhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
-
+    
         if (!bitrix24WebhookUrl || bitrix24WebhookUrl.includes('YOUR_')) {
             // Demo mode - show confirmation
             console.log('Order placed successfully!', data, paymentResponse);
@@ -3292,7 +3294,51 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             orderForm.reset();
             return;
         }
-
+    
+        // ✅ DEFINE modelSpecs BEFORE using it in COMMENTS
+        const wizardState = window.getWizardState ? window.getWizardState() : null;
+        const modelSpecs = wizardState && wizardState.modelData 
+            ? Object.entries(wizardState.modelData)
+                .map(([modelNum, modelData]) => `
+                    Model ${modelNum}:
+                    - Age: ${modelData.age || 'N/A'}
+                    - Gender: ${modelData.gender || 'N/A'}
+                    - Ethnicity: ${modelData.ethnicity || 'N/A'}
+                    - Region: ${modelData.region || 'N/A'}
+                    - Hair: ${modelData.hairType || 'N/A'}, ${modelData.hairColor || 'N/A'}
+                    - Skin Tone: ${modelData.skinTone || 'N/A'}
+                    - Notes: ${modelData.description || 'None'}
+                `).join('\n')
+            : 'No model specifications provided';
+    
+        // Calculate selected addons
+        const selectedAddons = {
+            rush: document.querySelector('input[name="rush"]')?.checked,
+            extraImages: document.querySelector('input[name="extraImages"]')?.checked,
+            ageProgression: document.querySelector('input[name="ageProgression"]')?.checked,
+            extraRevision: document.querySelector('input[name="extraRevision"]')?.checked,
+            extraModel: document.querySelector('input[name="extraModel"]')?.checked
+        };
+        
+        const addonCosts = {
+            rush: 2000,
+            extraImages: 990,
+            ageProgression: 2200,
+            extraRevision: 2000,
+            extraModel: 2300
+        };
+        
+        let addonsDisplay = 'Add-ons:\n';
+        let addonsTotal = 0;
+        Object.entries(selectedAddons).forEach(([addon, selected]) => {
+            if (selected) {
+                addonsDisplay += `✓ ${addon}: ₹${addonCosts[addon]}\n`;
+                addonsTotal += addonCosts[addon];
+            }
+        });
+    
+        const totalAmount = window.lastPaymentAmount || 0;
+    
         // Prepare data for Bitrix24
         const bitrixData = {
             fields: {
@@ -3300,55 +3346,22 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
                 NAME: data.firstName,
                 EMAIL: [{VALUE: data.email, VALUE_TYPE: "WORK"}],
                 PHONE: [{VALUE: data.phone, VALUE_TYPE: "WORK"}],
-                const modelSpecs = Object.entries(window.getWizardState().modelData)
-                    .map(([modelNum, data]) => `
-                        Model ${modelNum}:
-                        - Age: ${data.age}
-                        - Gender: ${data.gender}
-                        - Ethnicity: ${data.ethnicity}
-                        - Region: ${data.region}
-                        - Hair: ${data.hairType}, ${data.hairColor}
-                        - Skin Tone: ${data.skinTone}
-                        - Notes: ${data.description}
-                    `).join('\n');
                 COMMENTS: `
-                // In sendToBitrix24WithPayment, add:
-                const selectedAddons = {
-                    rush: document.querySelector('input[name="rush"]')?.checked,
-                    extraImages: document.querySelector('input[name="extraImages"]')?.checked,
-                    ageProgression: document.querySelector('input[name="ageProgression"]')?.checked,
-                    extraRevision: document.querySelector('input[name="extraRevision"]')?.checked,
-                    extraModel: document.querySelector('input[name="extraModel"]')?.checked
-                };
-                
-                // Calculate addon total for reference
-                const addonCosts = {
-                    rush: 2000,
-                    extraImages: 990,
-                    ageProgression: 2200,
-                    extraRevision: 2000,
-                    extraModel: 2300
-                };
-                
-                let addonsDisplay = 'Add-ons:\n';
-                Object.entries(selectedAddons).forEach(([addon, selected]) => {
-                    if (selected) {
-                        addonsDisplay += `✓ ${addon}: ₹${addonCosts[addon]}\n`;
-                    }
-                });
-
-                Payment Confirmed:
-                Payment ID: ${paymentResponse.razorpay_payment_id}
-                Order ID: ${paymentResponse.razorpay_order_id}
-                Package: ${data.package}
-                window.lastPaymentAmount = totalAmountInPaise / 100; // Convert back to rupees
-                Amount: ₹${window.lastPaymentAmount} INR
-                
-                ${modelSpecs}
+    Payment Confirmed:
+    Payment ID: ${paymentResponse.razorpay_payment_id}
+    Order ID: ${paymentResponse.razorpay_order_id}
+    Package: ${data.package}
+    Amount: ₹${totalAmount} INR
+    
+    ${modelSpecs}
+    
+    ${addonsDisplay}
+    
+    Total with Add-ons: ₹${totalAmount}
                 `
             }
         };
-
+    
         // Send to Bitrix24
         fetch(bitrix24WebhookUrl, {
             method: 'POST',
@@ -3372,7 +3385,9 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             orderForm.reset();
         });
     };
-})();
+
+    
+
 </script>
 
  /*   // TEMPORARY: Direct submission for testing (bypasses payment)
@@ -3611,6 +3626,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
 
