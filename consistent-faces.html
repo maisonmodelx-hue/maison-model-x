@@ -2786,6 +2786,8 @@
     ${addOns.length > 0 ? addOns.join('\n') : 'None'}
     
     ${data.customRequirements ? `\n━━━━━━━━━━━━━━━━━━━━━\n✨ CUSTOM REQUIREMENTS\n━━━━━━━━━━━━━━━━━━━━━\n${data.customRequirements}` : ''}
+
+    ${formData.payment_status ? `\n━━━━━━━━━━━━━━━━━━━━━\n💳 PAYMENT DETAILS\n━━━━━━━━━━━━━━━━━━━━━\nStatus: ${formData.payment_status}\nPayment ID: ${formData.razorpay_payment_id || 'N/A'}\nOrder ID: ${formData.razorpay_order_id || 'N/A'}` : ''}
     
     ━━━━━━━━━━━━━━━━━━━━━
     💰 TOTAL AMOUNT
@@ -3131,7 +3133,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-/* // Razorpay Payment Integration
+// Razorpay Payment Integration
 (function() {
     const orderForm = document.getElementById('orderForm');
 
@@ -3161,7 +3163,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 
         // Configure Razorpay options
         const options = {
-            key: 'YOUR_RAZORPAY_KEY_ID', // Replace with your actual Razorpay Key ID
+            key: 'rzp_test_RlfywSc3dl1yTg', // Replace with your actual Razorpay Key ID
             amount: amount * 100, // Amount in paise
             currency: 'INR',
             name: 'Maison Model X',
@@ -3219,7 +3221,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         const razorpayInstance = new Razorpay(options);
         razorpayInstance.open();
     });
-})();   */
+})();  
 
     // TEMPORARY: Direct submission for testing (bypasses payment)
     document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -3264,5 +3266,6 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
 </body>
 
 </html>
+
 
 
