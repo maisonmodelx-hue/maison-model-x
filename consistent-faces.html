@@ -2141,102 +2141,77 @@
             let currentPlan = null;
 
             function handlePackageChange() {
-                const packageSelect = document.getElementById('packageSelection');
-                const selectedValue = packageSelect.value;
-            
-                if (!selectedValue) {
-                    // Reset everything
-                    document.getElementById('modelDescriptionSection').style.opacity = '0.5';
-                    document.getElementById('modelDescriptionSection').style.pointerEvents = 'none';
-                    document.getElementById('addonsSection').style.opacity = '0.5';
-                    document.getElementById('addonsSection').style.pointerEvents = 'none';
-                    
-                    // Disable model form fields
-                    document.querySelectorAll('#modelDescriptionSection input, #modelDescriptionSection select, #modelDescriptionSection textarea').forEach(field => {
-                        field.disabled = true;
-                    });
-                    
-                    document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
-                        cb.disabled = true;
-                    });
-                    
-                    document.getElementById('totalSection').style.opacity = '0.5';
-                    document.getElementById('submitBtn').disabled = true;
-                    document.getElementById('submitBtn').style.opacity = '0.5';
-                    document.getElementById('submitBtn').textContent = 'Select Package to Proceed →';
-                    document.getElementById('planSummary').style.display = 'none';
-                    return;
-                }
-            
-                // ✅ Enable model description section
-                document.getElementById('modelDescriptionSection').style.opacity = '1';
-                document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
-            
-                // ✅ CRITICAL FIX: Enable all form fields in model description section
-                document.querySelectorAll('#modelDescriptionSection input, #modelDescriptionSection select, #modelDescriptionSection textarea').forEach(field => {
-                    field.disabled = false;
-                });
-            
-                // Get number of models for this package
-                const modelCounts = {
-                    'prelude': 1,
-                    'elan': 3,
-                    'signature': 5,
-                    'couture': 10,
-                    'legende': 0
-                };
-            
-                let packageKey = 'custom';
-                for (let key of Object.keys(modelCounts)) {
-                    if (selectedValue.toLowerCase().includes(key)) {
-                        packageKey = key;
-                        break;
-                    }
-                }
-            
-                const modelCount = modelCounts[packageKey] || 1;
-                document.getElementById('modelCountLabel').textContent = `(${modelCount} Model${modelCount > 1 ? 's' : ''})`;
-            
-                // Initialize model wizard
-                window.initializeModelWizard(modelCount);
-            
-                // Set selected radio button value
-                const packageMap = {
-                    'prelude': 'Prélude - ₹3,999',
-                    'elan': 'Élan - ₹10,999',
-                    'signature': 'Signature - ₹19,999',
-                    'couture': 'Couture Ensemble - ₹37,999',
-                    'legende': 'Légende - Custom Pricing'
-                };
-            
-                const radios = document.querySelectorAll('input[name="formPackage"]');
-                radios.forEach(radio => {
-                    if (radio.value === packageMap[selectedValue]) {
-                        radio.checked = true;
-                    }
-                });
-            
-                // Update plan summary
-                updatePlanSummary(selectedValue, packageKey);
-            
-                // Update total amount
-                updateTotalAmount(selectedValue);
+            const packageSelect = document.getElementById('packageSelection');
+            const selectedValue = packageSelect.value;
+        
+            if (!selectedValue) {
+                // Reset everything
+                document.getElementById('modelDescriptionSection').style.opacity = '0.5';
+                document.getElementById('modelDescriptionSection').style.pointerEvents = 'none';
+                document.getElementById('addonsSection').style.opacity = '0.5';
+                document.getElementById('addonsSection').style.pointerEvents = 'none';
+                document.getElementById('totalSection').style.opacity = '0.5';
+                document.getElementById('submitBtn').disabled = true;
+                return;
             }
-            function updateTotalAmount(packageValue) {
-                const prices = {
-                    'prelude': 3999,
-                    'elan': 10999,
-                    'signature': 19999,
-                    'couture': 37999,
-                    'legende': 0
-                };
-            
-                const baseAmount = prices[packageValue] || 0;
-                const addonsAmount = calculateAddonsAmount();
-                const total = baseAmount + addonsAmount;
-            
-                document.getElementById('orderTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
-            }
+        
+            // Enable model description section
+            document.getElementById('modelDescriptionSection').style.opacity = '1';
+            document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
+        
+            // Get number of models for this package
+            const modelCounts = {
+                'prelude': 1,
+                'elan': 3,
+                'signature': 5,
+                'couture': 10,
+                'legende': 0
+            };
+        
+            const modelCount = modelCounts[selectedValue] || 1;
+            document.getElementById('modelCountLabel').textContent = `(${modelCount} Model${modelCount > 1 ? 's' : ''})`;
+        
+            // Initialize model wizard
+            window.initializeModelWizard(modelCount);
+        
+            // Set selected radio button value
+            const packageMap = {
+                'prelude': 'Prélude - ₹3,999',
+                'elan': 'Élan - ₹10,999',
+                'signature': 'Signature - ₹19,999',
+                'couture': 'Couture Ensemble - ₹37,999',
+                'legende': 'Légende - Custom Pricing'
+            };
+        
+            const radios = document.querySelectorAll('input[name="formPackage"]');
+            radios.forEach(radio => {
+                if (radio.value === packageMap[selectedValue]) {
+                    radio.checked = true;
+                }
+            });
+        
+            // Update plan summary
+            updatePlanSummary(selectedValue);
+        
+            // Update total amount
+            updateTotalAmount(selectedValue);
+        }
+        
+        function updateTotalAmount(packageValue) {
+            const prices = {
+                'prelude': 3999,
+                'elan': 10999,
+                'signature': 19999,
+                'couture': 37999,
+                'legende': 0
+            };
+        
+            const baseAmount = prices[packageValue] || 0;
+            const addonsAmount = calculateAddonsAmount();
+            const total = baseAmount + addonsAmount;
+        
+            document.getElementById('orderTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+        }
 
 
             function enableSection(sectionId, isCustom = false) {
@@ -3151,201 +3126,227 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         });
     </script>
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-    // Razorpay Payment Integration (CORRECTED)
-    (function() {
-        const orderForm = document.getElementById('orderForm');
-    
-        orderForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-    
-            // Validation
-            const packageInput = document.querySelector('input[name="formPackage"]:checked');
-            if (!packageInput) {
-                alert('Please select a package before proceeding to payment.');
-                document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
-                return;
-            }
-    
-            // Get all form data
-            const formData = new FormData(orderForm);
-            const data = {
-                firstName: formData.get('firstName'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                package: packageInput.value
-            };
-    
-            // Calculate total amount (in paise)
-            const baseAmount = calculateBaseAmount(data.package);
-            const addonsAmount = calculateAddonsAmount();
-            const totalAmountInPaise = (baseAmount + addonsAmount) * 100;
-    
-            if (totalAmountInPaise === 0) {
-                alert('Please select a valid package.');
-                return;
-            }
-    
-            const orderId = 'order_' + Date.now();
-    
-            // Configure Razorpay options
-            const options = {
-                key: 'rzp_test_RlfywSc3dl1yTg',
-                amount: totalAmountInPaise,
-                currency: 'INR',
-                order_id: orderId,
-                name: 'Maison Model X',
-                description: data.package,
-                prefill: {
-                    name: data.firstName,
-                    email: data.email,
-                    contact: data.phone
-                },
-                theme: {
-                    color: '#D4AF37'
-                },
-                handler: function(response) {
-                    console.log('Payment Success:', response);
-                    
-                    const hiddenFields = {
-                        'razorpay_payment_id': response.razorpay_payment_id,
-                        'razorpay_order_id': response.razorpay_order_id,
-                        'razorpay_signature': response.razorpay_signature
-                    };
-    
-                    Object.keys(hiddenFields).forEach(key => {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = key;
-                        input.value = hiddenFields[key];
-                        orderForm.appendChild(input);
-                    });
-    
-                    sendToBitrix24WithPayment(data, response);
-                },
-                modal: {
-                    ondismiss: function() {
-                        console.log('Payment cancelled by user');
-                        alert('Payment cancelled. Please try again or contact support.');
-                    }
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+// Razorpay Payment Integration (CORRECTED)
+(function() {
+    const orderForm = document.getElementById('orderForm');
+
+    orderForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Validation
+        const packageInput = document.querySelector('input[name="formPackage"]:checked');
+        if (!packageInput) {
+            alert('Please select a package before proceeding to payment.');
+            document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
+            return;
+        }
+
+        // Get all form data
+        const formData = new FormData(orderForm);
+        const data = {
+            firstName: formData.get('firstName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            package: packageInput.value
+        };
+
+        // Calculate total amount (in paise)
+        const baseAmount = calculateBaseAmount(data.package);
+        const addonsAmount = calculateAddonsAmount();
+        const totalAmountInPaise = (baseAmount + addonsAmount) * 100;
+
+        if (totalAmountInPaise === 0) {
+            alert('Please select a valid package.');
+            return;
+        }
+
+        // STEP 1: Create order on backend (YOU MUST IMPLEMENT THIS ENDPOINT)
+        // This is where you call your backend to create a Razorpay order
+        // For now, we'll use a simulated order ID
+        // In production, replace with actual backend call
+        
+        const orderId = 'order_' + Date.now(); // Temporary - replace with backend order creation
+
+        // STEP 2: Configure Razorpay options
+        const options = {
+            key: 'rzp_test_RlfywSc3dl1yTg', // Replace with LIVE key in production
+            amount: totalAmountInPaise, // Amount in paise
+            currency: 'INR',
+            order_id: orderId, // Order ID from backend
+            name: 'Maison Model X',
+            description: data.package,
+            prefill: {
+                name: data.firstName,
+                email: data.email,
+                contact: data.phone
+            },
+            theme: {
+                color: '#D4AF37'
+            },
+            // STEP 3: Payment success callback
+            handler: function(response) {
+                console.log('Payment Success:', response);
+
+                // CRITICAL: Verify signature on backend (NOT HERE)
+                // This is a placeholder - actual verification must happen on backend
+                
+                // Add payment details to form
+                const hiddenFields = {
+                    'razorpay_payment_id': response.razorpay_payment_id,
+                    'razorpay_order_id': response.razorpay_order_id,
+                    'razorpay_signature': response.razorpay_signature
+                };
+
+                Object.keys(hiddenFields).forEach(key => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = hiddenFields[key];
+                    orderForm.appendChild(input);
+                });
+
+                // Now send to Bitrix24
+                sendToBitrix24WithPayment(data, response);
+            },
+            // Error handling
+            modal: {
+                ondismiss: function() {
+                    console.log('Payment cancelled by user');
+                    alert('Payment cancelled. Please try again or contact support.');
                 }
-            };
+            }
+        };
+
+        // STEP 4: Open Razorpay checkout
+        const razorpay = new Razorpay(options);
+        
+        razorpay.on('payment.failed', function(response) {
+            console.error('Payment Error:', response.error);
+            alert('Payment failed: ' + response.error.description);
+        });
+
+        razorpay.open();
+    });
+
+    // Helper function to calculate base amount
+    // Helper function to calculate base amount
+    function calculateBaseAmount(packageValue) {
+        const prices = {
+            'Prélude - ₹3,999': 3999,
+            'Élan - ₹10,999': 10999,
+            'Signature - ₹19,999': 19999,
+            'Couture Ensemble - ₹37,999': 37999,
+            'Légende - Custom Pricing': 0 // Custom
+        };
+        
+        // Try exact match first
+        if (prices[packageValue]) {
+            return prices[packageValue];
+        }
+        
+        // Fallback: extract from package name if format changes
+        const match = packageValue.match(/₹([\d,]+)/);
+        if (match) {
+            return parseInt(match[1].replace(/,/g, ''));
+        }
+        
+        return 0;
+    }
+
+
+    // Helper function to calculate addons
+    function calculateAddonsAmount() {
+        let total = 0;
+        const addons = {
+            'rush': 2000,
+            'extraImages': 990,
+            'ageProgression': 2200,
+            'extraRevision': 2000,
+            'extraModel': 2300
+        };
+
+        Object.keys(addons).forEach(addon => {
+            const checkbox = document.querySelector(`input[name="${addon}"]`);
+            if (checkbox && checkbox.checked) {
+                total += addons[addon];
+            }
+        });
+
+        return total;
+    }
+
+    // Send to Bitrix24 with payment confirmation
+
+    // Send to Bitrix24 with payment confirmation
+    window.sendToBitrix24WithPayment = function(data, paymentResponse) {
+        const bitrix24WebhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
     
-            const razorpay = new Razorpay(options);
+        if (!bitrix24WebhookUrl || bitrix24WebhookUrl.includes('YOUR_')) {
+            // Demo mode - show confirmation
+            console.log('Order placed successfully!', data, paymentResponse);
             
-            razorpay.on('payment.failed', function(response) {
-                console.error('Payment Error:', response.error);
-                alert('Payment failed: ' + response.error.description);
-            });
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'flex';
+            }
+            orderForm.reset();
+            return;
+        }
     
-            razorpay.open();
+        // ✅ DEFINE modelSpecs BEFORE using it in COMMENTS
+        const wizardState = window.getWizardState ? window.getWizardState() : null;
+        const modelSpecs = wizardState && wizardState.modelData 
+            ? Object.entries(wizardState.modelData)
+                .map(([modelNum, modelData]) => `
+                    Model ${modelNum}:
+                    - Age: ${modelData.age || 'N/A'}
+                    - Gender: ${modelData.gender || 'N/A'}
+                    - Ethnicity: ${modelData.ethnicity || 'N/A'}
+                    - Region: ${modelData.region || 'N/A'}
+                    - Hair: ${modelData.hairType || 'N/A'}, ${modelData.hairColor || 'N/A'}
+                    - Skin Tone: ${modelData.skinTone || 'N/A'}
+                    - Notes: ${modelData.description || 'None'}
+                `).join('\n')
+            : 'No model specifications provided';
+    
+        // Calculate selected addons
+        const selectedAddons = {
+            rush: document.querySelector('input[name="rush"]')?.checked,
+            extraImages: document.querySelector('input[name="extraImages"]')?.checked,
+            ageProgression: document.querySelector('input[name="ageProgression"]')?.checked,
+            extraRevision: document.querySelector('input[name="extraRevision"]')?.checked,
+            extraModel: document.querySelector('input[name="extraModel"]')?.checked
+        };
+        
+        const addonCosts = {
+            rush: 2000,
+            extraImages: 990,
+            ageProgression: 2200,
+            extraRevision: 2000,
+            extraModel: 2300
+        };
+        
+        let addonsDisplay = 'Add-ons:\n';
+        let addonsTotal = 0;
+        Object.entries(selectedAddons).forEach(([addon, selected]) => {
+            if (selected) {
+                addonsDisplay += `✓ ${addon}: ₹${addonCosts[addon]}\n`;
+                addonsTotal += addonCosts[addon];
+            }
         });
     
-        function calculateBaseAmount(packageValue) {
-            const prices = {
-                'Prélude - ₹3,999': 3999,
-                'Élan - ₹10,999': 10999,
-                'Signature - ₹19,999': 19999,
-                'Couture Ensemble - ₹37,999': 37999,
-                'Légende - Custom Pricing': 0
-            };
-            
-            if (prices[packageValue]) {
-                return prices[packageValue];
-            }
-            
-            const match = packageValue.match(/₹([\d,]+)/);
-            if (match) {
-                return parseInt(match[1].replace(/,/g, ''));
-            }
-            
-            return 0;
-        }
+        const totalAmount = window.lastPaymentAmount || 0;
     
-        function calculateAddonsAmount() {
-            let total = 0;
-            const addons = {
-                'rush': 2000,
-                'extraImages': 990,
-                'ageProgression': 2200,
-                'extraRevision': 2000,
-                'extraModel': 2300
-            };
-    
-            Object.keys(addons).forEach(addon => {
-                const checkbox = document.querySelector(`input[name="${addon}"]`);
-                if (checkbox && checkbox.checked) {
-                    total += addons[addon];
-                }
-            });
-    
-            return total;
-        }
-    
-        window.sendToBitrix24WithPayment = function(data, paymentResponse) {
-            const bitrix24WebhookUrl = 'YOUR_BITRIX24_WEBHOOK_URL_HERE';
-        
-            if (!bitrix24WebhookUrl || bitrix24WebhookUrl.includes('YOUR_')) {
-                console.log('Order placed successfully!', data, paymentResponse);
-                
-                const confirmationScreen = document.getElementById('orderConfirmation');
-                if (confirmationScreen) {
-                    confirmationScreen.style.display = 'flex';
-                }
-                orderForm.reset();
-                return;
-            }
-        
-            const wizardState = window.getWizardState ? window.getWizardState() : null;
-            const modelSpecs = wizardState && wizardState.modelData 
-                ? Object.entries(wizardState.modelData)
-                    .map(([modelNum, modelData]) => `
-                        Model ${modelNum}:
-                        - Age: ${modelData.age || 'N/A'}
-                        - Gender: ${modelData.gender || 'N/A'}
-                        - Ethnicity: ${modelData.ethnicity || 'N/A'}
-                        - Region: ${modelData.region || 'N/A'}
-                        - Hair: ${modelData.hairType || 'N/A'}, ${modelData.hairColor || 'N/A'}
-                        - Skin Tone: ${modelData.skinTone || 'N/A'}
-                        - Notes: ${modelData.description || 'None'}
-                    `).join('\n')
-                : 'No model specifications provided';
-        
-            const selectedAddons = {
-                rush: document.querySelector('input[name="rush"]')?.checked,
-                extraImages: document.querySelector('input[name="extraImages"]')?.checked,
-                ageProgression: document.querySelector('input[name="ageProgression"]')?.checked,
-                extraRevision: document.querySelector('input[name="extraRevision"]')?.checked,
-                extraModel: document.querySelector('input[name="extraModel"]')?.checked
-            };
-            
-            const addonCosts = {
-                rush: 2000,
-                extraImages: 990,
-                ageProgression: 2200,
-                extraRevision: 2000,
-                extraModel: 2300
-            };
-            
-            let addonsDisplay = 'Add-ons:\n';
-            let addonsTotal = 0;
-            Object.entries(selectedAddons).forEach(([addon, selected]) => {
-                if (selected) {
-                    addonsDisplay += `✓ ${addon}: ₹${addonCosts[addon]}\n`;
-                    addonsTotal += addonCosts[addon];
-                }
-            });
-        
-            const totalAmount = window.lastPaymentAmount || 0;
-        
-            const bitrixData = {
-                fields: {
-                    TITLE: `Order from ${data.firstName} - ${data.package}`,
-                    NAME: data.firstName,
-                    EMAIL: [{VALUE: data.email, VALUE_TYPE: "WORK"}],
-                    PHONE: [{VALUE: data.phone, VALUE_TYPE: "WORK"}],
-                    COMMENTS: `
+        // Prepare data for Bitrix24
+        const bitrixData = {
+            fields: {
+                TITLE: `Order from ${data.firstName} - ${data.package}`,
+                NAME: data.firstName,
+                EMAIL: [{VALUE: data.email, VALUE_TYPE: "WORK"}],
+                PHONE: [{VALUE: data.phone, VALUE_TYPE: "WORK"}],
+                COMMENTS: `
     Payment Confirmed:
     Payment ID: ${paymentResponse.razorpay_payment_id}
     Order ID: ${paymentResponse.razorpay_order_id}
@@ -3357,34 +3358,76 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     ${addonsDisplay}
     
     Total with Add-ons: ₹${totalAmount}
-                    `
-                }
-            };
-        
-            fetch(bitrix24WebhookUrl, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(bitrixData)
-            })
-            .then(response => response.json())
-            .then(result => {
-                console.log('Bitrix24 Success:', result);
-                
-                const confirmationScreen = document.getElementById('orderConfirmation');
-                if (confirmationScreen) {
-                    confirmationScreen.style.display = 'flex';
-                }
-                orderForm.reset();
-            })
-            .catch(error => {
-                console.error('Bitrix24 Error:', error);
-                alert('Order received but encountered an issue. We will contact you shortly.');
-                orderForm.reset();
-            });
+                `
+            }
         };
-    })();
-    </script>
     
+        // Send to Bitrix24
+        fetch(bitrix24WebhookUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(bitrixData)
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Bitrix24 Success:', result);
+            
+            // Show confirmation
+            const confirmationScreen = document.getElementById('orderConfirmation');
+            if (confirmationScreen) {
+                confirmationScreen.style.display = 'flex';
+            }
+            orderForm.reset();
+        })
+        .catch(error => {
+            console.error('Bitrix24 Error:', error);
+            alert('Order received but encountered an issue. We will contact you shortly.');
+            orderForm.reset();
+        });
+    };
+
+    
+
+</script>
+
+ /*   // TEMPORARY: Direct submission for testing (bypasses payment)
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Check if package is selected
+        const packageInput = document.querySelector('input[name="formPackage"]:checked');
+        if (!packageInput) {
+            alert('Please select a package from the pricing section above before submitting.');
+            document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});
+            return;
+        }
+    
+        // Collect form data
+        const formData = {
+            firstName: document.querySelector('input[name="firstName"]').value,
+            email: document.querySelector('input[name="email"]').value,
+            phone: document.querySelector('input[name="phone"]').value,
+            packageSelection: packageInput.value,
+            age: document.querySelector('select[name="age"]').value,
+            gender: document.querySelector('select[name="gender"]').value,
+            ethnicity: document.querySelector('select[name="ethnicity"]').value,
+            region: document.querySelector('select[name="region"]').value,
+            hairType: document.querySelector('select[name="hairType"]').value,
+            hairColor: document.querySelector('select[name="hairColor"]').value,
+            skinTone: document.querySelector('select[name="skinTone"]').value,
+            description: document.querySelector('textarea[name="description"]').value,
+            rush: document.querySelector('input[name="rush"]')?.checked || false,
+            extraImages: document.querySelector('input[name="extraImages"]')?.checked || false,
+            ageProgression: document.querySelector('input[name="ageProgression"]')?.checked || false,
+            extraRevision: document.querySelector('input[name="extraRevision"]')?.checked || false,
+            extraModel: document.querySelector('input[name="extraModel"]')?.checked || false,
+            customRequirements: document.querySelector('textarea[name="customRequirements"]')?.value || ''
+        };
+    
+        // Submit directly to Bitrix24 (use the existing sendToBitrix24 function)
+        sendToBitrix24(formData);
+    });  */
+
     <script>
     // Handle package selection changes
     function handlePackageChange() {
@@ -3392,11 +3435,13 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         const selectedValue = packageSelect.value;
     
         if (!selectedValue) {
+            // Reset everything
             document.getElementById('modelDescriptionSection').style.opacity = '0.5';
             document.getElementById('modelDescriptionSection').style.pointerEvents = 'none';
             document.getElementById('addonsSection').style.opacity = '0.5';
             document.getElementById('addonsSection').style.pointerEvents = 'none';
             
+            // Disable addon checkboxes
             document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
                 cb.disabled = true;
             });
@@ -3409,9 +3454,11 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             return;
         }
     
+        // Enable model description section
         document.getElementById('modelDescriptionSection').style.opacity = '1';
         document.getElementById('modelDescriptionSection').style.pointerEvents = 'auto';
     
+        // Get number of models for this package
         const modelCounts = {
             'prelude': 1,
             'elan': 3,
@@ -3420,6 +3467,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             'legende': 0
         };
     
+        // Extract package key from value (e.g., "Prélude - ₹3,999" → "prelude")
         let packageKey = 'custom';
         for (let key of Object.keys(modelCounts)) {
             if (selectedValue.toLowerCase().includes(key)) {
@@ -3431,8 +3479,10 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         const modelCount = modelCounts[packageKey] || 1;
         document.getElementById('modelCountLabel').textContent = `(${modelCount} Model${modelCount > 1 ? 's' : ''})`;
     
+        // Initialize model wizard
         window.initializeModelWizard(modelCount);
     
+        // Set selected radio button value
         const radios = document.querySelectorAll('input[name="formPackage"]');
         radios.forEach(radio => {
             if (radio.value === selectedValue) {
@@ -3440,10 +3490,14 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             }
         });
     
+        // Update plan summary
         updatePlanSummary(selectedValue, packageKey);
+    
+        // Update total amount
         updateTotalAmount(selectedValue);
     }
     
+    // Update plan summary display
     function updatePlanSummary(packageValue, packageKey) {
         const summaryDiv = document.getElementById('planSummary');
         
@@ -3486,6 +3540,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         summaryDiv.style.display = 'block';
     }
     
+    // Update total amount display and enable payment
     function updateTotalAmount(packageValue) {
         const baseAmount = calculateBaseAmount(packageValue);
         const addonsAmount = calculateAddonsAmount();
@@ -3493,6 +3548,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     
         document.getElementById('orderTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
     
+        // Enable submit button if package selected
         if (total > 0) {
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('submitBtn').style.opacity = '1';
@@ -3502,6 +3558,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             document.getElementById('totalSection').style.opacity = '1';
             document.getElementById('totalSection').style.pointerEvents = 'auto';
     
+            // Enable addons
             document.getElementById('addonsSection').style.opacity = '1';
             document.getElementById('addonsSection').style.pointerEvents = 'auto';
             document.querySelectorAll('#addonsSection input[type="checkbox"]').forEach(cb => {
@@ -3510,6 +3567,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         }
     }
     
+    // Listen for addon changes and update total
     document.addEventListener('change', function(e) {
         if (e.target.type === 'checkbox' && e.target.closest('#addonsSection')) {
             const packageSelect = document.getElementById('packageSelection');
@@ -3519,6 +3577,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         }
     });
     
+    // Function to calculate base amount
     function calculateBaseAmount(packageValue) {
         const prices = {
             'Prélude - ₹3,999': 3999,
@@ -3532,6 +3591,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
             return prices[packageValue];
         }
         
+        // Fallback: extract from package name
         const match = packageValue.match(/₹([\d,]+)/);
         if (match) {
             return parseInt(match[1].replace(/,/g, ''));
@@ -3540,6 +3600,7 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
         return 0;
     }
     
+    // Function to calculate addon amount
     function calculateAddonsAmount() {
         let total = 0;
         const addons = {
@@ -3561,15 +3622,9 @@ Rush Delivery: ${data.rush ? 'Yes (12 hours)' : 'No'}
     }
     </script>
 
+
 </body>
 
 </html>
-
-
-
-
-
-
-
 
 
