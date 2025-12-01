@@ -1277,20 +1277,39 @@
           /* PRICING GRID */
           .pricing-grid {
             grid-template-columns: 1fr !important;
-            gap: 20px;
+            gap: 12px;
+            max-width: 100%;
+            overflow: hidden;
           }
         
           .pricing-card {
-            padding: 20px 15px;
-            min-width: unset;
+            ppadding: 15px 12px;
+            min-width: 100%;
+            margin-bottom: 10px;
+            display: block;
           }
         
           .pricing-card .price {
-            font-size: 24px;
+            font-size: 18px;
+          }
+
+          .pricing-card h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
           }
         
           .pricing-card ul {
-            margin: 20px 0;
+            margin: 12px 0;
+          }
+
+          .pricing-card li {
+            font-size: 10px;
+            padding: 5px 0;
+          }
+        
+          .pricing-badge {
+            font-size: 8px;
+            padding: 4px 8px;
           }
         
           /* FEATURES/BENEFITS GRID */
@@ -1453,14 +1472,41 @@
           .gallery-grid {
             grid-template-columns: 1fr !important;
           }
+            
+          .pricing-grid {
+            gap: 10px;
+          }
         
           .pricing-card {
-            padding: 15px;
+            padding: 12px;
+            min-width: 100%;
+            margin-bottom: 8px;
+            display: block;
           }
         
           .pricing-card .price {
-            font-size: 20px;
+            font-size: 16px;
           }
+        
+          .pricing-card h3 {
+            font-size: 12px;
+            margin-bottom: 5px;
+          }
+        
+          .pricing-card ul {
+            margin: 8px 0;
+          }
+        
+          .pricing-card li {
+            font-size: 9px;
+            padding: 3px 0;
+          }
+        
+          .pricing-badge {
+            font-size: 7px;
+            padding: 3px 6px;
+          }
+
         
           .form-container {
             padding: 20px 15px;
@@ -3222,6 +3268,7 @@
 </body>
 
 </html>
+
 
 
 
