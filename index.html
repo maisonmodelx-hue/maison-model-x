@@ -1918,6 +1918,7 @@
         }
 
     </style>
+</script>
 </head>
 
 <script>
@@ -2332,22 +2333,6 @@ function confirmBrandColorFromModal() {
         if (modal) modal.classList.remove("active");
         window.currentEditingBrand = false;
     }
-}
-
-/* ---- Clear Brand Name Fields ---- */
-function clearBrandNameFields() {
-    const brandNameInput = document.getElementById("brandNameInput");
-    const placementSelect = document.getElementById("brandPlacementSelect");
-    const placementOtherInput = document.getElementById("brandPlacementOtherInput");
-    
-    if (brandNameInput) brandNameInput.value = "";
-    if (placementSelect) placementSelect.value = "";
-    if (placementOtherInput) placementOtherInput.value = "";
-    
-    // Reset color to default gold
-    document.getElementById("brandColorHiddenInput").value = "FFD700";
-    document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
-    document.getElementById("brandColorHexDisplay").textContent = "FFD700";
 }
 
 /* ---- Brand Name Placement Add-On Visibility Logic (Artisan & Couture only) ---- */
@@ -3043,6 +3028,7 @@ function onPlanChangeForEdition() {
 
         <div class="form-container">
             <form id="orderForm">
+                <input type="hidden" id="brandColorHiddenInput" name="brandColor" value="FFD700">
                 <!-- CLIENT DETAILS -->
                 <div class="form-section">
                     <div class="form-section-title">
@@ -3654,10 +3640,12 @@ function onPlanChangeForEdition() {
                         submitBtn.textContent = 'Proceed to Payment';
                         submitBtn.disabled = false;
                     }
+                    try {
+                        const createOrderResponse = await fetch('/.netlify/functions/createOrder', {
                 }
                 
                 // ============ HANDLE PAYMENT SUCCESS ============
-                function handlePaymentSuccess(response) {
+                async function handlePaymentSuccess(response) {
                     const orderForm = document.getElementById('orderForm');
 
                     // ADD THIS after Razorpay opens, BEFORE appending hidden inputs:
@@ -5565,6 +5553,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
