@@ -2142,31 +2142,6 @@
         }
     }
     
-    document.addEventListener('DOMContentLoaded', function() {
-      const colorInput = document.getElementById('colorPickerInput');
-      const hexInput = document.getElementById('colorPickerHexInput');
-      
-      if (colorInput) {
-        colorInput.addEventListener('input', function(e) {
-          document.getElementById('colorPickerPreview').style.background = e.target.value;
-          document.getElementById('colorPickerHexInput').value = e.target.value;
-        });
-      }
-      
-      if (hexInput) {
-        hexInput.addEventListener('input', function(e) {
-          let val = e.target.value;
-          if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
-            document.getElementById('colorPickerInput').value = val;
-            const preview = document.getElementById('colorPickerPreview');
-            preview.style.background = val;
-            preview.style.boxShadow = `0 0 12px ${val}40`;
-          }
-        });
-      }
-      initModelSpecifications();
-      toggleBackgroundDescriptionSection();
-    });
     
     /* ---- Accessories Logic (Per Model) ---- */
     function toggleAccessorySection(num) {
@@ -5611,6 +5586,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
