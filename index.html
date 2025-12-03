@@ -3630,10 +3630,19 @@ function onPlanChangeForEdition() {
                             submitBtn.disabled = false;
                         });
                 
-                        submitBtn.textContent = 'Opening Payment...';
-                        rzp.open();
+                    submitBtn.textContent = 'Opening Payment...';
+                    submitBtn.disabled = true;
 
-                        catch (error) {
+                    try {
+                        const rzp = new Razorpay(options);
+                        rzp.on('payment.failed', function (response) {
+                            showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
+                            submitBtn.textContent = 'Proceed to Payment';
+                            submitBtn.disabled = false;
+                        });     
+
+                        rzp.open();
+                    } catch (error) {
                         console.error('Error:', error);
                         alert('Payment initialization failed: ' + error.message);
                         submitBtn.textContent = 'Proceed to Payment';
@@ -5548,6 +5557,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
