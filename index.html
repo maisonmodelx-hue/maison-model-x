@@ -3363,6 +3363,15 @@ function onPlanChangeForEdition() {
                                 receipt: 'order_' + Date.now()
                             })
                         });
+
+                        if (!createOrderResponse.ok) {
+                          const text = await createOrderResponse.text();
+                          console.error('createOrder failed:', createOrderResponse.status, text);
+                          alert('Failed to create order. Please try again later.');
+                          submitBtn.textContent = 'Proceed to Payment';
+                          submitBtn.disabled = false;
+                          return;
+                        }
                 
                         const orderData = await createOrderResponse.json();
                 
@@ -5212,6 +5221,15 @@ function onPlanChangeForEdition() {
                                     receipt: 'order_' + Date.now()
                                 })
                             });
+
+                            if (!createOrderResponse.ok) {
+                              const text = await createOrderResponse.text();
+                              console.error('createOrder failed:', createOrderResponse.status, text);
+                              alert('Failed to create order. Please try again later.');
+                              submitBtn.textContent = 'Proceed to Payment';
+                              submitBtn.disabled = false;
+                              return;
+                            }
                     
                             const orderData = await createOrderResponse.json();
                     
@@ -5405,3 +5423,4 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
