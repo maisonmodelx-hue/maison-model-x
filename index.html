@@ -3521,41 +3521,41 @@ function onPlanChangeForEdition() {
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const paymentContainer = document.getElementById('paymentMessage');
                     const selectedPlan = document.getElementById('planSelect').value;
-                
+                    
                     const planPrices = {
-                        artisan: 1,
+                        artisan: 6000,
                         couture: 14999,
                         atelier: 29999,
                         maison: 74999,
                         legacy: 0
                     };
-                
+                    
                     const clientNameInput = document.querySelector('input[name="clientname"]');
                     const clientEmailInput = document.querySelector('input[name="clientemail"]');
                     const clientPhoneInput = document.querySelector('input[name="clientphone"]');
-                
+                    
                     if (!clientNameInput || !clientEmailInput || !clientPhoneInput) {
                         alert('Customer info not found. Please refresh.');
                         return;
                     }
-                
+                    
                     const clientName = clientNameInput.value.trim();
                     if (!clientName || clientName.trim().length < 3) {
                         alert('Please enter a valid customer name (at least 3 characters)');
                         return;
                     }
-
+                    
                     const clientEmail = clientEmailInput.value.trim();
                     const clientPhone = clientPhoneInput.value.trim();
-                
+                    
                     if (!clientName || !clientEmail || !clientPhone) {
                         alert('Please fill all customer details');
                         return;
                     }
-                
+                    
                     const basePrice = planPrices[selectedPlan] || 0;
-                    let totalAmount = basePrice * 100;
-                
+                    let totalAmount = basePrice * 100;  // Convert to paisa
+                    
                     const addons = [
                         { id: 'addonExtraModel', value: 2500 },
                         { id: 'addonExtraGarment', value: 500 },
@@ -3563,30 +3563,30 @@ function onPlanChangeForEdition() {
                         { id: 'addonPremiumRetouch', value: 1500 },
                         { id: 'addonBrandNamePlacement', value: 1000 }
                     ];
-                
+                    
                     addons.forEach(addon => {
                         const checkbox = document.getElementById(addon.id);
                         if (checkbox && checkbox.checked) {
                             totalAmount += addon.value * 100;
                         }
                     });
-                
+                    
                     submitBtn.textContent = 'Creating Order...';
                     submitBtn.disabled = true;
-                
+                    
                     try {
-                        // ✅ Call Netlify backend
+                        // Call Netlify backend to create order
                         const createOrderResponse = await fetch('/.netlify/functions/createOrder', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
+                            body: JSON.stringify({
                                 action: 'createOrder',
-                                amount: totalAmount, 
-                                currency: 'INR', 
-                                receipt: `receipt_${Date.now()}` 
+                                amount: totalAmount,
+                                currency: 'INR',
+                                receipt: 'receipt_' + Date.now()
                             })
                         });
-
+                        
                         if (!createOrderResponse.ok) {
                             const errorText = await createOrderResponse.text();
                             alert('Order creation failed: ' + errorText);
@@ -3594,16 +3594,17 @@ function onPlanChangeForEdition() {
                             submitBtn.disabled = false;
                             return;
                         }
-                
+                        
                         const orderData = await createOrderResponse.json();
-                
+                        
                         if (!orderData.success) {
                             alert('Failed to create order: ' + (orderData.message || 'Unknown error'));
                             submitBtn.textContent = 'Proceed to Payment';
                             submitBtn.disabled = false;
                             return;
                         }
-                
+                        
+                        // Razorpay options
                         const options = {
                             key: 'rzp_live_Rn37DDGmBYh2C0',
                             order_id: orderData.orderId,
@@ -3630,8 +3631,11 @@ function onPlanChangeForEdition() {
                                 }
                             }
                         };
-                
+                        
+                        // Initialize Razorpay
                         const rzp = new Razorpay(options);
+                        
+                        // Handle payment failures
                         rzp.on('payment.failed', function (response) {
                             paymentContainer.textContent = 'Payment failed: ' + response.error.description;
                             paymentContainer.style.display = 'block';
@@ -3641,27 +3645,18 @@ function onPlanChangeForEdition() {
                             submitBtn.textContent = 'Proceed to Payment';
                             submitBtn.disabled = false;
                         });
-                
-                    submitBtn.textContent = 'Opening Payment...';
-                    submitBtn.disabled = true;
-
-                    try {
-                        const rzp = new Razorpay(options);
-                        rzp.on('payment.failed', function (response) {
-                            showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
-                            submitBtn.textContent = 'Proceed to Payment';
-                            submitBtn.disabled = false;
-                        });     
-
+                        
+                        submitBtn.textContent = 'Opening Payment...';
                         rzp.open();
+                        
                     } catch (error) {
-                        console.error('Error:', error);
+                        console.error('Error in Razorpay:', error);
                         alert('Payment initialization failed: ' + error.message);
                         submitBtn.textContent = 'Proceed to Payment';
                         submitBtn.disabled = false;
                     }
-                    
                 }
+
                 
                 // ============ HANDLE PAYMENT SUCCESS ============
                 async function handlePaymentSuccess(response) {
@@ -5569,6 +5564,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
