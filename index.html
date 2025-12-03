@@ -3469,7 +3469,7 @@ function onPlanChangeForEdition() {
                 
 
             </form>
-
+        </script>
 
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
@@ -3641,102 +3641,6 @@ function onPlanChangeForEdition() {
                         submitBtn.disabled = false;
                     }
                 }
-
-
-
-                
-            /*    function initiateRazorpayPayment() {
-                    const orderForm = document.getElementById('orderForm');
-                    const submitBtn = document.getElementById('paymentSubmitBtn');
-                    const selectedPlan = document.getElementById('planSelect').value;
-                    const planPrices = {
-                        artisan: 5999,
-                        couture: 14999,
-                        atelier: 29999,
-                        maison: 74999,
-                        legacy: 0
-                    };
-                
-                    // Get customer info
-                    const clientNameInput = document.querySelector('input[name="clientname"]');
-                    const clientEmailInput = document.querySelector('input[name="clientemail"]');
-                    const clientPhoneInput = document.querySelector('input[name="clientphone"]');
-                    
-                    if (!clientNameInput || !clientEmailInput || !clientPhoneInput) {
-                        alert('Customer info fields not found. Please refresh the page.');
-                        return;
-                    }
-                    
-                    const clientName = clientNameInput.value;
-                    const clientEmail = clientEmailInput.value;
-                    const clientPhone = clientPhoneInput.value;
-
-                    if (!clientName || !clientEmail || !clientPhone) {
-                        alert('Please fill in your name, email, and phone number');
-                        return;
-                    }
-
-                
-                    // Calculate total amount
-                    const basePrice = planPrices[selectedPlan] || 0;
-                    const basePriceInPaisa = basePrice * 100;
-                
-                    // Calculate add-ons
-                    let addonPaisaTotal = 0;
-                    const addons = [
-                        { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
-                        { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
-                        { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
-                        { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 },
-                        { checkbox: document.getElementById('addonBrandNamePlacement'), value: 1000 }
-                    ];
-                
-                    addons.forEach(addon => {
-                        if (addon.checkbox && addon.checkbox.checked) {
-                            addonPaisaTotal += addon.value * 100;
-                        }
-                    });
-                
-                    const totalAmount = basePriceInPaisa + addonPaisaTotal;
-                
-                    console.log('Payment Details:', { basePrice, totalAmount, plan: selectedPlan });
-                
-                    // Razorpay options
-                    const options = {
-                        key: 'rzp_test_RlfywSc3dl1yTg',
-                        amount: totalAmount,
-                        currency: 'INR',
-                        name: 'Maison Model X',
-                        description: 'AI-Generated Fashion Model Photography - ' + selectedPlan.toUpperCase(),
-                        order_id: 'order_' + Date.now(),
-                        prefill: {
-                            name: clientName,
-                            email: clientEmail,
-                            contact: clientPhone
-                        },
-                        theme: { color: '#d4af37' },
-                        handler: handlePaymentSuccess,
-                        modal: {
-                            ondismiss: function() {
-                                submitBtn.textContent = 'Proceed to Payment';
-                                submitBtn.disabled = false;
-                            }
-                        }
-                    };
-                
-                    submitBtn.textContent = 'Opening Payment...';
-                    submitBtn.disabled = true;
-                
-                    try {
-                        const rzp = new Razorpay(options);
-                        rzp.open();
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert('Error initializing payment');
-                        submitBtn.textContent = 'Proceed to Payment';
-                        submitBtn.disabled = false;
-                    }
-                }  */
                 
                 // ============ HANDLE PAYMENT SUCCESS ============
                 function handlePaymentSuccess(response) {
@@ -5626,6 +5530,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
