@@ -2627,60 +2627,6 @@
             });
 
             
-        // Feedback Form Submission to Bitrix24
-       /* document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // TODO: Replace with your actual Bitrix24 webhook URL
-            const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add";  */
-
-            // Check if webhook URL is configured
-            /*if (webhookUrl === "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add") {
-                console.error('Bitrix24 webhook URL not configured');
-                alert('❌ Feedback system is not configured yet. Please contact us directly at maisonmodelx@gmail.com');
-                return;
-            } */
-
-       /*     const formData = {
-                fb_name: document.querySelector('input[name="fb_name"]').value,
-                fb_email: document.querySelector('input[name="fb_email"]').value,
-                fb_subject: document.querySelector('input[name="fb_subject"]').value,
-                fb_message: document.querySelector('textarea[name="fb_message"]').value
-            };
-
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
-
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-                
-            .then(response => {
-                if (response.ok) {
-                    alert('✅ Thank you for submitting your feedback. We appreciate your input!');
-                    document.getElementById('feedbackForm').reset();
-                } else {
-                    throw new Error('Server responded with error: ' + response.status);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('❌ There was an error submitting your feedback. Please try again or contact us at maisonmodelx@gmail.com');
-            })
-            .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
-        });   */
-
-            
         </script>
     </div>
 </section>
@@ -3268,6 +3214,7 @@
 </body>
 
 </html>
+
 
 
 
