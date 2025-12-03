@@ -160,132 +160,12 @@
         }
         
         // ✅ LIGHTNING EFFECTS (Hide for Artisan & Couture)
-        function toggleLightningEffectsSection(modelNumber) {
-            const planSelect = document.getElementById("planSelect");
-            const lightningSection = document.getElementById(`lightning_effects_section_model${modelNumber}`);
-            const lightningOtherSection = document.getElementById(`lightning_effects_other_section_model${modelNumber}`);
-            
-            if (!planSelect || !lightningSection) return;
-            
-            const selectedTier = planSelect.value;
-            const supportedTiers = ["atelier", "maison"];
-            
-            if (supportedTiers.includes(selectedTier)) {
-                lightningSection.classList.remove("hidden-section");
-            } else {
-                lightningSection.classList.add("hidden-section");
-                if (lightningOtherSection) lightningOtherSection.classList.add("hidden-section");
-                
-                const lightningSelect = document.getElementById(`model_${modelNumber}_lightning_effects`);
-                const lightningOtherInput = document.getElementById(`lightning_effects_other_model${modelNumber}`);
-                if (lightningSelect) lightningSelect.value = "";
-                if (lightningOtherInput) lightningOtherInput.value = "";
-            }
-        }
         
         // ✅ ACCESSORIES (Hide for Artisan & Couture)
-        function toggleAccessorySection(num) {
-            const planSelect = document.getElementById('planSelect');
-            const selectedPlan = planSelect ? planSelect.value : '';
-            const tierSupportsAccessories = ['atelier', 'maison'].includes(selectedPlan);
-            
-            const sel = document.getElementById(`accessories_included_model${num}`);
-            const sec = document.getElementById(`accessories_section_model${num}`);
-            const toggleGroup = sel?.closest('.accessories-toggle-group');
-            
-            if (!tierSupportsAccessories) {
-                // HIDE for Artisan & Couture
-                if (toggleGroup) toggleGroup.style.display = 'none';
-                if (sec) sec.classList.add('hidden-section');
-                if (sel) sel.value = 'No';
-                clearAccessoryInputs(num);
-                return;
-            }
-            
-            // Show for Atelier & Maison - normal toggle logic
-            if (toggleGroup) toggleGroup.style.display = 'block';
-            
-            if (sel.value === 'Yes') {
-                sec.classList.remove('hidden-section');
-            } else {
-                sec.classList.add('hidden-section');
-            }
-        }
         
         // ✅ CLEAR ACCESSORIES
-        function clearAccessoryInputs(num) {
-            const container = document.getElementById(`accessory_inputs_model${num}`);
-            if (container) container.innerHTML = '';
-            
-            const countSelect = document.getElementById(`accessories_count_model${num}`);
-            if (countSelect) countSelect.value = '1';
-            
-            const descTextarea = document.getElementById(`accessories_desc_model${num}`);
-            if (descTextarea) descTextarea.value = '';
-            
-            for (let i = 1; i <= 3; i++) {
-                const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
-                if (fileInput) fileInput.value = '';
-            }
-        }
-        
-        // ✅ CLEAR BRAND FIELDS
-        function clearBrandNameFields() {
-            const brandNameInput = document.getElementById("brandNameInput");
-            const fontStyleSelect = document.getElementById("brandFontStyleSelect");
-            const fontStyleOtherInput = document.getElementById("brandFontStyleOtherInput");
-            const placementSelect = document.getElementById("brandPlacementSelect");
-            const placementOtherInput = document.getElementById("brandPlacementOtherInput");
-            
-            if (brandNameInput) brandNameInput.value = "";
-            if (fontStyleSelect) fontStyleSelect.value = "";
-            if (fontStyleOtherInput) fontStyleOtherInput.value = "";
-            if (placementSelect) placementSelect.value = "";
-            if (placementOtherInput) placementOtherInput.value = "";
-            
-            document.getElementById("brandColorHiddenInput").value = "FFD700";
-            document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
-            document.getElementById("brandColorHexDisplay").textContent = "FFD700";
-        }
         
         // ✅ MODEL SPECIFICATIONS HANDLER
-        function onModelSpecChange() {
-            const specSelect = document.getElementById('modelSpecifications');
-            const productNameSection = document.getElementById('productNameSection');
-            const productNameInput = document.getElementById('productName');
-            
-            if (!specSelect || !productNameSection) return;
-        
-            if (specSelect.value === 'Product' || specSelect.value === 'Both (Garment / Product)') {
-                productNameSection.classList.remove('hidden-section');
-                productNameInput.focus();
-            } else {
-                productNameSection.classList.add('hidden-section');
-                productNameInput.value = '';
-            }
-        }
-        
-        // ✅ INITIALIZE ON PAGE LOAD
-        function initModelSpecifications() {
-            const planSelect = document.getElementById('planSelect');
-            if (!planSelect) return;
-            
-            const selectedTier = planSelect.value;
-            filterSpecificationsByTier(selectedTier);
-        }
-        
-        // ✅ EXISTING FUNCTIONS (Keep your current implementations, just call updatePlanOptions)
-        function updateModelAccordion() {
-            // Your existing implementation stays here
-        }
-        
-        function toggleBrandPlacementOther() {
-            // Your existing implementation stays here
-        }
-        
-        function toggleBrandFontStyleOther() {
-            // Your existing implementation stays here
-        }
         
         // Initialize on DOM ready
         document.addEventListener('DOMContentLoaded', function() {
@@ -2337,27 +2217,6 @@
     }
     
     // ---- Background Description Visibility Logic ----
-    function toggleBackgroundDescriptionSection() {
-      const planSelect = document.getElementById("planSelect");
-      const backgroundSection = document.getElementById("backgroundDescriptionSection");
-      const backgroundTextarea = document.getElementById("backgroundDescription");
-      
-      if (!planSelect || !backgroundSection) return;
-      
-      const selectedTier = planSelect.value;
-      
-      // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
-      const supportedTiers = ["couture", "atelier", "maison"];
-      
-      if (supportedTiers.includes(selectedTier)) {
-        backgroundSection.classList.remove("hidden-section");
-      } else {
-        backgroundSection.classList.add("hidden-section");
-        // Clear textarea when switching to unsupported tier
-        backgroundTextarea.value = "";
-      }
-    }
-    
     
     function renderAccessoryInputs(num) {
       const count = parseInt(document.getElementById(`accessories_count_model${num}`).value, 10);
@@ -2515,25 +2374,6 @@
     }
     
     /* ---- Client's Brand Name Section Visibility Logic (Atelier & Maison only) ---- */
-    function toggleClientBrandSection() {
-        const planSelect = document.getElementById("planSelect");
-        const brandSection = document.getElementById("clientBrandSection");
-        
-        if (!planSelect || !brandSection) return;
-        
-        const selectedTier = planSelect.value;
-        
-        // Show section ONLY for Atelier and Maison, hide for Couture & Artisan
-        const supportedTiers = ["atelier", "maison"];
-        if (supportedTiers.includes(selectedTier)) {
-            brandSection.classList.remove("hidden-section");
-        } else {
-            brandSection.classList.add("hidden-section");
-            // Clear fields when switching to unsupported tier
-            clearBrandNameFields();
-        }
-    }
-    
     /* ---- Brand Placement Other Toggle Logic ---- */
     function toggleBrandPlacementOther() {
         const placementSelect = document.getElementById("brandPlacementSelect");
@@ -2623,29 +2463,7 @@
     }
     
     /* ---- Brand Name Placement Add-On Visibility Logic (Artisan & Couture only) ---- */
-    function toggleBrandNamePlacementAddon() {
-        const planSelect = document.getElementById("planSelect");
-        const addonBrandNameItem = document.getElementById("addonBrandNamePlacementItem");
-        
-        if (!planSelect || !addonBrandNameItem) return;
-        
-        const selectedTier = planSelect.value;
-        
-        // Show add-on ONLY for Artisan and Couture, hide for Atelier and Maison
-        const supportedTiers = ["artisan", "couture"];
-        if (supportedTiers.includes(selectedTier)) {
-            addonBrandNameItem.classList.remove("hidden-section");
-        } else {
-            addonBrandNameItem.classList.add("hidden-section");
-            // Uncheck and clear if switching to unsupported tier
-            const checkbox = document.getElementById("addonBrandNamePlacement");
-            if (checkbox) {
-                checkbox.checked = false;
-            }
-            updatePriceDisplay(); // Recalculate price
-        }
-    }
-
+    
 // ---- Lightning Effects Visibility Logic (Atelier & Maison only) ----
 /*function toggleLightningEffectsSection(modelNumber) {
   const planSelect = document.getElementById("planSelect");
@@ -2700,26 +2518,7 @@ function toggleLightningEffectsSection(modelNumber) {
 
 
 // ---- Pose Section Visibility Logic (Hidden for Artisan tier) ----
-function togglePoseSection(modelNumber) {
-  const planSelect = document.getElementById("planSelect");
-  const poseSection = document.getElementById(`pose_section_model${modelNumber}`);
-  
-  if (!planSelect || !poseSection) return;
-  
-  const selectedTier = planSelect.value;
-  
-  // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
-  const supportedTiers = ["couture", "atelier", "maison"];
-  
-  if (supportedTiers.includes(selectedTier)) {
-    poseSection.classList.remove("hidden-section");
-  } else {
-    poseSection.classList.add("hidden-section");
-    // Clear textarea when switching to unsupported tier
-    const poseTextarea = document.getElementById(`model_${modelNumber}_pose`);
-    if (poseTextarea) poseTextarea.value = "";
-  }
-}
+
 
 
 function toggleHandPoseOther(num) {
@@ -2830,38 +2629,6 @@ function initModelSpecifications() {
  * Filters or disables specification options based on tier
  * Artisan tier: Jewelry and Both (Garment + Jewel) are disabled
  */
-function filterSpecificationsByTier(tier) {
-    const specSelect = document.getElementById('modelSpecifications');
-    if (!specSelect) return;
-
-    const options = specSelect.querySelectorAll('option');
-    
-    options.forEach(option => {
-        const value = option.value;
-        
-        // For Artisan tier, disable Jewelry-related options
-        if (tier === 'artisan') {
-            if (value === 'Jewelry' || value === 'Both (Garment + Jewel)') {
-                option.disabled = true;
-                option.style.display = 'none';
-            } else {
-                option.disabled = false;
-                option.style.display = 'block';
-            }
-        } else {
-            // All other tiers: enable all options
-            option.disabled = false;
-            option.style.display = 'block';
-        }
-    });
-
-    // If current selection is now invalid for this tier, reset it
-    if (tier === 'artisan' && 
-        (specSelect.value === 'Jewelry' || specSelect.value === 'Both (Garment + Jewel)')) {
-        specSelect.value = 'Garment'; // Reset to default valid option
-        onModelSpecChange(); // Trigger update
-    }
-}
 
 /**
  * Hook into existing plan selection change
@@ -5781,13 +5548,6 @@ function onPlanChangeForEdition() {
         });
 
         // ============ UPDATE PLAN OPTIONS ============
-        function updatePlanOptions() {
-            const planSelect = document.getElementById('planSelect');
-            if (!planSelect) return;
-
-            const selectedPlan = planSelect.value;
-            updateModelAccordion();
-        }
 
         // ============ FORM SUBMIT (Feedback) ============
         document.addEventListener('DOMContentLoaded', function () {
@@ -5851,6 +5611,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
