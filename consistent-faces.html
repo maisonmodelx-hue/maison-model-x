@@ -2586,7 +2586,7 @@
             // Feedback Form Submission
             document.getElementById('feedbackForm').addEventListener('submit', function(e) {
                 e.preventDefault();
-                const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.lead.add";
+                const webhookUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/w0db9q6f97mo25dg/crm.lead.add";
                 
                 // Get form values
                 const fbName = document.querySelector('input[name="fb_name"]').value;
@@ -2982,7 +2982,7 @@
                     
         
         function sendToBitrix24(data) {
-        const webhookUrl = "https://b24-ecusbg.bitrix24.in/rest/1/by5d9ncheb31kqt5/crm.deal.add";
+        const webhookUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/9edrslqy06g6ro93/crm.deal.add";
         
         // Package pricing mapping
         const packagePrices = {
@@ -3088,7 +3088,7 @@
             if (result.result) {
                 // ✅ Deal created successfully, now add order details as timeline comment
                 const dealId = result.result;
-                const commentUrl = "https://b24-ecusbg.bitrix24.in/rest/1/tolggyhmbnhaz6d6/crm.timeline.comment.add";
+                const commentUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/9edrslqy06g6ro93/crm.timeline.comment.add";
                 
                 return fetch(commentUrl, {
                     method: 'POST',
@@ -3268,6 +3268,7 @@
 </body>
 
 </html>
+
 
 
 
