@@ -3633,9 +3633,7 @@ function onPlanChangeForEdition() {
                         submitBtn.textContent = 'Opening Payment...';
                         rzp.open();
 
-                        try {
-                        const createOrderResponse = await fetch('/.netlify/functions/createOrder', {
-                    } catch (error) {
+                        catch (error) {
                         console.error('Error:', error);
                         alert('Payment initialization failed: ' + error.message);
                         submitBtn.textContent = 'Proceed to Payment';
@@ -5553,6 +5551,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
