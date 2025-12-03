@@ -3358,16 +3358,17 @@ function onPlanChangeForEdition() {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
+                                action: 'createOrder',
                                 amount: totalAmount,
                                 currency: 'INR',
-                                receipt: 'order_' + Date.now()
+                                receipt: `order_${Date.now()}`
                             })
                         });
 
                         if (!createOrderResponse.ok) {
-                          const text = await createOrderResponse.text();
-                          console.error('createOrder failed:', createOrderResponse.status, text);
-                          alert('Failed to create order. Please try again later.');
+                          const text = await createOrderResponse.text();  // may be HTML or JSON string
+                          console.error('createOrder error:', createOrderResponse.status, text);
+                          alert('Failed to create order. Please try again.');
                           submitBtn.textContent = 'Proceed to Payment';
                           submitBtn.disabled = false;
                           return;
@@ -5216,16 +5217,17 @@ function onPlanChangeForEdition() {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
+                                    action: 'createOrder',
                                     amount: totalAmount,
                                     currency: 'INR',
-                                    receipt: 'order_' + Date.now()
+                                    receipt: `order_${Date.now()}`
                                 })
                             });
 
                             if (!createOrderResponse.ok) {
-                              const text = await createOrderResponse.text();
-                              console.error('createOrder failed:', createOrderResponse.status, text);
-                              alert('Failed to create order. Please try again later.');
+                              const text = await createOrderResponse.text();  // may be HTML or JSON string
+                              console.error('createOrder error:', createOrderResponse.status, text);
+                              alert('Failed to create order. Please try again.');
                               submitBtn.textContent = 'Proceed to Payment';
                               submitBtn.disabled = false;
                               return;
@@ -5423,4 +5425,5 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
