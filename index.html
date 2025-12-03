@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script async src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Maison Model X - AI Fashion Photography</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script>
@@ -3544,6 +3544,11 @@ function onPlanChangeForEdition() {
                     }
                 
                     const clientName = clientNameInput.value.trim();
+                    if (!clientName || clientName.trim().length < 3) {
+                        alert('Please enter a valid customer name (at least 3 characters)');
+                        return;
+                    }
+
                     const clientEmail = clientEmailInput.value.trim();
                     const clientPhone = clientPhoneInput.value.trim();
                 
@@ -3578,12 +3583,21 @@ function onPlanChangeForEdition() {
                         const createOrderResponse = await fetch('/.netlify/functions/createOrder', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                amount: totalAmount,
-                                currency: 'INR',
-                                receipt: 'order_' + Date.now()
+                            body: JSON.stringify({ 
+                                action: 'createOrder',
+                                amount: totalAmount, 
+                                currency: 'INR', 
+                                receipt: `receipt_${Date.now()}` 
                             })
                         });
+
+                        if (!createOrderResponse.ok) {
+                            const errorText = await createOrderResponse.text();
+                            alert('Order creation failed: ' + errorText);
+                            submitBtn.textContent = 'Proceed to Payment';
+                            submitBtn.disabled = false;
+                            return;
+                        }
                 
                         const orderData = await createOrderResponse.json();
                 
@@ -3645,6 +3659,27 @@ function onPlanChangeForEdition() {
                 // ============ HANDLE PAYMENT SUCCESS ============
                 function handlePaymentSuccess(response) {
                     const orderForm = document.getElementById('orderForm');
+
+                    // ADD THIS after Razorpay opens, BEFORE appending hidden inputs:
+                    const verifyResponse = await fetch('/.netlify/functions/createOrder', {
+                      method: 'POST',
+                      body: JSON.stringify({
+                        action: 'verifyPayment',
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature
+                      })
+                    });
+                    
+                    const verifyData = await verifyResponse.json();
+                    
+                    if (!verifyData.success) {
+                      alert('Payment verification failed: ' + verifyData.message);
+                      return;
+                    }
+                    
+                    // ONLY THEN proceed with form submission and Bitrix24
+
                     
                     // Add payment IDs to form
                     ['razorpay_payment_id', 'razorpay_order_id', 'razorpay_signature'].forEach(field => {
@@ -5272,7 +5307,7 @@ function onPlanChangeForEdition() {
                     // Razorpay options
 
                     // NEW - Backend integration (SECURE)
-                    async function initiateRazorpayPayment() {
+          /*          async function initiateRazorpayPayment() {
                         const orderForm = document.getElementById('orderForm');
                         const submitBtn = document.getElementById('paymentSubmitBtn');
                         const selectedPlan = document.getElementById('planSelect').value;
@@ -5373,7 +5408,7 @@ function onPlanChangeForEdition() {
                             submitBtn.textContent = 'Proceed to Payment';
                             submitBtn.disabled = false;
                         }
-                    }
+                    }  */
 
 
                     
@@ -5530,6 +5565,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
