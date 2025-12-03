@@ -2581,24 +2581,36 @@ function filterSpecificationsByTier(tier) {
  * Call this when tier changes
  */
 function onPlanChangeForEdition() {
-    const planSelect = document.getElementById('planSelect');
-    if (planSelect) {
+    try {
+        const planSelect = document.getElementById('planSelect');
+        if (!planSelect) return;
+        
         const selectedTier = planSelect.value;
-        filterSpecificationsByTier(selectedTier);
-        // Also reset product name if switching tiers
+        
+        // Safety check before filtering
         const specSelect = document.getElementById('modelSpecifications');
+        if (specSelect) {
+            filterSpecificationsByTier(selectedTier);
+        }
+        
+        // Reset product name if switching tiers
         const productNameSection = document.getElementById('productNameSection');
         const productNameInput = document.getElementById('productName');
+        
         if (productNameSection) {
             productNameSection.classList.add('hidden-section');
         }
         if (productNameInput) {
             productNameInput.value = '';
         }
+        
+        toggleClientBrandSection();
+        toggleBrandNamePlacementAddon();
+    } catch (error) {
+        console.error('Error in onPlanChangeForEdition:', error);
     }
-    toggleClientBrandSection();
-    toggleBrandNamePlacementAddon();
 }
+
 
 
 </script>
@@ -5557,6 +5569,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
