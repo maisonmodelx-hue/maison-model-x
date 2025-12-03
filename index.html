@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Maison Model X - AI Fashion Photography</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script>
@@ -12,173 +12,6 @@
                 registrations.forEach(reg => reg.unregister());
             });
         }
-
-        // ============ EARLY FUNCTION DEFINITIONS ============
-        // Define BEFORE HTML elements call them
-
-        const planPrices = {
-            artisan: 1,
-            couture: 14999,
-            atelier: 29999,
-            maison: 74999,
-            legacy: 0
-        };
-        
-        // ✅ MASTER FUNCTION - Called when planSelect changes
-        function updatePlanOptions() {
-            const planSelect = document.getElementById('planSelect');
-            if (!planSelect) return;
-        
-            const selectedPlan = planSelect.value;
-            
-            // Call ALL tier-dependent functions
-            updateModelAccordion();
-            filterSpecificationsByTier(selectedPlan);
-            toggleBackgroundDescriptionSection();
-            toggleClientBrandSection();
-            toggleBrandNamePlacementAddon();
-            
-            // Update each model's tier-specific sections
-            const modelCount = parseInt(document.getElementById('modelCountInput')?.value || 1);
-            for (let i = 1; i <= modelCount; i++) {
-                toggleLightningEffectsSection(i);
-                togglePoseSection(i);
-                toggleAccessorySection(i);
-            }
-        }
-        
-        // ✅ FILTER JEWELRY OPTIONS (Artisan = NO jewelry)
-        function filterSpecificationsByTier(tier) {
-            const specSelect = document.getElementById('modelSpecifications');
-            if (!specSelect) return;
-        
-            const options = specSelect.querySelectorAll('option');
-            
-            options.forEach(option => {
-                const value = option.value;
-                
-                if (tier === 'artisan') {
-                    // ARTISAN: Disable jewelry options
-                    if (value === 'Jewelry' || value === 'Both (Garment + Jewel)') {
-                        option.disabled = true;
-                        option.style.display = 'none';
-                    } else {
-                        option.disabled = false;
-                        option.style.display = 'block';
-                    }
-                } else {
-                    // ALL OTHER TIERS: Enable all options
-                    option.disabled = false;
-                    option.style.display = 'block';
-                }
-            });
-        
-            // If currently selected value is invalid for tier, reset
-            if (tier === 'artisan' && 
-                (specSelect.value === 'Jewelry' || specSelect.value === 'Both (Garment + Jewel)')) {
-                specSelect.value = 'Garment';
-                onModelSpecChange();
-            }
-        }
-        
-        // ✅ HIDE CUSTOMIZED BACKGROUNDS (Hide for Artisan only)
-        function toggleBackgroundDescriptionSection() {
-            const planSelect = document.getElementById("planSelect");
-            const backgroundSection = document.getElementById("backgroundDescriptionSection");
-            const backgroundTextarea = document.getElementById("backgroundDescription");
-            
-            if (!planSelect || !backgroundSection) return;
-            
-            const selectedTier = planSelect.value;
-            const supportedTiers = ["couture", "atelier", "maison"];
-            
-            if (supportedTiers.includes(selectedTier)) {
-                backgroundSection.classList.remove("hidden-section");
-            } else {
-                backgroundSection.classList.add("hidden-section");
-                if (backgroundTextarea) backgroundTextarea.value = "";
-            }
-        }
-        
-        // ✅ BRAND SECTION (Show ONLY for Atelier & Maison)
-        function toggleClientBrandSection() {
-            const planSelect = document.getElementById("planSelect");
-            const brandSection = document.getElementById("clientBrandSection");
-            
-            if (!planSelect || !brandSection) return;
-            
-            const selectedTier = planSelect.value;
-            const supportedTiers = ["atelier", "maison"];
-            
-            if (supportedTiers.includes(selectedTier)) {
-                brandSection.classList.remove("hidden-section");
-            } else {
-                brandSection.classList.add("hidden-section");
-                clearBrandNameFields();
-            }
-        }
-        
-        // ✅ BRAND NAME PLACEMENT ADD-ON (Show ONLY for Artisan & Couture)
-        function toggleBrandNamePlacementAddon() {
-            const planSelect = document.getElementById("planSelect");
-            const addonBrandNameItem = document.getElementById("addonBrandNamePlacementItem");
-            
-            if (!planSelect || !addonBrandNameItem) return;
-            
-            const selectedTier = planSelect.value;
-            const supportedTiers = ["artisan", "couture"];
-            
-            if (supportedTiers.includes(selectedTier)) {
-                addonBrandNameItem.classList.remove("hidden-section");
-            } else {
-                addonBrandNameItem.classList.add("hidden-section");
-                const checkbox = document.getElementById("addonBrandNamePlacement");
-                if (checkbox) {
-                    checkbox.checked = false;
-                }
-                updatePriceDisplay();
-            }
-        }
-        
-        // ✅ CUSTOMIZED POSES (Hide for Artisan)
-        function togglePoseSection(modelNumber) {
-            const planSelect = document.getElementById("planSelect");
-            const poseSection = document.getElementById(`pose_section_model${modelNumber}`);
-            
-            if (!planSelect || !poseSection) return;
-            
-            const selectedTier = planSelect.value;
-            const supportedTiers = ["couture", "atelier", "maison"];
-            
-            if (supportedTiers.includes(selectedTier)) {
-                poseSection.classList.remove("hidden-section");
-            } else {
-                poseSection.classList.add("hidden-section");
-                const poseTextarea = document.getElementById(`model_${modelNumber}_pose`);
-                if (poseTextarea) poseTextarea.value = "";
-            }
-        }
-        
-        // ✅ LIGHTNING EFFECTS (Hide for Artisan & Couture)
-        
-        // ✅ ACCESSORIES (Hide for Artisan & Couture)
-        
-        // ✅ CLEAR ACCESSORIES
-        
-        // ✅ MODEL SPECIFICATIONS HANDLER
-        
-        // Initialize on DOM ready
-        document.addEventListener('DOMContentLoaded', function() {
-            try {
-                initModelSpecifications();
-                toggleBackgroundDescriptionSection();
-            } catch (error) {
-                console.error('Init error:', error);
-            }
-        });
-
-
-        
     </script>
 
 
@@ -298,7 +131,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("moon.png");
+            background-image: url(moon.png);
             background-size: cover;
             background-position: center;
             opacity: 0.4;
@@ -1334,276 +1167,56 @@
         }
 
         @media (max-width: 768px) {
-            /* HERO MOBILE */
-              .hero {
-                min-height: 90vh;
-                padding-top: 100px;
-                padding-bottom: 40px;
-              }
-            
-              .hero h1 {
-                font-size: 36px !important;
-                line-height: 1.2;
-                margin-bottom: 12px;
-              }
-            
-              .hero .tagline {
-                font-size: 24px;
-                margin-bottom: 20px;
-              }
-            
-              .hero p {
-                font-size: 15px;
-                line-height: 1.7;
-                margin-bottom: 30px;
-              }
-            
-              .cta-buttons {
-                gap: 15px;
-                margin-bottom: 40px;
-              }
-            
-              .btn {
-                padding: 12px 24px;
-                font-size: 11px;
-                width: auto;
-                white-space: nowrap;
-              }
-            
-              /* SECTIONS */
-              section {
-                padding: 50px 20px !important;
-              }
-            
-              .section-title {
-                font-size: 32px;
-                margin-bottom: 15px;
-              }
-            
-              .section-subtitle {
-                font-size: 13px;
-                margin-bottom: 40px;
-              }
-            
-              /* GALLERY GRID */
-              .gallery-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 15px;
-              }
-            
-              .gallery-item {
-                aspect-ratio: 0.8;
-              }
-            
-              /* PRICING GRID */
-              .pricing-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px;
-              }
-            
-              .pricing-card {
-                padding: 20px 15px;
-                min-width: unset;
-              }
-            
-              .pricing-card .price {
-                font-size: 24px;
-              }
-            
-              .pricing-card ul {
-                margin: 20px 0;
-              }
-            
-              /* FEATURES/BENEFITS GRID */
-              .features-grid,
-              .benefits-grid,
-              .services-grid,
-              .why-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px;
-              }
-            
-              .feature-card,
-              .benefit-card,
-              .service-card,
-              .why-card {
-                padding: 25px;
-              }
-            
-              /* STEPS GRID */
-              .steps-container {
-                grid-template-columns: 1fr !important;
-                gap: 20px;
-              }
-            
-              .steps-container::before {
-                display: none !important;
-              }
-            
-              .step-number {
-                width: 70px;
-                height: 70px;
-                font-size: 28px;
-              }
-            
-              /* COMPARISON */
-              .comparison {
-                grid-template-columns: 1fr !important;
-                gap: 30px;
-              }
-            
-              .comparison-item {
-                padding: 25px;
-              }
-            
-              /* FORMS */
-              .form-grid {
-                grid-template-columns: 1fr !important;
-                gap: 15px;
-              }
-            
-              .form-container {
-                padding: 30px 20px;
-              }
-            
-              .form-group input,
-              .form-group select,
-              .form-group textarea {
-                font-size: 14px;
-                padding: 12px;
-              }
-            
-              /* ABOUT SECTION */
-              .about-content {
-                grid-template-columns: 1fr !important;
-                gap: 30px;
-              }
-            
-              .about-text h3 {
-                font-size: 24px;
-              }
-            
-              .about-text p {
-                font-size: 13px;
-              }
-            
-              /* FOOTER */
-              .footer-content {
-                grid-template-columns: 1fr !important;
-                gap: 30px;
-              }
-            
-              .footer-section h4 {
-                font-size: 12px;
-              }
-            
-              .social-links {
-                gap: 15px;
-              }
-            
-              .social-links a {
-                width: 40px;
-                height: 40px;
-              }
-            
-              .social-links img {
-                width: 20px;
-                height: 20px;
-              }
-            
-              /* NAVIGATION */
-              nav {
-                padding: 12px 20px;
-              }
-            
-              nav ul {
-                gap: 12px;
-                font-size: 10px;
-              }
-            
-              .logo {
-                font-size: 16px;
-              }
-            
-              /* SCROLL TO TOP */
-              .scroll-to-top-btn {
-                width: 45px;
-                height: 45px;
-                bottom: 20px;
-                right: 20px;
-              }
-            }
-            
-            /* EXTRA SMALL SCREENS (Mobile Phones) */
-            @media (max-width: 480px) {
-              .hero {
-                min-height: 85vh;
-                padding-top: 80px;
-              }
-            
-              .hero h1 {
-                font-size: 28px;
-              }
-            
-              .hero .tagline {
-                font-size: 20px;
-              }
-            
-              .hero p {
-                font-size: 14px;
-              }
-            
-              .cta-buttons {
-                flex-direction: column;
-                gap: 12px;
-              }
-            
-              .btn {
-                width: 100%;
-                padding: 12px 20px;
-              }
-            
-              section {
-                padding: 40px 15px !important;
-              }
-            
-              .section-title {
-                font-size: 26px;
-              }
-            
-              .gallery-grid {
-                grid-template-columns: 1fr !important;
-              }
-            
-              .pricing-card {
-                padding: 15px;
-              }
-            
-              .pricing-card .price {
-                font-size: 20px;
-              }
-            
-              .form-container {
-                padding: 20px 15px;
-              }
-            
-              nav {
-                padding: 10px 15px;
-              }
-            
-              nav ul {
-                gap: 8px;
-              }
-            
-              .logo {
-                font-size: 14px;
-              }
-            
-              .feedback-container {
-                padding: 25px 15px;
-              }
+            nav {
+                padding: 15px 30px;
             }
 
+            nav ul {
+                gap: 15px;
+                font-size: 11px;
+            }
+
+            section {
+                padding: 60px 30px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benefits-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .steps-container::before {
+                display: none;
+            }
+
+            .form-container {
+                padding: 30px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         /* ============ COLOR PICKER MODAL ============ */
         .color-picker-modal {
@@ -2085,360 +1698,462 @@
         }
 
     </style>
-
 </head>
 
 <script>
 /* ---- Model Color Picker Logic (Shared Modal) ---- */
-    let currentColorModelNum = null;
-    
-    function selectModelColor(color, num) {
-      document.getElementById(`selected_color_hex_model${num}`).value = color;
-      const swatch = document.getElementById(`selectedColorSwatch_model${num}`);
-      const hexText = document.getElementById(`selectedColorHexText_model${num}`);
-      const row = document.getElementById(`selectedColorRow_model${num}`);
-      
-      swatch.style.background = color;
-      swatch.style.boxShadow = `0 0 12px ${color}40`;
-      hexText.textContent = color.toUpperCase();
-      row.style.display = 'flex';
-      
-      // Remove .selected from all circles, add to clicked one
-      const swatches = document.querySelectorAll(`#swatchRow_model${num} .color-swatch`);
-      swatches.forEach(s => {
-        s.classList.remove('selected');
-        if (s.getAttribute('data-color').toLowerCase() === color.toLowerCase()) {
-          s.classList.add('selected');
-        }
-      });
+let currentColorModelNum = null;
+
+function selectModelColor(color, num) {
+  document.getElementById(`selected_color_hex_model${num}`).value = color;
+  const swatch = document.getElementById(`selectedColorSwatch_model${num}`);
+  const hexText = document.getElementById(`selectedColorHexText_model${num}`);
+  const row = document.getElementById(`selectedColorRow_model${num}`);
+  
+  swatch.style.background = color;
+  swatch.style.boxShadow = `0 0 12px ${color}40`;
+  hexText.textContent = color.toUpperCase();
+  row.style.display = 'flex';
+  
+  // Remove .selected from all circles, add to clicked one
+  const swatches = document.querySelectorAll(`#swatchRow_model${num} .color-swatch`);
+  swatches.forEach(s => {
+    s.classList.remove('selected');
+    if (s.getAttribute('data-color').toLowerCase() === color.toLowerCase()) {
+      s.classList.add('selected');
     }
+  });
+}
+
+
+function openColorModal(num) {
+  currentColorModelNum = num;
+  const modal = document.getElementById('colorPickerModal');
+  if (modal) {
+    modal.classList.add('active');
+    let colorVal = document.getElementById(`selected_color_hex_model${num}`).value || "#ffd700";
+    document.getElementById('colorPickerInput').value = colorVal;
+    document.getElementById('colorPickerHexInput').value = colorVal;
+    document.getElementById('colorPickerPreview').style.background = colorVal;
+  }
+}
+
+function closeColorModal() {
+  const modal = document.getElementById('colorPickerModal');
+  if (modal) modal.classList.remove('active');
+  currentColorModelNum = null;
+}
+
+function confirmColorModal() {
+    if (window.currentEditingBrand) {
+        confirmBrandColorFromModal();
+    } else if (currentColorModelNum != null) {
+        const val = document.getElementById("colorPickerHexInput").value;
+        selectModelColor(val, currentColorModelNum);
+        closeColorModal();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const colorInput = document.getElementById('colorPickerInput');
+  const hexInput = document.getElementById('colorPickerHexInput');
+  
+  if (colorInput) {
+    colorInput.addEventListener('input', function(e) {
+      document.getElementById('colorPickerPreview').style.background = e.target.value;
+      document.getElementById('colorPickerHexInput').value = e.target.value;
+    });
+  }
+  
+  if (hexInput) {
+    hexInput.addEventListener('input', function(e) {
+      let val = e.target.value;
+      if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+        document.getElementById('colorPickerInput').value = val;
+        const preview = document.getElementById('colorPickerPreview');
+        preview.style.background = val;
+        preview.style.boxShadow = `0 0 12px ${val}40`;
+      }
+    });
+  }
+  initModelSpecifications();
+  toggleBackgroundDescriptionSection();
+});
+
+/* ---- Accessories Logic (Per Model) ---- */
+function toggleAccessorySection(num) {
+  const sel = document.getElementById(`accessories_included_model${num}`);
+  const sec = document.getElementById(`accessories_section_model${num}`);
+  const toggleGroup = sel?.closest('.accessories-toggle-group');
+  
+  // Check if tier supports accessories
+  const planSelect = document.getElementById('planSelect');
+  const selectedPlan = planSelect ? planSelect.value : '';
+  const tierSupportsAccessories = ['atelier', 'maison'].includes(selectedPlan);
+  
+  if (!tierSupportsAccessories) {
+    // Hide and clear for unsupported tiers
+    if (toggleGroup) toggleGroup.style.display = 'none';
+    if (sec) sec.classList.add('hidden-section');
+    if (sel) sel.value = 'No';
+    clearAccessoryInputs(num);
+    return;
+  }
     
-    
-    function openColorModal(num) {
-      currentColorModelNum = num;
-      const modal = document.getElementById('colorPickerModal');
-      if (modal) {
-        modal.classList.add('active');
-        let colorVal = document.getElementById(`selected_color_hex_model${num}`).value || "#ffd700";
-        document.getElementById('colorPickerInput').value = colorVal;
-        document.getElementById('colorPickerHexInput').value = colorVal;
-        document.getElementById('colorPickerPreview').style.background = colorVal;
+  if (toggleGroup) toggleGroup.style.display = 'block';
+  
+  // Normal toggle for supported tiers
+  if (sel.value === 'Yes') {
+        sec.classList.remove('hidden-section');
+    } else {
+        sec.classList.add('hidden-section');
+    }
+}
+
+function clearAccessoryInputs(num) {
+  // Clear all accessory inputs for this model
+  const container = document.getElementById(`accessory_inputs_model${num}`);
+  if (container) container.innerHTML = '';
+  
+  const countSelect = document.getElementById(`accessories_count_model${num}`);
+  if (countSelect) countSelect.value = '1';
+  
+  const descTextarea = document.getElementById(`accessories_desc_model${num}`);
+  if (descTextarea) descTextarea.value = '';
+  
+  // Clear all file inputs
+  for (let i = 1; i <= 3; i++) {
+    const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
+    if (fileInput) fileInput.value = '';
+  }
+}
+
+// ---- Background Description Visibility Logic ----
+function toggleBackgroundDescriptionSection() {
+  const planSelect = document.getElementById("planSelect");
+  const backgroundSection = document.getElementById("backgroundDescriptionSection");
+  const backgroundTextarea = document.getElementById("backgroundDescription");
+  
+  if (!planSelect || !backgroundSection) return;
+  
+  const selectedTier = planSelect.value;
+  
+  // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
+  const supportedTiers = ["couture", "atelier", "maison"];
+  
+  if (supportedTiers.includes(selectedTier)) {
+    backgroundSection.classList.remove("hidden-section");
+  } else {
+    backgroundSection.classList.add("hidden-section");
+    // Clear textarea when switching to unsupported tier
+    backgroundTextarea.value = "";
+  }
+}
+
+
+function renderAccessoryInputs(num) {
+  const count = parseInt(document.getElementById(`accessories_count_model${num}`).value, 10);
+  const container = document.getElementById(`accessory_inputs_model${num}`);
+  container.innerHTML = '';
+  for (let i = 1; i <= count; i++) {
+    container.innerHTML += `
+      <div class="form-group accessory-fgroup">
+        <label for="accessory_type_${i}_model${num}">Accessory Type #${i}</label>
+        <select id="accessory_type_${i}_model${num}" name="accessory_type_${i}_model${num}">
+          <option value="">-- Select Type --</option>
+          <option value="Jewelry">Jewelry</option>
+          <option value="Hat">Hat</option>
+          <option value="Eyewear">Eyewear</option>
+          <option value="Bag">Bag</option>
+          <option value="Shoes">Shoes</option>
+          <option value="Scarf">Scarf</option>
+          <option value="Other">Other</option>
+        </select>
+        <label for="accessories_image_${i}_model${num}">Upload Image</label>
+        <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold);">
+            The image upload link will be sent to you for better quality and larger files.
+        </p>
+      </div>
+    `;
+  }
+}
+
+function validateAccessoryUploads(num) {
+  let uploads = 0;
+  const count = parseInt(document.getElementById(`accessories_count_model${num}`).value, 10);
+  for (let i = 1; i <= count; i++) {
+    const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
+    if (fileInput && fileInput.files.length > 0) uploads++;
+  }
+  if (uploads > 3) {
+    alert("Max 3 accessory uploads allowed per model.");
+    for (let i = count; i > 0; i--) {
+      const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
+      if (fileInput && fileInput.files.length > 0) {
+        fileInput.value = '';
+        break;
       }
     }
+  }
+}
+
+/* ---- Ethnicity "Other" Toggle Logic ---- */
+function toggleEthnicityOther(num) {
+  const ethnicitySelect = document.getElementById(`model_${num}_ethnicity`);
+  const otherSection = document.getElementById(`ethnicity_other_section_model${num}`);
+  
+  if (!ethnicitySelect || !otherSection) return;
+  
+  if (ethnicitySelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+/* ---- Skin Tone "Other" Toggle Logic ---- */
+function toggleSkinToneOther(num) {
+  const skinToneSelect = document.getElementById(`model_${num}_skin_tone`);
+  const otherSection = document.getElementById(`skin_tone_other_section_model${num}`);
+  
+  if (!skinToneSelect || !otherSection) return;
+  
+  if (skinToneSelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Hair Type "Other" Toggle Logic ---- */
+function toggleHairTypeOther(num) {
+  const hairTypeSelect = document.getElementById(`model_${num}_hair_type`);
+  const otherSection = document.getElementById(`hair_type_other_section_model${num}`);
+  
+  if (!hairTypeSelect || !otherSection) return;
+  
+  if (hairTypeSelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Hair Color "Other" Toggle Logic ---- */
+function toggleHairColorOther(num) {
+  const hairColorSelect = document.getElementById(`model_${num}_hair_color`);
+  const otherSection = document.getElementById(`hair_color_other_section_model${num}`);
+  
+  if (!hairColorSelect || !otherSection) return;
+  
+  if (hairColorSelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Hair Style "Other" Toggle Logic ---- */
+function toggleHairStyleOther(num) {
+  const hairStyleSelect = document.getElementById(`model_${num}_hair_style`);
+  const otherSection = document.getElementById(`hair_style_other_section_model${num}`);
+  
+  if (!hairStyleSelect || !otherSection) return;
+  
+  if (hairStyleSelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Eye Color "Other" Toggle Logic ---- */
+function toggleEyeColorOther(num) {
+  const eyeColorSelect = document.getElementById(`model_${num}_eye_color`);
+  const otherSection = document.getElementById(`eye_color_other_section_model${num}`);
+  
+  if (!eyeColorSelect || !otherSection) return;
+  
+  if (eyeColorSelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Country/Region "Other" Toggle Logic ---- */
+function toggleCountryRegionOther(num) {
+  const countryRegionSelect = document.getElementById(`model_${num}_country_region`);
+  const otherSection = document.getElementById(`country_region_other_section_model${num}`);
+  
+  if (!countryRegionSelect || !otherSection) return;
+  
+  if (countryRegionSelect.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+// ---- Lightning Effects Other Toggle Logic ----
+function toggleLightningEffectsOther(num) {
+  const select = document.getElementById(`model_${num}_lightning_effects`);
+  const otherSection = document.getElementById(`lightning_effects_other_section_model${num}`);
+  if (!select || !otherSection) return;
+  if (select.value === "Other") {
+    otherSection.classList.remove("hidden-section");
+  } else {
+    otherSection.classList.add("hidden-section");
+  }
+}
+
+/* ---- Client's Brand Name Section Visibility Logic (Atelier & Maison only) ---- */
+function toggleClientBrandSection() {
+    const planSelect = document.getElementById("planSelect");
+    const brandSection = document.getElementById("clientBrandSection");
     
-    function closeColorModal() {
-      const modal = document.getElementById('colorPickerModal');
-      if (modal) modal.classList.remove('active');
-      currentColorModelNum = null;
+    if (!planSelect || !brandSection) return;
+    
+    const selectedTier = planSelect.value;
+    
+    // Show section ONLY for Atelier and Maison, hide for Couture & Artisan
+    const supportedTiers = ["atelier", "maison"];
+    if (supportedTiers.includes(selectedTier)) {
+        brandSection.classList.remove("hidden-section");
+    } else {
+        brandSection.classList.add("hidden-section");
+        // Clear fields when switching to unsupported tier
+        clearBrandNameFields();
     }
+}
+
+/* ---- Brand Placement Other Toggle Logic ---- */
+function toggleBrandPlacementOther() {
+    const placementSelect = document.getElementById("brandPlacementSelect");
+    const otherSection = document.getElementById("brandPlacementOtherSection");
     
-    function confirmColorModal() {
-        if (window.currentEditingBrand) {
-            confirmBrandColorFromModal();
-        } else if (currentColorModelNum != null) {
-            const val = document.getElementById("colorPickerHexInput").value;
-            selectModelColor(val, currentColorModelNum);
-            closeColorModal();
-        }
+    if (!placementSelect || !otherSection) return;
+    
+    if (placementSelect.value === "other") {
+        otherSection.classList.remove("hidden-section");
+    } else {
+        otherSection.classList.add("hidden-section");
+        // Clear the text input when not "Other"
+        const otherInput = document.getElementById("brandPlacementOtherInput");
+        if (otherInput) otherInput.value = "";
     }
+}
+
+/* ---- Brand Font Style Other Toggle Logic ---- */
+function toggleBrandFontStyleOther() {
+    const fontStyleSelect = document.getElementById("brandFontStyleSelect");
+    const otherSection = document.getElementById("brandFontStyleOtherSection");
     
+    if (!fontStyleSelect || !otherSection) return;
     
-    /* ---- Accessories Logic (Per Model) ---- */
-    function toggleAccessorySection(num) {
-      const sel = document.getElementById(`accessories_included_model${num}`);
-      const sec = document.getElementById(`accessories_section_model${num}`);
-      const toggleGroup = sel?.closest('.accessories-toggle-group');
-      
-      // Check if tier supports accessories
-      const planSelect = document.getElementById('planSelect');
-      const selectedPlan = planSelect ? planSelect.value : '';
-      const tierSupportsAccessories = ['atelier', 'maison'].includes(selectedPlan);
-      
-      if (!tierSupportsAccessories) {
-        // Hide and clear for unsupported tiers
-        if (toggleGroup) toggleGroup.style.display = 'none';
-        if (sec) sec.classList.add('hidden-section');
-        if (sel) sel.value = 'No';
-        clearAccessoryInputs(num);
-        return;
-      }
+    if (fontStyleSelect.value === "other") {
+        otherSection.classList.remove("hidden-section");
+    } else {
+        otherSection.classList.add("hidden-section");
+        // Clear the text input when not "Other"
+        const otherInput = document.getElementById("brandFontStyleOtherInput");
+        if (otherInput) otherInput.value = "";
+    }
+}
+
+/* ---- Update Clear Brand Name Fields to include Font Style ---- */
+function clearBrandNameFields() {
+    const brandNameInput = document.getElementById("brandNameInput");
+    const fontStyleSelect = document.getElementById("brandFontStyleSelect");
+    const fontStyleOtherInput = document.getElementById("brandFontStyleOtherInput");
+    const placementSelect = document.getElementById("brandPlacementSelect");
+    const placementOtherInput = document.getElementById("brandPlacementOtherInput");
+    
+    if (brandNameInput) brandNameInput.value = "";
+    if (fontStyleSelect) fontStyleSelect.value = "";
+    if (fontStyleOtherInput) fontStyleOtherInput.value = "";
+    if (placementSelect) placementSelect.value = "";
+    if (placementOtherInput) placementOtherInput.value = "";
+    
+    // Reset color to default gold
+    document.getElementById("brandColorHiddenInput").value = "FFD700";
+    document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
+    document.getElementById("brandColorHexDisplay").textContent = "FFD700";
+}
+
+
+/* ---- Brand Color Picker Modal Functions ---- */
+function openBrandColorModal() {
+    const modal = document.getElementById("colorPickerModal");
+    if (!modal) return;
+    
+    modal.classList.add("active");
+    
+    // Load current color
+    const currentColor = document.getElementById("brandColorHiddenInput").value || "FFD700";
+    document.getElementById("colorPickerInput").value = "#" + currentColor;
+    document.getElementById("colorPickerHexInput").value = currentColor;
+    document.getElementById("colorPickerPreview").style.background = "#" + currentColor;
+    document.getElementById("colorPickerPreview").style.boxShadow = "0 0 12px " + "#" + currentColor + "40";
+    
+    // Store context that we're editing brand color (not model color)
+    window.currentEditingBrand = true;
+}
+
+function confirmBrandColorFromModal() {
+    if (window.currentEditingBrand) {
+        const hexValue = document.getElementById("colorPickerHexInput").value.replace("#", "");
+        document.getElementById("brandColorHiddenInput").value = hexValue;
+        document.getElementById("brandColorPreviewSwatch").style.background = "#" + hexValue;
+        document.getElementById("brandColorPreviewSwatch").style.boxShadow = "0 0 8px rgba(255, 215, 0, 0.4)";
+        document.getElementById("brandColorHexDisplay").textContent = hexValue.toUpperCase();
         
-      if (toggleGroup) toggleGroup.style.display = 'block';
-      
-      // Normal toggle for supported tiers
-      if (sel.value === 'Yes') {
-            sec.classList.remove('hidden-section');
-        } else {
-            sec.classList.add('hidden-section');
-        }
-    }
-    
-    function clearAccessoryInputs(num) {
-      // Clear all accessory inputs for this model
-      const container = document.getElementById(`accessory_inputs_model${num}`);
-      if (container) container.innerHTML = '';
-      
-      const countSelect = document.getElementById(`accessories_count_model${num}`);
-      if (countSelect) countSelect.value = '1';
-      
-      const descTextarea = document.getElementById(`accessories_desc_model${num}`);
-      if (descTextarea) descTextarea.value = '';
-      
-      // Clear all file inputs
-      for (let i = 1; i <= 3; i++) {
-        const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
-        if (fileInput) fileInput.value = '';
-      }
-    }
-    
-    // ---- Background Description Visibility Logic ----
-    
-    function renderAccessoryInputs(num) {
-      const count = parseInt(document.getElementById(`accessories_count_model${num}`).value, 10);
-      const container = document.getElementById(`accessory_inputs_model${num}`);
-      container.innerHTML = '';
-      for (let i = 1; i <= count; i++) {
-        container.innerHTML += `
-          <div class="form-group accessory-fgroup">
-            <label for="accessory_type_${i}_model${num}">Accessory Type #${i}</label>
-            <select id="accessory_type_${i}_model${num}" name="accessory_type_${i}_model${num}">
-              <option value="">-- Select Type --</option>
-              <option value="Jewelry">Jewelry</option>
-              <option value="Hat">Hat</option>
-              <option value="Eyewear">Eyewear</option>
-              <option value="Bag">Bag</option>
-              <option value="Shoes">Shoes</option>
-              <option value="Scarf">Scarf</option>
-              <option value="Other">Other</option>
-            </select>
-            <label for="accessories_image_${i}_model${num}">Upload Image</label>
-            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold);">
-                The image upload link will be sent to you for better quality and larger files.
-            </p>
-          </div>
-        `;
-      }
-    }
-    
-    function validateAccessoryUploads(num) {
-      let uploads = 0;
-      const count = parseInt(document.getElementById(`accessories_count_model${num}`).value, 10);
-      for (let i = 1; i <= count; i++) {
-        const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
-        if (fileInput && fileInput.files.length > 0) uploads++;
-      }
-      if (uploads > 3) {
-        alert("Max 3 accessory uploads allowed per model.");
-        for (let i = count; i > 0; i--) {
-          const fileInput = document.getElementById(`accessories_image_${i}_model${num}`);
-          if (fileInput && fileInput.files.length > 0) {
-            fileInput.value = '';
-            break;
-          }
-        }
-      }
-    }
-    
-    /* ---- Ethnicity "Other" Toggle Logic ---- */
-    function toggleEthnicityOther(num) {
-      const ethnicitySelect = document.getElementById(`model_${num}_ethnicity`);
-      const otherSection = document.getElementById(`ethnicity_other_section_model${num}`);
-      
-      if (!ethnicitySelect || !otherSection) return;
-      
-      if (ethnicitySelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    /* ---- Skin Tone "Other" Toggle Logic ---- */
-    function toggleSkinToneOther(num) {
-      const skinToneSelect = document.getElementById(`model_${num}_skin_tone`);
-      const otherSection = document.getElementById(`skin_tone_other_section_model${num}`);
-      
-      if (!skinToneSelect || !otherSection) return;
-      
-      if (skinToneSelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    /* ---- Hair Type "Other" Toggle Logic ---- */
-    function toggleHairTypeOther(num) {
-      const hairTypeSelect = document.getElementById(`model_${num}_hair_type`);
-      const otherSection = document.getElementById(`hair_type_other_section_model${num}`);
-      
-      if (!hairTypeSelect || !otherSection) return;
-      
-      if (hairTypeSelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    /* ---- Hair Color "Other" Toggle Logic ---- */
-    function toggleHairColorOther(num) {
-      const hairColorSelect = document.getElementById(`model_${num}_hair_color`);
-      const otherSection = document.getElementById(`hair_color_other_section_model${num}`);
-      
-      if (!hairColorSelect || !otherSection) return;
-      
-      if (hairColorSelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    /* ---- Hair Style "Other" Toggle Logic ---- */
-    function toggleHairStyleOther(num) {
-      const hairStyleSelect = document.getElementById(`model_${num}_hair_style`);
-      const otherSection = document.getElementById(`hair_style_other_section_model${num}`);
-      
-      if (!hairStyleSelect || !otherSection) return;
-      
-      if (hairStyleSelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    /* ---- Eye Color "Other" Toggle Logic ---- */
-    function toggleEyeColorOther(num) {
-      const eyeColorSelect = document.getElementById(`model_${num}_eye_color`);
-      const otherSection = document.getElementById(`eye_color_other_section_model${num}`);
-      
-      if (!eyeColorSelect || !otherSection) return;
-      
-      if (eyeColorSelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    /* ---- Country/Region "Other" Toggle Logic ---- */
-    function toggleCountryRegionOther(num) {
-      const countryRegionSelect = document.getElementById(`model_${num}_country_region`);
-      const otherSection = document.getElementById(`country_region_other_section_model${num}`);
-      
-      if (!countryRegionSelect || !otherSection) return;
-      
-      if (countryRegionSelect.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    // ---- Lightning Effects Other Toggle Logic ----
-    function toggleLightningEffectsOther(num) {
-      const select = document.getElementById(`model_${num}_lightning_effects`);
-      const otherSection = document.getElementById(`lightning_effects_other_section_model${num}`);
-      if (!select || !otherSection) return;
-      if (select.value === "Other") {
-        otherSection.classList.remove("hidden-section");
-      } else {
-        otherSection.classList.add("hidden-section");
-      }
-    }
-    
-    /* ---- Client's Brand Name Section Visibility Logic (Atelier & Maison only) ---- */
-    /* ---- Brand Placement Other Toggle Logic ---- */
-    function toggleBrandPlacementOther() {
-        const placementSelect = document.getElementById("brandPlacementSelect");
-        const otherSection = document.getElementById("brandPlacementOtherSection");
-        
-        if (!placementSelect || !otherSection) return;
-        
-        if (placementSelect.value === "other") {
-            otherSection.classList.remove("hidden-section");
-        } else {
-            otherSection.classList.add("hidden-section");
-            // Clear the text input when not "Other"
-            const otherInput = document.getElementById("brandPlacementOtherInput");
-            if (otherInput) otherInput.value = "";
-        }
-    }
-    
-    /* ---- Brand Font Style Other Toggle Logic ---- */
-    function toggleBrandFontStyleOther() {
-        const fontStyleSelect = document.getElementById("brandFontStyleSelect");
-        const otherSection = document.getElementById("brandFontStyleOtherSection");
-        
-        if (!fontStyleSelect || !otherSection) return;
-        
-        if (fontStyleSelect.value === "other") {
-            otherSection.classList.remove("hidden-section");
-        } else {
-            otherSection.classList.add("hidden-section");
-            // Clear the text input when not "Other"
-            const otherInput = document.getElementById("brandFontStyleOtherInput");
-            if (otherInput) otherInput.value = "";
-        }
-    }
-    
-    /* ---- Update Clear Brand Name Fields to include Font Style ---- */
-    function clearBrandNameFields() {
-        const brandNameInput = document.getElementById("brandNameInput");
-        const fontStyleSelect = document.getElementById("brandFontStyleSelect");
-        const fontStyleOtherInput = document.getElementById("brandFontStyleOtherInput");
-        const placementSelect = document.getElementById("brandPlacementSelect");
-        const placementOtherInput = document.getElementById("brandPlacementOtherInput");
-        
-        if (brandNameInput) brandNameInput.value = "";
-        if (fontStyleSelect) fontStyleSelect.value = "";
-        if (fontStyleOtherInput) fontStyleOtherInput.value = "";
-        if (placementSelect) placementSelect.value = "";
-        if (placementOtherInput) placementOtherInput.value = "";
-        
-        // Reset color to default gold
-        document.getElementById("brandColorHiddenInput").value = "FFD700";
-        document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
-        document.getElementById("brandColorHexDisplay").textContent = "FFD700";
-    }
-    
-    
-    /* ---- Brand Color Picker Modal Functions ---- */
-    function openBrandColorModal() {
+        // Close modal
         const modal = document.getElementById("colorPickerModal");
-        if (!modal) return;
-        
-        modal.classList.add("active");
-        
-        // Load current color
-        const currentColor = document.getElementById("brandColorHiddenInput").value || "FFD700";
-        document.getElementById("colorPickerInput").value = "#" + currentColor;
-        document.getElementById("colorPickerHexInput").value = currentColor;
-        document.getElementById("colorPickerPreview").style.background = "#" + currentColor;
-        document.getElementById("colorPickerPreview").style.boxShadow = "0 0 12px " + "#" + currentColor + "40";
-        
-        // Store context that we're editing brand color (not model color)
-        window.currentEditingBrand = true;
+        if (modal) modal.classList.remove("active");
+        window.currentEditingBrand = false;
     }
+}
+
+/* ---- Clear Brand Name Fields ---- */
+function clearBrandNameFields() {
+    const brandNameInput = document.getElementById("brandNameInput");
+    const placementSelect = document.getElementById("brandPlacementSelect");
+    const placementOtherInput = document.getElementById("brandPlacementOtherInput");
     
-    function confirmBrandColorFromModal() {
-        if (window.currentEditingBrand) {
-            const hexValue = document.getElementById("colorPickerHexInput").value.replace("#", "");
-            document.getElementById("brandColorHiddenInput").value = hexValue;
-            document.getElementById("brandColorPreviewSwatch").style.background = "#" + hexValue;
-            document.getElementById("brandColorPreviewSwatch").style.boxShadow = "0 0 8px rgba(255, 215, 0, 0.4)";
-            document.getElementById("brandColorHexDisplay").textContent = hexValue.toUpperCase();
-            
-            // Close modal
-            const modal = document.getElementById("colorPickerModal");
-            if (modal) modal.classList.remove("active");
-            window.currentEditingBrand = false;
+    if (brandNameInput) brandNameInput.value = "";
+    if (placementSelect) placementSelect.value = "";
+    if (placementOtherInput) placementOtherInput.value = "";
+    
+    // Reset color to default gold
+    document.getElementById("brandColorHiddenInput").value = "FFD700";
+    document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
+    document.getElementById("brandColorHexDisplay").textContent = "FFD700";
+}
+
+/* ---- Brand Name Placement Add-On Visibility Logic (Artisan & Couture only) ---- */
+function toggleBrandNamePlacementAddon() {
+    const planSelect = document.getElementById("planSelect");
+    const addonBrandNameItem = document.getElementById("addonBrandNamePlacementItem");
+    
+    if (!planSelect || !addonBrandNameItem) return;
+    
+    const selectedTier = planSelect.value;
+    
+    // Show add-on ONLY for Artisan and Couture, hide for Atelier and Maison
+    const supportedTiers = ["artisan", "couture"];
+    if (supportedTiers.includes(selectedTier)) {
+        addonBrandNameItem.classList.remove("hidden-section");
+    } else {
+        addonBrandNameItem.classList.add("hidden-section");
+        // Uncheck and clear if switching to unsupported tier
+        const checkbox = document.getElementById("addonBrandNamePlacement");
+        if (checkbox) {
+            checkbox.checked = false;
         }
+        updatePriceDisplay(); // Recalculate price
     }
-    
-    /* ---- Brand Name Placement Add-On Visibility Logic (Artisan & Couture only) ---- */
-    
+}
+
 // ---- Lightning Effects Visibility Logic (Atelier & Maison only) ----
 /*function toggleLightningEffectsSection(modelNumber) {
   const planSelect = document.getElementById("planSelect");
@@ -2493,7 +2208,26 @@ function toggleLightningEffectsSection(modelNumber) {
 
 
 // ---- Pose Section Visibility Logic (Hidden for Artisan tier) ----
-
+function togglePoseSection(modelNumber) {
+  const planSelect = document.getElementById("planSelect");
+  const poseSection = document.getElementById(`pose_section_model${modelNumber}`);
+  
+  if (!planSelect || !poseSection) return;
+  
+  const selectedTier = planSelect.value;
+  
+  // Show section for Couture, Atelier, Maison; hide for Artisan & Legacy
+  const supportedTiers = ["couture", "atelier", "maison"];
+  
+  if (supportedTiers.includes(selectedTier)) {
+    poseSection.classList.remove("hidden-section");
+  } else {
+    poseSection.classList.add("hidden-section");
+    // Clear textarea when switching to unsupported tier
+    const poseTextarea = document.getElementById(`model_${modelNumber}_pose`);
+    if (poseTextarea) poseTextarea.value = "";
+  }
+}
 
 
 function toggleHandPoseOther(num) {
@@ -2604,45 +2338,67 @@ function initModelSpecifications() {
  * Filters or disables specification options based on tier
  * Artisan tier: Jewelry and Both (Garment + Jewel) are disabled
  */
+function filterSpecificationsByTier(tier) {
+    const specSelect = document.getElementById('modelSpecifications');
+    if (!specSelect) return;
+
+    const options = specSelect.querySelectorAll('option');
+    
+    options.forEach(option => {
+        const value = option.value;
+        
+        // For Artisan tier, disable Jewelry-related options
+        if (tier === 'artisan') {
+            if (value === 'Jewelry' || value === 'Both (Garment + Jewel)') {
+                option.disabled = true;
+                option.style.display = 'none';
+            } else {
+                option.disabled = false;
+                option.style.display = 'block';
+            }
+        } else {
+            // All other tiers: enable all options
+            option.disabled = false;
+            option.style.display = 'block';
+        }
+    });
+
+    // If current selection is now invalid for this tier, reset it
+    if (tier === 'artisan' && 
+        (specSelect.value === 'Jewelry' || specSelect.value === 'Both (Garment + Jewel)')) {
+        specSelect.value = 'Garment'; // Reset to default valid option
+        onModelSpecChange(); // Trigger update
+    }
+}
 
 /**
  * Hook into existing plan selection change
  * Call this when tier changes
  */
 function onPlanChangeForEdition() {
-    try {
-        const planSelect = document.getElementById('planSelect');
-        if (!planSelect) return;
-        
+    const planSelect = document.getElementById('planSelect');
+    if (planSelect) {
         const selectedTier = planSelect.value;
-        
-        // Safety check before filtering
+        filterSpecificationsByTier(selectedTier);
+        // Also reset product name if switching tiers
         const specSelect = document.getElementById('modelSpecifications');
-        if (specSelect) {
-            filterSpecificationsByTier(selectedTier);
-        }
-        
-        // Reset product name if switching tiers
         const productNameSection = document.getElementById('productNameSection');
         const productNameInput = document.getElementById('productName');
-        
         if (productNameSection) {
             productNameSection.classList.add('hidden-section');
         }
         if (productNameInput) {
             productNameInput.value = '';
         }
-        
-        toggleClientBrandSection();
-        toggleBrandNamePlacementAddon();
-    } catch (error) {
-        console.error('Error in onPlanChangeForEdition:', error);
     }
+    toggleClientBrandSection();
+    toggleBrandNamePlacementAddon();
 }
 
 
-
 </script>
+
+
 
 <body>
 
@@ -2681,17 +2437,17 @@ function onPlanChangeForEdition() {
         <div class="panels-container" style="display: flex; gap: 20px; justify-content: center;">
             <!-- Left Panel -->
             <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <img src="W6_C & W8_J.png" alt="Before" style="width: 100%; display: block;" loading="lazy" />
+                <img src="W6_C & W8_J.png" alt="Before" style="width: 100%; display: block;" loading= "lazy" />
                 <div class="after-image-left" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
-                    <img src="W8_1.png" alt="After" style="width: 100%; display: block;" loading="lazy" />
+                    <img src="W8_1.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
                 </div>
             </div>
 
             <!-- Right Panel -->
             <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <img src="W11_J.png" alt="Before" style="width: 100%; display: block;" loading="lazy" />
+                <img src="W11_J.png" alt="Before" style="width: 100%; display: block;" loading= "lazy" />
                 <div class="after-image-right" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
-                    <img src="W11_2.png" alt="After" style="width: 100%; display: block;" loading="lazy" />
+                    <img src="W11_2.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
                 </div>
             </div>
         </div>
@@ -2755,33 +2511,33 @@ function onPlanChangeForEdition() {
     <!-- Products SECTION -->
     <section class="products-section" style="max-width: 1200px; margin: 60px auto; padding: 50px 20px;">
         <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">
-            <img src="sparcel.png" alt="Model Sparkle Icon" style="vertical-align: middle; width: 80px; height: 80px; margin-right: 7px;" loading="lazy">Our Signature Models
+            <img src="sparcel.png" alt="Model Sparkle Icon" style="vertical-align: middle; width: 80px; height: 80px; margin-right: 7px;" loading= "lazy">Our Signature Models
         </h2>
         <p class="section-subtitle">Diverse, Authentic, and Hyper-Realistic Creations Tailored for You</p>
         <div class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; justify-content: center;">
             <!-- Product 1 -->
             <div class="product-card" style="overflow: hidden; border-radius: 8px; background: #f5f5f5; transition: all 0.3s ease;">
-                <img src="premium_chinese_male_model.png" alt="Product 1" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading="lazy">
+                <img src="premium_chinese_male_model.png" alt="Product 1" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading= "lazy">
             </div>
             <!-- Product 2 -->
             <div class="product-card" style="overflow: hidden; border-radius: 8px; background: #f5f5f5; transition: all 0.3s ease;">
-                <img src="nordic_male_portrait.png" alt="Product 2" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading="lazy">
+                <img src="nordic_male_portrait.png" alt="Product 2" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading= "lazy">
             </div>
             <!-- Product 3 -->
             <div class="product-card" style="overflow: hidden; border-radius: 8px; background: #f5f5f5; transition: all 0.3s ease;">
-                <img src="W9_J.png" alt="Product 3.png" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading="lazy">
+                <img src="W9_J.png" alt="Product 3" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading= "lazy">
             </div>
             <!-- Product 4 -->
             <div class="product-card" style="overflow: hidden; border-radius: 8px; background: #f5f5f5; transition: all 0.3s ease;">
-                <img src="990.png" alt="Product 4.png" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading="lazy">
+                <img src="990.png" alt="Product 4" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading= "lazy">
             </div>
             <!-- Product 5 -->
             <div class="product-card" style="overflow: hidden; border-radius: 8px; background: #f5f5f5; transition: all 0.3s ease;">
-                <img src="W10_C.png" alt="Product 5.png" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading="lazy">
+                <img src="W10_C.png" alt="Product 5" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading= "lazy">
             </div>
             <!-- Product 6 -->
             <div class="product-card" style="overflow: hidden; border-radius: 8px; background: #f5f5f5; transition: all 0.3s ease;">
-                <img src="italian_man_fashion_portrait.png" alt="Product 6" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading="lazy">
+                <img src="italian_man_fashion_portrait.png" alt="Product 6" style="width: 100%; height: 350px; object-fit: cover; transition: transform 0.3s ease; display: block;" loading= "lazy">
             </div>
         </div>
     </section>
@@ -2789,7 +2545,7 @@ function onPlanChangeForEdition() {
     <!-- GALLERY - OUR MODELS -->
     <section class="gallery" id="models">
         <h2 class="section-title" style="display: flex; align-items: center; justify-content: center;">
-            <img src="camera3.png" alt="Gallery Camera Icon.png" style="width: 65px; height: 60px; margin-right: 7px;" loading="lazy">Gallery
+            <img src="camera3.png" alt="Gallery Camera Icon" style="width: 65px; height: 60px; margin-right: 7px;" loading= "lazy">Gallery
         </h2>
         <p class="section-subtitle">One Face, Endless Narratives. Distinctly Yours</p>
         <div class="gallery-grid">
@@ -2923,10 +2679,10 @@ function onPlanChangeForEdition() {
 
             <div class="portfolio-links">
                 <a href="MMX-flipbook.html" target="_blank" class="btn btn-link">
-                    <img src="flipbook.png" alt="Flipbook Icon" style="vertical-align: middle; width: 35px; height: 35px; margin-right: 7px;" loading="lazy">View Digital Flipbook
+                    <img src="flipbook.png" alt="Flipbook Icon" style="vertical-align: middle; width: 35px; height: 35px; margin-right: 7px;" loading= "lazy">View Digital Flipbook
                 </a>
                 <a href="Portfolio 3.pdf" target="_blank" class="btn btn-link">
-                    <img src="pdf.png" alt="PDF Icon" style="vertical-align: middle; width: 30px; height: 35px; margin-right: 6px;" loading="lazy">Download PDF
+                    <img src="pdf.png" alt="PDF Icon" style="vertical-align: middle; width: 30px; height: 35px; margin-right: 6px;" loading= "lazy">Download PDF
                 </a>
             </div>
         </div>
@@ -2941,10 +2697,10 @@ function onPlanChangeForEdition() {
             <!-- ARTISAN -->
             <div class="pricing-card">
                 <h3 style="display: flex; align-items: center; justify-content: center;">
-                    <img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading="lazy">Artisan
+                    <img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading= "lazy">Artisan
                 </h3>
                 <p class="tier-sub">Entry-Level</p>
-                <div class="price">₹1</div>
+                <div class="price">₹5,999</div>
                 <p class="price-usd">~$72 USD</p>
                 <ul>
                     <li>1 customized AI model</li>
@@ -2961,7 +2717,7 @@ function onPlanChangeForEdition() {
             <!-- COUTURE -->
             <div class="pricing-card">
                 <h3 style="display: flex; align-items: center; justify-content: center;">
-                    <img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 25px; height: 33px; margin-right: 1px;" loading="lazy">Couture
+                    <img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 25px; height: 33px; margin-right: 1px;" loading= "lazy">Couture
                 </h3>
                 <p class="tier-sub">Professional</p>
                 <div class="price">₹14,999</div>
@@ -2984,7 +2740,7 @@ function onPlanChangeForEdition() {
             <div class="pricing-card">
                 <div class="pricing-badge">HERO</div>
                 <h3 style="display: flex; align-items: center; justify-content: center;">
-                    <img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading="lazy">Atelier
+                    <img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading= "lazy">Atelier
                 </h3>
                 <p class="tier-sub">Premium</p>
                 <div class="price">₹29,999</div>
@@ -3008,7 +2764,7 @@ function onPlanChangeForEdition() {
             <!-- MAISON -->
             <div class="pricing-card">
                 <h3 style="display: flex; align-items: center; justify-content: center;">
-                    <img src="castle.png" alt="Castle Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading="lazy">Maison
+                    <img src="castle.png" alt="Castle Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading= "lazy">Maison
                 </h3>
                 <p class="tier-sub">Enterprise</p>
                 <div class="price">₹74,999</div>
@@ -3032,7 +2788,7 @@ function onPlanChangeForEdition() {
             <!-- LEGACY -->
             <div class="pricing-card">
                 <h3 style="display: flex; align-items: center; justify-content: center;">
-                    <img src="crown.png" alt="Crown Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading="lazy">Legacy
+                    <img src="crown.png" alt="Crown Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading= "lazy">Legacy
                 </h3>
                 <p class="tier-sub">Bespoke</p>
                 <div class="price">Custom</div>
@@ -3067,11 +2823,10 @@ function onPlanChangeForEdition() {
 
         <div class="form-container">
             <form id="orderForm">
-                <input type="hidden" id="brandColorHiddenInput" name="brandColor" value="FFD700">
                 <!-- CLIENT DETAILS -->
                 <div class="form-section">
                     <div class="form-section-title">
-                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">Contact Information
+                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading= "lazy">Contact Information
                     </div>
 
                     <div class="form-grid">
@@ -3148,7 +2903,7 @@ function onPlanChangeForEdition() {
                 <!-- PLAN SELECTION -->
                 <div class="form-section">
                     <div class="form-section-title">
-                        <img src="dart.png" alt="Dart Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading="lazy">Choose Your Service Package
+                        <img src="dart.png" alt="Dart Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 5px;" loading= "lazy">Choose Your Service Package
                     </div>
 
                     <div class="form-grid full">
@@ -3156,11 +2911,11 @@ function onPlanChangeForEdition() {
                             <label>Select Your Package <span class="required-asterisk">*</span></label>
                             <select name="plantype" id="planSelect" onchange="updatePlanOptions(); updateModelAccordion(); onPlanChangeForEdition(); toggleBackgroundDescriptionSection();" required>
                                 <option value="">-- Select a Plan --</option>
-                                <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Artisan - 6,000</option>
-                                <option value="couture"><img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Couture - 15,000</option>
-                                <option value="atelier"><img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy"> Atelier - 35,000</option>
-                                <option value="maison"><img src="castle.png" alt="Castle Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Maison - 75,000</option>
-                                <option value="legacy"><img src="crown.png" alt="Crown Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading="lazy">Legacy - Custom</option>
+                                <option value="artisan"><img src="artist.png" alt="Artist Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy">Artisan - 6,000</option>
+                                <option value="couture"><img src="coutre.png" alt="Coutre Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy">Couture - 15,000</option>
+                                <option value="atelier"><img src="sparkle 2.png" alt="Sparkle 2 Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy"> Atelier - 35,000</option>
+                                <option value="maison"><img src="castle.png" alt="Castle Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy">Maison - 75,000</option>
+                                <option value="legacy"><img src="crown.png" alt="Crown Icon" style="vertical-align: middle; width: 10px; height: 10px; margin-right: 1px;" loading= "lazy">Legacy - Custom</option>
                             </select>
                         </div>
                     </div>
@@ -3198,7 +2953,7 @@ function onPlanChangeForEdition() {
                 <!-- MODEL DETAILS SECTION -->
                 <div id="modelDetailsSection" class="form-section">
                     <div class="form-section-title">
-                        <img src="human.png" alt="Human Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading="lazy">Model Specifications
+                        <img src="human.png" alt="Human Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading= "lazy">Model Specifications
                     </div>
 
                     <!-- Dynamic Model Accordions will be inserted here by JS -->
@@ -3432,7 +3187,7 @@ function onPlanChangeForEdition() {
                 <!-- FEEDBACK & SPECIAL REQUESTS -->
                 <div class="form-section">
                     <div class="form-section-title">
-                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">Project Brief & Additional Requests
+                        <img src="pencil.png" alt="Pencil Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading= "lazy">Project Brief & Additional Requests
                     </div>
 
                     <div class="form-grid full">
@@ -3453,7 +3208,7 @@ function onPlanChangeForEdition() {
                 <!-- FILE DELIVERY PREFERENCES SECTION -->
                 <div class="form-section">
                     <div class="form-section-title">
-                        <img src="package.png" alt="Delivery Icon" style="vertical-align: middle; width: 30px; height: 30px; margin-right: 3px;" loading="lazy">File Delivery Preferences
+                        <img src="package.png" alt="Delivery Icon" style="vertical-align: middle; width: 20px; height: 30px; margin-right: 3px;" loading="lazy">File Delivery Preferences
                     </div>
 
                     <div class="form-grid">
@@ -3489,12 +3244,11 @@ function onPlanChangeForEdition() {
                     <button type="button" class="btn btn-primary" id="paymentSubmitBtn">Proceed to Payment</button>
                 </div>
 
-                <div id="paymentMessage" style="display: none; padding: 12px; margin: 1rem 0; border-radius: 6px; font-size: 0.95rem; text-align: center;">
-                </div>
+                <div id="paymentMessage" style="display: none; padding: 12px; margin: 1rem 0; border-radius: 6px; font-size: 0.95rem; text-align: center;"></div>
                 
 
             </form>
-        </script>
+
 
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
@@ -3550,41 +3304,36 @@ function onPlanChangeForEdition() {
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const paymentContainer = document.getElementById('paymentMessage');
                     const selectedPlan = document.getElementById('planSelect').value;
-                    
+                
                     const planPrices = {
-                        artisan: 6000,
+                        artisan: 5999,
                         couture: 14999,
                         atelier: 29999,
                         maison: 74999,
                         legacy: 0
                     };
-                    
+                
                     const clientNameInput = document.querySelector('input[name="clientname"]');
                     const clientEmailInput = document.querySelector('input[name="clientemail"]');
                     const clientPhoneInput = document.querySelector('input[name="clientphone"]');
-                    
+                
                     if (!clientNameInput || !clientEmailInput || !clientPhoneInput) {
                         alert('Customer info not found. Please refresh.');
                         return;
                     }
-                    
+                
                     const clientName = clientNameInput.value.trim();
-                    if (!clientName || clientName.trim().length < 3) {
-                        alert('Please enter a valid customer name (at least 3 characters)');
-                        return;
-                    }
-                    
                     const clientEmail = clientEmailInput.value.trim();
                     const clientPhone = clientPhoneInput.value.trim();
-                    
+                
                     if (!clientName || !clientEmail || !clientPhone) {
                         alert('Please fill all customer details');
                         return;
                     }
-                    
+                
                     const basePrice = planPrices[selectedPlan] || 0;
-                    let totalAmount = basePrice * 100;  // Convert to paisa
-                    
+                    let totalAmount = basePrice * 100;
+                
                     const addons = [
                         { id: 'addonExtraModel', value: 2500 },
                         { id: 'addonExtraGarment', value: 500 },
@@ -3592,48 +3341,38 @@ function onPlanChangeForEdition() {
                         { id: 'addonPremiumRetouch', value: 1500 },
                         { id: 'addonBrandNamePlacement', value: 1000 }
                     ];
-                    
+                
                     addons.forEach(addon => {
                         const checkbox = document.getElementById(addon.id);
                         if (checkbox && checkbox.checked) {
                             totalAmount += addon.value * 100;
                         }
                     });
-                    
+                
                     submitBtn.textContent = 'Creating Order...';
                     submitBtn.disabled = true;
-                    
+                
                     try {
-                        // Call Netlify backend to create order
+                        // ✅ Call Netlify backend
                         const createOrderResponse = await fetch('/.netlify/functions/createOrder', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
-                                action: 'createOrder',
                                 amount: totalAmount,
                                 currency: 'INR',
-                                receipt: 'receipt_' + Date.now()
+                                receipt: 'order_' + Date.now()
                             })
                         });
-                        
-                        if (!createOrderResponse.ok) {
-                            const errorText = await createOrderResponse.text();
-                            alert('Order creation failed: ' + errorText);
-                            submitBtn.textContent = 'Proceed to Payment';
-                            submitBtn.disabled = false;
-                            return;
-                        }
-                        
+                
                         const orderData = await createOrderResponse.json();
-                        
+                
                         if (!orderData.success) {
                             alert('Failed to create order: ' + (orderData.message || 'Unknown error'));
                             submitBtn.textContent = 'Proceed to Payment';
                             submitBtn.disabled = false;
                             return;
                         }
-                        
-                        // Razorpay options
+                
                         const options = {
                             key: 'rzp_live_Rn37DDGmBYh2C0',
                             order_id: orderData.orderId,
@@ -3660,11 +3399,8 @@ function onPlanChangeForEdition() {
                                 }
                             }
                         };
-                        
-                        // Initialize Razorpay
+                
                         const rzp = new Razorpay(options);
-                        
-                        // Handle payment failures
                         rzp.on('payment.failed', function (response) {
                             paymentContainer.textContent = 'Payment failed: ' + response.error.description;
                             paymentContainer.style.display = 'block';
@@ -3674,43 +3410,116 @@ function onPlanChangeForEdition() {
                             submitBtn.textContent = 'Proceed to Payment';
                             submitBtn.disabled = false;
                         });
-                        
+                
                         submitBtn.textContent = 'Opening Payment...';
                         rzp.open();
-                        
                     } catch (error) {
-                        console.error('Error in Razorpay:', error);
+                        console.error('Error:', error);
                         alert('Payment initialization failed: ' + error.message);
                         submitBtn.textContent = 'Proceed to Payment';
                         submitBtn.disabled = false;
                     }
                 }
 
-                
-                // ============ HANDLE PAYMENT SUCCESS ============
-                async function handlePaymentSuccess(response) {
-                    const orderForm = document.getElementById('orderForm');
 
-                    // ADD THIS after Razorpay opens, BEFORE appending hidden inputs:
-                    const verifyResponse = await fetch('/.netlify/functions/createOrder', {
-                      method: 'POST',
-                      body: JSON.stringify({
-                        action: 'verifyPayment',
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_signature: response.razorpay_signature
-                      })
-                    });
+
+                
+            /*    function initiateRazorpayPayment() {
+                    const orderForm = document.getElementById('orderForm');
+                    const submitBtn = document.getElementById('paymentSubmitBtn');
+                    const selectedPlan = document.getElementById('planSelect').value;
+                    const planPrices = {
+                        artisan: 5999,
+                        couture: 14999,
+                        atelier: 29999,
+                        maison: 74999,
+                        legacy: 0
+                    };
+                
+                    // Get customer info
+                    const clientNameInput = document.querySelector('input[name="clientname"]');
+                    const clientEmailInput = document.querySelector('input[name="clientemail"]');
+                    const clientPhoneInput = document.querySelector('input[name="clientphone"]');
                     
-                    const verifyData = await verifyResponse.json();
-                    
-                    if (!verifyData.success) {
-                      alert('Payment verification failed: ' + verifyData.message);
-                      return;
+                    if (!clientNameInput || !clientEmailInput || !clientPhoneInput) {
+                        alert('Customer info fields not found. Please refresh the page.');
+                        return;
                     }
                     
-                    // ONLY THEN proceed with form submission and Bitrix24
+                    const clientName = clientNameInput.value;
+                    const clientEmail = clientEmailInput.value;
+                    const clientPhone = clientPhoneInput.value;
 
+                    if (!clientName || !clientEmail || !clientPhone) {
+                        alert('Please fill in your name, email, and phone number');
+                        return;
+                    }
+
+                
+                    // Calculate total amount
+                    const basePrice = planPrices[selectedPlan] || 0;
+                    const basePriceInPaisa = basePrice * 100;
+                
+                    // Calculate add-ons
+                    let addonPaisaTotal = 0;
+                    const addons = [
+                        { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
+                        { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
+                        { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
+                        { checkbox: document.getElementById('addonPremiumRetouch'), value: 1500 },
+                        { checkbox: document.getElementById('addonBrandNamePlacement'), value: 1000 }
+                    ];
+                
+                    addons.forEach(addon => {
+                        if (addon.checkbox && addon.checkbox.checked) {
+                            addonPaisaTotal += addon.value * 100;
+                        }
+                    });
+                
+                    const totalAmount = basePriceInPaisa + addonPaisaTotal;
+                
+                    console.log('Payment Details:', { basePrice, totalAmount, plan: selectedPlan });
+                
+                    // Razorpay options
+                    const options = {
+                        key: 'rzp_test_RlfywSc3dl1yTg',
+                        amount: totalAmount,
+                        currency: 'INR',
+                        name: 'Maison Model X',
+                        description: 'AI-Generated Fashion Model Photography - ' + selectedPlan.toUpperCase(),
+                        order_id: 'order_' + Date.now(),
+                        prefill: {
+                            name: clientName,
+                            email: clientEmail,
+                            contact: clientPhone
+                        },
+                        theme: { color: '#d4af37' },
+                        handler: handlePaymentSuccess,
+                        modal: {
+                            ondismiss: function() {
+                                submitBtn.textContent = 'Proceed to Payment';
+                                submitBtn.disabled = false;
+                            }
+                        }
+                    };
+                
+                    submitBtn.textContent = 'Opening Payment...';
+                    submitBtn.disabled = true;
+                
+                    try {
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error initializing payment');
+                        submitBtn.textContent = 'Proceed to Payment';
+                        submitBtn.disabled = false;
+                    }
+                }  */
+                
+                // ============ HANDLE PAYMENT SUCCESS ============
+                function handlePaymentSuccess(response) {
+                    const orderForm = document.getElementById('orderForm');
                     
                     // Add payment IDs to form
                     ['razorpay_payment_id', 'razorpay_order_id', 'razorpay_signature'].forEach(field => {
@@ -3782,7 +3591,7 @@ function onPlanChangeForEdition() {
                     // -------- PLAN DETAILS --------
                     const selectedPlan = document.querySelector('select[name="plantype"]')?.value || '';
                     const planPrices = {
-                        artisan: 1,
+                        artisan: 5999,
                         couture: 14999,
                         atelier: 29999,
                         maison: 74999,
@@ -4562,6 +4371,9 @@ function onPlanChangeForEdition() {
         </svg>
     </button>
 
+    <!-- RAZORPAY SCRIPT -->  <!--
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+
     <script>
         // ============ PLAN MODEL MAPPING ============
         const planModelMapping = {
@@ -4574,10 +4386,10 @@ function onPlanChangeForEdition() {
 
         // ============ PLAN PRICES (in INR) ============
         const planPrices = {
-            'artisan': 1,
-            'couture': 14,999,
-            'atelier': 29,999,
-            'maison': 74,999,
+            'artisan': 6000,
+            'couture': 15000,
+            'atelier': 30000,
+            'maison': 75000,
             'legacy': 0 // Contact for quote
         };
 
@@ -5335,13 +5147,13 @@ function onPlanChangeForEdition() {
                     // Razorpay options
 
                     // NEW - Backend integration (SECURE)
-          /*          async function initiateRazorpayPayment() {
+                    async function initiateRazorpayPayment() {
                         const orderForm = document.getElementById('orderForm');
                         const submitBtn = document.getElementById('paymentSubmitBtn');
                         const selectedPlan = document.getElementById('planSelect').value;
                         
                         const planPrices = {
-                            artisan: 1,
+                            artisan: 5999,
                             couture: 14999,
                             atelier: 29999,
                             maison: 74999,
@@ -5436,7 +5248,7 @@ function onPlanChangeForEdition() {
                             submitBtn.textContent = 'Proceed to Payment';
                             submitBtn.disabled = false;
                         }
-                    }  */
+                    }
 
 
                     
@@ -5523,6 +5335,13 @@ function onPlanChangeForEdition() {
         });
 
         // ============ UPDATE PLAN OPTIONS ============
+        function updatePlanOptions() {
+            const planSelect = document.getElementById('planSelect');
+            if (!planSelect) return;
+
+            const selectedPlan = planSelect.value;
+            updateModelAccordion();
+        }
 
         // ============ FORM SUBMIT (Feedback) ============
         document.addEventListener('DOMContentLoaded', function () {
@@ -5586,58 +5405,3 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
