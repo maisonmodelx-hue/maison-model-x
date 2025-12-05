@@ -3254,13 +3254,30 @@ function onPlanChangeForEdition() {
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
             <script>
                 // Suppress Razorpay SVG warnings
+                // Suppress Razorpay SVG and console warnings
                 const originalError = console.error;
+                const originalWarn = console.warn;
                 console.error = function(...args) {
-                    if (args[0]?.includes?.('svg') || args[0]?.includes?.('SVG')) {
-                        return; // Skip SVG errors
+                    const message = args[0]?.toString?.() || String(args[0]);
+                    if (
+                        message.includes('svg') || 
+                        message.includes('SVG') ||
+                        message.includes('width') ||
+                        message.includes('height') ||
+                        message.includes('attribute')
+                    ) {
+                        return; // Silently ignore these
                     }
-                    originalError.apply(console, args);
+                    return originalError.apply(console, args);
                 };
+                console.warn = function(...args) {
+                    const message = args[0]?.toString?.() || String(args[0]);
+                    if (message.includes('blocked') || message.includes('intervention')) {
+                        return;
+                    }
+                    return originalWarn.apply(console, args);
+                };
+
 
                 // ========================================
                 // BITRIX24 WEBHOOK CONFIGURATION
@@ -3411,6 +3428,52 @@ function onPlanChangeForEdition() {
                         };
                 
                         const rzp = new Razorpay(options);
+
+                        // Payment success handler ✅ ADD THIS BLOCK
+                        function handlePaymentSuccess(response) {
+                            console.log('✅ Payment successful!', response);
+                            const verifyPaymentRequest = {
+                                action: 'verifyPayment',
+                                razorpay_order_id: options.order_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_signature: response.razorpay_signature
+                            };
+                            
+                            fetch('/.netlify/functions/createOrder', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(verifyPaymentRequest)
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    console.log('✅ Payment verified!');
+                                    paymentContainer.textContent = '✅ Payment successful! Processing your order...';
+                                    paymentContainer.style.display = 'block';
+                                    paymentContainer.style.backgroundColor = '#d4edda';
+                                    paymentContainer.style.color = '#155724';
+                                    paymentContainer.style.borderLeft = '4px solid #28a745';
+                                    
+                                    // Collect form and send to Bitrix24
+                                    setTimeout(() => collectAndSendToBitrix24(), 500);
+                                } else {
+                                    throw new Error('Payment verification failed');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('❌ Verification error:', error);
+                                paymentContainer.textContent = '❌ Payment verification failed. Support will contact you.';
+                                paymentContainer.style.display = 'block';
+                                paymentContainer.style.backgroundColor = '#f8d7da';
+                                paymentContainer.style.color = '#721c24';
+                                paymentContainer.style.borderLeft = '4px solid #dc3545';
+                                submitBtn.textContent = 'Proceed to Payment';
+                                submitBtn.disabled = false;
+                            });
+                        }
+                        
+                        // ⬇️ REST OF EXISTING CODE STAYS THE SAME ⬇️
+                        
                         rzp.on('payment.failed', function (response) {
                             paymentContainer.textContent = 'Payment failed: ' + response.error.description;
                             paymentContainer.style.display = 'block';
@@ -3771,6 +3834,56 @@ function onPlanChangeForEdition() {
                   }
                 }
 
+                                // ========================================
+                // GET OR CREATE CONTACT IN BITRIX24
+                // ========================================
+                async function getOrCreateContact(email, fullName) {
+                    try {
+                        // Attempt to find existing contact by email
+                        const searchResponse = await fetch(
+                            `https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.list?filter[EMAIL][0][VALUE]=${encodeURIComponent(email)}`
+                        );
+                        const searchData = await searchResponse.json();
+                        
+                        if (searchData.result && searchData.result.length > 0) {
+                            console.log('✅ Contact found:', searchData.result[0].ID);
+                            return searchData.result[0].ID;
+                        }
+                        
+                        // Create new contact if not found
+                        console.log('👤 Creating new contact...');
+                        const createResponse = await fetch(
+                            'https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.add',
+                            {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    fields: {
+                                        NAME: fullName.split(' ')[0] || 'Client',
+                                        LAST_NAME: fullName.split(' ').slice(1).join(' ') || '',
+                                        EMAIL: [{ VALUE: email, VALUE_TYPE: 'WORK' }]
+                                    }
+                                })
+                            }
+                        );
+                        const createData = await createResponse.json();
+                        
+                        if (createData.result) {
+                            console.log('✅ New contact created:', createData.result);
+                            return createData.result;
+                        } else {
+                            console.warn('⚠️  Could not create contact, using default ID');
+                            return 0; // Bitrix24 will auto-assign
+                        }
+                    } catch (error) {
+                        console.warn('⚠️  Contact fetch error (continuing anyway):', error);
+                        return 0; // Don't block if contact creation fails
+                    }
+                }
+
+                // ========================================
+                // SEND COMPLETE ORDER TO BITRIX24
+                // ========================================
 
             
                 // ========================================
@@ -3800,16 +3913,21 @@ function onPlanChangeForEdition() {
                             OPPORTUNITY: orderData.planDetails.basePrice,
                             CURRENCY_ID: 'INR',
                             STAGE_ID: 'NEW',
+                            TYPE_ID: 'SALE',      
+                            OPENED: 'Y',                  
+                            ASSIGNED_BY_ID: 1, 
                             COMMENTS: bitrixMessage,
+                   //         STAGE_ID: '101',                 // Alternative numeric ID
+                    //        TYPE_ID: '91',  
 /// change UF_CRM when acc changes
-                            UF_CRM_1764411506872: orderData.planDetails.tier,
+                   /*         UF_CRM_1764411506872: orderData.planDetails.tier,
                             UF_CRM_1764411545161: orderData.models.length,
                             UF_CRM_1764411558905: 0,
                             UF_CRM_1764411575066: orderData.addOns ? Object.keys(orderData.addOns).filter(k => orderData.addOns[k] === true).join(", ") : "",
                             UF_CRM_1764411612147: orderData.models[0]?.specifications || "",
                             UF_CRM_1764411632230: orderData.models[0]?.productDescription || "",
                             UF_CRM_1764411642341: "Pending",
-                            UF_CRM_1764411710802: "N/A",
+                            UF_CRM_1764411710802: "N/A", */
                         }
                     };
             
@@ -5467,6 +5585,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
