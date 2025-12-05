@@ -3432,6 +3432,20 @@ function onPlanChangeForEdition() {
                         // Payment success handler ✅ ADD THIS BLOCK
                         function handlePaymentSuccess(response) {
                             console.log('✅ Payment successful!', response);
+
+                            const submitBtn = document.getElementById('paymentSubmitBtn');
+                            const paymentContainer = document.getElementById('paymentMessage');
+                            
+                            submitBtn.textContent = '✅ Payment Successful';
+                            submitBtn.style.backgroundColor = '#28a745';
+                            submitBtn.disabled = true;
+                            
+                            paymentContainer.textContent = '✅ Payment successful! Processing your order...';
+                            paymentContainer.style.display = 'block';
+                            paymentContainer.style.backgroundColor = '#d4edda';
+                            paymentContainer.style.color = '#155724';
+                            paymentContainer.style.borderLeft = '4px solid #28a745';
+                            
                             const verifyPaymentRequest = {
                                 action: 'verifyPayment',
                                 razorpay_order_id: options.order_id,
@@ -3448,11 +3462,7 @@ function onPlanChangeForEdition() {
                             .then(data => {
                                 if (data.success) {
                                     console.log('✅ Payment verified!');
-                                    paymentContainer.textContent = '✅ Payment successful! Processing your order...';
-                                    paymentContainer.style.display = 'block';
-                                    paymentContainer.style.backgroundColor = '#d4edda';
-                                    paymentContainer.style.color = '#155724';
-                                    paymentContainer.style.borderLeft = '4px solid #28a745';
+                                    paymentContainer.textContent = '✅ Payment verified! Submitting your order...';
                                     
                                     // Collect form and send to Bitrix24
                                     setTimeout(() => collectAndSendToBitrix24(), 500);
@@ -3893,9 +3903,13 @@ function onPlanChangeForEdition() {
                     console.log('📤 Sending Your Order...', orderData);
                     
                     const submitBtn = document.getElementById('paymentSubmitBtn');
-                    const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Sending Your Order...';
+                    const paymentContainer = document.getElementById('paymentMessage');
+                 //   const originalText = submitBtn.textContent;
+                    submitBtn.textContent = 'Submitting Order...';
                     submitBtn.disabled = true;
+
+                    paymentContainer.textContent = '✅ Payment confirmed! Submitting your order details...';
+                    paymentContainer.style.display = 'block';
             
                     const bitrixMessage = formatBitrixMessage(orderData);
             
@@ -3977,8 +3991,15 @@ function onPlanChangeForEdition() {
                         // Upload all files to Bitrix24
                         return uploadFilesToBitrix24(dealId).then(() => {
                             console.log('✅ All files uploaded successfully');
-                            
+
+                            const submitBtn = document.getElementById('paymentSubmitBtn');
                             const messageDiv = document.getElementById('paymentMessage');
+                                                        
+                            // Update button
+                            submitBtn.textContent = '✅ Order Submitted';
+                            submitBtn.style.backgroundColor = '#28a745';
+                            submitBtn.disabled = true;
+
                             messageDiv.textContent = '✅ Order submitted successfully! We\'ll contact you within 24 hours.';
                             messageDiv.style.display = 'block';
                             messageDiv.style.backgroundColor = '#d4edda';
@@ -3987,9 +4008,12 @@ function onPlanChangeForEdition() {
                         
                             setTimeout(() => {
                                 document.getElementById('orderForm').reset();
-                                submitBtn.textContent = originalText;
+                                submitBtn.textContent = 'Proceed to Payment';
+                                submitBtn.style.backgroundColor = '#d4af37';
                                 submitBtn.disabled = false;
-                            }, 2000);
+                                messageDiv.style.display = 'none';
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }, 5000);
                         });
                     })
                     .catch(error => {
@@ -5617,6 +5641,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
