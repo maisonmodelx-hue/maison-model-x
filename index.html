@@ -3890,11 +3890,11 @@ function onPlanChangeForEdition() {
                 // SEND COMPLETE ORDER TO BITRIX24
                 // ========================================
                async function sendToBitrix24(orderData) {
-                    console.log('📤 Sending to Bitrix24...', orderData);
+                    console.log('📤 Sending Your Order...', orderData);
                     
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const originalText = submitBtn.textContent;
-                    submitBtn.textContent = 'Sending to Bitrix24...';
+                    submitBtn.textContent = 'Sending Your Order...';
                     submitBtn.disabled = true;
             
                     const bitrixMessage = formatBitrixMessage(orderData);
@@ -5585,6 +5585,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
