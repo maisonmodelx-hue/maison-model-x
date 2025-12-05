@@ -3647,7 +3647,7 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // MAIN COLLECTION FUNCTION
                 // ========================================
-                function collectAndSendToBitrix24() {
+                async function collectAndSendToBitrix24() {
                     console.log('📦 Collecting form data...');
                     
                     // -------- CUSTOMER INFO --------
@@ -5408,7 +5408,7 @@ function onPlanChangeForEdition() {
         });
 
         // ============ RAZORPAY PAYMENT INTEGRATION ============
-        document.addEventListener('DOMContentLoaded', function () {
+ /*       document.addEventListener('DOMContentLoaded', function () {
             const orderForm = document.getElementById('orderForm');
             const submitBtn = document.getElementById('paymentSubmitBtn');
             const paymentContainer = document.getElementById('paymentMessage');
@@ -5469,7 +5469,7 @@ function onPlanChangeForEdition() {
 
                     rzp.open(); 
                 });
-            }
+            }  */
 
        /*     function handlePaymentSuccess(response) {
                 console.log('✅ Payment successful:', response);
@@ -5585,6 +5585,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
