@@ -3781,9 +3781,9 @@ function onPlanChangeForEdition() {
                 }
 
                 // FIND OR CREATE CONTACT
-                async function getOrCreateContact(email, fullName) {
+          /*      async function getOrCreateContact(email, fullName) {
                   // STEP 1: Search for existing contact by email
-                  const searchUrl = `https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.contact.list?filter[EMAIL]=${encodeURIComponent(email)}`;
+                  const searchUrl = `https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.list?filter[EMAIL]=${encodeURIComponent(email)}`;
                   
                   try {
                     const searchResponse = await fetch(searchUrl);
@@ -3799,7 +3799,7 @@ function onPlanChangeForEdition() {
                     // STEP 2: Contact doesn't exist - create new one
                     console.log("Contact not found. Creating new...");
                     
-                    const createUrl = `https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.contact.add`;
+                    const createUrl = `https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.add`;
                     
                     const contactPayload = {
                       fields: {
@@ -3832,7 +3832,7 @@ function onPlanChangeForEdition() {
                     console.error("Error getting/creating contact:", error);
                     return null;
                   }
-                }
+                }  */
 
                                 // ========================================
                 // GET OR CREATE CONTACT IN BITRIX24
@@ -4148,7 +4148,7 @@ function onPlanChangeForEdition() {
                     }
 
                     // Add file documentation to deal timeline
-                    const timelineUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.timeline.comment.add";
+                    const timelineUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.timeline.comment.add";
                     
                     const filesMessage = `
                 ╔════════════════════════════════════════╗
@@ -5471,7 +5471,7 @@ function onPlanChangeForEdition() {
                 });
             }
 
-            function handlePaymentSuccess(response) {
+       /*     function handlePaymentSuccess(response) {
                 console.log('✅ Payment successful:', response);
                 
                 // Add payment data to form
@@ -5497,7 +5497,7 @@ function onPlanChangeForEdition() {
                 setTimeout(function () {
                     orderForm.submit();
                 }, 1500);
-            }
+            } */
 
             function showPaymentMessage(message, type) {
                 paymentContainer.textContent = message;
@@ -5585,6 +5585,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
