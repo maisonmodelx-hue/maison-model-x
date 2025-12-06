@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="createorder.js"></script>
     <title>Maison Model X - AI Model Reference Packs</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -2810,38 +2811,34 @@
 
         // Order Form Submission
         // FUNCTION 1 - New Razorpay + Netlify integration
-        async function initiateRazorpayPaymentConsistentFaces() {
-            const orderForm = document.getElementById('orderForm');
-            const submitBtn = document.querySelector('button[type="submit"]') || orderForm.querySelector('button');
-            const packageInput = document.querySelector('input[name="formPackage"]:checked');
+        // ===== PAYMENT WORKFLOW FIX =====
+
+        // Step 1: Collect form data when user submits
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            if (!packageInput) {
-                alert('Please select a package first');
-                return;
-            }
-        
-            // Collect formData ONCE, here, in this scope
+            // Collect all form data
             const formData = {
-                firstName: document.querySelector('input[name="firstName"]')?.value || '',
-                email: document.querySelector('input[name="email"]')?.value || '',
-                phone: document.querySelector('input[name="phone"]')?.value || '',
-                age: document.querySelector('select[name="age"]')?.value || '',
-                gender: document.querySelector('select[name="gender"]')?.value || '',
-                ethnicity: document.querySelector('select[name="ethnicity"]')?.value || '',
-                region: document.querySelector('select[name="region"]')?.value || '',
-                hairType: document.querySelector('select[name="hairType"]')?.value || '',
-                hairColor: document.querySelector('select[name="hairColor"]')?.value || '',
-                skinTone: document.querySelector('select[name="skinTone"]')?.value || '',
-                description: document.querySelector('textarea[name="description"]')?.value || '',
-                packageSelection: packageInput.value
-                };
+                firstName: document.querySelector('input[name="firstName"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                phone: document.querySelector('input[name="phone"]').value,
+                packageSelection: document.getElementById('packageSelection').value,
+                
+                // Calculate total price
+                totalAmount: calculateTotalAmount(),
+            };
             
-                // Validate required fields
-                if (!formData.firstName || !formData.email || !formData.phone) {
-                    alert('Please fill in your name, email, and phone');
-                    return;
-                }
+            console.log('Form Data Collected:', formData);
             
+            // Step 2: Send to Bitrix24 then Razorpay
+            await sendToBitrix24(formData);
+        });
+        
+        // Step 2: Send data to Bitrix24
+        function sendToBitrix24(formData) {
+            return new Promise((resolve, reject) => {
+                const bitrix24Url = "https://b24-nl2p2c.bitrix24.in/rest/1/9edrslqy06g6ro93/crm.deal.add";
+                
                 const packagePrices = {
                     'prelude': 3999,
                     'elan': 10999,
@@ -2849,69 +2846,143 @@
                     'couture': 37999,
                     'legende': 0
                 };
-            
-                const basePrice = packagePrices[packageInput.value] || 0;
-            
-                // For custom/Legende plan, skip payment
-                if (basePrice === 0) {
-                    sendToBitrix24(formData);
-                    return;
-                }
-            
-                const totalAmount = basePrice * 100; // Convert to paisa
-                submitBtn.textContent = 'Creating Order...';
-                submitBtn.disabled = true;
-
-                try {
-                    // ✅ Call Netlify backend
-                    const createOrderResponse = await fetch('/.netlify/functions/createOrder', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            amount: totalAmount,
-                            currency: 'INR',
-                            receipt: 'order_' + Date.now()
-                        })
-                    });
-            
-                    const orderData = await createOrderResponse.json();
-            
-                    if (!orderData.success) {
-                        alert('Failed to create order: ' + orderData.message);
-                        submitBtn.textContent = 'Submit Order';
-                        submitBtn.disabled = false;
-                        return;
-                    }
-
-                    // ✅ Open Razorpay with backend order
-                    const options = {
-                        key: 'rzp_test_RlfywSc3dl1yTg',
-                        order_id: orderData.orderId,
-                        amount: orderData.amount,
-                        currency: orderData.currency,
-                        name: 'Maison Model X - Consistent Faces',
-                        description: 'Reference Pack - ' + packageInput.value,
-                        prefill: {
-                            name: formData.firstName,
-                            email: formData.email,
-                            contact: formData.phone
-                        },
-                        theme: { color: '#d4af37' },
-                        handler: function(response) {
-                            handlePaymentSuccessConsistentFaces(response, formData);
+                
+                const basePrice = packagePrices[formData.packageSelection] || 0;
+                
+                fetch(bitrix24Url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: {
+                            TITLE: `Order - ${formData.packageSelection} - ${formData.firstName}`,
+                            NAME: formData.firstName,
+                            EMAIL: [{ VALUE: formData.email, VALUE_TYPE: 'WORK' }],
+                            PHONE: [{ VALUE: formData.phone, VALUE_TYPE: 'WORK' }],
+                            COMMENTS: `Package: ${formData.packageSelection}\nTotal: ₹${basePrice}`,
+                            OPPORTUNITY: basePrice,
+                            CURRENCY_ID: 'INR'
                         }
-                    };
-            
-                    const rzp = new Razorpay(options);
-                    rzp.open();
-            
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Payment initialization failed: ' + error.message);
-                    submitBtn.textContent = 'Submit Order';
-                    submitBtn.disabled = false;
-                }
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Bitrix24 Response:', data);
+                    resolve(data);
+                    
+                    // Step 3: Initiate Razorpay payment
+                    initiateRazorpayPayment(formData);
+                })
+                .catch(error => {
+                    console.error('Bitrix24 Error:', error);
+                    reject(error);
+                });
+            });
         }
+        
+        // Step 3: Initiate Razorpay payment with the formData
+        function initiateRazorpayPayment(formData) {
+            console.log('Razorpay Payment Initiated with Data:', formData);
+            
+            const options = {
+                "key": "rzp_live_Rn37DDGmBYh2C0", // Replace with your actual key
+                "amount": formData.totalAmount * 100, // Convert to paise
+                "currency": "INR",
+                "name": "Maison Model X",
+                "description": `Package: ${formData.packageSelection}`,
+                "image": "https://maisonmodelx.com/logo.png",
+                "prefill": {
+                    "name": formData.firstName,
+                    "email": formData.email,
+                    "contact": formData.phone
+                },
+                "handler": function(response) {
+                    console.log('Payment Success:', response);
+                    handlePaymentSuccess(response, formData);
+                },
+                "modal": {
+                    "ondismiss": function() {
+                        console.log('Payment cancelled');
+                        alert('Payment cancelled. Please try again.');
+                    }
+                }
+            };
+            
+            try {
+                const rzp1 = new Razorpay(options);
+                rzp1.open();
+            } catch (error) {
+                console.error('Razorpay Error:', error);
+                alert('Payment gateway error. Please try again.');
+            }
+        }
+        
+        // Step 4: Handle payment success
+        function handlePaymentSuccess(paymentResponse, formData) {
+            console.log('Processing payment success...');
+            
+            // Update Bitrix24 with payment confirmation
+            const bitrix24Url = "https://b24-nl2p2c.bitrix24.in/rest/1/9edrslqy06g6ro93/crm.deal.update";
+            
+            fetch(bitrix24Url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: paymentResponse.razorpay_order_id,
+                    fields: {
+                        STAGE_ID: "CONVERTED",
+                        COMMENTS: `Payment ID: ${paymentResponse.razorpay_payment_id}\nOrder ID: ${paymentResponse.razorpay_order_id}`
+                    }
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Payment Confirmed in Bitrix24:', data);
+                showOrderConfirmation();
+            })
+            .catch(error => console.error('Confirmation Error:', error));
+        }
+        
+        // Helper function: Calculate total amount
+        function calculateTotalAmount() {
+            const packageSelect = document.getElementById('packageSelection');
+            let basePrice = 0;
+            
+            // Base prices
+            const prices = {
+                'prelude': 3999,
+                'elan': 10999,
+                'signature': 19999,
+                'couture': 37999,
+                'legende': 0
+            };
+            
+            basePrice = prices[packageSelect.value] || 0;
+            
+            // Add addons if checked
+            if (document.getElementById('rush')?.checked) basePrice += 2000;
+            if (document.getElementById('extraImages')?.checked) basePrice += 1000;
+            if (document.getElementById('ageProgression')?.checked) basePrice += 3000;
+            if (document.getElementById('extraRevision')?.checked) basePrice += 2000;
+            if (document.getElementById('extraModel')?.checked) basePrice += 2300;
+            
+            return basePrice;
+        }
+        
+        // Show order confirmation
+        function showOrderConfirmation() {
+            document.getElementById('orderConfirmation').style.display = 'flex';
+        }
+        
+        function closeConfirmation() {
+            document.getElementById('orderConfirmation').style.display = 'none';
+            document.getElementById('orderForm').reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
 
         // FUNCTION 2 - Handle payment success
         function handlePaymentSuccessConsistentFaces(response, formData) {
@@ -3214,6 +3285,7 @@
 </body>
 
 </html>
+
 
 
 
