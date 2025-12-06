@@ -2240,7 +2240,7 @@
                 <p id="paymentTerms" style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">Select a package to see pricing</p>
             </div>
 
-            <button type="button" class="btn btn-primary" id="submitBtn" onclick="initiateRazorpayPaymentConsistentFaces()">Submit Order</button>
+            <button type="button" class="btn btn-primary" id="submitBtn" onclick="document.getElementById('orderForm').dispatchEvent(new Event('submit'))">Submit Order</button>
             <p style="text-align: center; margin-top: 20px; font-size: 12px; color: rgba(255, 255, 255, 0.6);">✓ Secure payment via Razorpay • ✓ 100% Satisfaction Guarantee • ✓ Delivery within promised time</p>
         </form>
 
@@ -3284,6 +3284,7 @@
 </body>
 
 </html>
+
 
 
 
