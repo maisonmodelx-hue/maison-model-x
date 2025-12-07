@@ -4233,11 +4233,323 @@ function onPlanChangeForEdition() {
                         submitBtn.disabled = false;
                     });
                 }
+
+
+
+
+                // ========================================
+                // FORMAT MESSAGE FOR BITRIX24 (COMPLETE)
+                // ========================================
+                function formatBitrixMessage(orderData) {
+                    let message = `╔════════════════════════════════════════╗\n`;
+                    message += `║   NEW ORDER - MAISON MODEL X          ║\n`;
+                    message += `╚════════════════════════════════════════╝\n\n`;
+                
+                    // ============ CUSTOMER INFO ============
+                    message += `👤 CUSTOMER INFORMATION\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Name: ${orderData.customerInfo.fullName}\n`;
+                    message += `Email: ${orderData.customerInfo.email}\n`;
+                    message += `Phone: +${orderData.customerInfo.countryCode} ${orderData.customerInfo.phone}\n`;
+                    message += `Brand: ${orderData.customerInfo.brandName}\n\n`;
+                
+                    // ============ PLAN PACKAGE ============
+                    message += `🎁 PACKAGE DETAILS\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Tier: ${orderData.planDetails.tier.toUpperCase()}\n`;
+                    message += `Base Price: ₹${orderData.planDetails.basePrice.toLocaleString('en-IN')}\n`;
+                    message += `Number of Models: ${orderData.models.length}\n\n`;
+                
+                    // ============ ADD-ONS ============
+                    if (orderData.addOns && Object.keys(orderData.addOns).length > 0) {
+                        message += `➕ ADD-ONS\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        
+                        if (orderData.addOns.brandNamePlacement) {
+                            message += `✓ Brand Name Placement (₹${orderData.addOns.brandNamePlacementPrice || '0'} add-on)\n`;
+                        }
+                        
+                        if (orderData.addOns.extraModel) {
+                            message += `✓ Extra Model (₹${orderData.addOns.extraModelPrice || '0'} add-on)\n`;
+                        }
+                        
+                        message += `\n`;
+                    }
+                
+                    // ============ SHARED PROJECT INFO ============
+                    message += `📋 PROJECT SPECIFICATIONS\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Model Type: ${orderData.models?.specifications || 'N/A'}\n`;
+                    
+                    if (orderData.models?.productName) {
+                        message += `Product Name: ${orderData.models.productName}\n`;
+                    }
+                    
+                    if (orderData.models?.itemMapping) {
+                        message += `Item Mapping: ${orderData.models.itemMapping}\n`;
+                    }
+                    
+                    if (orderData.models?.productDescription) {
+                        message += `Product Description:\n${orderData.models.productDescription}\n`;
+                    }
+                    
+                    if (orderData.models?.backgroundDescription) {
+                        message += `Background: ${orderData.models.backgroundDescription}\n`;
+                    }
+                    
+                    message += `\n`;
+                
+                    // ============ BRAND NAME SECTION (if applicable) ============
+                    if (orderData.brandNameFields && Object.keys(orderData.brandNameFields).length > 0) {
+                        message += `🎨 BRAND NAME PLACEMENT (${orderData.planDetails.tier === 'atelier' || orderData.planDetails.tier === 'maison' ? 'INCLUDED' : 'ADD-ON'})\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `Brand Text: ${orderData.brandNameFields.brandNameText || 'N/A'}\n`;
+                        message += `Font Style: ${orderData.brandNameFields.brandFontStyle || 'N/A'}`;
+                        
+                        if (orderData.brandNameFields.brandFontStyleOther) {
+                            message += ` (${orderData.brandNameFields.brandFontStyleOther})`;
+                        }
+                        message += `\n`;
+                        
+                        message += `Placement: ${orderData.brandNameFields.brandPlacementSelect || 'N/A'}`;
+                        if (orderData.brandNameFields.brandPlacementOther) {
+                            message += ` (${orderData.brandNameFields.brandPlacementOther})`;
+                        }
+                        message += `\n`;
+                        
+                        message += `Color: #${orderData.brandNameFields.brandColor || 'FFD700'}\n\n`;
+                    }
+                
+                    // ============ PRIMARY MODELS ============
+                    message += `🤖 MODELS\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    
+                    orderData.models.forEach((model, index) => {
+                        message += `\n📌 MODEL ${index + 1}:\n`;
+                        message += `${'─'.repeat(40)}\n`;
+                        
+                        // Appearance
+                        message += `👥 APPEARANCE:\n`;
+                        message += `  • Gender: ${model.gender || 'N/A'}\n`;
+                        message += `  • Ethnicity: ${model.ethnicity || 'N/A'}`;
+                        if (model.ethnicityOther) message += ` (${model.ethnicityOther})`;
+                        message += `\n`;
+                        message += `  • Country/Region: ${model.countryRegion || 'N/A'}`;
+                        if (model.countryRegionOther) message += ` (${model.countryRegionOther})`;
+                        message += `\n`;
+                        message += `  • Skin Tone: ${model.skinTone || 'N/A'}`;
+                        if (model.skinToneOther) message += ` (${model.skinToneOther})`;
+                        message += `\n`;
+                        message += `  • Hair Type: ${model.hairType || 'N/A'}`;
+                        if (model.hairTypeOther) message += ` (${model.hairTypeOther})`;
+                        message += `\n`;
+                        message += `  • Hair Color: ${model.hairColor || 'N/A'}`;
+                        if (model.hairColorOther) message += ` (${model.hairColorOther})`;
+                        message += `\n`;
+                        message += `  • Hair Style: ${model.hairStyle || 'N/A'}`;
+                        if (model.hairStyleOther) message += ` (${model.hairStyleOther})`;
+                        message += `\n`;
+                        message += `  • Eye Color: ${model.eyeColor || 'N/A'}`;
+                        if (model.eyeColorOther) message += ` (${model.eyeColorOther})`;
+                        message += `\n`;
+                        message += `  • Age Range: ${model.ageAppearance || 'N/A'}\n`;
+                        message += `  • Body Type: ${model.bodyType || 'N/A'}`;
+                        if (model.bodyTypeOther) message += ` (${model.bodyTypeOther})`;
+                        message += `\n`;
+                        message += `  • Height: ${model.heightAppearance || 'N/A'}\n`;
+                        message += `  • Weight Appearance: ${model.weightAppearance || 'N/A'}\n`;
+                        
+                        // Pose & Expression
+                        message += `\n💃 POSE & EXPRESSION:\n`;
+                        message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
+                        if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
+                        message += `\n`;
+                        message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
+                        if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
+                        message += `\n`;
+                        message += `  • Hand Pose: ${model.handPose || 'N/A'}`;
+                        if (model.handPoseOther) message += ` (${model.handPoseOther})`;
+                        message += `\n`;
+                        message += `  • Orientation: ${model.orientation || 'N/A'}`;
+                        if (model.orientationOther) message += ` (${model.orientationOther})`;
+                        message += `\n`;
+                        message += `  • Body Pose: ${model.bodyPose || 'N/A'}`;
+                        if (model.bodyPoseOther) message += ` (${model.bodyPoseOther})`;
+                        message += `\n`;
+                        message += `  • Makeup: ${model.makeupDetails || 'Not specified'}\n`;
+                        
+                        // Advanced Features (Atelier/Maison)
+                        if (model.lightningEffects) {
+                            message += `  • Lighting: ${model.lightningEffects}`;
+                            if (model.lightningEffectsOther) message += ` (${model.lightningEffectsOther})`;
+                            message += `\n`;
+                        }
+                        
+                        if (model.pose) {
+                            message += `\n📐 POSE NOTES:\n${model.pose}\n`;
+                        }
+                        
+                        if (model.description) {
+                            message += `\n📝 MODEL NOTES:\n${model.description}\n`;
+                        }
+                        
+                        // Accessories
+                        if (model.accessoriesIncluded === 'Yes') {
+                            message += `\n💎 ACCESSORIES:\n`;
+                            message += `  • Included: Yes\n`;
+                            if (model.accessoriesDescription) {
+                                message += `  • Details: ${model.accessoriesDescription}\n`;
+                            }
+                        }
+                    });
+                
+                    message += `\n`;
+                
+                    // ============ EXTRA MODELS (if applicable) ============
+                    if (orderData.extraModels && orderData.extraModels.length > 0) {
+                        message += `✨ EXTRA MODELS\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        
+                        orderData.extraModels.forEach((model, index) => {
+                            message += `\n🌟 EXTRA MODEL ${index + 1}:\n`;
+                            message += `${'─'.repeat(40)}\n`;
+                            
+                            message += `👥 APPEARANCE:\n`;
+                            message += `  • Gender: ${model.gender || 'N/A'}\n`;
+                            message += `  • Ethnicity: ${model.ethnicity || 'N/A'}`;
+                            if (model.ethnicityOther) message += ` (${model.ethnicityOther})`;
+                            message += `\n`;
+                            message += `  • Country/Region: ${model.countryRegion || 'N/A'}`;
+                            if (model.countryRegionOther) message += ` (${model.countryRegionOther})`;
+                            message += `\n`;
+                            message += `  • Skin Tone: ${model.skinTone || 'N/A'}`;
+                            if (model.skinToneOther) message += ` (${model.skinToneOther})`;
+                            message += `\n`;
+                            message += `  • Hair Type: ${model.hairType || 'N/A'}`;
+                            if (model.hairTypeOther) message += ` (${model.hairTypeOther})`;
+                            message += `\n`;
+                            message += `  • Hair Color: ${model.hairColor || 'N/A'}`;
+                            if (model.hairColorOther) message += ` (${model.hairColorOther})`;
+                            message += `\n`;
+                            message += `  • Hair Style: ${model.hairStyle || 'N/A'}`;
+                            if (model.hairStyleOther) message += ` (${model.hairStyleOther})`;
+                            message += `\n`;
+                            message += `  • Eye Color: ${model.eyeColor || 'N/A'}`;
+                            if (model.eyeColorOther) message += ` (${model.eyeColorOther})`;
+                            message += `\n`;
+                            message += `  • Age Range: ${model.ageAppearance || 'N/A'}\n`;
+                            message += `  • Body Type: ${model.bodyType || 'N/A'}`;
+                            if (model.bodyTypeOther) message += ` (${model.bodyTypeOther})`;
+                            message += `\n`;
+                            message += `  • Height: ${model.heightAppearance || 'N/A'}\n`;
+                            message += `  • Weight Appearance: ${model.weightAppearance || 'N/A'}\n`;
+                            
+                            message += `\n💃 POSE & EXPRESSION:\n`;
+                            message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
+                            if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
+                            message += `\n`;
+                            message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
+                            if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
+                            message += `\n`;
+                            message += `  • Hand Pose: ${model.handPose || 'N/A'}`;
+                            if (model.handPoseOther) message += ` (${model.handPoseOther})`;
+                            message += `\n`;
+                            message += `  • Orientation: ${model.orientation || 'N/A'}`;
+                            if (model.orientationOther) message += ` (${model.orientationOther})`;
+                            message += `\n`;
+                            message += `  • Body Pose: ${model.bodyPose || 'N/A'}`;
+                            if (model.bodyPoseOther) message += ` (${model.bodyPoseOther})`;
+                            message += `\n`;
+                            message += `  • Makeup: ${model.makeupDetails || 'Not specified'}\n`;
+                            
+                            if (model.description) {
+                                message += `\n📝 NOTES:\n${model.description}\n`;
+                            }
+                        });
+                        
+                        message += `\n`;
+                    }
+                
+                    // ============ PROJECT DESCRIPTION & SPECIAL REQUESTS ============
+                    if (orderData.customerInfo.projectDescription) {
+                        message += `📝 PROJECT VISION\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.customerInfo.projectDescription}\n\n`;
+                    }
+                
+                    if (orderData.customerInfo.specialRequirements) {
+                        message += `⚡ SPECIAL REQUESTS\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        message += `${orderData.customerInfo.specialRequirements}\n\n`;
+                    }
+                
+                    // ============ DELIVERY PREFERENCES ============
+                    if (orderData.deliveryPreferences && Object.keys(orderData.deliveryPreferences).length > 0) {
+                        message += `📦 DELIVERY PREFERENCES\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        
+                        if (orderData.deliveryPreferences.format) {
+                            message += `Format: ${orderData.deliveryPreferences.format}\n`;
+                        }
+                        
+                        if (orderData.deliveryPreferences.fileNamingConvention) {
+                            message += `File Naming: ${orderData.deliveryPreferences.fileNamingConvention}\n`;
+                        }
+                        
+                        if (orderData.deliveryPreferences.additionalInstructions) {
+                            message += `Special Instructions: ${orderData.deliveryPreferences.additionalInstructions}\n`;
+                        }
+                        
+                        message += `\n`;
+                    }
+                
+                    // ============ FILES SUMMARY ============
+                    if (orderData.files && orderData.files.length > 0) {
+                        message += `📎 FILES PROVIDED\n`;
+                        message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                        orderData.files.forEach(file => {
+                            message += `${file}\n`;
+                        });
+                        message += `\n`;
+                    }
+                
+                    // ============ PRICING SUMMARY ============
+                    message += `💰 PRICING SUMMARY\n`;
+                    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    message += `Base Package: ₹${orderData.planDetails.basePrice.toLocaleString('en-IN')}\n`;
+                    
+                    let addOnTotal = 0;
+                    if (orderData.addOns) {
+                        if (orderData.addOns.brandNamePlacement && orderData.addOns.brandNamePlacementPrice) {
+                            message += `Brand Name Placement: ₹${orderData.addOns.brandNamePlacementPrice.toLocaleString('en-IN')}\n`;
+                            addOnTotal += orderData.addOns.brandNamePlacementPrice;
+                        }
+                        if (orderData.addOns.extraModel && orderData.addOns.extraModelPrice) {
+                            message += `Extra Model: ₹${orderData.addOns.extraModelPrice.toLocaleString('en-IN')}\n`;
+                            addOnTotal += orderData.addOns.extraModelPrice;
+                        }
+                    }
+                    
+                    const totalPrice = orderData.planDetails.basePrice + addOnTotal;
+                    message += `${'─'.repeat(40)}\n`;
+                    message += `TOTAL: ₹${totalPrice.toLocaleString('en-IN')}\n\n`;
+                
+                    // ============ TIMESTAMP ============
+                    message += `⏰ ${orderData.timestamp}\n`;
+                
+                    return message;
+                }
+
+
+
+
+                
             
                 // ========================================
                 // FORMAT MESSAGE FOR BITRIX24
                 // ========================================
-                function formatBitrixMessage(orderData) {
+                
+      /*          function formatBitrixMessage(orderData) {
                     let message = `╔════════════════════════════════════════╗\n`;
                     message += `║   NEW ORDER - MAISON MODEL X          ║\n`;
                     message += `╚════════════════════════════════════════╝\n\n`;
@@ -4377,7 +4689,7 @@ function onPlanChangeForEdition() {
                     }
                     message += `⏰ ${orderData.timestamp}\n`;
                     return message;
-                }
+                }   */
 
                 // ========================================
                 // UPLOAD FILES TO BITRIX24
@@ -6466,6 +6778,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
