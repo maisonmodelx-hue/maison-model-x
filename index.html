@@ -2293,7 +2293,7 @@ function confirmBrandColorFromModal() {
 }
 
 /* ---- Clear Brand Name Fields ---- */
-function clearBrandNameFields() {
+/*function clearBrandNameFields() {
     const brandNameInput = document.getElementById("brandNameInput");
     const placementSelect = document.getElementById("brandPlacementSelect");
     const placementOtherInput = document.getElementById("brandPlacementOtherInput");
@@ -2306,7 +2306,7 @@ function clearBrandNameFields() {
     document.getElementById("brandColorHiddenInput").value = "FFD700";
     document.getElementById("brandColorPreviewSwatch").style.background = "#FFD700";
     document.getElementById("brandColorHexDisplay").textContent = "FFD700";
-}
+}*/
 
 /* ---- Brand Name Placement Add-On Visibility Logic (Artisan & Couture only) ---- */
 function toggleBrandNamePlacementAddon() {
@@ -2408,16 +2408,7 @@ function togglePoseSection(modelNumber) {
 }
 
 
-function toggleHandPoseOther(num, isExtra = false) {
-  const select = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_hand_pose`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}hand_pose_other_section_model${num}`);
-  if (!select || !otherSection) return;
-  if (select.value === "Other") {
-    otherSection.classList.remove("hidden-section");
-  } else {
-    otherSection.classList.add("hidden-section");
-  }
-}
+
 
 function toggleOrientationOther(num, isExtra = false) {
     if (isExtra) {
@@ -2463,16 +2454,6 @@ function toggleExpressionPreferenceOther(num, isExtra = false) {
     }
 }
 
-function toggleBodyPoseOther(num, isExtra = false) {
-  const select = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_body_pose`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}body_pose_other_section_model${num}`);
-  if (!select || !otherSection) return;
-  if (select.value === "Other") {
-    otherSection.classList.remove("hidden-section");
-  } else {
-    otherSection.classList.add("hidden-section");
-  }
-}
 
 function toggleTypeOfShotOther(num, isExtra = false) {
     if (isExtra) {
@@ -4395,27 +4376,29 @@ function onPlanChangeForEdition() {
                     }
                 
                     // ============ SHARED PROJECT INFO ============
+                    // ============ SHARED PROJECT INFO ============
                     message += `📋 PROJECT SPECIFICATIONS\n`;
                     message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    message += `Model Type: ${orderData.models?.specifications || 'N/A'}\n`;
+                    message += `Model Type: ${orderData.models && orderData.models[0] ? orderData.models[0].specifications : 'N/A'}\n`;
                     
-                    if (orderData.models?.productName) {
-                        message += `Product Name: ${orderData.models.productName}\n`;
+                    if (orderData.models && orderData.models[0]?.productName) {
+                        message += `Product Name: ${orderData.models[0].productName}\n`;
                     }
                     
-                    if (orderData.models?.itemMapping) {
-                        message += `Item Mapping: ${orderData.models.itemMapping}\n`;
+                    if (orderData.models && orderData.models[0]?.itemMapping) {
+                        message += `Item Mapping: ${orderData.models[0].itemMapping}\n`;
                     }
                     
-                    if (orderData.models?.productDescription) {
-                        message += `Product Description:\n${orderData.models.productDescription}\n`;
+                    if (orderData.models && orderData.models[0]?.productDescription) {
+                        message += `Product Description:\n${orderData.models[0].productDescription}\n`;
                     }
                     
-                    if (orderData.models?.backgroundDescription) {
-                        message += `Background: ${orderData.models.backgroundDescription}\n`;
+                    if (orderData.models && orderData.models[0]?.backgroundDescription) {
+                        message += `Background: ${orderData.models[0].backgroundDescription}\n`;
                     }
                     
                     message += `\n`;
+
                 
                     // ============ BRAND NAME SECTION (if applicable) ============
                     if (orderData.brandNameFields && Object.keys(orderData.brandNameFields).length > 0) {
@@ -6870,6 +6853,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
