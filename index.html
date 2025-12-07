@@ -2027,88 +2027,151 @@ function toggleEthnicityOther(num, isExtra = false) {
 }
 /* ---- Skin Tone "Other" Toggle Logic ---- */
 function toggleSkinToneOther(num, isExtra = false) {
-  const skinToneSelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_skin_tone`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}skin_tone_other_section_model${num}`);
-  
-  if (!skinToneSelect || !otherSection) return;
-  
-  if (skinToneSelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const skinToneSelect = document.getElementById(`extra_model_${num}_skin_tone`);
+    const otherSection = document.getElementById(`skin_tone_other_section_extra_model_${num}`);
+    if (!skinToneSelect || !otherSection) return;
+    if (skinToneSelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const skinToneSelect = document.getElementById(`model_${num}_skin_tone`);
+      const otherSection = document.getElementById(`skin_tone_other_section_model${num}`);
+      
+      if (!skinToneSelect || !otherSection) return;
+      
+      if (skinToneSelect.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
-
 /* ---- Hair Type "Other" Toggle Logic ---- */
 function toggleHairTypeOther(num, isExtra = false) {
-  const hairTypeSelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_hair_type`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}hair_type_other_section_model${num}`);
-  
-  if (!hairTypeSelect || !otherSection) return;
-  
-  if (hairTypeSelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const hairTypeSelect = document.getElementById(`extra_model_${num}_hair_type`);
+    const otherSection = document.getElementById(`hair_type_other_section_extra_model_${num}`);
+    if (!hairTypeSelect || !otherSection) return;
+    if (hairTypeSelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const hairTypeSelect = document.getElementById(`model_${num}_hair_type`);
+      const otherSection = document.getElementById(`hair_type_other_section_model${num}`);
+      
+      if (!hairTypeSelect || !otherSection) return;
+      
+      if (hairTypeSelect.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 /* ---- Hair Color "Other" Toggle Logic ---- */
 function toggleHairColorOther(num, isExtra = false) {
-  const hairColorSelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_hair_color`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}hair_color_other_section_model${num}`);
-  
-  if (!hairColorSelect || !otherSection) return;
-  
-  if (hairColorSelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const hairColorSelect = document.getElementById(`extra_model_${num}_hair_color`);
+    const otherSection = document.getElementById(`hair_color_other_section_extra_model_${num}`);
+    if (!hairColorSelect || !otherSection) return;
+    if (hairColorSelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const hairColorSelect = document.getElementById(`model_${num}_hair_color`);
+      const otherSection = document.getElementById(`hair_color_other_section_model${num}`);
+      
+      if (!hairColorSelect || !otherSection) return;
+      
+      if (hairColorSelect.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
-
 /* ---- Hair Style "Other" Toggle Logic ---- */
 function toggleHairStyleOther(num, isExtra = false) {
-  const hairStyleSelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_hair_style`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}hair_style_other_section_model${num}`);
-  
-  if (!hairStyleSelect || !otherSection) return;
-  
-  if (hairStyleSelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const hairStyleSelect = document.getElementById(`extra_model_${num}_hair_style`);
+    const otherSection = document.getElementById(`hair_style_other_section_extra_model_${num}`);
+    if (!hairStyleSelect || !otherSection) return;
+    if (hairStyleSelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const hairStyleSelect = document.getElementById(`model_${num}_hair_style`);
+      const otherSection = document.getElementById(`hair_style_other_section_model${num}`);
+      
+      if (!hairStyleSelect || !otherSection) return;
+      
+      if (hairStyleSelect.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 /* ---- Eye Color "Other" Toggle Logic ---- */
 function toggleEyeColorOther(num, isExtra = false) {
-  const eyeColorSelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_eye_color`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}eye_color_other_section_model${num}`);
-  
-  if (!eyeColorSelect || !otherSection) return;
-  
-  if (eyeColorSelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const eyeColorSelect = document.getElementById(`extra_model_${num}_eye_color`);
+    const otherSection = document.getElementById(`eye_color_other_section_extra_model_${num}`);
+    if (!eyeColorSelect || !otherSection) return;
+    if (eyeColorSelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const eyeColorSelect = document.getElementById(`model_${num}_eye_color`);
+      const otherSection = document.getElementById(`eye_color_other_section_model${num}`);
+      
+      if (!eyeColorSelect || !otherSection) return;
+      
+      if (eyeColorSelect.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 /* ---- Country/Region "Other" Toggle Logic ---- */
 function toggleCountryRegionOther(num, isExtra = false) {
-  const countryRegionSelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_country_region`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}country_region_other_section_model${num}`);
-  
-  if (!countryRegionSelect || !otherSection) return;
-  
-  if (countryRegionSelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const countryRegionSelect = document.getElementById(`extra_model_${num}_country_region`);
+    const otherSection = document.getElementById(`country_region_other_section_extra_model_${num}`);
+    if (!countryRegionSelect || !otherSection) return;
+    if (countryRegionSelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const countryRegionSelect = document.getElementById(`model_${num}_country_region`);
+      const otherSection = document.getElementById(`country_region_other_section_model${num}`);
+      
+      if (!countryRegionSelect || !otherSection) return;
+      
+      if (countryRegionSelect.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
-
 // ---- Lightning Effects Other Toggle Logic ----
 function toggleLightningEffectsOther(num) {
   const select = document.getElementById(`model_${num}_lightning_effects`);
@@ -2357,25 +2420,47 @@ function toggleHandPoseOther(num, isExtra = false) {
 }
 
 function toggleOrientationOther(num, isExtra = false) {
-  const select = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_orientation`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}orientation_other_section_model${num}`);
-  if (!select || !otherSection) return;
-  if (select.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const select = document.getElementById(`extra_model_${num}_orientation`);
+    const otherSection = document.getElementById(`orientation_other_section_extra_model_${num}`);
+    if (!select || !otherSection) return;
+    if (select.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const select = document.getElementById(`model_${num}_orientation`);
+      const otherSection = document.getElementById(`orientation_other_section_model${num}`);
+      if (!select || !otherSection) return;
+      if (select.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 function toggleExpressionPreferenceOther(num, isExtra = false) {
-  const select = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_expression_preference`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}expression_preference_other_section_model${num}`);
-  if (!select || !otherSection) return;
-  if (select.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const select = document.getElementById(`extra_model_${num}_expression_preference`);
+    const otherSection = document.getElementById(`expression_preference_other_section_extra_model_${num}`);
+    if (!select || !otherSection) return;
+    if (select.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const select = document.getElementById(`model_${num}_expression_preference`);
+      const otherSection = document.getElementById(`expression_preference_other_section_model${num}`);
+      if (!select || !otherSection) return;
+      if (select.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 function toggleBodyPoseOther(num, isExtra = false) {
@@ -2390,25 +2475,47 @@ function toggleBodyPoseOther(num, isExtra = false) {
 }
 
 function toggleTypeOfShotOther(num, isExtra = false) {
-  const select = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_type_of_shot`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}type_of_shot_other_section_model${num}`);
-  if (!select || !otherSection) return;
-  if (select.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+    if (isExtra) {
+    const select = document.getElementById(`extra_model_${num}_type_of_shot`);
+    const otherSection = document.getElementById(`type_of_shot_other_section_extra_model_${num}`);
+    if (!select || !otherSection) return;
+    if (select.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const select = document.getElementById(`model_${num}_type_of_shot`);
+      const otherSection = document.getElementById(`type_of_shot_other_section_model${num}`);
+      if (!select || !otherSection) return;
+      if (select.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 function toggleBodyTypeOther(num, isExtra = false) {
-  const select = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_body_type`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}body_type_other_section_model${num}`);
-  if (!select || !otherSection) return;
-  if (select.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+     if (isExtra) {
+    const select = document.getElementById(`extra_model_${num}_body_type`);
+    const otherSection = document.getElementById(`body_type_other_section_extra_model_${num}`);
+    if (!select || !otherSection) return;
+    if (select.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+      const select = document.getElementById(`model_${num}_body_type`);
+      const otherSection = document.getElementById(`body_type_other_section_model${num}`);
+      if (!select || !otherSection) return;
+      if (select.value === "Other") {
+        otherSection.classList.remove("hidden-section");
+      } else {
+        otherSection.classList.add("hidden-section");
+      }
+    }
 }
 
 // ========================================
@@ -6763,6 +6870,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
