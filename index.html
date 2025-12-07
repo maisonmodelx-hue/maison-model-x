@@ -3978,68 +3978,54 @@ function onPlanChangeForEdition() {
                     }
 
                     // Collect extra models data
-                    const extraModels = [];
                     const extraModelCheckbox = document.getElementById('addonExtraModel');
+                    const numExtraModels = extraModelCheckbox && extraModelCheckbox.checked ? 1 : 0;
+                    const extraModels = [];
                     
-                    if (extraModelCheckbox && extraModelCheckbox.checked) {
-                        const extraModelsContainer = document.getElementById('extraModelsContainer');
-                        if (extraModelsContainer && !extraModelsContainer.classList.contains('hidden-section')) {
-                            // Currently supporting 1 extra model
-                            for (let i = 1; i <= 1; i++) {
-                                const extraModel = {
-                                    // Shared fields (same as primary model)
-                                    specifications: document.getElementById('modelSpecifications')?.value || '',
-                                    productName: document.getElementById('productName')?.value || '',
-                                    itemMapping: document.getElementById('modelItemMapping')?.value || '',
-                                    productDescription: document.querySelector('textarea[name="productdescription"]')?.value || '',
-                                    backgroundDescription: document.querySelector('textarea[name="backgroundDescription"]')?.value || '',
-                                    
-                                    // Model appearance fields
-                                    gender: document.getElementById(`extra_model_${i}_gender`)?.value || '',
-                                    ethnicity: document.getElementById(`extra_model_${i}_ethnicity`)?.value || '',
-                                    ethnicityOther: document.getElementById(`extra_model_${i}_ethnicity_other`)?.value || '',
-                                    countryRegion: document.getElementById(`extra_model_${i}_country_region`)?.value || '',
-                                    countryRegionOther: document.getElementById(`country_region_other_extra_model_${i}`)?.value || '',
-                                    skinTone: document.getElementById(`extra_model_${i}_skin_tone`)?.value || '',
-                                    skinToneOther: document.getElementById(`skin_tone_other_extra_model_${i}`)?.value || '',
-                                    hairType: document.getElementById(`extra_model_${i}_hair_type`)?.value || '',
-                                    hairTypeOther: document.getElementById(`hair_type_other_extra_model_${i}`)?.value || '',
-                                    hairColor: document.getElementById(`extra_model_${i}_hair_color`)?.value || '',
-                                    hairColorOther: document.getElementById(`hair_color_other_extra_model_${i}`)?.value || '',
-                                    hairStyle: document.getElementById(`extra_model_${i}_hair_style`)?.value || '',
-                                    hairStyleOther: document.getElementById(`hair_style_other_extra_model_${i}`)?.value || '',
-                                    eyeColor: document.getElementById(`extra_model_${i}_eye_color`)?.value || '',
-                                    eyeColorOther: document.getElementById(`eye_color_other_extra_model_${i}`)?.value || '',
-                                    ageAppearance: document.getElementById(`extra_model_${i}_age_appearance`)?.value || '',
-                                    bodyType: document.getElementById(`extra_model_${i}_body_type`)?.value || '',
-                                    bodyTypeOther: document.getElementById(`body_type_other_extra_model_${i}`)?.value || '',
-                                    heightAppearance: document.getElementById(`extra_model_${i}_height`)?.value || '',
-                                    weightAppearance: document.getElementById(`extra_model_${i}_weight`)?.value || '',
-                                    
-                                    // Pose & Expression
-                                    typeOfShot: document.getElementById(`extra_model_${i}_type_of_shot`)?.value || '',
-                                    typeOfShotOther: document.getElementById(`type_of_shot_other_extra_model_${i}`)?.value || '',
-                                    expressionPreference: document.getElementById(`extra_model_${i}_expression_preference`)?.value || '',
-                                    expressionPreferenceOther: document.getElementById(`expression_preference_other_extra_model_${i}`)?.value || '',
-                                    handPose: document.getElementById(`extra_model_${i}_hand_pose`)?.value || '',
-                                    handPoseOther: document.getElementById(`hand_pose_other_extra_model_${i}`)?.value || '',
-                                    orientation: document.getElementById(`extra_model_${i}_orientation`)?.value || '',
-                                    orientationOther: document.getElementById(`orientation_other_extra_model_${i}`)?.value || '',
-                                    bodyPose: document.getElementById(`extra_model_${i}_body_pose`)?.value || '',
-                                    bodyPoseOther: document.getElementById(`body_pose_other_extra_model_${i}`)?.value || '',
-                                    makeupDetails: document.getElementById(`extra_model_${i}_makeup_details`)?.value || '',
-                                    lightningEffects: document.getElementById(`model_${i}_lightning_effects`)?.value || '',
-                                    lightningEffectsOther: document.getElementById(`lightning_effects_other_extra_model_${i}`)?.value || '',
-                                    description: document.getElementById(`extra_model_${i}_model_description`)?.value || '',
-                                    
-                                    // Accessories
-                                    accessoriesIncluded: document.getElementById(`accessories_included_extra_model_${i}`)?.value || 'No',
-                                    accessoriesDescription: document.getElementById(`accessories_desc_extra_model_${i}`)?.value || '',
-                                };
-                                extraModels.push(extraModel);
-                            }
-                        }
+                     for (let i = 1; i <= numExtraModels; i++) {
+                        const extraModel = {
+                            modelNumber: i,
+                            gender: document.querySelector(`select[name="extra_model_${i}_gender"]`)?.value || '',
+                            ethnicity: document.querySelector(`select[name="extra_model_${i}_ethnicity"]`)?.value || '',
+                            ethnicityOther: document.querySelector(`input[name="extra_model_${i}_ethnicity_other"]`)?.value || '',
+                            countryRegion: document.querySelector(`select[name="extra_model_${i}_country_region"]`)?.value || '',
+                            countryRegionOther: document.querySelector(`input[name="country_region_other_extra_model${i}"]`)?.value || '',
+                            skinTone: document.querySelector(`select[name="extra_model_${i}_skin_tone"]`)?.value || '',
+                            skinToneOther: document.querySelector(`input[name="skin_tone_other_extra_model${i}"]`)?.value || '',
+                            hairType: document.querySelector(`select[name="extra_model_${i}_hair_type"]`)?.value || '',
+                            hairTypeOther: document.querySelector(`input[name="hair_type_other_extra_model${i}"]`)?.value || '',
+                            hairColor: document.querySelector(`select[name="extra_model_${i}_hair_color"]`)?.value || '',
+                            hairColorOther: document.querySelector(`input[name="hair_color_other_extra_model${i}"]`)?.value || '',
+                            hairStyle: document.querySelector(`select[name="extra_model_${i}_hair_style"]`)?.value || '',
+                            hairStyleOther: document.querySelector(`input[name="hair_style_other_extra_model${i}"]`)?.value || '',
+                            eyeColor: document.querySelector(`select[name="extra_model_${i}_eye_color"]`)?.value || '',
+                            eyeColorOther: document.querySelector(`input[name="eye_color_other_extra_model${i}"]`)?.value || '',
+                            ageAppearance: document.querySelector(`input[name="extra_model_${i}_age_appearance"]`)?.value || '',
+                            bodyType: document.querySelector(`select[name="extra_model_${i}_body_type"]`)?.value || '',
+                            bodyTypeOther: document.querySelector(`input[name="body_type_other_extra_model${i}"]`)?.value || '',
+                            heightAppearance: document.querySelector(`select[name="extra_model_${i}_height_appearance"]`)?.value || '',
+                            weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight_appearance"]`)?.value || '',
+                            typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
+                            typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_extra_model${i}"]`)?.value || '',
+                            expressionPreference: document.querySelector(`select[name="extra_model_${i}_expression_preference"]`)?.value || '',
+                            expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_extra_model${i}"]`)?.value || '',
+                            //handPose: document.querySelector(`select[name="extra_model_${i}_hand_pose"]`)?.value || '',
+                            //handPoseOther: document.querySelector(`input[name="hand_pose_other_extra_model${i}"]`)?.value || '',
+                            orientation: document.querySelector(`select[name="extra_model_${i}_orientation"]`)?.value || '',
+                            orientationOther: document.querySelector(`input[name="orientation_other_extra_model${i}"]`)?.value || '',
+                            //bodyPose: document.querySelector(`select[name="extra_model_${i}_body_pose"]`)?.value || '',
+                            //bodyPoseOther: document.querySelector(`input[name="body_pose_other_extra_model${i}"]`)?.value || '',
+                            makeupDetails: document.querySelector(`input[name="extra_model_${i}_makeup_details"]`)?.value || '',
+                            //lightningEffects: document.querySelector(`select[name="extra_model_${i}_lightning_effects"]`)?.value || '',
+                            //lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_extra_model${i}"]`)?.value || '',
+                            description: document.querySelector(`textarea[name="extra_model_${i}_description"]`)?.value || '',
+                            pose: document.querySelector(`textarea[name="extra_model_${i}_pose"]`)?.value || '',
+                            //accessoriesIncluded: document.querySelector(`select[name="accessories_included_extra_model${i}"]`)?.value || '',
+                            //accessoriesDescription: document.querySelector(`textarea[name="accessories_desc_extra_model${i}"]`)?.value || '',
+                        };
+                        extraModels.push(extraModel);
                     }
+
 
             
                     // -------- ADD-ONS --------
@@ -4092,61 +4078,8 @@ function onPlanChangeForEdition() {
                     return tierModels[tier] || 1;
                 }
 
-                // FIND OR CREATE CONTACT
-          /*      async function getOrCreateContact(email, fullName) {
-                  // STEP 1: Search for existing contact by email
-                  const searchUrl = `https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.list?filter[EMAIL]=${encodeURIComponent(email)}`;
-                  
-                  try {
-                    const searchResponse = await fetch(searchUrl);
-                    const searchData = await searchResponse.json();
-                    
-                    if (searchData.result && searchData.result.length > 0) {
-                      // Contact exists - return its ID
-                      const contactId = searchData.result[0].ID;
-                      console.log("Contact found:", contactId);
-                      return contactId;
-                    }
-                    
-                    // STEP 2: Contact doesn't exist - create new one
-                    console.log("Contact not found. Creating new...");
-                    
-                    const createUrl = `https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.add`;
-                    
-                    const contactPayload = {
-                      fields: {
-                        NAME: fullName,
-                        EMAIL: [{
-                          VALUE: email,
-                          VALUE_TYPE: "WORK"
-                        }]
-                      }
-                    };
-                    
-                    const createResponse = await fetch(createUrl, {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify(contactPayload)
-                    });
-                    
-                    const createData = await createResponse.json();
-                    
-                    if (createData.result) {
-                      const newContactId = createData.result;
-                      console.log("New contact created:", newContactId);
-                      return newContactId;
-                    } else {
-                      console.error("Failed to create contact:", createData);
-                      return null;
-                    }
-                    
-                  } catch (error) {
-                    console.error("Error getting/creating contact:", error);
-                    return null;
-                  }
-                }  */
-
-                                // ========================================
+                
+                // ========================================
                 // GET OR CREATE CONTACT IN BITRIX24
                 // ========================================
                 async function getOrCreateContact(email, fullName) {
@@ -6853,6 +6786,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
