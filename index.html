@@ -5778,6 +5778,9 @@ function onPlanChangeForEdition() {
         }
         
         // Run on page load
+        // Mobile Alert Detection - Show Immediately
+        checkMobileAndShowAlert();
+        // Also run on load as backup
         window.addEventListener('load', checkMobileAndShowAlert);
 
         function toggleMobileMenu() {
@@ -5805,6 +5808,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
