@@ -3878,27 +3878,27 @@ function onPlanChangeForEdition() {
                         models.push(model);
                     }
 
-                    // ✅ COLLECT EXTRA MODELS DATA (if Extra Model add-on is checked)
+                    // Collect extra models data
                     const extraModels = [];
                     const extraModelCheckbox = document.getElementById('addonExtraModel');
                     
                     if (extraModelCheckbox && extraModelCheckbox.checked) {
                         const extraModelsContainer = document.getElementById('extraModelsContainer');
                         if (extraModelsContainer && !extraModelsContainer.classList.contains('hidden-section')) {
-                            // Currently supporting 1 extra model (loop allows for future expansion to multiple)
+                            // Currently supporting 1 extra model
                             for (let i = 1; i <= 1; i++) {
                                 const extraModel = {
-                                    modelNumber: `extra_${i}`,
-                                    specifications: document.getElementById('modelSpecifications')?.value || '', // Same as primary
-                                    productName: document.getElementById('productName')?.value || '', // Same as primary
-                                    itemMapping: document.getElementById('modelItemMapping')?.value || '', // Same as primary
-                                    productDescription: document.querySelector('textarea[name="productdescription"]')?.value || '', // Same as primary
-                                    backgroundDescription: document.querySelector('textarea[name="backgroundDescription"]')?.value || '', // Same as primary
+                                    // Shared fields (same as primary model)
+                                    specifications: document.getElementById('modelSpecifications')?.value || '',
+                                    productName: document.getElementById('productName')?.value || '',
+                                    itemMapping: document.getElementById('modelItemMapping')?.value || '',
+                                    productDescription: document.querySelector('textarea[name="productdescription"]')?.value || '',
+                                    backgroundDescription: document.querySelector('textarea[name="backgroundDescription"]')?.value || '',
                                     
-                                    // Extra model specific appearance fields
+                                    // Model appearance fields
                                     gender: document.getElementById(`extra_model_${i}_gender`)?.value || '',
                                     ethnicity: document.getElementById(`extra_model_${i}_ethnicity`)?.value || '',
-                                    ethnicityOther: document.getElementById(`ethnicity_other_extra_model_${i}`)?.value || '',
+                                    ethnicityOther: document.getElementById(`extra_model_${i}_ethnicity_other`)?.value || '',
                                     countryRegion: document.getElementById(`extra_model_${i}_country_region`)?.value || '',
                                     countryRegionOther: document.getElementById(`country_region_other_extra_model_${i}`)?.value || '',
                                     skinTone: document.getElementById(`extra_model_${i}_skin_tone`)?.value || '',
@@ -3922,17 +3922,18 @@ function onPlanChangeForEdition() {
                                     typeOfShotOther: document.getElementById(`type_of_shot_other_extra_model_${i}`)?.value || '',
                                     expressionPreference: document.getElementById(`extra_model_${i}_expression_preference`)?.value || '',
                                     expressionPreferenceOther: document.getElementById(`expression_preference_other_extra_model_${i}`)?.value || '',
+                                    handPose: document.getElementById(`extra_model_${i}_hand_pose`)?.value || '',
+                                    handPoseOther: document.getElementById(`hand_pose_other_extra_model_${i}`)?.value || '',
                                     orientation: document.getElementById(`extra_model_${i}_orientation`)?.value || '',
                                     orientationOther: document.getElementById(`orientation_other_extra_model_${i}`)?.value || '',
+                                    bodyPose: document.getElementById(`extra_model_${i}_body_pose`)?.value || '',
+                                    bodyPoseOther: document.getElementById(`body_pose_other_extra_model_${i}`)?.value || '',
                                     makeupDetails: document.getElementById(`extra_model_${i}_makeup_details`)?.value || '',
                                     lightningEffects: document.getElementById(`model_${i}_lightning_effects`)?.value || '',
                                     lightningEffectsOther: document.getElementById(`lightning_effects_other_extra_model_${i}`)?.value || '',
                                     description: document.getElementById(`extra_model_${i}_model_description`)?.value || '',
-                                    pose: '', // Extra models don't have pose section (optional - remove if needed)
-                                    handPose: document.getElementById(`extra_model_${i}_hand_pose`)?.value || '',
-                                    bodyPose: document.getElementById(`extra_model_${i}_body_pose`)?.value || '',
                                     
-                                    // Accessories (if applicable)
+                                    // Accessories
                                     accessoriesIncluded: document.getElementById(`accessories_included_extra_model_${i}`)?.value || 'No',
                                     accessoriesDescription: document.getElementById(`accessories_desc_extra_model_${i}`)?.value || '',
                                 };
@@ -3941,8 +3942,6 @@ function onPlanChangeForEdition() {
                         }
                     }
 
-
-                    
             
                     // -------- ADD-ONS --------
                     const addOns = {
@@ -5633,10 +5632,14 @@ function onPlanChangeForEdition() {
             if (!extraModelsContainer) return;
             
             extraModelsContainer.innerHTML = '';
+            const fragment = document.createDocumentFragment();
             
             for (let i = 1; i <= count; i++) {
-                extraModelsContainer.innerHTML += generateExtraModelHTML(i);
+                const div = document.createElement('div');
+                div.innerHTML = generateExtraModelHTML(i);
+                fragment.appendChild(div.firstElementChild);
             }
+            extraModelsContainer.appendChild(fragment);
         }
         
         function generateExtraModelHTML(modelNum) {
@@ -6306,6 +6309,7 @@ function onPlanChangeForEdition() {
 
             const selectedPlan = planSelect.value;
             updateModelAccordion();
+            toggleExtraModelSections();
         }
 
         // ============ FORM SUBMIT (Feedback) ============
@@ -6410,6 +6414,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
