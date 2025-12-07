@@ -4451,14 +4451,8 @@ function onPlanChangeForEdition() {
                             message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
                             if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                             message += `\n`;
-                            message += `  • Hand Pose: ${model.handPose || 'N/A'}`;
-                            if (model.handPoseOther) message += ` (${model.handPoseOther})`;
-                            message += `\n`;
                             message += `  • Orientation: ${model.orientation || 'N/A'}`;
                             if (model.orientationOther) message += ` (${model.orientationOther})`;
-                            message += `\n`;
-                            message += `  • Body Pose: ${model.bodyPose || 'N/A'}`;
-                            if (model.bodyPoseOther) message += ` (${model.bodyPoseOther})`;
                             message += `\n`;
                             message += `  • Makeup: ${model.makeupDetails || 'Not specified'}\n`;
                             
@@ -6388,21 +6382,6 @@ function onPlanChangeForEdition() {
         
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="extra_model_${modelNum}_hand_pose">Hand Pose</label>
-                                <select id="extra_model_${modelNum}_hand_pose" name="extra_model_${modelNum}_hand_pose" onchange="toggleHandPoseOther(${modelNum}, true)">
-                                    <option value="">-- Select Hand Pose --</option>
-                                    <option value="By Sides">By Sides</option>
-                                    <option value="In Pockets">In Pockets</option>
-                                    <option value="Touching Hair">Touching Hair</option>
-                                    <option value="Holding Garment">Holding Garment</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div id="hand_pose_other_section_extra_model_${modelNum}" class="form-group hidden-section">
-                                <label for="hand_pose_other_extra_model_${modelNum}">Please specify Hand Pose</label>
-                                <input type="text" id="hand_pose_other_extra_model_${modelNum}" name="hand_pose_other_extra_model_${modelNum}" placeholder="Describe the hand pose...">
-                            </div>
-                            <div class="form-group">
                                 <label for="extra_model_${modelNum}_orientation">Orientation</label>
                                 <select id="extra_model_${modelNum}_orientation" name="extra_model_${modelNum}_orientation" onchange="toggleOrientationOther(${modelNum}, true)">
                                     <option value="">-- Select Orientation --</option>
@@ -6420,22 +6399,6 @@ function onPlanChangeForEdition() {
                         </div>
         
                         <div class="form-grid">
-                            <div class="form-group">
-                                <label for="extra_model_${modelNum}_body_pose">Body Pose</label>
-                                <select id="extra_model_${modelNum}_body_pose" name="extra_model_${modelNum}_body_pose" onchange="toggleBodyPoseOther(${modelNum}, true)">
-                                    <option value="">-- Select Body Pose --</option>
-                                    <option value="Standing">Standing</option>
-                                    <option value="Sitting">Sitting</option>
-                                    <option value="Walking">Walking</option>
-                                    <option value="Running">Running</option>
-                                    <option value="Posed">Posed</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                            </div>
-                            <div id="body_pose_other_section_extra_model_${modelNum}" class="form-group hidden-section">
-                                <label for="body_pose_other_extra_model_${modelNum}">Please specify Body Pose</label>
-                                <input type="text" id="body_pose_other_extra_model_${modelNum}" name="body_pose_other_extra_model_${modelNum}" placeholder="Describe the body pose...">
-                            </div>
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_makeup_details">Makeup Details</label>
                                 <input type="text" id="extra_model_${modelNum}_makeup_details" name="extra_model_${modelNum}_makeup_details" placeholder="e.g., Natural, Bold, Neutral, Smokey">
@@ -6778,6 +6741,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
