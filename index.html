@@ -1751,6 +1751,47 @@
             background-color: #6b3410;
         }
 
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                flex-direction: column;
+                background: #1a1a1a;
+                width: 100%;
+                padding: 20px;
+                gap: 15px;
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+
+
 
     </style>
 </head>
@@ -2470,7 +2511,8 @@ function onPlanChangeForEdition() {
     <!-- NAVIGATION -->
     <nav>
         <div class="logo">MAISON MODEL X</div>
-        <ul>
+        <button id="mobileMenuToggle" class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+        <ul id="navMenu" class="nav-menu">
             <li><a href="#home">Home</a></li>
             <li><a href="#models">Gallery</a></li>
             <li><a href="#services">Services</a></li>
@@ -5729,12 +5771,19 @@ function onPlanChangeForEdition() {
         
         // Run on page load
         window.addEventListener('load', checkMobileAndShowAlert);
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('navMenu');
+            menu.classList.toggle('active');
+        }
+
         
     </script>
 
 </body>
 
 </html>
+
 
 
 
