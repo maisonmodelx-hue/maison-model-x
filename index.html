@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://cdnjs.cloudflare.com https://b24-nl2p2c.bitrix24.in; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.anthropic.com https://checkout.razorpay.com https://b24-nl2p2c.bitrix24.in https://*.bitrix24.in; frame-src 'self' https://api.razorpay.com;">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <title>Maison Model X - AI Fashion Photography</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -3694,11 +3695,22 @@ function onPlanChangeForEdition() {
                                 if (data.success) {
                                     console.log('✅ Payment verified!');
                                     paymentContainer.textContent = '✅ Payment verified! Submitting your order...';
+                                    paymentContainer.style.display = 'block';
+                                    paymentContainer.style.backgroundColor = '#d4edda';
+                                    paymentContainer.style.color = '#155724';
+                                    paymentContainer.style.borderLeft = '4px solid #28a745';
                                     
                                     // Collect form and send to Bitrix24
-                                    setTimeout(() => collectAndSendToBitrix24(), 500);
-                                } else {
-                                    throw new Error('Payment verification failed');
+                                    setTimeout(() => {
+                                        try {
+                                            collectAndSendToBitrix24();
+                                        } catch (error) {
+                                            console.error('❌ Error in collectAndSendToBitrix24:', error);
+                                            paymentContainer.textContent = '❌ Error submitting order. Please contact support.';
+                                            paymentContainer.style.backgroundColor = '#f8d7da';
+                                            paymentContainer.style.color = '#721c24';
+                                        }
+                                    }, 500);
                                 }
                             })
                             .catch(error => {
@@ -5173,7 +5185,7 @@ function onPlanChangeForEdition() {
 
             return `
                 <div class="models-accordion-section">
-                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <div class="accordion-header" onclick="event.stopPropagation(); toggleAccordion(this)">
                         <h4>Model ${modelNumber}</h4>
                         <span class="accordion-toggle">▼</span>
                     </div>
@@ -5882,19 +5894,36 @@ function onPlanChangeForEdition() {
         }
 
         // ============ TOGGLE ACCORDION ============
-        function toggleAccordion(headerElement) {
+        function toggleAccordion(element) {
+            // Handle both direct calls and event-based calls
+            const headerElement = element.target || element;
+            
+            if (!headerElement || !headerElement.classList) {
+                console.error('Invalid element passed to toggleAccordion');
+                return;
+            }
+            
             const content = headerElement.nextElementSibling;
+            if (!content) {
+                console.error('No accordion content found');
+                return;
+            }
+            
             const isActive = headerElement.classList.contains('active');
-
+        
             // Close all other accordions at same level
-            const allHeaders = headerElement.parentElement.parentElement.querySelectorAll('.accordion-header');
-            allHeaders.forEach(header => {
-                if (header !== headerElement && header.classList.contains('active')) {
-                    header.classList.remove('active');
-                    header.nextElementSibling.classList.remove('active');
-                }
-            });
-
+            const parent = headerElement.parentElement?.parentElement;
+            if (parent) {
+                const allHeaders = parent.querySelectorAll('.accordion-header');
+                allHeaders.forEach(header => {
+                    if (header !== headerElement && header.classList.contains('active')) {
+                        header.classList.remove('active');
+                        const headerContent = header.nextElementSibling;
+                        if (headerContent) headerContent.classList.remove('active');
+                    }
+                });
+            }
+        
             // Toggle current
             if (isActive) {
                 headerElement.classList.remove('active');
@@ -5985,7 +6014,7 @@ function onPlanChangeForEdition() {
         function generateExtraModelHTML(modelNum) {
             return `
             <div class="models-accordion-section" id="extra_model_${modelNum}_section">
-                <div class="accordion-header active" onclick="toggleAccordion(event, 'extra_model_${modelNum}')">
+                <div class="accordion-header active" onclick="event.stopPropagation(); toggleAccordion(this)">
                     <h4>Extra Model #${modelNum}</h4>
                     <span class="accordion-toggle">▼</span>
                 </div>
@@ -6786,6 +6815,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
