@@ -2003,16 +2003,27 @@ function validateAccessoryUploads(num) {
 
 /* ---- Ethnicity "Other" Toggle Logic ---- */
 function toggleEthnicityOther(num, isExtra = false) {
-  const ethnicitySelect = document.getElementById(`${isExtra ? 'extra_' : ''}model_${num}_ethnicity`);
-  const otherSection = document.getElementById(`${isExtra ? 'extra_' : ''}ethnicity_other_section_model${num}`);
-  
-  if (!ethnicitySelect || !otherSection) return;
-  
-  if (ethnicitySelect.value === "Other") {
-    otherSection.classList.remove("hidden-section");
+     if (isExtra) {
+    const ethnicitySelect = document.getElementById(`extra_model_${num}_ethnicity`);
+    const otherSection = document.getElementById(`ethnicity_other_section_extra_model_${num}`);
+    if (!ethnicitySelect || !otherSection) return;
+    if (ethnicitySelect.value === "Other") {
+      otherSection.classList.remove("hidden-section");
+    } else {
+      otherSection.classList.add("hidden-section");
+    }
   } else {
-    otherSection.classList.add("hidden-section");
-  }
+         const ethnicitySelect = document.getElementById(`model_${num}_ethnicity`);
+          const otherSection = document.getElementById(`ethnicity_other_section_model${num}`);
+          
+          if (!ethnicitySelect || !otherSection) return;
+          
+          if (ethnicitySelect.value === "Other") {
+            otherSection.classList.remove("hidden-section");
+          } else {
+            otherSection.classList.add("hidden-section");
+          }
+     }
 }
 /* ---- Skin Tone "Other" Toggle Logic ---- */
 function toggleSkinToneOther(num, isExtra = false) {
@@ -6752,6 +6763,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
