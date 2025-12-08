@@ -4425,9 +4425,6 @@ function onPlanChangeForEdition() {
                         message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
                         if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                         message += `\n`;
-                        message += `  • Hand Pose: ${model.handPose || 'N/A'}`;
-                        if (model.handPoseOther) message += ` (${model.handPoseOther})`;
-                        message += `\n`;
                         message += `  • Orientation: ${model.orientation || 'N/A'}`;
                         if (model.orientationOther) message += ` (${model.orientationOther})`;
                         message += `\n`;
@@ -4474,7 +4471,8 @@ function onPlanChangeForEdition() {
                         orderData.extraModels.forEach((model, idx) => {
 
                             
-                            message += `\n🌟 EXTRA MODEL ${index + 1}:\n`;
+                          //  message += `\n🌟 EXTRA MODEL ${idx + 1}:\n`;
+                            message += `EXTRA MODEL #${idx + 1}\n`;
                             message += `${'─'.repeat(40)}\n`;
                             
                             message += `👥 APPEARANCE:\n`;
@@ -6840,6 +6838,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
