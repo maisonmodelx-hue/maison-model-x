@@ -4460,7 +4460,15 @@ function onPlanChangeForEdition() {
                         message += `✨ EXTRA MODELS\n`;
                         message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                         
-                        orderData.extraModels.forEach((model, index) => {
+                        // ✅ ADD THIS DEFENSIVE CHECK
+                        if (!orderData.extraModels || !Array.isArray(orderData.extraModels)) {
+                            orderData.extraModels = [];
+                        }
+                        
+                        // NOW it's safe
+                        orderData.extraModels.forEach((model, idx) => {
+
+                            
                             message += `\n🌟 EXTRA MODEL ${index + 1}:\n`;
                             message += `${'─'.repeat(40)}\n`;
                             
@@ -6820,6 +6828,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
