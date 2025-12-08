@@ -3041,7 +3041,7 @@ function onPlanChangeForEdition() {
 
         <div style="text-align: center; margin-top: 60px; padding: 30px; background: rgba(212, 175, 55, 0.05); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; max-width: 800px; margin-left: auto; margin-right: auto;">
             <h4 style="color: var(--white); margin-bottom: 20px;">Enhance Your Order</h4>
-            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">• Extra Image: +₹1,000 | • Age Progression: +₹2,000 | • Extra Revision (minor changes): +₹2,000 | • Extra Model: +₹2,500 | • Garment Variant: +₹1,200 |</p>
+            <p style="font-size: 14px; color: rgba(255, 255, 255, 0.7);">• Age Progression: +₹2,000 | • Extra Revision (minor changes): +₹2,000 | • Extra Model: +₹2,500 | • Garment Variant: +₹1,200 |</p>
         </div>
     </section>
     
@@ -3365,17 +3365,17 @@ function onPlanChangeForEdition() {
                     <div class="accordion-content">
                         <div class="addon-checkbox-group">
                             <div class="addon-item">
-                                <input type="checkbox" id="addonExtraModel" name="addon_extra_model" value="2500" onchange="updatePriceDisplay()">
+                                <input type="checkbox" id="addonExtraModel" name="addon_extra_model" value="5" onchange="updatePriceDisplay()">
                                 <label for="addonExtraModel">
                                     <span>Extra Model</span>
                                     <span class="addon-price">+₹2,500</span>
                                 </label>
                             </div>
                             <div class="addon-item">
-                                <input type="checkbox" id="addonExtraGarment" name="addon_extra_garment" value="500" onchange="updatePriceDisplay()">
+                                <input type="checkbox" id="addonExtraGarment" name="addon_extra_garment" value="1200" onchange="updatePriceDisplay()">
                                 <label for="addonExtraGarment">
                                     <span>Extra Garment</span>
-                                    <span class="addon-price">+₹500</span>
+                                    <span class="addon-price">+₹1,200</span>
                                 </label>
                             </div>
                             <div class="addon-item">
@@ -3390,7 +3390,7 @@ function onPlanChangeForEdition() {
                                 <input type="checkbox" id="addonBrandNamePlacement" name="addonbrandnameplacement" value="1000" onchange="updatePriceDisplay()">
                                 <label for="addonBrandNamePlacement">
                                     <span>Brand Name Placement</span>
-                                    <span class="addon-price">1,000</span>
+                                    <span class="addon-price">+₹1,000</span>
                                 </label>
                             </div>
                         </div>
@@ -3584,8 +3584,8 @@ function onPlanChangeForEdition() {
                     let totalAmount = basePrice * 100;
                 
                     const addons = [
-                        { id: 'addonExtraModel', value: 2500 },
-                        { id: 'addonExtraGarment', value: 500 },
+                        { id: 'addonExtraModel', value: 5 },
+                        { id: 'addonExtraGarment', value: 1200 },
                         { id: 'addonFastDelivery', value: 1000 },
                         { id: 'addonPremiumRetouch', value: 1500 },
                         { id: 'addonBrandNamePlacement', value: 1000 }
@@ -5948,8 +5948,8 @@ function onPlanChangeForEdition() {
             // Calculate add-ons
             let addonTotal = 0;
             const addons = [
-                { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
-                { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
+                { checkbox: document.getElementById('addonExtraModel'), value: 5 },
+                { checkbox: document.getElementById('addonExtraGarment'), value: 1200 },
                 { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
                 { checkbox: document.getElementById("addonBrandNamePlacement"), value: 1000 }
             ];
@@ -6820,6 +6820,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
