@@ -3378,7 +3378,7 @@ function onPlanChangeForEdition() {
                                     <span class="addon-price">+₹1,200</span>
                                 </label>
                             </div>
-                            <div class="addon-item">
+                            <div class="addon-item" id="addonFastDeliveryItem">
                                 <input type="checkbox" id="addonFastDelivery" name="addon_fast_delivery" value="1000" onchange="updatePriceDisplay()">
                                 <label for="addonFastDelivery">
                                     <span>Faster Delivery</span>
@@ -4057,8 +4057,12 @@ function onPlanChangeForEdition() {
                     }
                     }
 
+                    const selectedPlan = document.querySelector('select[name="plantype"]')?.value;
+                    const fastDeliveryCheckbox = document.querySelector('input[name="addonfastdelivery"]');
+                    if (fastDeliveryCheckbox && (selectedPlan === 'atelier' || selectedPlan === 'maison' || selectedPlan === 'legacy')) {
+                        fastDeliveryCheckbox.checked = false;
+                    }
 
-            
                     // -------- ADD-ONS --------
                     const addOns = {
                         extraModel: document.querySelector('input[name="addon_extra_model"]')?.checked || false,
@@ -6765,6 +6769,26 @@ function onPlanChangeForEdition() {
             const selectedPlan = planSelect.value;
             updateModelAccordion();
             toggleExtraModelSections();
+
+            const selectedPlan = document.getElementById('planSelect').value;
+            const fastDeliveryItem = document.getElementById('addonFastDeliveryItem');
+            const fastDeliveryCheckbox = document.getElementById('addonFastDelivery');
+            
+            if (fastDeliveryItem) {
+                if (selectedPlan === 'artisan' || selectedPlan === 'couture') {
+                    // Show Fast Delivery for Artisan & Couture
+                    fastDeliveryItem.style.display = 'flex';
+                } else {
+                    // Hide Fast Delivery for Atelier, Maison, Legacy
+                    fastDeliveryItem.style.display = 'none';
+                    // Uncheck if it was checked
+                    if (fastDeliveryCheckbox && fastDeliveryCheckbox.checked) {
+                        fastDeliveryCheckbox.checked = false;
+                    }
+                }
+            }
+            
+            updatePriceDisplay();
         }
 
         // ============ FORM SUBMIT (Feedback) ============
@@ -6869,6 +6893,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
