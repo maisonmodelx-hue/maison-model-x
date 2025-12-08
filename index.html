@@ -4153,12 +4153,17 @@ function onPlanChangeForEdition() {
                     
                     const submitBtn = document.getElementById('paymentSubmitBtn');
                     const paymentContainer = document.getElementById('paymentMessage');
+                    const originalText = submitBtn.textContent;
                  //   const originalText = submitBtn.textContent;
                     submitBtn.textContent = 'Submitting Order...';
                     submitBtn.disabled = true;
 
                     paymentContainer.textContent = '✅ Payment confirmed! Submitting your order details...';
                     paymentContainer.style.display = 'block';
+                    // Ensure extraModels is always an array before formatting
+                    if (!orderData.extraModels || !Array.isArray(orderData.extraModels)) {
+                        orderData.extraModels = [];
+                    }
             
                     const bitrixMessage = formatBitrixMessage(orderData);
             
@@ -6814,6 +6819,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
