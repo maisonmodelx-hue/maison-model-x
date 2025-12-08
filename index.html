@@ -4292,6 +4292,10 @@ function onPlanChangeForEdition() {
                 // FORMAT MESSAGE FOR BITRIX24 (COMPLETE)
                 // ========================================
                 function formatBitrixMessage(orderData) {
+                    if (!orderData.extraModels) {
+                    orderData.extraModels = [];
+                    }
+                    
                     let message = `╔════════════════════════════════════════╗\n`;
                     message += `║   NEW ORDER - MAISON MODEL X          ║\n`;
                     message += `╚════════════════════════════════════════╝\n\n`;
@@ -6828,6 +6832,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
