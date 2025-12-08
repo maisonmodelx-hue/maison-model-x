@@ -3989,20 +3989,21 @@ function onPlanChangeForEdition() {
 
                             // CORRECT - collect all accessory details:
                             const accessoryCount = parseInt(
-                                document.querySelector(`select[name="accessoriescountmodel${i}"]`)?.value || '0',
+                                document.querySelector(`select[name="accessories_count_model${i}"]`)?.value || '0',
                                 10
                             );
                             const accessories = [];
                             if (accessoryCount > 0) {
                                 for (let accNum = 1; accNum <= accessoryCount; accNum++) {
                                     accessories.push({
-                                        type: document.querySelector(`select[name="accessorytype${accNum}model${i}"]`)?.value || '',
-                                        description: document.querySelector(`textarea[name="accessoriesdescmodel${i}"]`)?.value || ''
+                                        type: document.querySelector(`select[name="accessory_type${accNum}_model${i}"]`)?.value || '',
+                                        description: document.querySelector(`textarea[name="accessories_desc_model${i}"]`)?.value || ''
                                     });
                                 }
                             }
                             
                             model.accessoriesArray = accessories;
+                            model.accessoriesIncluded = document.querySelector(`select[name="accessories_included_model${i}"]`)?.value || 'No';
                             models.push(model);
                     }
 
@@ -4478,13 +4479,15 @@ function onPlanChangeForEdition() {
                         // Accessories
                         if (model.accessoriesIncluded === 'Yes') {
                             message += `\n💎 ACCESSORIES:\n`;
-                            message += `  • Included: Yes\n`;
                             if (model.accessoriesArray && model.accessoriesArray.length > 0) {
                                 model.accessoriesArray.forEach((acc, idx) => {
-                                    message += `\nAccessory ${idx + 1}:\n`;
-                                    message += `  Type: ${acc.type || 'N/A'}\n`;
-                                    message += `  Description: ${acc.description || 'N/A'}\n`;
+                                    message += `  ${idx + 1}. ${acc.type || 'N/A'}\n`;
                                 });
+                                // Description applies to all accessories
+                                const accDesc = model.accessoriesArray[0]?.description;
+                                if (accDesc) {
+                                    message += `  Description: ${accDesc}\n`;
+                                }
                             }
                         }
                     });
@@ -6800,6 +6803,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
