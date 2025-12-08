@@ -6653,97 +6653,6 @@ function onPlanChangeForEdition() {
             }
         });
 
-        // ============ RAZORPAY PAYMENT INTEGRATION ============
- /*       document.addEventListener('DOMContentLoaded', function () {
-            const orderForm = document.getElementById('orderForm');
-            const submitBtn = document.getElementById('paymentSubmitBtn');
-            const paymentContainer = document.getElementById('paymentMessage');
-
-            if (orderForm) {
-                orderForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-
-                    // Get form data
-                    const clientName = document.querySelector('input[name="clientname"]').value;
-                    const clientEmail = document.querySelector('input[name="clientemail"]').value;
-                    const clientPhone = document.querySelector('input[name="clientphone"]').value;
-                    const selectedPlan = document.getElementById('planSelect').value;
-
-                    if (!selectedPlan) {
-                        alert('Please select a plan');
-                        return;
-                    }
-
-                    if (selectedPlan === 'legacy') {
-                        // Legacy plan - submit directly without payment
-                        showPaymentMessage('Submitting your inquiry...', 'success');
-                        setTimeout(() => {
-                            orderForm.submit();
-                        }, 1000);
-                        return;
-                    }
-
-                    // Calculate payment amount (in paisa for Razorpay)
-                    const basePriceInPaisa = (planPrices[selectedPlan] * 100) || 50000 * 100;
-                    
-                    // Calculate add-ons in paisa
-                    let addonPaisaTotal = 0;
-                    const addons = [
-                        { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
-                        { checkbox: document.getElementById('addonExtraGarment'), value: 500 },
-                        { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
-                    ];
-
-                    addons.forEach(addon => {
-                        if (addon.checkbox && addon.checkbox.checked) {
-                            addonPaisaTotal += addon.value * 100;
-                        }
-                    });
-
-                    const totalAmount = basePriceInPaisa + addonPaisaTotal;
-                    const orderId = 'order_' + Date.now();
-
-                    submitBtn.textContent = 'Opening Payment...';
-                    submitBtn.disabled = true;
-
-                    const rzp = new Razorpay(options);
-                    rzp.on('payment.failed', function (response) {
-                        showPaymentMessage('Payment failed: ' + response.error.description + '. Please try again.', 'error');
-                        submitBtn.textContent = 'Proceed to Payment';
-                        submitBtn.disabled = false;
-                    });     
-
-                    rzp.open(); 
-                });
-            }  */
-
-       /*     function handlePaymentSuccess(response) {
-                console.log('✅ Payment successful:', response);
-                
-                // Add payment data to form
-                const paymentIdInput = document.createElement('input');
-                paymentIdInput.type = 'hidden';
-                paymentIdInput.name = 'razorpay_payment_id';
-                paymentIdInput.value = response.razorpay_payment_id;
-                orderForm.appendChild(paymentIdInput);
-
-                const orderIdInput = document.createElement('input');
-                orderIdInput.type = 'hidden';
-                orderIdInput.name = 'razorpay_order_id';
-                orderIdInput.value = response.razorpay_order_id;
-                orderForm.appendChild(orderIdInput);
-
-                const signatureInput = document.createElement('input');
-                signatureInput.type = 'hidden';
-                signatureInput.name = 'razorpay_signature';
-                signatureInput.value = response.razorpay_signature;
-                orderForm.appendChild(signatureInput);
-
-                showPaymentMessage('Payment successful! Submitting order...', 'success');
-                setTimeout(function () {
-                    orderForm.submit();
-                }, 1500);
-            } */
 
             function showPaymentMessage(message, type) {
                 paymentContainer.textContent = message;
@@ -6769,7 +6678,6 @@ function onPlanChangeForEdition() {
             updateModelAccordion();
             toggleExtraModelSections();
 
-            const selectedPlan = document.getElementById('planSelect').value;
             const fastDeliveryItem = document.getElementById('addonFastDeliveryItem');
             const fastDeliveryCheckbox = document.getElementById('addonFastDelivery');
             
@@ -6892,6 +6800,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
