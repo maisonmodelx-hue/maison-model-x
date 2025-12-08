@@ -3584,12 +3584,12 @@ function onPlanChangeForEdition() {
                     let totalAmount = basePrice * 100;
                 
                     const addons = [
-                        { id: 'addonExtraModel', value: 5 },
-                        { id: 'addonExtraGarment', value: 1200 },
-                        { id: 'addonFastDelivery', value: 1000 },
-                        { id: 'addonPremiumRetouch', value: 1500 },
-                        { id: 'addonBrandNamePlacement', value: 1000 }
+                        { id: 'addonExtraModel', value: 5000 * 100 },      // 5000 INR in paise
+                        { id: 'addonExtraGarment', value: 1200 * 100 },    // 1200 INR in paise
+                        { id: 'addonFastDelivery', value: 1000 * 100 },    // 1000 INR in paise
+                        { id: 'addonBrandNamePlacement', value: 1000 * 100 } // 1000 INR in paise
                     ];
+
                 
                     addons.forEach(addon => {
                         const checkbox = document.getElementById(addon.id);
@@ -6869,6 +6869,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
