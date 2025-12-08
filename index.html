@@ -3993,6 +3993,7 @@ function onPlanChangeForEdition() {
                     const extraModelCheckbox = document.getElementById('addonExtraModel');
                     const numExtraModels = extraModelCheckbox && extraModelCheckbox.checked ? 1 : 0;
                     const extraModels = [];
+                    if (numExtraModels > 0) {
                     
                      for (let i = 1; i <= numExtraModels; i++) {
                         const extraModel = {
@@ -4037,6 +4038,7 @@ function onPlanChangeForEdition() {
                         };
                         extraModels.push(extraModel);
                     }
+                    }
 
 
             
@@ -4061,7 +4063,7 @@ function onPlanChangeForEdition() {
                         customerInfo: customerInfo,
                         planDetails: basePlan,
                         brandNameFields: brandNameFields,
-                        extraModels: extraModels,  // ✅ ADD THIS LINE - for extra models
+                        extraModels: extraModels,  
                         addOns: {
                             extraModel: extraModelCheckbox?.checked || false,
                             extraGarment: document.getElementById('addonExtraGarment')?.checked || false,
@@ -6815,6 +6817,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
