@@ -4421,9 +4421,6 @@ function onPlanChangeForEdition() {
                         message += `  • Orientation: ${model.orientation || 'N/A'}`;
                         if (model.orientationOther) message += ` (${model.orientationOther})`;
                         message += `\n`;
-                        message += `  • Body Pose: ${model.bodyPose || 'N/A'}`;
-                        if (model.bodyPoseOther) message += ` (${model.bodyPoseOther})`;
-                        message += `\n`;
                         message += `  • Makeup: ${model.makeupDetails || 'Not specified'}\n`;
                         
                         // Advanced Features (Atelier/Maison)
@@ -6817,6 +6814,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
