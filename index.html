@@ -3967,7 +3967,7 @@ function onPlanChangeForEdition() {
                             hairStyleOther: document.querySelector(`input[name="hair_style_other_model${i}"]`)?.value || '',
                             eyeColor: document.querySelector(`select[name="model_${i}_eye_color"]`)?.value || '',
                             eyeColorOther: document.querySelector(`input[name="eye_color_other_model${i}"]`)?.value || '',
-                            ageAppearance: document.querySelector(`input[name="model_${i}_age_appearance"]`)?.value || '',
+                            ageAppearance: document.querySelector(`select[name="model${i}ageappearance"]`)?.value || '',
                             bodyType: document.querySelector(`select[name="model_${i}_body_type"]`)?.value || '',
                             bodyTypeOther: document.querySelector(`input[name="body_type_other_model${i}"]`)?.value || '',
                             heightAppearance: document.querySelector(`select[name="model_${i}_height_appearance"]`)?.value || '',
@@ -3983,10 +3983,27 @@ function onPlanChangeForEdition() {
                             lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
                             description: document.querySelector(`textarea[name="model_${i}_description"]`)?.value || '',
                             pose: document.querySelector(`textarea[name="model_${i}_pose"]`)?.value || '',
-                            accessoriesIncluded: document.querySelector(`select[name="accessories_included_model${i}"]`)?.value || '',
-                            accessoriesDescription: document.querySelector(`textarea[name="accessories_desc_model${i}"]`)?.value || '',
-                        };
-                        models.push(model);
+                            accessoriesIncluded: document.querySelector(`select[name="accessoriesincludedmodeli"]`)?.value || '',
+
+                            };
+
+                            // CORRECT - collect all accessory details:
+                            const accessoryCount = parseInt(
+                                document.querySelector(`select[name="accessoriescountmodel${i}"]`)?.value || '0',
+                                10
+                            );
+                            const accessories = [];
+                            if (accessoryCount > 0) {
+                                for (let accNum = 1; accNum <= accessoryCount; accNum++) {
+                                    accessories.push({
+                                        type: document.querySelector(`select[name="accessorytype${accNum}model${i}"]`)?.value || '',
+                                        description: document.querySelector(`textarea[name="accessoriesdescmodel${i}"]`)?.value || ''
+                                    });
+                                }
+                            }
+                            
+                            model.accessoriesArray = accessories;
+                            models.push(model);
                     }
 
                     // Collect extra models data
@@ -4013,11 +4030,11 @@ function onPlanChangeForEdition() {
                             hairStyleOther: document.querySelector(`input[name="hair_style_other_extra_model${i}"]`)?.value || '',
                             eyeColor: document.querySelector(`select[name="extra_model_${i}_eye_color"]`)?.value || '',
                             eyeColorOther: document.querySelector(`input[name="eye_color_other_extra_model${i}"]`)?.value || '',
-                            ageAppearance: document.querySelector(`input[name="extra_model_${i}_age_appearance"]`)?.value || '',
                             bodyType: document.querySelector(`select[name="extra_model_${i}_body_type"]`)?.value || '',
                             bodyTypeOther: document.querySelector(`input[name="body_type_other_extra_model${i}"]`)?.value || '',
-                            heightAppearance: document.querySelector(`select[name="extra_model_${i}_height_appearance"]`)?.value || '',
-                            weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight_appearance"]`)?.value || '',
+                            ageAppearance: document.querySelector(`select[name="extramodel${i}ageappearance"]`)?.value || '',
+                            heightAppearance: document.querySelector(`select[name="extramodel${i}heightappearance"]`)?.value || '',
+                            weightAppearance: document.querySelector(`select[name="extramodel${i}weightappearance"]`)?.value || '',
                             typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
                             typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_extra_model${i}"]`)?.value || '',
                             expressionPreference: document.querySelector(`select[name="extra_model_${i}_expression_preference"]`)?.value || '',
@@ -4173,13 +4190,23 @@ function onPlanChangeForEdition() {
                         orderData.customerInfo.email,
                         orderData.customerInfo.fullName
                     );
+
+                   // Calculate total with add-ons
+                    let totalAmount = orderData.planDetails.basePrice;
+                    if (orderData.addOns) {
+                        if (orderData.addOns.extraModel) totalAmount += 5000;  // INR 5000 = 2500 * 2
+                        if (orderData.addOns.extraGarment) totalAmount += 1200;
+                        if (orderData.addOns.fastDelivery) totalAmount += 1000;
+                        if (orderData.addOns.brandNamePlacement) totalAmount += 1000;
+                        // Add other add-ons as needed
+                    }
                         
                     const bitrixPayload = {
                         fields: {
                             TITLE: `New Order: ${orderData.customerInfo.fullName} - ${orderData.planDetails.tier.toUpperCase()}`,
                             CONTACT_ID: contactId,
                             COMPANY_TITLE: orderData.customerInfo.brandName,
-                            OPPORTUNITY: orderData.planDetails.basePrice,
+                            OPPORTUNITY: totalAmount,
                             CURRENCY_ID: 'INR',
                             STAGE_ID: 'NEW',
                             TYPE_ID: 'SALE',      
@@ -4449,8 +4476,12 @@ function onPlanChangeForEdition() {
                         if (model.accessoriesIncluded === 'Yes') {
                             message += `\n💎 ACCESSORIES:\n`;
                             message += `  • Included: Yes\n`;
-                            if (model.accessoriesDescription) {
-                                message += `  • Details: ${model.accessoriesDescription}\n`;
+                            if (model.accessoriesArray && model.accessoriesArray.length > 0) {
+                                model.accessoriesArray.forEach((acc, idx) => {
+                                    message += `\nAccessory ${idx + 1}:\n`;
+                                    message += `  Type: ${acc.type || 'N/A'}\n`;
+                                    message += `  Description: ${acc.description || 'N/A'}\n`;
+                                });
                             }
                         }
                     });
@@ -6838,6 +6869,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
