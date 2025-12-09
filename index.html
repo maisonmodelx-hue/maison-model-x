@@ -912,6 +912,7 @@
         /* ============ FEEDBACK FORM ============ */
         .feedback-section {
             background: var(--black);
+             padding: 100px 60px;
         }
 
         .feedback-container {
@@ -5442,79 +5443,81 @@ function onPlanChangeForEdition() {
     <section class="feedback-section">
         <h2 class="section-title">Share Your Feedback</h2>
         <p class="section-subtitle">Help us improve our service</p>
+        <div style="max-width: 700px; margin: 0 auto;">
 
-        <div class="feedback-container">
-            <h3>Tell Us What You Think</h3>
-            <p>Your feedback helps us deliver even better AI models and service.</p>
-
-            <form id="feedbackForm">
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" name="fbname" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="fbemail" placeholder="Enter your email address" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Feedback Subject</label>
-                    <input type="text" name="fbsubject" placeholder="Feedback topic" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Your Feedback</label>
-                    <textarea name="fbmessage" placeholder="Tell us your thoughts, suggestions, or experience..." required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Send Feedback</button>
-            </form>
-            
-            <script>
-                
-                // Feedback Form Submission
-                document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const webhookUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/bctcrtlq2dveq2oz/crm.lead.add";
-                    
-                    // Get form values
-                    const fbName = document.querySelector('input[name="fbname"]').value;
-                    const fbEmail = document.querySelector('input[name="fbemail"]').value;
-                    const fbSubject = document.querySelector('input[name="fbsubject"]').value;
-                    const fbMessage = document.querySelector('textarea[name="fbmessage"]').value;
+            <div class="feedback-container">
+                <h3>Tell Us What You Think</h3>
+                <p>Your feedback helps us deliver even better AI models and service.</p>
     
-                    // Format data for Bitrix24
-                    const bitrixData = {
-                        fields: {
-                            TITLE: `Feedback from ${fbName}`,
-                            NAME: fbName,
-                            EMAIL: [{"VALUE": fbEmail, "VALUE_TYPE": "WORK"}],
-                            COMMENTS: `Subject: ${fbSubject}\n\nMessage: ${fbMessage}`
-                        }
-                    };
-                    fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(bitrixData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.result) {
-                            alert('✅ Thank you for submitting your feedback!');
-                            document.getElementById('feedbackForm').reset();
-                        } else {
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="fbname" placeholder="Enter your full name" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="fbemail" placeholder="Enter your email address" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Feedback Subject</label>
+                        <input type="text" name="fbsubject" placeholder="Feedback topic" required>
+                    </div>
+    
+                    <div class="form-group">
+                        <label>Your Feedback</label>
+                        <textarea name="fbmessage" placeholder="Tell us your thoughts, suggestions, or experience..." required></textarea>
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary">Send Feedback</button>
+                </form>
+                
+                <script>
+                    
+                    // Feedback Form Submission
+                    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const webhookUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/bctcrtlq2dveq2oz/crm.lead.add";
+                        
+                        // Get form values
+                        const fbName = document.querySelector('input[name="fbname"]').value;
+                        const fbEmail = document.querySelector('input[name="fbemail"]').value;
+                        const fbSubject = document.querySelector('input[name="fbsubject"]').value;
+                        const fbMessage = document.querySelector('textarea[name="fbmessage"]').value;
+        
+                        // Format data for Bitrix24
+                        const bitrixData = {
+                            fields: {
+                                TITLE: `Feedback from ${fbName}`,
+                                NAME: fbName,
+                                EMAIL: [{"VALUE": fbEmail, "VALUE_TYPE": "WORK"}],
+                                COMMENTS: `Subject: ${fbSubject}\n\nMessage: ${fbMessage}`
+                            }
+                        };
+                        fetch(webhookUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(bitrixData)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.result) {
+                                alert('✅ Thank you for submitting your feedback!');
+                                document.getElementById('feedbackForm').reset();
+                            } else {
+                                alert('There was an error submitting your feedback. Please try again.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
                             alert('There was an error submitting your feedback. Please try again.');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('There was an error submitting your feedback. Please try again.');
+                        });
                     });
-                });
-            </script>       
+                </script>       
+            </div>
         </div>
     </section>
 
@@ -7355,6 +7358,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
