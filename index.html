@@ -1800,6 +1800,250 @@
             }
         }
 
+        /* ============ FEEDBACK / TESTIMONIALS SECTION ============ */
+        .feedback {
+            padding: 120px 60px;
+            background-color: var(--black);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            overflow: hidden;
+        }
+
+        .feedback-container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 40px 0;
+        }
+
+        .feedback-track {
+            display: flex;
+            gap: 30px;
+            animation: slideLeft 45s linear infinite;
+            padding: 0 20px;
+        }
+
+        .feedback-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .feedback-card {
+            flex: 0 0 320px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.02) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            min-height: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+        }
+
+        .feedback-card:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .feedback-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .feedback-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--black);
+            font-size: 14px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+        }
+
+        .feedback-info {
+            flex: 1;
+        }
+
+        .feedback-name {
+            font-family: Playfair Display, serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--white);
+            margin: 0 0 5px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .feedback-title {
+            font-size: 12px;
+            color: var(--gold);
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .feedback-quote {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin: 0 0 20px 0;
+            font-style: italic;
+            flex-grow: 1;
+            border-left: 2px solid var(--gold);
+            padding-left: 15px;
+        }
+
+        .feedback-rating {
+            font-size: 16px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
+        }
+
+        .feedback-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 50px;
+        }
+
+        .feedback-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .feedback-dot:hover {
+            background-color: rgba(212, 175, 55, 0.6);
+            transform: scale(1.2);
+        }
+
+        .feedback-dot.active {
+            background-color: var(--gold);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+            transform: scale(1.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .feedback {
+                padding: 100px 40px;
+            }
+
+            .feedback-card {
+                flex: 0 0 280px;
+                padding: 25px;
+                min-height: 300px;
+            }
+
+            @keyframes slideLeft {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+        }
+
+        @media (max-width: 768px) {
+            .feedback {
+                padding: 80px 20px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .section-subtitle {
+                margin-bottom: 50px;
+            }
+
+            .feedback-card {
+                flex: 0 0 260px;
+                padding: 20px;
+                min-height: 280px;
+            }
+
+            .feedback-quote {
+                font-size: 13px;
+            }
+
+            .feedback-name {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feedback {
+                padding: 60px 15px;
+            }
+
+            .feedback-card {
+                flex: 0 0 240px;
+                padding: 18px;
+                min-height: 260px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section-subtitle {
+                font-size: 12px;
+                margin-bottom: 40px;
+            }
+
+            .feedback-quote {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            .feedback-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 12px;
+            }
+        }
+        /* ============ END FEEDBACK SECTION CSS ============ */
+
+
 
 
     </style>
@@ -2916,6 +3160,132 @@ function onPlanChangeForEdition() {
             </div>
         </div>
     </section>
+
+    <!-- ============ CLIENT FEEDBACK SECTION ============ -->
+    <section class="feedback">
+        <h2 class="section-title">Client Feedback</h2>
+        <p class="section-subtitle">What Our Partners Say About Maison Model X</p>
+        
+        <div class="feedback-container">
+            <div class="feedback-track" id="feedbackTrack">
+                <!-- Testimonial Card 1 -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">EC</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Elena Castillo</h4>
+                            <p class="feedback-title">Creative Director, Luxe Atelier Studio</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"Within 48 hours, we had stunning campaign imagery that would've taken weeks with traditional photoshoots. Maison Model X delivered exactly what our vision required."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <!-- Testimonial Card 2 -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">MB</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Marcus Brandon</h4>
+                            <p class="feedback-title">Founder, Contemporary Jewelry Co.</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"The consistency across our product line is impeccable. Having a signature model face elevates our brand identity in ways we didn't anticipate."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <!-- Testimonial Card 3 -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">SR</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Sophia Rivera</h4>
+                            <p class="feedback-title">E-commerce Manager, Premium Fashion Collective</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"Cost-effective, lightning-fast, and hyper-realistic. This is the future of fashion photography. Our conversion rates improved significantly."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <!-- Testimonial Card 4 -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">AN</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Aiden Nakamura</h4>
+                            <p class="feedback-title">Brand Strategist, Urban Fashion Lab</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"The iterative feedback process was seamless. They understood our brand aesthetic from day one and delivered beyond expectations."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <!-- Testimonial Card 5 -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">VT</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Valentina Torres</h4>
+                            <p class="feedback-title">Head of Content, Minimalist Designs Inc.</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"No more photoshoot scheduling nightmares. Maison Model X gave us creative freedom while maintaining professional excellence."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <!-- Testimonial Card 6 -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">JK</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">James Kimura</h4>
+                            <p class="feedback-title">Owner, Artisan Accessories</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"The commercial rights clarity and flexibility is impressive. I can deploy these images anywhere without hesitation."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <!-- Clone cards for continuous loop effect -->
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">EC</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Elena Castillo</h4>
+                            <p class="feedback-title">Creative Director, Luxe Atelier Studio</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"Within 48 hours, we had stunning campaign imagery that would've taken weeks with traditional photoshoots. Maison Model X delivered exactly what our vision required."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+    
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <div class="feedback-avatar">MB</div>
+                        <div class="feedback-info">
+                            <h4 class="feedback-name">Marcus Brandon</h4>
+                            <p class="feedback-title">Founder, Contemporary Jewelry Co.</p>
+                        </div>
+                    </div>
+                    <p class="feedback-quote">"The consistency across our product line is impeccable. Having a signature model face elevates our brand identity in ways we didn't anticipate."</p>
+                    <div class="feedback-rating">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Navigation dots -->
+        <div class="feedback-nav">
+            <span class="feedback-dot active" onclick="goToCard(0)"></span>
+            <span class="feedback-dot" onclick="goToCard(1)"></span>
+            <span class="feedback-dot" onclick="goToCard(2)"></span>
+            <span class="feedback-dot" onclick="goToCard(3)"></span>
+            <span class="feedback-dot" onclick="goToCard(4)"></span>
+            <span class="feedback-dot" onclick="goToCard(5)"></span>
+        </div>
+    </section>
+    <!-- ============ END CLIENT FEEDBACK SECTION ============ -->
+
+
 
     <!-- PRICING SECTION -->
     <section class="pricing" id="pricing">
@@ -6800,66 +7170,57 @@ function onPlanChangeForEdition() {
         
     </script>
 
+    <script>
+        // Feedback section auto-scroll and manual navigation
+        let currentFeedbackIndex = 0;
+        const feedbackCards = document.querySelectorAll('.feedback-card');
+        const feedbackDots = document.querySelectorAll('.feedback-dot');
+        const cardWidth = 350; // 320px card + 30px gap
+        const totalCards = 6; // Original cards (clones added for infinite loop)
+    
+        function goToCard(index) {
+            currentFeedbackIndex = index;
+            const track = document.getElementById('feedbackTrack');
+            const offset = -index * cardWidth;
+            
+            // Pause animation temporarily for manual control
+            track.style.animationPlayState = 'paused';
+            track.style.transform = `translateX(${offset}px)`;
+            
+            // Update active dot
+            feedbackDots.forEach((dot, i) => {
+                dot.classList.remove('active');
+                if (i === index % totalCards) {
+                    dot.classList.add('active');
+                }
+            });
+    
+            // Resume animation after 3 seconds
+            setTimeout(() => {
+                track.style.animationPlayState = 'running';
+            }, 3000);
+        }
+
+        // Optional: Auto-advance through dots (commented out as continuous animation handles this)
+        // setInterval(() => {
+        //     currentFeedbackIndex = (currentFeedbackIndex + 1) % totalCards;
+        //     goToCard(currentFeedbackIndex);
+        // }, 7000);
+    
+        // Update active dot as animation progresses
+        setInterval(() => {
+            feedbackDots.forEach((dot, i) => {
+                dot.classList.remove('active');
+            });
+            if (feedbackDots.length > 0) {
+                feedbackDots[0].classList.add('active');
+            }
+        }, 500);
+    </script>
+
+
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
