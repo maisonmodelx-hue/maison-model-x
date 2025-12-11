@@ -41,6 +41,13 @@
             --gold: #d4af37;
             --dark-gold: #b8860b;
             --light-gray: #1a1a1a;
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border-color: rgba(212, 175, 55, 0.25);
+            --border-hover: rgba(212, 175, 55, 0.4);
+            --card-bg: rgba(26, 26, 26, 0.9);
+            --transition-fast: 0.3s ease;
+            --transition-normal: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         /* ============ NAVIGATION ============ */
@@ -57,7 +64,19 @@
             border-bottom: 1px solid rgba(212, 175, 55, 0.25);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
+            gap: 40px;
         }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+            margin: 0;
+            padding: 0;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
 
         .logo {
             font-family: Playfair Display, serif;
@@ -236,6 +255,11 @@
             left: 100%;
         }
 
+        .btn:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
         .btn-primary {
             background: var(--gold);
             color: var(--black);
@@ -247,6 +271,18 @@
             box-shadow: 0 18px 50px rgba(212, 175, 55, 0.55);
             background: #e5c158;
         }
+
+        .btn-primary:active {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
 
         .btn-secondary {
             background: transparent;
@@ -362,17 +398,22 @@
             margin: 0 auto;
         }
 
-        .benefit-card {
-            text-align: center;
-            padding: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.25);
+        .card-base {
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            background: rgba(26, 26, 26, 0.7);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: var(--card-bg);
+            transition: all var(--transition-normal);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
             position: relative;
             overflow: hidden;
         }
+
+        .benefit-card {
+            @extends .card-base; /* or apply via class in HTML */
+            text-align: center;
+            padding: 40px;
+        }
+
 
         .benefit-card::before {
             content: '';
@@ -856,23 +897,38 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px 14px;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(212, 175, 55, 0.3);
             color: var(--white);
-            border-radius: 4px;
+            border-radius: 6px;
             font-family: Montserrat, sans-serif;
             font-size: 13px;
-            transition: all 0.4s ease;
+            transition: all var(--transition-normal);
         }
+
+        .form-group input::placeholder,
+        .form-group select::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            outline: none;
+            ooutline: 2px solid var(--gold);
+            outline-offset: 1px;
             border-color: var(--gold);
             background: rgba(255, 255, 255, 0.12);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .form-group input:focus-visible,
+        .form-group select:focus-visible,
+        .form-group textarea:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 2px;
         }
 
         .form-group select {
@@ -992,6 +1048,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            loading: lazy;
         }
 
         /* ============ FAQ ============ */
@@ -1092,12 +1149,30 @@
             font-size: 13px;
             margin-bottom: 12px;
             display: block;
-            transition: color 0.3s;
+            transition: all var(--transition-fast);
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width var(--transition-fast);
         }
 
         .footer-section a:hover {
             color: var(--gold);
         }
+
+        .footer-section a:hover::after {
+            width: 100%;
+        }
+
 
         .footer-bottom {
             border-top: 1px solid rgba(212, 175, 55, 0.2);
@@ -1105,7 +1180,33 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.5);
             font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
+
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .trust-badge::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 900;
+        }
+
 
         .social-links {
             display: flex;
@@ -1168,7 +1269,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+            @media (max-width: 768px) {
             nav {
                 padding: 15px 30px;
             }
@@ -1191,21 +1292,26 @@
             }
 
             .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .benefits-grid,
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .steps-container {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
+
 
             .steps-container::before {
                 display: none;
@@ -1589,6 +1695,33 @@
             width: 24px;
             height: 24px;
         }
+
+        @media (max-width: 768px) {
+            .sticky-cta-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--black);
+                border-top: 1px solid var(--border-color);
+                padding: 12px 20px;
+                z-index: 900;
+                display: none;
+            }
+
+            .sticky-cta-bar.show {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .sticky-cta-bar .btn {
+                padding: 10px 20px;
+                font-size: 11px;
+                flex: 1;
+            }
+        }
+
 
         /* Color picker customization */
         .color-swatches {
@@ -3009,11 +3142,34 @@ function onPlanChangeForEdition() {
         </div>
     </section>
 
+    <!-- SOCIAL PROOF / TRUST SECTION -->
+    <section style="background: var(--black); padding: 80px 60px; text-align: center;">
+        <h2 class="section-title">Trusted by 500+ Brands</h2>
+        <p class="section-subtitle">Join the leaders leveraging AI for authentic fashion photography</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 60px auto 0;">
+            <div style="padding: 20px;">
+                <p style="font-size: 32px; font-weight: 900; color: var(--gold);">500+</p>
+                <p style="color: var(--text-secondary);">Active Brands</p>
+            </div>
+            <div style="padding: 20px;">
+                <p style="font-size: 32px; font-weight: 900; color: var(--gold);">10K+</p>
+                <p style="color: var(--text-secondary);">Models Created</p>
+            </div>
+            <div style="padding: 20px;">
+                <p style="font-size: 32px; font-weight: 900; color: var(--gold);">98%</p>
+                <p style="color: var(--text-secondary);">Satisfaction Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY - OUR MODELS -->
+
+
     <!-- GALLERY - OUR MODELS -->
     <section class="gallery" id="models">
-        <h2 class="section-title" style="display: flex; align-items: center; justify-content: center;">
+        <h1 class="section-title" style="display: flex; align-items: center; justify-content: center;">
             <img src="camera3.png" alt="Gallery Camera Icon" style="width: 65px; height: 60px; margin-right: 7px;" loading= "lazy">Gallery
-        </h2>
+        </h1>
         <p class="section-subtitle">One Face, Endless Narratives. Distinctly Yours</p>
         <div class="gallery-grid">
             <div class="gallery-item">
@@ -7358,6 +7514,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
