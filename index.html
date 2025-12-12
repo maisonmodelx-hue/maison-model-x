@@ -4152,7 +4152,7 @@ function onPlanChangeForEdition() {
                 // On page load, fetch the key from your backend
                 document.addEventListener('DOMContentLoaded', async () => {
                     try {
-                        const response = await fetch('/.netlify/functions/createOrder.js');
+                        const response = await fetch('/.netlify/functions/createOrder');
                         const data = await response.json();
                         RAZORPAY_KEY_ID = data.key;
                         console.log('Razorpay key loaded successfully');
@@ -7505,6 +7505,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
