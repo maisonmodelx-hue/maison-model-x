@@ -4217,7 +4217,7 @@ function onPlanChangeForEdition() {
                     const planPrices = {
                         artisan: 5999,
                         couture: 14999,
-                        atelier: 29999,
+                        atelier: 2,
                         maison: 74999,
                         legacy: 0
                     };
@@ -4244,7 +4244,7 @@ function onPlanChangeForEdition() {
                     let totalAmount = basePrice * 100;
                 
                     const addons = [
-                        { id: 'addonExtraModel', value: 2500 * 100 },      // 5000 INR in paise
+                        { id: 'addonExtraModel', value: 2 * 100 },      // 5000 INR in paise
                         { id: 'addonExtraGarment', value: 1200 * 100 },    // 1200 INR in paise
                         { id: 'addonFastDelivery', value: 1000 * 100 },    // 1000 INR in paise
                         { id: 'addonBrandNamePlacement', value: 1000 * 100 } // 1000 INR in paise
@@ -4579,7 +4579,7 @@ function onPlanChangeForEdition() {
                     const planPrices = {
                         artisan: 5999,
                         couture: 14999,
-                        atelier: 29999,
+                        atelier: 2,
                         maison: 74999,
                         legacy: 0
                     };
@@ -4858,7 +4858,7 @@ function onPlanChangeForEdition() {
                    // Calculate total with add-ons
                     let totalAmount = orderData.planDetails.basePrice;
                     if (orderData.addOns) {
-                        if (orderData.addOns.extraModel) totalAmount += 2500;  // INR 5000 = 2500 * 2
+                        if (orderData.addOns.extraModel) totalAmount += 2;  // INR 5000 = 2500 * 2
                         if (orderData.addOns.extraGarment) totalAmount += 1200;
                         if (orderData.addOns.fastDelivery) totalAmount += 1000;
                         if (orderData.addOns.brandNamePlacement) totalAmount += 1000;
@@ -5850,7 +5850,7 @@ function onPlanChangeForEdition() {
         const planPrices = {
             'artisan': 5999,
             'couture': 14999,
-            'atelier': 29999,
+            'atelier': 2,
             'maison': 74999,
             'legacy': 0 // Contact for quote
         };
@@ -6665,7 +6665,7 @@ function onPlanChangeForEdition() {
             // Calculate add-ons
             let addonTotal = 0;
             const addons = [
-                { checkbox: document.getElementById('addonExtraModel'), value: 2500 },
+                { checkbox: document.getElementById('addonExtraModel'), value: 2 },
                 { checkbox: document.getElementById('addonExtraGarment'), value: 1200 },
                 { checkbox: document.getElementById('addonFastDelivery'), value: 1000 },
                 { checkbox: document.getElementById("addonBrandNamePlacement"), value: 1000 }
@@ -7514,6 +7514,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
