@@ -7,6 +7,10 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
+function getRazorpayPublicKey() {
+  return process.env.RAZORPAY_KEY_ID;
+}
+
 // 🔥 ADD THIS FUNCTION RIGHT HERE (after razorpay init, before exports.handler)
 function verifyRazorpaySignature(orderId, paymentId, signature, secret) {
   const generatedSignature = crypto
@@ -18,6 +22,16 @@ function verifyRazorpaySignature(orderId, paymentId, signature, secret) {
 }
 
 exports.handler = async (event) => {
+  if (event.httpMethod === 'GET') {
+    // ✅ NEW: Handle GET request for fetching key
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        key: getRazorpayPublicKey()
+      })
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -129,3 +143,4 @@ exports.handler = async (event) => {
     };
   }
 };
+
