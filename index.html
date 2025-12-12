@@ -4566,7 +4566,7 @@ function onPlanChangeForEdition() {
                     };
             
                     // -------- PLAN DETAILS --------
-                    const selectedPlan = document.querySelector('select[name="plantype"]')?.value || '';
+                    let selectedPlan = document.querySelector('select[name="plantype"]')?.value || '';
                     const planPrices = {
                         artisan: 5999,
                         couture: 14999,
@@ -7503,6 +7503,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
