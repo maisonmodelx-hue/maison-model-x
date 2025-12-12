@@ -4145,6 +4145,20 @@ function onPlanChangeForEdition() {
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
             <!-- BITRIX24 WEBHOOK INTEGRATION SCRIPT -->
             <script>
+
+                let RAZORPAY_KEY_ID = null;
+
+                // On page load, fetch the key from your backend
+                document.addEventListener('DOMContentLoaded', async () => {
+                    try {
+                        const response = await fetch('/.netlify/functions/getRazorpayKey');
+                        const data = await response.json();
+                        RAZORPAY_KEY_ID = data.key;
+                        console.log('Razorpay key loaded successfully');
+                    } catch (error) {
+                        console.error('Failed to load Razorpay key', error);
+                    }
+                });
                 // Suppress Razorpay SVG warnings
                 // Suppress Razorpay SVG and console warnings
                 const originalError = console.error;
@@ -4293,7 +4307,7 @@ function onPlanChangeForEdition() {
                         }
                 
                         const options = {
-                            key: 'rzp_live_Rn37DDGmBYh2C0',
+                            key: RAZORPAY_KEY_ID,
                             order_id: orderData.orderId,
                             amount: orderData.amount,
                             currency: orderData.currency,
@@ -7490,6 +7504,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
