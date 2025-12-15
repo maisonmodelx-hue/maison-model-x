@@ -2901,7 +2901,7 @@ function onModelSpecChange() {
     const selectedValue = specSelect.value;
 
     // Show Product Name textbox only for Product or Both (Garment / Product)
-    if (selectedValue === 'Product' || selectedValue === 'Both (Garment / Product)') {
+    if (selectedValue === 'Product' || selectedValue === 'Both (Garment + Product)') {
         productNameSection.classList.remove('hidden-section');
         productNameInput.focus();
     } else {
@@ -3827,7 +3827,7 @@ function onPlanChangeForEdition() {
                         <option value="Jewelry">Jewelry</option>
                         <option value="Product">Product</option>
                         <option value="Both (Garment + Jewel)">Both (Garment + Jewel)</option>
-                        <option value="Both (Garment / Product)">Both (Garment / Product)</option>
+                        <option value="Both (Garment + Product)">Both (Garment + Product)</option>
                     </select>
                 </div>
 
@@ -7495,6 +7495,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
