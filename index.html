@@ -4682,9 +4682,9 @@ function onPlanChangeForEdition() {
                             eyeColorOther: document.querySelector(`input[name="eye_color_other_extra_model${i}"]`)?.value || '',
                             bodyType: document.querySelector(`select[name="extra_model_${i}_body_type"]`)?.value || '',
                             bodyTypeOther: document.querySelector(`input[name="body_type_other_extra_model${i}"]`)?.value || '',
-                            ageAppearance: document.querySelector(`select[name="extramodel${i}ageappearance"]`)?.value || '',
-                            heightAppearance: document.querySelector(`select[name="extramodel${i}heightappearance"]`)?.value || '',
-                            weightAppearance: document.querySelector(`select[name="extramodel${i}weightappearance"]`)?.value || '',
+                            ageAppearance: document.querySelector(`select[name="extra_model_${i}_age_range"]`)?.value || '',
+                            heightAppearance: document.querySelector(`select[name="extra_model_${i}_height"]`)?.value || '',
+                            weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight"]`)?.value || '',
                             typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
                             typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_extra_model${i}"]`)?.value || '',
                             expressionPreference: document.querySelector(`select[name="extra_model_${i}_expression_preference"]`)?.value || '',
@@ -7531,6 +7531,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
