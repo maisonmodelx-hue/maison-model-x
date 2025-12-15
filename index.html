@@ -4645,7 +4645,7 @@ function onPlanChangeForEdition() {
                             if (accessoryCount > 0) {
                                 for (let accNum = 1; accNum <= accessoryCount; accNum++) {
                                     accessories.push({
-                                        type: document.querySelector(`select[name="accessory_type${accNum}_model${i}"]`)?.value || '',
+                                        type: document.querySelector(`select[name="accessory_type_${accNum}_model${i}"]`)?.value || '',
                                         description: document.querySelector(`textarea[name="accessories_desc_model${i}"]`)?.value || ''
                                     });
                                 }
@@ -7531,6 +7531,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
