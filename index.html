@@ -4642,12 +4642,12 @@ function onPlanChangeForEdition() {
                             weightAppearance: document.querySelector(`select[name="model_${i}_weight_appearance"]`)?.value || '',
                    //         typeOfShot: document.querySelector(`select[name="model_${i}_type_of_shot"]`)?.value || '',
                      //       typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_model${i}"]`)?.value || '',
-                            expressionPreference: document.querySelector(`select[name="model_${i}_expression_preference"]`)?.value || '',
-                            expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_model${i}"]`)?.value || '',
+                            expressionPreference: document.querySelector(`textarea[name="model_${i}_expression_preference"]`)?.value || '',
+                      //      expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_model${i}"]`)?.value || '',
                         //    orientation: document.querySelector(`select[name="model_${i}_orientation"]`)?.value || '',
                           //  orientationOther: document.querySelector(`input[name="orientation_other_model${i}"]`)?.value || '',
                             makeupDetails: document.querySelector(`input[name="model_${i}_makeup_details"]`)?.value || '',
-                            lightningEffects: document.querySelector(`select[name="model_${i}_lightning_effects"]`)?.value || '',
+                            lightningEffects: document.querySelector(`textarea[name="model_${i}_lightning_effects"]`)?.value || '',
                          //   lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
                             description: document.querySelector(`textarea[name="model_${i}_description"]`)?.value || '',
                             pose: document.querySelector(`textarea[name="model_${i}_pose"]`)?.value || '',
@@ -4706,8 +4706,8 @@ function onPlanChangeForEdition() {
                             weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight"]`)?.value || '',
                       //      typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
                         //    typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_extra_model${i}"]`)?.value || '',
-                            expressionPreference: document.querySelector(`select[name="extra_model_${i}_expression_preference"]`)?.value || '',
-                            expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_extra_model${i}"]`)?.value || '',
+                            expressionPreference: document.querySelector(`textarea[name="extra_model_${i}_expression_preference"]`)?.value || '',
+                      //      expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_extra_model${i}"]`)?.value || '',
                             //handPose: document.querySelector(`select[name="extra_model_${i}_hand_pose"]`)?.value || '',
                             //handPoseOther: document.querySelector(`input[name="hand_pose_other_extra_model${i}"]`)?.value || '',
                          //   orientation: document.querySelector(`select[name="extra_model_${i}_orientation"]`)?.value || '',
@@ -7515,6 +7515,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
