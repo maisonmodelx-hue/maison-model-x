@@ -4647,8 +4647,8 @@ function onPlanChangeForEdition() {
                          //  orientation: document.querySelector(`select[name="model_${i}_orientation"]`)?.value || '',
                            // orientationOther: document.querySelector(`input[name="orientation_other_model${i}"]`)?.value || '',
                             makeupDetails: document.querySelector(`input[name="model_${i}_makeup_details"]`)?.value || '',
-                       //     lightningEffects: document.querySelector(`select[name="model_${i}_lightning_effects"]`)?.value || '',
-                         //   lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
+                            lightningEffects: document.querySelector(`select[name="model_${i}_lightning_effects"]`)?.value || '',
+                            lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
                             description: document.querySelector(`textarea[name="model_${i}_description"]`)?.value || '',
                             pose: document.querySelector(`textarea[name="model_${i}_pose"]`)?.value || '',
                             accessoriesIncluded: document.querySelector(`select[name="accessoriesincludedmodeli"]`)?.value || '',
@@ -6439,7 +6439,7 @@ function onPlanChangeForEdition() {
                             </div>
                             <div class="form-group hidden-section" id="lightning_effects_section_model${modelNumber}">
                                 <label>Lightning and Background Aesthetics</label>
-                                <textarea name="model_${modelNumber}_lightningeffects" id="model_${modelNumber}lightningeffects" placeholder="Describe your desired lighting Effects & Background Aesthetics for images (e.g., Natural Daylight, Nature, Studio Curtains, Golden Hour, Soft Studio, Hard Spotlight, etc.)" style="min-height: 100px;"></textarea>
+                                <textarea name="model_${modelNumber}_lightningeffects" id="model_${modelNumber}lightningeffects" placeholder="Describe your desired lighting Effects &amp; Background Aesthetics for images (e.g., Natural Daylight, Nature, Studio Curtains, Golden Hour, Soft Studio, Hard Spotlight, etc.)" style="min-height: 100px;"></textarea>
                             </div>
                     <!--        <div id="lightning_effects_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Lightning Effect</label>
@@ -7529,6 +7529,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
