@@ -4644,8 +4644,8 @@ function onPlanChangeForEdition() {
                             typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_model${i}"]`)?.value || '',
                             expressionPreference: document.querySelector(`select[name="model_${i}_expression_preference"]`)?.value || '',
                             expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_model${i}"]`)?.value || '',
-                            orientation: document.querySelector(`select[name="model_${i}_orientation"]`)?.value || '',
-                            orientationOther: document.querySelector(`input[name="orientation_other_model${i}"]`)?.value || '',
+                        //    orientation: document.querySelector(`select[name="model_${i}_orientation"]`)?.value || '',
+                          //  orientationOther: document.querySelector(`input[name="orientation_other_model${i}"]`)?.value || '',
                             makeupDetails: document.querySelector(`input[name="model_${i}_makeup_details"]`)?.value || '',
                             lightningEffects: document.querySelector(`select[name="model_${i}_lightning_effects"]`)?.value || '',
                             lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
@@ -4710,8 +4710,8 @@ function onPlanChangeForEdition() {
                             expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_extra_model${i}"]`)?.value || '',
                             //handPose: document.querySelector(`select[name="extra_model_${i}_hand_pose"]`)?.value || '',
                             //handPoseOther: document.querySelector(`input[name="hand_pose_other_extra_model${i}"]`)?.value || '',
-                            orientation: document.querySelector(`select[name="extra_model_${i}_orientation"]`)?.value || '',
-                            orientationOther: document.querySelector(`input[name="orientation_other_extra_model${i}"]`)?.value || '',
+                         //   orientation: document.querySelector(`select[name="extra_model_${i}_orientation"]`)?.value || '',
+                       //     orientationOther: document.querySelector(`input[name="orientation_other_extra_model${i}"]`)?.value || '',
                             //bodyPose: document.querySelector(`select[name="extra_model_${i}_body_pose"]`)?.value || '',
                             //bodyPoseOther: document.querySelector(`input[name="body_pose_other_extra_model${i}"]`)?.value || '',
                             makeupDetails: document.querySelector(`input[name="extra_model_${i}_makeup_details"]`)?.value || '',
@@ -5127,9 +5127,9 @@ function onPlanChangeForEdition() {
                         message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
                         if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                         message += `\n`;
-                        message += `  • Orientation: ${model.orientation || 'N/A'}`;
-                        if (model.orientationOther) message += ` (${model.orientationOther})`;
-                        message += `\n`;
+                  //      message += `  • Orientation: ${model.orientation || 'N/A'}`;
+                    //    if (model.orientationOther) message += ` (${model.orientationOther})`;
+                      //  message += `\n`;
                         message += `  • Makeup: ${model.makeupDetails || 'Not specified'}\n`;
                         
                         // Advanced Features (Atelier/Maison)
@@ -5220,9 +5220,9 @@ function onPlanChangeForEdition() {
                             message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
                             if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                             message += `\n`;
-                            message += `  • Orientation: ${model.orientation || 'N/A'}`;
-                            if (model.orientationOther) message += ` (${model.orientationOther})`;
-                            message += `\n`;
+                        //    message += `  • Orientation: ${model.orientation || 'N/A'}`;
+                          //  if (model.orientationOther) message += ` (${model.orientationOther})`;
+                            //message += `\n`;
                             message += `  • Makeup: ${model.makeupDetails || 'Not specified'}\n`;
                             
                             if (model.description) {
@@ -5894,7 +5894,7 @@ function onPlanChangeForEdition() {
             pose: '',
            // hand_pose: '',
            // body_pose: '',
-            orientation: '',
+         //   orientation: '',
             makeup_details: '',
             lightning_effects: '',  
             lightning_effects_other: '',
@@ -6418,7 +6418,7 @@ function onPlanChangeForEdition() {
                                 <label>Specify Body Pose</label>
                                 <input type="text" id="body_pose_other_model${modelNumber}" name="body_pose_other_model${modelNumber}" placeholder="Describe the pose" value="${storedData.body_pose_other || ''}">
                             </div>  -->
-                            <div class="form-group">
+                     <!--       <div class="form-group">
                                 <label>Orientation</label>
                                 <select name="model_${modelNumber}_orientation" id="model_${modelNumber}_orientation" onchange="toggleOrientationOther(${modelNumber})" value="${storedData.orientation || ''}">
                                     <option value="Front">Front</option>
@@ -6432,7 +6432,7 @@ function onPlanChangeForEdition() {
                             <div id="orientation_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Orientation</label>
                                 <input type="text" id="orientation_other_model${modelNumber}" name="orientation_other_model${modelNumber}" placeholder="Describe the orientation" value="${storedData.orientation_other || ''}">
-                            </div>
+                            </div>  -->
                             <div class="form-group">
                                 <label>Makeup Details</label>
                                 <input type="text" name="model_${modelNumber}_makeup_details" id="model_${modelNumber}_makeup_details" placeholder="e.g., Natural, Bold, Neutral, Smokey" value="${storedData.makeup_details || ''}">
@@ -7185,7 +7185,7 @@ function onPlanChangeForEdition() {
                             </div>
                         </div>
         
-                        <div class="form-grid">
+           <!--             <div class="form-grid">
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_orientation">Orientation</label>
                                 <select id="extra_model_${modelNum}_orientation" name="extra_model_${modelNum}_orientation" onchange="toggleOrientationOther(${modelNum}, true)">
@@ -7202,7 +7202,7 @@ function onPlanChangeForEdition() {
                                 <label for="orientation_other_extra_model_${modelNum}">Please specify Orientation</label>
                                 <input type="text" id="orientation_other_extra_model_${modelNum}" name="orientation_other_extra_model_${modelNum}" placeholder="Describe the orientation...">
                             </div>
-                        </div>
+                        </div>  -->
         
                         <div class="form-grid">
                             <div class="form-group">
@@ -7542,5 +7542,6 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
