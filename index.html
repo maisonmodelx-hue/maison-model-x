@@ -4640,8 +4640,8 @@ function onPlanChangeForEdition() {
                             bodyTypeOther: document.querySelector(`input[name="body_type_other_model${i}"]`)?.value || '',
                             heightAppearance: document.querySelector(`select[name="model_${i}_height_appearance"]`)?.value || '',
                             weightAppearance: document.querySelector(`select[name="model_${i}_weight_appearance"]`)?.value || '',
-                            typeOfShot: document.querySelector(`select[name="model_${i}_type_of_shot"]`)?.value || '',
-                            typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_model${i}"]`)?.value || '',
+                   //         typeOfShot: document.querySelector(`select[name="model_${i}_type_of_shot"]`)?.value || '',
+                     //       typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_model${i}"]`)?.value || '',
                             expressionPreference: document.querySelector(`select[name="model_${i}_expression_preference"]`)?.value || '',
                             expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_model${i}"]`)?.value || '',
                         //    orientation: document.querySelector(`select[name="model_${i}_orientation"]`)?.value || '',
@@ -4704,8 +4704,8 @@ function onPlanChangeForEdition() {
                             ageAppearance: document.querySelector(`select[name="extra_model_${i}_age_range"]`)?.value || '',
                             heightAppearance: document.querySelector(`select[name="extra_model_${i}_height"]`)?.value || '',
                             weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight"]`)?.value || '',
-                            typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
-                            typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_extra_model${i}"]`)?.value || '',
+                      //      typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
+                        //    typeOfShotOther: document.querySelector(`input[name="type_of_shot_other_extra_model${i}"]`)?.value || '',
                             expressionPreference: document.querySelector(`select[name="extra_model_${i}_expression_preference"]`)?.value || '',
                             expressionPreferenceOther: document.querySelector(`input[name="expression_preference_other_extra_model${i}"]`)?.value || '',
                             //handPose: document.querySelector(`select[name="extra_model_${i}_hand_pose"]`)?.value || '',
@@ -5121,9 +5121,9 @@ function onPlanChangeForEdition() {
                         
                         // Pose & Expression
                         message += `\n💃 POSE & EXPRESSION:\n`;
-                        message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
-                        if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
-                        message += `\n`;
+                //        message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
+                  //      if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
+                    //    message += `\n`;
                         message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
                         if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                         message += `\n`;
@@ -5214,9 +5214,9 @@ function onPlanChangeForEdition() {
                             message += `  • Weight Appearance: ${model.weightAppearance || 'N/A'}\n`;
                             
                             message += `\n💃 POSE & EXPRESSION:\n`;
-                            message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
-                            if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
-                            message += `\n`;
+                        //    message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
+                        //    if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
+                          //  message += `\n`;
                             message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
                             if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                             message += `\n`;
@@ -6354,7 +6354,7 @@ function onPlanChangeForEdition() {
                             </p>
                         </div>
                         <div class="form-grid">
-                            <div class="form-group">
+                      <!--      <div class="form-group">
                                 <label>Type of Shot / Framing <span class="required-asterisk">*</span></label>
                                 <select name="model_${modelNumber}_type_of_shot" id="model_${modelNumber}_type_of_shot" onchange="toggleTypeOfShotOther(${modelNumber})" value="${storedData.type_of_shot || ''}">
                                     <option value="">-- Select Shot / Framing --</option>
@@ -6370,7 +6370,7 @@ function onPlanChangeForEdition() {
                             <div id="type_of_shot_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Type of Shot / Framing</label>
                                 <input type="text" id="type_of_shot_other_model${modelNumber}" name="type_of_shot_other_model${modelNumber}" placeholder="Describe the shot/framing" value="${storedData.type_of_shot_other || ''}">
-                            </div>
+                            </div>  -->
                             <div class="form-group">
                                 <label>Expression Preference</label>
                                 <select name="model_${modelNumber}_expression_preference" id="model_${modelNumber}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNumber})" value="${storedData.expression_preference || ''}">
@@ -7149,7 +7149,7 @@ function onPlanChangeForEdition() {
                         <!-- MODEL POSE & EXPRESSION -->
                         <div class="form-section-title" style="margin-top: 30px;">Model Pose & Expression</div>
         
-                        <div class="form-grid">
+                 <!--       <div class="form-grid">
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_type_of_shot">Type of Shot / Framing <span class="required-asterisk">*</span></label>
                                 <select id="extra_model_${modelNum}_type_of_shot" name="extra_model_${modelNum}_type_of_shot" required onchange="toggleTypeOfShotOther(${modelNum}, true)">
@@ -7166,7 +7166,7 @@ function onPlanChangeForEdition() {
                             <div id="type_of_shot_other_section_extra_model_${modelNum}" class="form-group hidden-section">
                                 <label for="type_of_shot_other_extra_model_${modelNum}">Please specify Shot Type</label>
                                 <input type="text" id="type_of_shot_other_extra_model_${modelNum}" name="type_of_shot_other_extra_model_${modelNum}" placeholder="Describe the shot type...">
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_expression_preference">Expression Preference</label>
                                 <select id="extra_model_${modelNum}_expression_preference" name="extra_model_${modelNum}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNum}, true)">
@@ -7542,6 +7542,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
