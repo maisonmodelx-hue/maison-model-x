@@ -2753,9 +2753,15 @@ function toggleLightningEffectsSection(modelNumber) {
   
   if (supportedTiers.includes(selectedTier)) {
     lightningSection.classList.remove("hidden-section");
+      if (lightningOtherSection) {  // ← SAFE CHECK 2
+      lightningOtherSection.classList.add('hidden-section');
+      }
   } else {
     lightningSection.classList.add("hidden-section");
-    lightningOtherSection.classList.add("hidden-section");
+   // lightningOtherSection.classList.add("hidden-section");
+      if (lightningOtherSection) {  // ← SAFE CHECK 3
+      lightningOtherSection.classList.add('hidden-section');
+    }
     // Clear fields when switching to unsupported tier
     const lightningSelect = document.getElementById(`model_${modelNumber}_lightning_effects`);
     const lightningOtherInput = document.getElementById(`lightning_effects_other_model${modelNumber}`);
@@ -7515,6 +7521,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
