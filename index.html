@@ -6373,20 +6373,12 @@ function onPlanChangeForEdition() {
                             </div>  -->
                             <div class="form-group">
                                 <label>Expression Preference</label>
-                                <select name="model_${modelNumber}_expression_preference" id="model_${modelNumber}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNumber})" value="${storedData.expression_preference || ''}">
-                                    <option value="">-- Select Expression --</option>
-                                    <option value="Neutral">Neutral</option>
-                                    <option value="Smiling">Smiling</option>
-                                    <option value="Serious">Serious</option>
-                                    <option value="Playful">Playful</option>
-                                    <option value="Bold">Bold</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                                <textarea name="model_${ modelNumber }_expression_preference" id="model_${ modelNumber }_expression_preference" placeholder="Describe your expression preference for the model. E.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..." style="min-height: 50px;" value="${storedData.expression_preference || ''}"></textarea>
                             </div>
-                            <div id="expression_preference_other_section_model${modelNumber}" class="form-group hidden-section">
+                    <!--        <div id="expression_preference_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Expression</label>
                                 <input type="text" id="expression_preference_other_model${modelNumber}" name="expression_preference_other_model${modelNumber}" placeholder="Describe the expression" value="${storedData.expression_preference_other || ''}">
-                            </div>
+                            </div> -->
                     <!--        <div class="form-group">
                                 <label>Hand Pose</label>
                                 <select name="model_${modelNumber}_hand_pose" id="model_${modelNumber}_hand_pose" onchange="toggleHandPoseOther(${modelNumber})" value="${storedData.hand_pose || ''}">
@@ -6467,7 +6459,7 @@ function onPlanChangeForEdition() {
                         <div class="form-grid full" style="margin-top: 30px;">
                             <div class="form-group">
                                 <label>Model Description (Optional)</label>
-                                <textarea name="model_${modelNumber}_description" id="model_${modelNumber}_description" placeholder="Add any additional details or specific requirements for this model..." style="min-height: 100px;">${storedData.model_description || ''}</textarea>
+                                <textarea name="model_${modelNumber}_description" id="model_${modelNumber}_description" placeholder="Add any additional details or specific requirements for this model..." style="min-height: 50px;">${storedData.model_description || ''}</textarea>
                             </div>
                         </div>
 
@@ -6475,7 +6467,7 @@ function onPlanChangeForEdition() {
                         <div class="form-grid full" id="pose_section_model${modelNumber}" class="hidden-section" style="margin-top: 30px;">
                             <div class="form-group">
                                 <label>Model Pose</label>
-                                <textarea name="model_${modelNumber}_pose" id="model_${modelNumber}_pose" placeholder="Describe how you'd like the model to pose. E.g., Standing with hands in pockets, sitting cross-legged, leaning against wall, walking motion, etc." style="min-height: 100px;" value="${storedData.pose || ''}"></textarea>
+                                <textarea name="model_${modelNumber}_pose" id="model_${modelNumber}_pose" placeholder="Describe how you'd like the model to pose. E.g., Standing with hands in pockets, sitting cross-legged, leaning against wall, walking motion, etc." style="min-height: 50px;" value="${storedData.pose || ''}"></textarea>
                             </div>
                         </div>
 
@@ -7169,20 +7161,13 @@ function onPlanChangeForEdition() {
                             </div> -->
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_expression_preference">Expression Preference</label>
-                                <select id="extra_model_${modelNum}_expression_preference" name="extra_model_${modelNum}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNum}, true)">
-                                    <option value="">-- Select Expression --</option>
-                                    <<option value="Neutral">Neutral</option>
-                                    <option value="Smiling">Smiling</option>
-                                    <option value="Serious">Serious</option>
-                                    <option value="Playful">Playful</option>
-                                    <option value="Bold">Bold</option>
-                                    <option value="Other">Other</option>
-                                </select>
+                           <!--     <select id="extra_model_${modelNum}_expression_preference" name="extra_model_${modelNum}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNum}, true)">  -->
+                                <textarea name="extra_model_${ modelNum }_expression_preference" id="extra_model_${ modelNum }_expression_preference" placeholder="Describe your expression preference for the model. E.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..." style="min-height: 50px;" value="${storedData.expression_preference || ''}"></textarea>
                             </div>
-                            <div id="expression_preference_other_section_extra_model_${modelNum}" class="form-group hidden-section">
+                   <!--         <div id="expression_preference_other_section_extra_model_${modelNum}" class="form-group hidden-section">
                                 <label for="expression_preference_other_extra_model_${modelNum}">Please specify Expression</label>
                                 <input type="text" id="expression_preference_other_extra_model_${modelNum}" name="expression_preference_other_extra_model_${modelNum}" placeholder="Describe the expression...">
-                            </div>
+                            </div>  -->
                         </div>
         
            <!--             <div class="form-grid">
@@ -7542,6 +7527,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
