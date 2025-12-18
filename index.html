@@ -3902,7 +3902,7 @@ function onPlanChangeForEdition() {
                                 type="text" 
                                 id="brandNameInput" 
                                 name="brandNameInput" 
-                                placeholder="e.g., Maison Model X or MMX" 
+                                placeholder="e.g., Maison Model X or MMX Studio" 
                                 style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease;"/>
                         </div>
 
@@ -3940,7 +3940,7 @@ function onPlanChangeForEdition() {
                                 type="text" 
                                 id="brandPlacementOtherInput" 
                                 name="brandPlacementOtherInput" 
-                                placeholder="e.g., MMX on right side top, or bottom left corner" 
+                                placeholder="e.g., Bottom-left over background only, small logo on right edge" 
                                 style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease;"/>
                         </div>
 
@@ -3976,7 +3976,7 @@ function onPlanChangeForEdition() {
                                 type="text" 
                                 id="brandFontStyleOtherInput" 
                                 name="brandFontStyleOtherInput" 
-                                placeholder="e.g., Futura, Garamond, Custom Sans, etc." 
+                                placeholder="e.g., Futura Bold Caps, Garamond Italic, Custom Sans from brand kit" 
                                 style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease;"/>
                         </div>
 
@@ -4026,7 +4026,7 @@ function onPlanChangeForEdition() {
                     <div class="form-grid full">
                         <div class="form-group">
                             <label>Garment / Product Description</label>
-                            <textarea name="productdescription" id="productDescription" placeholder="Provide detailed description: color, material, style, fit, embellishments, unique features. Include this if you cannot upload an image."></textarea>
+                            <textarea name="productdescription" id="productDescription" placeholder="e.g., Ivory silk saree with gold zari border, fitted blouse, mirror work, floor-length; highlight drape and border details."></textarea>
                         </div>
                     </div>
 
@@ -4048,7 +4048,7 @@ function onPlanChangeForEdition() {
                     <textarea
                         id="backgroundDescription"
                         name="backgroundDescription"
-                        placeholder="Describe the desired background style and which image(s) it applies to. E.g., 'White studio for garment 1, outdoor nature for jewelry, luxury interior for product...'"
+                        placeholder="e.g., White studio for Garment 1; warm sunset street for Garment 2; dark luxury interior for jewelry close‑ups."
                         style="width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--white); border-radius: 4px; font-family: Montserrat, sans-serif; font-size: 13px; transition: all 0.4s ease; resize: vertical; min-height: 100px;">
                     </textarea>
                 </div>
@@ -4124,14 +4124,14 @@ function onPlanChangeForEdition() {
                     <div class="form-grid full">
                         <div class="form-group">
                             <label> Project / Campaign Vision</label>
-                            <textarea name="projectdescription" placeholder="Share your project vision: overall aesthetic or aesthetic splits for models, mood, style inspiration, target audience, campaign theme"></textarea>
+                            <textarea name="projectdescription" placeholder="e.g., Minimal luxury for Gen Z; clean e‑commerce + 3 editorial hero shots; mood inspired by Zara / Jacquemus."></textarea>
                         </div>
                     </div>
 
                     <div class="form-grid full">
                         <div class="form-group">
                             <label>Extra Notes & Special Requests</label>
-                            <textarea name="specialrequirements" placeholder="Any specific poses, expressions, styling details, or technical requirements? The more detail you provide, the better we can match your vision."></textarea>
+                            <textarea name="specialrequirements" placeholder="e.g., No heavy shadows, avoid extreme close‑ups, show back-neck detail once, add 1 banner-wide hero image."></textarea>
                         </div>
                     </div>
                 </div>
@@ -4157,14 +4157,14 @@ function onPlanChangeForEdition() {
 
                         <div class="form-group">
                             <label for="fileNamingConvention">File Naming Preference</label>
-                            <input type="text" id="fileNamingConvention" name="filenaming" placeholder="E.g., Brand_Model01_Look01.jpg or Custom preference">
+                            <input type="text" id="fileNamingConvention" name="filenaming" placeholder="e.g., Brand_Model01_Look01.jpg or your own naming rules">
                         </div>
                     </div>
 
                     <div class="form-grid full">
                         <div class="form-group">
                             <label for="deliveryInstructions">Additional Delivery Notes (Optional)</label>
-                            <textarea id="deliveryInstructions" name="deliveryinstructions" placeholder="E.g., organized by garment type, high-res separate folder, web-optimized versions, etc."></textarea>
+                            <textarea id="deliveryInstructions" name="deliveryinstructions" placeholder="e.g., organized by garment type, high-res separate folder, web-optimized versions, etc."></textarea>
                         </div>
                     </div>
                 </div>
@@ -6288,7 +6288,7 @@ function onPlanChangeForEdition() {
                             </div>
                             <div id="accessories_section_model${modelNumber}" class="hidden-section accessories-section">
                                 <div class="form-group">
-                                    <label for="accessories_count_model${modelNumber}">How many accessories?</label>
+                                    <label for="accessories_count_model${modelNumber}">Number of Accessories</label>
                                     <select id="accessories_count_model${modelNumber}" name="accessories_count_model${modelNumber}" onchange="renderAccessoryInputs(${modelNumber})">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -6299,8 +6299,8 @@ function onPlanChangeForEdition() {
                                     <!-- Populated by JS -->
                                 </div>
                                 <div class="form-group">
-                                    <label for="accessories_desc_model${modelNumber}">Accessories Description</label>
-                                    <textarea id="accessories_desc_model${modelNumber}" name="accessories_desc_model${modelNumber}" placeholder="Describe accessories, style, position, etc." rows="2" maxlength="160"></textarea>
+                                    <label for="accessories_desc_model${modelNumber}">Accessories Styling Details</label>
+                                    <textarea id="accessories_desc_model${modelNumber}" name="accessories_desc_model${modelNumber}" placeholder="Describe accessories, style, position, etc." rows="2" maxlength="200"></textarea>
                                 </div>
                             </div>
 
@@ -7528,6 +7528,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
