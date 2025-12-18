@@ -3696,7 +3696,7 @@ function onPlanChangeForEdition() {
                     <li>Max 5 Garments/Jewelry</li>
                     <li>Accessories</li>
                     <li>Customized Poses</li>
-                    <li>Customized Lightning Effects</li>
+                    <li>Customized Lighting Effects</li>
                     <li>Brand name</li>
                     <li>20 Customized backgrounds</li>
                     <li>3 revison rounds</li>
@@ -3720,7 +3720,7 @@ function onPlanChangeForEdition() {
                     <li>Max 15 Garments/Jewelry</li>
                     <li>Accessories</li>
                     <li>Customized Poses</li>
-                    <li>Customized Lightning Effects</li>
+                    <li>Customized Lighting Effects</li>
                     <li>Brand name</li>
                     <li>34 Customized backgrounds</li>
                     <li>3 revison rounds</li>
@@ -3744,7 +3744,7 @@ function onPlanChangeForEdition() {
                     <li>Garments/Jewelry</li>
                     <li>Accessories</li>
                     <li>Customized Poses</li>
-                    <li>Customized Lightning Effects</li>
+                    <li>Customized Lighting Effects</li>
                     <li>Brand name</li>
                     <li>Customized backgrounds</li>
                     <li>3 revison rounds</li>
@@ -6477,9 +6477,9 @@ function onPlanChangeForEdition() {
                                 <input type="text" name="model_${modelNumber}_makeup_details" id="model_${modelNumber}_makeup_details" placeholder="e.g., Natural clean skin, soft brown eyes, nude lips; or bold liner with red lips; avoid heavy contour." value="${storedData.makeup_details || ''}">
                             </div>
                             <div class="form-group hidden-section" id="lightning_effects_section_model${modelNumber}">
-                                <label>Lightning Effects</label>
+                                <label>Lighting Effects</label>
                          <!--       <select name="model_${modelNumber}_lightning_effects" id="model_${modelNumber}_lightning_effects" onchange="toggleLightningEffectsOther(${modelNumber})" value="${storedData.lightning_effects || ''}">  -->
-                                <textarea name="model_${ modelNumber }_lightning_effects" id="model_${ modelNumber }_lightning_effects" placeholder="E.g., Warm golden hour lighting, studio key light with rim lighting, cool blue tones with deep shadows, dramatic backlighting for jewelry, soft diffused for full-body, etc." style="min-height: 50px;" value="${storedData.lightning_effects || ''}"></textarea> 
+                                <textarea name="model_${ modelNumber }_lightning_effects" id="model_${ modelNumber }_lightning_effects" placeholder="e.g., Warm golden hour lighting, studio key light with rim lighting, cool blue tones with deep shadows, etc." style="min-height: 50px;" value="${storedData.lightning_effects || ''}"></textarea> 
                                 </div>
                       <!--      <div id="lightning_effects_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Lighting Effect</label>
@@ -7197,7 +7197,7 @@ function onPlanChangeForEdition() {
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_expression_preference">Facial Expression Style</label>
                            <!--     <select id="extra_model_${modelNum}_expression_preference" name="extra_model_${modelNum}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNum}, true)">  -->
-                                <textarea name="extra_model_${ modelNum }_expression_preference" id="extra_model_${ modelNum }_expression_preference" placeholder="Describe your expression preference for the model. E.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..."></textarea>
+                                <textarea name="extra_model_${ modelNum }_expression_preference" id="extra_model_${ modelNum }_expression_preference" placeholder="Describe your expression preference for the model. e.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..."></textarea>
                             </div>
                    <!--         <div id="expression_preference_other_section_extra_model_${modelNum}" class="form-group hidden-section">
                                 <label for="expression_preference_other_extra_model_${modelNum}">Please specify Expression</label>
@@ -7562,6 +7562,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
