@@ -6386,7 +6386,7 @@ function onPlanChangeForEdition() {
                             </div>  -->
                             <div class="form-group">
                                 <label>Facial Expression Style</label>
-                                <textarea name="model_${ modelNumber }_expression_preference" id="model_${ modelNumber }_expression_preference" placeholder="Describe your expression preference for the model. E.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..." style="min-height: 50px;" value="${storedData.expression_preference || ''}"></textarea>
+                                <textarea name="model_${ modelNumber }_expression_preference" id="model_${ modelNumber }_expression_preference" placeholder="e.g., Soft smile, relaxed; confident and serious; playful with joy; no wide-open mouth." style="min-height: 50px;" value="${storedData.expression_preference || ''}"></textarea>
                             </div>
                     <!--        <div id="expression_preference_other_section_model${modelNumber}" class="form-group hidden-section">
                                 <label>Specify Expression</label>
@@ -6440,7 +6440,7 @@ function onPlanChangeForEdition() {
                             </div>  -->
                             <div class="form-group">
                                 <label>Makeup Direction</label>
-                                <input type="text" name="model_${modelNumber}_makeup_details" id="model_${modelNumber}_makeup_details" placeholder="e.g., Natural, Bold, Neutral, Smokey" value="${storedData.makeup_details || ''}">
+                                <input type="text" name="model_${modelNumber}_makeup_details" id="model_${modelNumber}_makeup_details" placeholder="e.g., Natural clean skin, soft brown eyes, nude lips; or bold liner with red lips; avoid heavy contour." value="${storedData.makeup_details || ''}">
                             </div>
                             <div class="form-group hidden-section" id="lightning_effects_section_model${modelNumber}">
                                 <label>Lightning Effects</label>
@@ -6448,8 +6448,8 @@ function onPlanChangeForEdition() {
                                 <textarea name="model_${ modelNumber }_lightning_effects" id="model_${ modelNumber }_lightning_effects" placeholder="E.g., Warm golden hour lighting, studio key light with rim lighting, cool blue tones with deep shadows, dramatic backlighting for jewelry, soft diffused for full-body, etc." style="min-height: 50px;" value="${storedData.lightning_effects || ''}"></textarea> 
                                 </div>
                       <!--      <div id="lightning_effects_other_section_model${modelNumber}" class="form-group hidden-section">
-                                <label>Specify Lightning Effect</label>
-                                <input type="text" id="lightning_effects_other_model${modelNumber}" name="lightning_effects_other_model${modelNumber}" placeholder="Describe your custom lighting effect" value="${storedData.lightning_effects_other || ''}">
+                                <label>Specify Lighting Effect</label>
+                                <input type="text" id="lightning_effects_other_model${modelNumber}" name="lightning_effects_other_model${modelNumber}" placeholder="e.g., Warm golden hour glow, studio key light with soft shadows, cool blue moody light, strong rim light for jewelry." value="${storedData.lightning_effects_other || ''}">
                             </div>  -->
                         </div>
                      
@@ -6467,8 +6467,8 @@ function onPlanChangeForEdition() {
                         <!-- Pose Description - Hidden for Artisan tier -->
                         <div class="form-grid full" id="pose_section_model${modelNumber}" class="hidden-section" style="margin-top: 30px;">
                             <div class="form-group">
-                                <label>Pose & Body Language</label>
-                                <textarea name="model_${modelNumber}_pose" id="model_${modelNumber}_pose" placeholder="Describe how you'd like the model to pose. E.g., Standing with hands in pockets, sitting cross-legged, leaning against wall, walking motion, etc." style="min-height: 50px;" value="${storedData.pose || ''}"></textarea>
+                                <label>Pose & Body Language (Optional)</label>
+                                <textarea name="model_${modelNumber}_pose" id="model_${modelNumber}_pose" placeholder="Describe poses and attitude: relaxed, bold etc." style="min-height: 50px;" value="${storedData.pose || ''}"></textarea>
                             </div>
                         </div>
 
@@ -7528,6 +7528,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
