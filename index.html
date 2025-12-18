@@ -6358,8 +6358,8 @@ function onPlanChangeForEdition() {
                         </div>
 
                         <!-- Model Pose & Expression -->
-                        <div class="form-section-title" style="margin-top: 30px; margin-bottom: 20px;">Model Pose & Expression 
-                            <span style="font-size: 12px; font-weight: 500; color: var(--gold);"> For Models Only - AI Photoshoot Done Professionally </span> 
+                        <div class="form-section-title" style="margin-top: 30px; margin-bottom: 20px;">Photoshoot Direction 
+                            <span style="font-size: 12px; font-weight: 500; color: var(--gold);"> Pose, Expression & Styling </span> 
                         </div>
                         <div style="padding: 15px; background: rgba(212, 175, 55, 0.08); border: 1px dashed rgba(212, 175, 55, 0.3); border-radius: 6px; margin-bottom: 20px;">
                             <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 0; padding: 12px; border-radius: 4px; border-left: 3px solid var(--gold);">
@@ -6385,7 +6385,7 @@ function onPlanChangeForEdition() {
                                 <input type="text" id="type_of_shot_other_model${modelNumber}" name="type_of_shot_other_model${modelNumber}" placeholder="Describe the shot/framing" value="${storedData.type_of_shot_other || ''}">
                             </div>  -->
                             <div class="form-group">
-                                <label>Expression Preference</label>
+                                <label>Facial Expression Style</label>
                                 <textarea name="model_${ modelNumber }_expression_preference" id="model_${ modelNumber }_expression_preference" placeholder="Describe your expression preference for the model. E.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..." style="min-height: 50px;" value="${storedData.expression_preference || ''}"></textarea>
                             </div>
                     <!--        <div id="expression_preference_other_section_model${modelNumber}" class="form-group hidden-section">
@@ -6439,7 +6439,7 @@ function onPlanChangeForEdition() {
                                 <input type="text" id="orientation_other_model${modelNumber}" name="orientation_other_model${modelNumber}" placeholder="Describe the orientation" value="${storedData.orientation_other || ''}">
                             </div>  -->
                             <div class="form-group">
-                                <label>Makeup Details</label>
+                                <label>Makeup Direction</label>
                                 <input type="text" name="model_${modelNumber}_makeup_details" id="model_${modelNumber}_makeup_details" placeholder="e.g., Natural, Bold, Neutral, Smokey" value="${storedData.makeup_details || ''}">
                             </div>
                             <div class="form-group hidden-section" id="lightning_effects_section_model${modelNumber}">
@@ -6459,7 +6459,7 @@ function onPlanChangeForEdition() {
                         <!-- Model Description -->
                         <div class="form-grid full" style="margin-top: 30px;">
                             <div class="form-group">
-                                <label>Model Description (Optional)</label>
+                                <label>Additional Creative Notes (Optional)</label>
                                 <textarea name="model_${modelNumber}_description" id="model_${modelNumber}_description" placeholder="Add any additional details or specific requirements for this model..." style="min-height: 50px;">${storedData.model_description || ''}</textarea>
                             </div>
                         </div>
@@ -6467,7 +6467,7 @@ function onPlanChangeForEdition() {
                         <!-- Pose Description - Hidden for Artisan tier -->
                         <div class="form-grid full" id="pose_section_model${modelNumber}" class="hidden-section" style="margin-top: 30px;">
                             <div class="form-group">
-                                <label>Model Pose</label>
+                                <label>Pose & Body Language</label>
                                 <textarea name="model_${modelNumber}_pose" id="model_${modelNumber}_pose" placeholder="Describe how you'd like the model to pose. E.g., Standing with hands in pockets, sitting cross-legged, leaning against wall, walking motion, etc." style="min-height: 50px;" value="${storedData.pose || ''}"></textarea>
                             </div>
                         </div>
@@ -7528,6 +7528,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
