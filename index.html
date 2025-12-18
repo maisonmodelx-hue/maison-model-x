@@ -2554,6 +2554,24 @@ function toggleEyeColorOther(num, isExtra = false) {
     }
 }
 
+/* ---- Delivery Format "Other" Toggle Logic ---- */
+function toggleDeliveryFormatOther() {
+    const deliveryFormatSelect = document.getElementById(`deliveryFormat`);
+    const otherSection = document.getElementById(`deliveryFormatOtherSection`);
+    
+    if (!deliveryFormatSelect || !otherSection) return;
+    
+    if (deliveryFormatSelect.value === "other") {
+        otherSection.classList.remove("hidden-section");
+    } else {
+        otherSection.classList.add("hidden-section");
+        // Clear the text input when not "Other"
+        const otherInput = document.getElementById("deliveryFormatOtherInput");
+        if (otherInput) otherInput.value = "";
+    }
+}
+
+
 /* ---- Country/Region "Other" Toggle Logic ---- */
 function toggleCountryRegionOther(num, isExtra = false) {
     if (isExtra) {
@@ -4145,7 +4163,7 @@ function onPlanChangeForEdition() {
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="deliveryFormat">Delivery Format</label>
-                            <select id="deliveryFormat" name="deliveryformat">
+                            <select id="deliveryFormat" name="deliveryformat" onchange="toggleDeliveryFormatOther()">
                                 <option value="">-- Select Delivery Format --</option>
                                 <option value="zip_archive">ZIP Archive (Organized by model)</option>
                                 <option value="zip_by_look">ZIP Archive (Organized by look/outfit)</option>
@@ -4154,6 +4172,12 @@ function onPlanChangeForEdition() {
                                 <option value="other">Other (Specify below)</option>
                             </select>
                         </div>
+
+                        <div id="deliveryFormatOtherSection" class="form-group hidden-section">
+                            <label for="deliveryFormatOtherInput">Please Specify Delivery Format</label>
+                            <input type="text" id="deliveryFormatOtherInput" name="deliveryFormatOtherInput">
+                        </div>
+
 
                         <div class="form-group">
                             <label for="fileNamingConvention">File Naming Preference</label>
@@ -7528,6 +7552,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
