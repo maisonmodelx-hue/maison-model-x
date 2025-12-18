@@ -4776,10 +4776,20 @@ function onPlanChangeForEdition() {
                         fastDelivery: document.querySelector('input[name="addon_fast_delivery"]')?.checked || false,
                         brandNamePlacement: document.querySelector('input[name="addonbrandnameplacement"]')?.checked || false,
                     };
+
+                    const deliveryFormat = document.querySelector('select[name="deliveryformat"]')?.value;
+                    let deliveryFormatText = deliveryFormat;
+                    
+                    // If "Other" is selected, include the custom text
+                    if (deliveryFormat === "other") {
+                        const otherInput = document.getElementById("deliveryFormatOtherInput")?.value || "";
+                        deliveryFormatText = `Other: ${otherInput}`;
+                    }
             
                     // -------- FILE DELIVERY --------
                     const deliveryPreferences = {
-                        format: document.querySelector('select[name="deliveryformat"]')?.value || '',
+                        format: deliveryFormatText,
+                   //     format: document.querySelector('select[name="deliveryformat"]')?.value || '',
                         fileNamingConvention: document.querySelector('input[name="filenaming"]')?.value || '',
                         additionalInstructions: document.querySelector('textarea[name="deliveryinstructions"]')?.value || '',
                     };
@@ -7552,6 +7562,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
