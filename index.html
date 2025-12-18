@@ -7197,7 +7197,7 @@ function onPlanChangeForEdition() {
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_expression_preference">Facial Expression Style</label>
                            <!--     <select id="extra_model_${modelNum}_expression_preference" name="extra_model_${modelNum}_expression_preference" onchange="toggleExpressionPreferenceOther(${modelNum}, true)">  -->
-                                <textarea name="extra_model_${ modelNum }_expression_preference" id="extra_model_${ modelNum }_expression_preference" placeholder="Describe your expression preference for the model. e.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..."></textarea>
+                                <textarea name="extra_model_${ modelNum }_expression_preference" id="extra_model_${ modelNum }_expression_preference" placeholder="Describe your expression preference for the model. e.g., Neutral, Smiling, Serious, Playful, Bold, or custom expression details..." style="min-height: 50px;"></textarea>
                             </div>
                    <!--         <div id="expression_preference_other_section_extra_model_${modelNum}" class="form-group hidden-section">
                                 <label for="expression_preference_other_extra_model_${modelNum}">Please specify Expression</label>
@@ -7234,7 +7234,7 @@ function onPlanChangeForEdition() {
                         <div class="form-grid full">
                             <div class="form-group">
                                 <label for="extra_model_${modelNum}_model_description">Additional Creative Notes (Optional)</label>
-                                <textarea id="extra_model_${modelNum}_model_description" name="extra_model_${modelNum}_model_description" placeholder="Add any additional details or specific requirements for this model..."></textarea>
+                                <textarea id="extra_model_${modelNum}_model_description" name="extra_model_${modelNum}_model_description" placeholder="Add any additional details or specific requirements for this model..." style="min-height: 50px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -7562,6 +7562,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
