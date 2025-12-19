@@ -2384,6 +2384,8 @@ function renderAccessoryInputs(num) {
           <label for="accessory_other_${i}_model${num}">Specify Accessory Type</label>
           <input 
             type="text" 
+            id="accessory_other_${i}_model${num}"
+            name="accessory_other_${i}_model${num}"
             placeholder="e.g., Belt, Watch, Headpiece, etc."/>
         </div>
 
@@ -5228,7 +5230,8 @@ function onPlanChangeForEdition() {
                             message += `\n💎 ACCESSORIES:\n`;
                             if (model.accessoriesArray && model.accessoriesArray.length > 0) {
                                 model.accessoriesArray.forEach((acc, idx) => {
-                                    message += `  ${idx + 1}. ${acc.type || 'N/A'}\n`;
+                                    const displayType = acc.type || 'N/A';
+                                    message += `  ${idx + 1}. ${displayType}\n`;
                                 });
                                 // Description applies to all accessories
                                 const accDesc = model.accessoriesArray[0]?.description;
@@ -5262,29 +5265,45 @@ function onPlanChangeForEdition() {
                             message += `👥 APPEARANCE:\n`;
                             message += `  • Gender: ${model.gender || 'N/A'}\n`;
                             message += `  • Ethnicity: ${model.ethnicity || 'N/A'}`;
-                            if (model.ethnicityOther) message += ` (${model.ethnicityOther})`;
+                            if (model.ethnicity === 'Other' && model.ethnicityOther) {
+                                message += ` (${model.ethnicityOther})`;
+                            }
                             message += `\n`;
                             message += `  • Country/Region: ${model.countryRegion || 'N/A'}`;
-                            if (model.countryRegionOther) message += ` (${model.countryRegionOther})`;
+                            if (model.countryRegion === 'Other' && model.countryRegionOther) {
+                                message += ` (${model.countryRegionOther})`;
+                            }
                             message += `\n`;
                             message += `  • Skin Tone: ${model.skinTone || 'N/A'}`;
-                            if (model.skinToneOther) message += ` (${model.skinToneOther})`;
+                            if (model.skinTone === 'Other' && model.skinToneOther) {
+                                message += ` (${model.skinToneOther})`;
+                            }
                             message += `\n`;
                             message += `  • Hair Type: ${model.hairType || 'N/A'}`;
-                            if (model.hairTypeOther) message += ` (${model.hairTypeOther})`;
+                            if (model.hairType === 'Other' && model.hairTypeOther) {
+                                message += ` (${model.hairTypeOther})`;
+                            }
                             message += `\n`;
                             message += `  • Hair Color: ${model.hairColor || 'N/A'}`;
-                            if (model.hairColorOther) message += ` (${model.hairColorOther})`;
+                            if (model.hairColor === 'Other' && model.hairColorOther) {
+                                message += ` (${model.hairColorOther})`;
+                            }
                             message += `\n`;
                             message += `  • Hair Style: ${model.hairStyle || 'N/A'}`;
-                            if (model.hairStyleOther) message += ` (${model.hairStyleOther})`;
+                            if (model.hairStyle === 'Other' && model.hairStyleOther) {
+                                message += ` (${model.hairStyleOther})`;
+                            }
                             message += `\n`;
                             message += `  • Eye Color: ${model.eyeColor || 'N/A'}`;
-                            if (model.eyeColorOther) message += ` (${model.eyeColorOther})`;
+                            if (model.eyeColor === 'Other' && model.eyeColorOther) {
+                                message += ` (${model.eyeColorOther})`;
+                            }
                             message += `\n`;
                             message += `  • Age Range: ${model.ageAppearance || 'N/A'}\n`;
                             message += `  • Body Type: ${model.bodyType || 'N/A'}`;
-                            if (model.bodyTypeOther) message += ` (${model.bodyTypeOther})`;
+                            if (model.bodyType === 'Other' && model.bodyTypeOther) {
+                                message += ` (${model.bodyTypeOther})`;
+                            }
                             message += `\n`;
                             message += `  • Height: ${model.heightAppearance || 'N/A'}\n`;
                             message += `  • Weight Appearance: ${model.weightAppearance || 'N/A'}\n`;
@@ -5293,8 +5312,8 @@ function onPlanChangeForEdition() {
                         //    message += `  • Shot Type: ${model.typeOfShot || 'N/A'}`;
                         //    if (model.typeOfShotOther) message += ` (${model.typeOfShotOther})`;
                           //  message += `\n`;
-                            message += `  • Expression: ${model.expressionPreference || 'N/A'}`;
-                            if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
+                            message += `  • Expression: ${model.expressionPreference || 'N/A'}`; 
+                         //   if (model.expressionPreferenceOther) message += ` (${model.expressionPreferenceOther})`;
                             message += `\n`;
                         //    message += `  • Orientation: ${model.orientation || 'N/A'}`;
                           //  if (model.orientationOther) message += ` (${model.orientationOther})`;
@@ -7591,6 +7610,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
