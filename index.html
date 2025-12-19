@@ -4751,21 +4751,21 @@ function onPlanChangeForEdition() {
                             modelNumber: i,
                             gender: document.querySelector(`select[name="extra_model_${i}_gender"]`)?.value || '',
                             ethnicity: document.querySelector(`select[name="extra_model_${i}_ethnicity"]`)?.value || '',
-                            ethnicityOther: document.querySelector(`input[name="ethnicity_other_extra_model${i}"]`)?.value || '',
+                            ethnicityOther: document.querySelector(`input[name="ethnicity_other_extra_model_${i}"]`)?.value || '',
                             countryRegion: document.querySelector(`select[name="extra_model_${i}_country_region"]`)?.value || '',
-                            countryRegionOther: document.querySelector(`input[name="country_region_other_extra_model${i}"]`)?.value || '',
+                            countryRegionOther: document.querySelector(`input[name="country_region_other_extra_model_${i}"]`)?.value || '',
                             skinTone: document.querySelector(`select[name="extra_model_${i}_skin_tone"]`)?.value || '',
-                            skinToneOther: document.querySelector(`input[name="skin_tone_other_extra_model${i}"]`)?.value || '',
+                            skinToneOther: document.querySelector(`input[name="skin_tone_other_extra_model_${i}"]`)?.value || '',
                             hairType: document.querySelector(`select[name="extra_model_${i}_hair_type"]`)?.value || '',
-                            hairTypeOther: document.querySelector(`input[name="hair_type_other_extra_model${i}"]`)?.value || '',
+                            hairTypeOther: document.querySelector(`input[name="hair_type_other_extra_model_${i}"]`)?.value || '',
                             hairColor: document.querySelector(`select[name="extra_model_${i}_hair_color"]`)?.value || '',
-                            hairColorOther: document.querySelector(`input[name="hair_color_other_extra_model${i}"]`)?.value || '',
+                            hairColorOther: document.querySelector(`input[name="hair_color_other_extra_model_${i}"]`)?.value || '',
                             hairStyle: document.querySelector(`select[name="extra_model_${i}_hair_style"]`)?.value || '',
-                            hairStyleOther: document.querySelector(`input[name="hair_style_other_extra_model${i}"]`)?.value || '',
+                            hairStyleOther: document.querySelector(`input[name="hair_style_other_extra_model_${i}"]`)?.value || '',
                             eyeColor: document.querySelector(`select[name="extra_model_${i}_eye_color"]`)?.value || '',
-                            eyeColorOther: document.querySelector(`input[name="eye_color_other_extra_model${i}"]`)?.value || '',
+                            eyeColorOther: document.querySelector(`input[name="eye_color_other_extra_model_${i}"]`)?.value || '',
                             bodyType: document.querySelector(`select[name="extra_model_${i}_body_type"]`)?.value || '',
-                            bodyTypeOther: document.querySelector(`input[name="body_type_other_extra_model${i}"]`)?.value || '',
+                            bodyTypeOther: document.querySelector(`input[name="body_type_other_extra_model_${i}"]`)?.value || '',
                             ageAppearance: document.querySelector(`select[name="extra_model_${i}_age_appearance"]`)?.value || '',
                             heightAppearance: document.querySelector(`select[name="extra_model_${i}_height"]`)?.value || '',
                             weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight"]`)?.value || '',
@@ -7647,6 +7647,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
