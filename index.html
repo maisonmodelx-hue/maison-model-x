@@ -2865,8 +2865,6 @@ function togglePoseSection(modelNumber) {
 }
 
 
-
-
 function toggleOrientationOther(num, isExtra = false) {
     if (isExtra) {
     const select = document.getElementById(`extra_model_${num}_orientation`);
@@ -4753,7 +4751,7 @@ function onPlanChangeForEdition() {
                             modelNumber: i,
                             gender: document.querySelector(`select[name="extra_model_${i}_gender"]`)?.value || '',
                             ethnicity: document.querySelector(`select[name="extra_model_${i}_ethnicity"]`)?.value || '',
-                            ethnicityOther: document.querySelector(`input[name="extra_model_${i}_ethnicity_other"]`)?.value || '',
+                            ethnicityOther: document.querySelector(`input[name="ethnicity_other_extra_model${i}"]`)?.value || '',
                             countryRegion: document.querySelector(`select[name="extra_model_${i}_country_region"]`)?.value || '',
                             countryRegionOther: document.querySelector(`input[name="country_region_other_extra_model${i}"]`)?.value || '',
                             skinTone: document.querySelector(`select[name="extra_model_${i}_skin_tone"]`)?.value || '',
@@ -4768,7 +4766,7 @@ function onPlanChangeForEdition() {
                             eyeColorOther: document.querySelector(`input[name="eye_color_other_extra_model${i}"]`)?.value || '',
                             bodyType: document.querySelector(`select[name="extra_model_${i}_body_type"]`)?.value || '',
                             bodyTypeOther: document.querySelector(`input[name="body_type_other_extra_model${i}"]`)?.value || '',
-                            ageAppearance: document.querySelector(`select[name="extra_model_${i}_ageappearance"]`)?.value || '',
+                            ageAppearance: document.querySelector(`select[name="extra_model_${i}_age_appearance"]`)?.value || '',
                             heightAppearance: document.querySelector(`select[name="extra_model_${i}_height"]`)?.value || '',
                             weightAppearance: document.querySelector(`select[name="extra_model_${i}_weight"]`)?.value || '',
                       //      typeOfShot: document.querySelector(`select[name="extra_model_${i}_type_of_shot"]`)?.value || '',
@@ -5263,7 +5261,7 @@ function onPlanChangeForEdition() {
                             
                             message += `👥 APPEARANCE:\n`;
                             message += `  • Gender: ${model.gender || 'N/A'}\n`;
-                            message += `  • Ethnicity: ${model.ethnicity || 'N/A'}`;
+                 /*           message += `  • Ethnicity: ${model.ethnicity || 'N/A'}`;
                             if (model.ethnicity === 'Other' && model.ethnicityOther) {
                                 message += ` (${model.ethnicityOther})`;
                             }
@@ -5297,12 +5295,59 @@ function onPlanChangeForEdition() {
                             if (model.eyeColor === 'Other' && model.eyeColorOther) {
                                 message += ` (${model.eyeColorOther})`;
                             }
-                            message += `\n`;
+                            message += `\n`;   */
+
+                            // Ethnicity
+                            const ethnicityDisplay = model.ethnicity === 'Other' && model.ethnicityOther 
+                                ? model.ethnicityOther 
+                                : (model.ethnicity || 'N/A');
+                            message += `  • Ethnicity: ${ethnicityDisplay}\n`;
+                            
+                            // Country/Region
+                            const countryDisplay = model.countryRegion === 'Other' && model.countryRegionOther 
+                                ? model.countryRegionOther 
+                                : (model.countryRegion || 'N/A');
+                            message += `  • Country/Region: ${countryDisplay}\n`;
+                            
+                            // Skin Tone
+                            const skinToneDisplay = model.skinTone === 'Other' && model.skinToneOther 
+                                ? model.skinToneOther 
+                                : (model.skinTone || 'N/A');
+                            message += `  • Skin Tone: ${skinToneDisplay}\n`;
+                            
+                            // Hair Type
+                            const hairTypeDisplay = model.hairType === 'Other' && model.hairTypeOther 
+                                ? model.hairTypeOther 
+                                : (model.hairType || 'N/A');
+                            message += `  • Hair Type: ${hairTypeDisplay}\n`;
+                            
+                            // Hair Color
+                            const hairColorDisplay = model.hairColor === 'Other' && model.hairColorOther 
+                                ? model.hairColorOther 
+                                : (model.hairColor || 'N/A');
+                            message += `  • Hair Color: ${hairColorDisplay}\n`;
+                            
+                            // Hair Style
+                            const hairStyleDisplay = model.hairStyle === 'Other' && model.hairStyleOther 
+                                ? model.hairStyleOther 
+                                : (model.hairStyle || 'N/A');
+                            message += `  • Hair Style: ${hairStyleDisplay}\n`;
+                            
+                            // Eye Color
+                            const eyeColorDisplay = model.eyeColor === 'Other' && model.eyeColorOther 
+                                ? model.eyeColorOther 
+                                : (model.eyeColor || 'N/A');
+                            message += `  • Eye Color: ${eyeColorDisplay}\n`;
+                            
+                            // Body Type
+                            const bodyTypeDisplay = model.bodyType === 'Other' && model.bodyTypeOther 
+                                ? model.bodyTypeOther 
+                                : (model.bodyType || 'N/A');
+                            message += `  • Body Type: ${bodyTypeDisplay}\n`;
+
+                            
                             message += `  • Age Range: ${model.ageAppearance || 'N/A'}\n`;
-                            message += `  • Body Type: ${model.bodyType || 'N/A'}`;
-                            if (model.bodyType === 'Other' && model.bodyTypeOther) {
-                                message += ` (${model.bodyTypeOther})`;
-                            }
+                        
                             message += `\n`;
                             message += `  • Height: ${model.heightAppearance || 'N/A'}\n`;
                             message += `  • Weight Appearance: ${model.weightAppearance || 'N/A'}\n`;
@@ -7609,6 +7654,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
