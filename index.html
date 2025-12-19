@@ -5582,7 +5582,7 @@ function onPlanChangeForEdition() {
                     console.log(`📤 Uploading: ${fieldName} (${file.name})`);
                     
                     // Step 1: Upload file to Bitrix24 disk storage first
-                    const uploadUrl = "https://b24-6s59s1.bitrix24.com/rest/1/e3ec11e1wbdjmwu6/disk.storage.uploadfile";
+                    const uploadUrl = "https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/disk.storage.uploadfile";
                     
                     const formData = new FormData();
                     formData.append('FOLDER_ID', '1'); 
@@ -5607,7 +5607,7 @@ function onPlanChangeForEdition() {
                         console.log(`✅ File uploaded to storage: ${fieldName}`, uploadData.result.ID);
                         
                         // Step 2: Attach file to deal
-                        const attachUrl = "https://b24-6s59s1.bitrix24.com/rest/1/e3ec11e1wbdjmwu6/crm.deal.update";
+                        const attachUrl = "https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.deal.update";
                         const attachResponse = await fetch(attachUrl, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -7562,6 +7562,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
