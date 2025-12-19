@@ -2370,7 +2370,7 @@ function renderAccessoryInputs(num) {
     container.innerHTML += `
       <div class="form-group accessory-fgroup">
         <label for="accessory_type_${i}_model${num}">Accessory Type #${i}</label>
-        <select id="accessory_type_${i}_model${num}" name="accessory_type_${i}_model${num}">
+        <select id="accessory_type_${i}_model${num}" name="accessory_type_${i}_model${num}" onchange="toggleAccessoryOther(${i}, ${num})">
           <option value="">-- Select Type --</option>
           <option value="Jewelry">Jewelry</option>
           <option value="Hat">Hat</option>
@@ -2380,9 +2380,16 @@ function renderAccessoryInputs(num) {
           <option value="Scarf">Scarf</option>
           <option value="Other">Other</option>
         </select>
+        <div id="accessory_other_section_${i}_model${num}" class="hidden-section">
+          <label for="accessory_other_${i}_model${num}">Specify Accessory Type</label>
+          <input 
+            type="text" 
+            placeholder="e.g., Belt, Watch, Headpiece, etc."/>
+        </div>
+
         <label for="accessories_image_${i}_model${num}">Upload Image</label>
         <p style="font-size: 13px; color: rgba(255, 255, 255, 0.75); margin: 10px 0; padding: 12px; background: rgba(212, 175, 55, 0.08); border-radius: 4px; border-left: 3px solid var(--gold);">
-            We'll send you a secure upload link via email. This ensures better quality and supports larger file sizes for your garments, jewelry, products, and accessories.
+            We'll send you a secure upload link via email.
         </p>
       </div>
     `;
@@ -2407,6 +2414,18 @@ function validateAccessoryUploads(num) {
     }
   }
 }
+
+function toggleAccessoryOther(accessoryIndex, modelNum) {
+  const select = document.getElementById(`accessory_type_${accessoryIndex}_model${modelNum}`);
+  const otherSection = document.getElementById(`accessory_other_section_${accessoryIndex}_model${modelNum}`);
+  
+  if (select.value === 'Other') {
+    otherSection.classList.remove('hidden-section');  // Show it
+  } else {
+    otherSection.classList.add('hidden-section');     // Hide it
+  }
+}
+
 
 /* ---- Ethnicity "Other" Toggle Logic ---- */
 function toggleEthnicityOther(num, isExtra = false) {
@@ -4689,7 +4708,7 @@ function onPlanChangeForEdition() {
                          //   lightningEffectsOther: document.querySelector(`input[name="lightning_effects_other_model${i}"]`)?.value || '',
                             description: document.querySelector(`textarea[name="model_${i}_description"]`)?.value || '',
                             pose: document.querySelector(`textarea[name="model_${i}_pose"]`)?.value || '',
-                            accessoriesIncluded: document.querySelector(`select[name="accessoriesincludedmodeli"]`)?.value || '',
+                            accessoriesIncluded: document.querySelector(`select[name="accessories_included_model${i}"]`)?.value || '',
 
                             };
 
@@ -4701,15 +4720,24 @@ function onPlanChangeForEdition() {
                             const accessories = [];
                             if (accessoryCount > 0) {
                                 for (let accNum = 1; accNum <= accessoryCount; accNum++) {
+                                    const accessoryType = document.querySelector(`select[name="accessory_type_${accNum}_model${i}"]`)?.value || '';
+                                    let finalType = accessoryType;
+                                    
+                                    // If "Other" is selected, get the custom text
+                                    if (accessoryType === 'Other') {
+                                      const otherText = document.querySelector(`input[name="accessory_other_${accNum}_model${i}"]`)?.value || '';
+                                      finalType = otherText ? `Other: ${otherText}` : 'Other (not specified)';
+                                    }
+                                    
                                     accessories.push({
-                                        type: document.querySelector(`select[name="accessory_type_${accNum}_model${i}"]`)?.value || '',
-                                        description: document.querySelector(`textarea[name="accessories_desc_model${i}"]`)?.value || ''
+                                      type: finalType,
+                                      description: document.querySelector(`textarea[name="accessories_desc_model${i}"]`)?.value || '',
                                     });
+                                  }
                                 }
-                            }
                             
                             model.accessoriesArray = accessories;
-                            model.accessoriesIncluded = document.querySelector(`select[name="accessories_included_model${i}"]`)?.value || 'No';
+                            model.accessoriesIncluded = document.querySelector(`select[name="accessories_included_model${i}"]`)?.value || '';
                             models.push(model);
                     }
 
@@ -7563,6 +7591,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
