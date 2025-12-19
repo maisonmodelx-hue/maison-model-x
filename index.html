@@ -4251,8 +4251,8 @@ function onPlanChangeForEdition() {
                 // ========================================
                 // BITRIX24 WEBHOOK CONFIGURATION
                 // ========================================
-                const BITRIX24_WEBHOOK_URL = "https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.deal.add";
-                const BITRIX24_TIMELINE_URL = "https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.timeline.comment.add";
+                const BITRIX24_WEBHOOK_URL = "https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.deal.add";
+                const BITRIX24_TIMELINE_URL = "https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.timeline.comment.add";
             
                 // ========================================
                 // ATTACH FORM SUBMIT HANDLER
@@ -4837,7 +4837,7 @@ function onPlanChangeForEdition() {
                     try {
                         // Attempt to find existing contact by email
                         const searchResponse = await fetch(
-                            `https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.list?filter[EMAIL][0][VALUE]=${encodeURIComponent(email)}`
+                            `https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.contact.list?filter[EMAIL][0][VALUE]=${encodeURIComponent(email)}`
                         );
                         const searchData = await searchResponse.json();
                         
@@ -4849,7 +4849,7 @@ function onPlanChangeForEdition() {
                         // Create new contact if not found
                         console.log('👤 Creating new contact...');
                         const createResponse = await fetch(
-                            'https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.contact.add',
+                            'https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.contact.add',
                             {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
@@ -5536,7 +5536,7 @@ function onPlanChangeForEdition() {
                     }
 
                     // Add file documentation to deal timeline
-                    const timelineUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.timeline.comment.add";
+                    const timelineUrl = "https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.timeline.comment.add";
                     
                     const filesMessage = `
                 ╔════════════════════════════════════════╗
@@ -5582,7 +5582,7 @@ function onPlanChangeForEdition() {
                     console.log(`📤 Uploading: ${fieldName} (${file.name})`);
                     
                     // Step 1: Upload file to Bitrix24 disk storage first
-                    const uploadUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/disk.storage.uploadfile";
+                    const uploadUrl = "https://b24-6s59s1.bitrix24.com/rest/1/e3ec11e1wbdjmwu6/disk.storage.uploadfile";
                     
                     const formData = new FormData();
                     formData.append('FOLDER_ID', '1'); 
@@ -5607,7 +5607,7 @@ function onPlanChangeForEdition() {
                         console.log(`✅ File uploaded to storage: ${fieldName}`, uploadData.result.ID);
                         
                         // Step 2: Attach file to deal
-                        const attachUrl = "https://b24-ecusbg.bitrix24.in/rest/1/hmmyqgeqdrl2y91b/crm.deal.update";
+                        const attachUrl = "https://b24-6s59s1.bitrix24.com/rest/1/e3ec11e1wbdjmwu6/crm.deal.update";
                         const attachResponse = await fetch(attachUrl, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -5690,7 +5690,7 @@ function onPlanChangeForEdition() {
                     // Feedback Form Submission
                     document.getElementById('feedbackForm').addEventListener('submit', function(e) {
                         e.preventDefault();
-                        const webhookUrl = "https://b24-nl2p2c.bitrix24.in/rest/1/bctcrtlq2dveq2oz/crm.lead.add";
+                        const webhookUrl = "https://b24-6s59s1.bitrix24.com/rest/1/e3ec11e1wbdjmwu6/crm.lead.add";
                         
                         // Get form values
                         const fbName = document.querySelector('input[name="fbname"]').value;
@@ -7415,7 +7415,7 @@ function onPlanChangeForEdition() {
 
                     try {
                         // Send to Bitrix24 webhook
-                        const webhookUrl = 'https://b24-nl2p2c.bitrix24.in/rest/1/pvwdkv6iz1npvdij/crm.deal.add'; // Replace with your actual webhook URL
+                        const webhookUrl = 'https://b24-6s59s1.bitrix24.com/rest/1/wdzpjjny3ic7abgf/crm.deal.add'; // Replace with your actual webhook URL
                         
                         const response = await fetch(webhookUrl, {
                             method: 'POST',
@@ -7562,6 +7562,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
