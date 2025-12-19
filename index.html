@@ -5299,53 +5299,46 @@ function onPlanChangeForEdition() {
 
                             // Ethnicity
                             const ethnicityDisplay = model.ethnicity === 'Other' && model.ethnicityOther 
-                                ? model.ethnicityOther 
-                                : (model.ethnicity || 'N/A');
-                            message += `  • Ethnicity: ${ethnicityDisplay}\n`;
-                            
-                            // Country/Region
-                            const countryDisplay = model.countryRegion === 'Other' && model.countryRegionOther 
-                                ? model.countryRegionOther 
-                                : (model.countryRegion || 'N/A');
-                            message += `  • Country/Region: ${countryDisplay}\n`;
-                            
-                            // Skin Tone
-                            const skinToneDisplay = model.skinTone === 'Other' && model.skinToneOther 
-                                ? model.skinToneOther 
-                                : (model.skinTone || 'N/A');
-                            message += `  • Skin Tone: ${skinToneDisplay}\n`;
-                            
-                            // Hair Type
-                            const hairTypeDisplay = model.hairType === 'Other' && model.hairTypeOther 
-                                ? model.hairTypeOther 
-                                : (model.hairType || 'N/A');
-                            message += `  • Hair Type: ${hairTypeDisplay}\n`;
-                            
-                            // Hair Color
-                            const hairColorDisplay = model.hairColor === 'Other' && model.hairColorOther 
-                                ? model.hairColorOther 
-                                : (model.hairColor || 'N/A');
-                            message += `  • Hair Color: ${hairColorDisplay}\n`;
-                            
-                            // Hair Style
-                            const hairStyleDisplay = model.hairStyle === 'Other' && model.hairStyleOther 
-                                ? model.hairStyleOther 
-                                : (model.hairStyle || 'N/A');
-                            message += `  • Hair Style: ${hairStyleDisplay}\n`;
-                            
-                            // Eye Color
-                            const eyeColorDisplay = model.eyeColor === 'Other' && model.eyeColorOther 
-                                ? model.eyeColorOther 
-                                : (model.eyeColor || 'N/A');
-                            message += `  • Eye Color: ${eyeColorDisplay}\n`;
-                            
+                            ? model.ethnicityOther 
+                            : model.ethnicity;
+                          message += `Ethnicity: ${ethnicityDisplay ?? 'NA'}\n`;
+                          
+                          const countryDisplay = model.countryRegion === 'Other' && model.countryRegionOther 
+                            ? model.countryRegionOther 
+                            : model.countryRegion;
+                          message += `Country/Region: ${countryDisplay ?? 'NA'}\n`;
+                          
+                          const skinToneDisplay = model.skinTone === 'Other' && model.skinToneOther 
+                            ? model.skinToneOther 
+                            : model.skinTone;
+                          message += `Skin Tone: ${skinToneDisplay ?? 'NA'}\n`;
+                          
+                          const hairTypeDisplay = model.hairType === 'Other' && model.hairTypeOther 
+                            ? model.hairTypeOther 
+                            : model.hairType;
+                          message += `Hair Type: ${hairTypeDisplay ?? 'NA'}\n`;
+                          
+                          const hairColorDisplay = model.hairColor === 'Other' && model.hairColorOther 
+                            ? model.hairColorOther 
+                            : model.hairColor;
+                          message += `Hair Color: ${hairColorDisplay ?? 'NA'}\n`;
+                          
+                          const hairStyleDisplay = model.hairStyle === 'Other' && model.hairStyleOther 
+                            ? model.hairStyleOther 
+                            : model.hairStyle;
+                          message += `Hair Style: ${hairStyleDisplay ?? 'NA'}\n`;
+                          
+                          const eyeColorDisplay = model.eyeColor === 'Other' && model.eyeColorOther 
+                            ? model.eyeColorOther 
+                            : model.eyeColor;
+                          message += `Eye Color: ${eyeColorDisplay ?? 'NA'}\n`;
+                                                    
                             // Body Type
-                            const bodyTypeDisplay = model.bodyType === 'Other' && model.bodyTypeOther 
-                                ? model.bodyTypeOther 
-                                : (model.bodyType || 'N/A');
-                            message += `  • Body Type: ${bodyTypeDisplay}\n`;
-
-                            
+                           const bodyTypeDisplay = model.bodyType === 'Other' && model.bodyTypeOther 
+                            ? model.bodyTypeOther 
+                            : model.bodyType;
+                          message += `Body Type: ${bodyTypeDisplay ?? 'NA'}\n`;
+                                                        
                             message += `  • Age Range: ${model.ageAppearance || 'N/A'}\n`;
                         
                             message += `\n`;
@@ -7654,6 +7647,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
