@@ -5508,24 +5508,6 @@ function onPlanChangeForEdition() {
             }
         });
 
-        // Mobile Alert Detection
- /*       function checkMobileAndShowAlert() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                document.getElementById('mobileAlertModal').classList.add('show');
-            }
-        }
-        
-        function closeMobileAlert() {
-            document.getElementById('mobileAlertModal').classList.remove('show');
-        } */
-        
-        // Run on page load
-        // Mobile Alert Detection - Show Immediately
-      //  checkMobileAndShowAlert();
-        // Also run on load as backup
-     //   window.addEventListener('load', checkMobileAndShowAlert);
 
         function toggleMobileMenu() {
             const menu = document.getElementById('navMenu');
@@ -5580,12 +5562,7 @@ function onPlanChangeForEdition() {
             }, 3000);
         }
 
-        // Optional: Auto-advance through dots (commented out as continuous animation handles this)
-        // setInterval(() => {
-        //     currentFeedbackIndex = (currentFeedbackIndex + 1) % totalCards;
-        //     goToCard(currentFeedbackIndex);
-        // }, 7000);
-    
+      
         // Update active dot as animation progresses
         setInterval(() => {
             feedbackDots.forEach((dot, i) => {
@@ -5619,54 +5596,4 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
