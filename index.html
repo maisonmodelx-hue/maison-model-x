@@ -3787,48 +3787,58 @@ function onPlanChangeForEdition() {
                 </form>
                 
                 <script>
-                    
-                    // Feedback Form Submission
-                    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        const webhookUrl = "https://b24-6s59s1.bitrix24.com/rest/1/e3ec11e1wbdjmwu6/crm.lead.add";
+
+                    // FEEDBACK FORM - EMAIL SUBMISSION
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const feedbackForm = document.getElementById('feedbackForm');
                         
-                        // Get form values
-                        const fbName = document.querySelector('input[name="fbname"]').value;
-                        const fbEmail = document.querySelector('input[name="fbemail"]').value;
-                        const fbSubject = document.querySelector('input[name="fbsubject"]').value;
-                        const fbMessage = document.querySelector('textarea[name="fbmessage"]').value;
-        
-                        // Format data for Bitrix24
-                        const bitrixData = {
-                            fields: {
-                                TITLE: `Feedback from ${fbName}`,
-                                NAME: fbName,
-                                EMAIL: [{"VALUE": fbEmail, "VALUE_TYPE": "WORK"}],
-                                COMMENTS: `Subject: ${fbSubject}\n\nMessage: ${fbMessage}`
-                            }
-                        };
-                        fetch(webhookUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(bitrixData)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.result) {
-                                alert('✅ Thank you for submitting your feedback!');
-                                document.getElementById('feedbackForm').reset();
-                            } else {
-                                alert('There was an error submitting your feedback. Please try again.');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('There was an error submitting your feedback. Please try again.');
-                        });
+                        if (feedbackForm) {
+                            feedbackForm.addEventListener('submit', async function(e) {
+                                e.preventDefault();
+                                
+                                const submitBtn = feedbackForm.querySelector('button[type="submit"]');
+                                const originalBtnText = submitBtn.textContent;
+                                submitBtn.textContent = 'Sending...';
+                                submitBtn.disabled = true;
+                                
+                                // Collect form data
+                                const formData = {
+                                    fbname: feedbackForm.querySelector('input[name="fbname"]').value,
+                                    fbemail: feedbackForm.querySelector('input[name="fbemail"]').value,
+                                    fbsubject: feedbackForm.querySelector('input[name="fbsubject"]').value,
+                                    fbmessage: feedbackForm.querySelector('textarea[name="fbmessage"]').value
+                                };
+                                
+                                try {
+                                    // Send to your email endpoint
+                                    const response = await fetch('/api/send-feedback', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(formData)
+                                    });
+                                    
+                                    if (response.ok) {
+                                        alert('Thank you for your feedback! We\'ll review it and get back to you soon.');
+                                        feedbackForm.reset();
+                                    } else {
+                                        alert('There was an error submitting your feedback. Please try again.');
+                                    }
+                                } catch (error) {
+                                    console.error('Error submitting feedback:', error);
+                                    alert('There was an error submitting your feedback. Please try again or email us at mentionmodelx@richemail.com');
+                                } finally {
+                                    submitBtn.textContent = originalBtnText;
+                                    submitBtn.disabled = false;
+                                }
+                            });
+                        }
                     });
+
+                    
+                </script>
+                    
                 </script>       
             </div>
         </div>
@@ -5608,6 +5618,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
