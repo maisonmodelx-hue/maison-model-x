@@ -3811,13 +3811,14 @@ function onPlanChangeForEdition() {
                                 
                                 try {
                                     // Send to your email endpoint
-                                    const response = await fetch('/api/send-feedback', {
+                                    const response = await fetch('/.netlify/functions/feedback', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
                                         },
                                         body: JSON.stringify(formData)
                                     });
+                                    const data = await response.json();
                                     
                                     if (response.ok) {
                                         alert('Thank you for your feedback! We\'ll review it and get back to you soon.');
@@ -5618,6 +5619,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
