@@ -2,8 +2,9 @@
   "name": "maison-model-x",
   "version": "1.0.0",
   "dependencies": {
-    "razorpay": "^2.9.2"
+    "razorpay": "^2.9.2",
     "nodemailer": "^7.0.12"
   }
 }
+
 
