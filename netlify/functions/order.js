@@ -1,66 +1,90 @@
 const nodemailer = require('nodemailer');
 
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
+  // Only allow POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      body: JSON.stringify({ error: 'Method Not Allowed' })
+      body: JSON.stringify({ message: 'Method Not Allowed' })
     };
   }
 
   try {
-    const orderData = JSON.parse(event.body);
-
-    // Create email transporter
+    const data = JSON.parse(event.body);
+    
+    // Create transporter using Gmail
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS
+        user: process.env.EMAIL_USER, // Your Gmail address
+        pass: process.env.EMAIL_PASS  // App password (not regular password)
       }
     });
 
-    // Format order data for email
-    const emailContent = `
-      New Order Received
+    // Format order details
+    const orderDetails = `
+      NEW ORDER SUBMISSION
+      ====================
       
-      CLIENT DETAILS:
-      Name: ${orderData.clientname || 'N/A'}
-      Email: ${orderData.clientemail || 'N/A'}
-      Phone: ${orderData.clientphone || 'N/A'}
+      Contact Information:
+      - Name: ${data.clientname}
+      - Email: ${data.clientemail}
+      - Phone: +${data.countrycode} ${data.clientphone}
+      - Brand: ${data.brandname}
       
-      BRAND DETAILS:
-      Brand Name: ${orderData.brandname || 'N/A'}
+      Requirements:
+      ${data.requirements}
       
-      MODEL & GARMENT INFO:
-      ${Object.keys(orderData)
-        .filter(key => key.startsWith('model_') || key.startsWith('garment_'))
-        .map(key => `${key}: ${orderData[key]}`)
-        .join('\n')}
-      
-      ADDITIONAL NOTES:
-      ${orderData.basicRequirements || 'None'}
-      
-      Timestamp: ${new Date().toISOString()}
+      Submitted: ${new Date().toLocaleString()}
     `;
 
-    // Send email to business address
+    // Send email
     await transporter.sendMail({
-      from: process.env.GMAIL_USER,
-      to: 'machinemodelx@redgmail.com',
-      subject: `New Order from ${orderData.clientname}`,
-      text: emailContent
+      from: process.env.EMAIL_USER,
+      to: 'maisonmodelx@gmail.com',
+      subject: `New Order - ${data.brandname}`,
+      text: orderDetails,
+      replyTo: data.clientemail
+    });
+
+    // Send confirmation to client
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: data.clientemail,
+      subject: 'Order Confirmation - Maison Model X',
+      text: `Dear ${data.clientname},
+
+Thank you for your order! We've received your requirements and will review them shortly.
+
+We'll contact you within 24 hours to discuss your project in detail.
+
+Requirements Summary:
+${data.requirements}
+
+Best regards,
+Maison Model X Team
+
+---
+This is an automated confirmation. Please do not reply to this email.
+For questions, contact: maisonmodelx@gmail.com`
     });
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ success: true, message: 'Order submitted successfully' })
+      body: JSON.stringify({ 
+        message: 'Order submitted successfully',
+        success: true 
+      })
     };
+
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Order submission error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to submit order', details: error.message })
+      body: JSON.stringify({ 
+        message: 'Failed to submit order',
+        error: error.message 
+      })
     };
   }
 };
