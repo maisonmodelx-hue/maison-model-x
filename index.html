@@ -3178,7 +3178,11 @@ function onPlanChangeForEdition() {
             afterImages.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.style.cssText = 'width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s ease;';
-                dot.addEventListener('click', () => goToImage(index));
+                dot.addEventListener('click', () => {
+                clearInterval(autoSlideInterval); // Stop auto-slide on manual click
+                goToImage(index);
+                startAutoSlide(); // Restart auto-slide
+            });
                 dotsContainer.appendChild(dot);
             });
             
@@ -3222,7 +3226,7 @@ function onPlanChangeForEdition() {
             // Start auto-sliding
             startAutoSlide();
             
-            // Note: We're NOT stopping on hover as per your requirement
+            // Note: NOT stopping on hover as per requirement
         });
     }
     
@@ -4370,6 +4374,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
