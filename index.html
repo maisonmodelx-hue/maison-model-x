@@ -3109,24 +3109,86 @@ function onPlanChangeForEdition() {
         <div class="panels-container" style="display: flex; gap: 20px; justify-content: center;">
             <!-- Left Panel -->
             <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <img src="W6_C_W8_J_2.png" alt="Before" style="width: 100%; display: block;" loading= "lazy" />
+                <img src="sketch1.png" alt="Before" style="width: 100%; display: block;" loading= "lazy" />
                 <div class="after-image-left" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
-                    <img src="W8_4.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
+                    <img src="W13_2.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
+                </div>
+                <div class="after-image-left" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                    <img src="W13_4.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
+                </div>
+                <div class="after-image-left" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                    <img src="W13_6.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
                 </div>
             </div>
 
-            <!-- Right Panel -->
             <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <img src="W11_J.png" alt="Before" style="width: 100%; display: block;" loading= "lazy" />
+                <img src="Jewel1.png" alt="Before" style="width: 100%; display: block;" loading= "lazy" />
                 <div class="after-image-right" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
-                    <img src="W11_2.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
+                    <img src="W16_2.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
+                </div>
+                <div class="after-image-right" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                    <img src="W11_4.png" alt="After" style="width: 100%; display: block;" loading= "lazy" />
                 </div>
             </div>
         </div>
+
+        <div class="slider-panel" style="flex: 1; max-width: 400px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
+            <img src="canvas1.png" alt="Before" style="width: 100%; display: block;" loading="lazy" />
+            <div class="after-image-new-1" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                <img src="W14_1.png" alt="After" style="width: 100%; display: block;" loading="lazy" />
+            </div>
+            <div class="after-image-new-1" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 100% 0 0);">
+                <img src="W14_2.png" alt="After" style="width: 100%; display: block;" loading="lazy" />
+            </div>
+        </div>
+        
     </section>
 
     <script>
         function initSliders() {
+            const panelImageData = [
+                {
+                    panelIndex: 0,
+                    images: [
+                        'W6_C_W8_J_2.png',  // Image 1
+                        'W8_4.png',         // Image 2
+                        'before_state.png'  // Image 3 (optional, loops back)
+                    ]
+                },
+                {
+                    panelIndex: 1,
+                    images: [
+                        'W11_J.png',        // Image 1
+                        'W11_2.png',        // Image 2
+                        'after_state.png',  // Image 3
+                        'another_state.png' // Image 4
+                    ]
+                }
+            ];
+
+            let currentImageIndex = 0;
+            const imageList = panelImageData[index].images;
+            const totalImages = imageList.length;
+            
+            function startRotation() {
+                if (rotationInterval) clearInterval(rotationInterval);
+                rotationInterval = setInterval(() => {
+                    if (!isPaused) {
+                        currentImageIndex = (currentImageIndex + 1) % totalImages;
+                        
+                        // Update the after-image source
+                        const afterImg = afterImage.querySelector('img');
+                        afterImg.src = imageList[currentImageIndex];
+                        
+                        // Toggle visibility or use clip-path for instant swap
+                        currentProgress = currentProgress === 0 ? 1 : 0;
+                        const rightPercent = 100 - currentProgress * 100;
+                        afterImage.style.clipPath = `inset(0 ${rightPercent}% 0 0)`;
+                    }
+                }, rotationDelay);
+            }
+
+
             const panels = document.querySelectorAll('.slider-panel');
             panels.forEach((panel, index) => {
                 const afterImageClass = index === 0 ? '.after-image-left' : '.after-image-right';
@@ -3136,7 +3198,7 @@ function onPlanChangeForEdition() {
                 let isHovering = false;
                 let currentProgress = 0;
                 const animationDuration = 1200; // 600ms for smooth hover animation
-                let animationStartTime = null;
+                let animationStartTime = null;  
 
                 function animateToProgress(targetProgress) {
                     if (animationId) cancelAnimationFrame(animationId);
@@ -3165,15 +3227,36 @@ function onPlanChangeForEdition() {
                     animationId = requestAnimationFrame(updateAnimation);
                 }
 
+               // NEW: Auto-rotation with pause/resume on hover
+                let rotationInterval = null;
+                let isPaused = false;
+                const rotationDelay = 3000; // 3 seconds per image before swap
+                
+                function startRotation() {
+                    if (rotationInterval) clearInterval(rotationInterval);
+                    rotationInterval = setInterval(() => {
+                        if (!isPaused) {
+                            // Swap image instantly (no animation)
+                            currentProgress = currentProgress === 0 ? 1 : 0;
+                            const rightPercent = 100 - currentProgress * 100;
+                            afterImage.style.clipPath = `inset(0 ${rightPercent}% 0 0)`;
+                        }
+                    }, rotationDelay);
+                }
+                
+                // Pause on hover
                 panel.addEventListener('mouseenter', function () {
-                    isHovering = true;
-                    animateToProgress(1); // Animate to fully revealed
+                    isPaused = true;
                 });
-
+                
+                // Resume on hover end
                 panel.addEventListener('mouseleave', function () {
-                    isHovering = false;
-                    animateToProgress(0); // Animate back to before state
+                    isPaused = false;
                 });
+                
+                // Start auto-rotation when page loads
+                startRotation();
+                 
             });
         }
 
@@ -4321,6 +4404,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
