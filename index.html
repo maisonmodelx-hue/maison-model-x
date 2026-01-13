@@ -3116,51 +3116,45 @@ function onPlanChangeForEdition() {
     <section class="before-after-slider" style="max-width: 900px; margin: 0 auto; padding: 50px 20px;">
         <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Transform Your Vision</h2>
         <div class="panels-container" style="display: flex; gap: 20px; justify-content: center;">
-            <!-- Panel 1 -->
-            <div class="slider-panel" data-panel="0" style="flex: 1; max-width: 350px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="Sketch1.png" alt="Before" class="panel-image" data-index="0" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W13_2.png" alt="After" class="panel-image" data-index="1" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W13_4.png" alt="After" class="panel-image" data-index="2" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W13_6.png" alt="After" class="panel-image" data-index="3" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="slider-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+        <!-- Panel 1 - 4 images -->
+        <div class="slider-panel" data-panel="0" style="flex: 1; max-width: 350px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
+            <img src="Sketch1.png" alt="Before" style="width: 100%; display: block;" loading="lazy" />
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W13_2.png" alt="After 1" class="panel-image" data-index="0" style="width: 100%; display: block;" loading="lazy" />
             </div>
-        
-            <!-- Panel 2 -->
-            <div class="slider-panel" data-panel="1" style="flex: 1; max-width: 350px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="Jewel1.jpg" alt="Before" class="panel-image" data-index="0" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W16_2.jpg" alt="After" class="panel-image" data-index="1" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W11_4.png" alt="After" class="panel-image" data-index="2" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="slider-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W13_4.png" alt="After 2" class="panel-image" data-index="1" style="width: 100%; display: block;" loading="lazy" />
             </div>
-        
-            <!-- Panel 3 -->
-            <div class="slider-panel" data-panel="2" style="flex: 1; max-width: 350px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="canvas1.png" alt="Before" class="panel-image" data-index="0" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W14_1.jpg" alt="After" class="panel-image" data-index="1" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; transition: opacity 0.5s ease;">
-                    <img src="W14_2.jpg" alt="After" class="panel-image" data-index="2" style="width: 100%; display: block;" loading="lazy" />
-                </div>
-                <div class="slider-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W13_6.png" alt="After 3" class="panel-image" data-index="2" style="width: 100%; display: block;" loading="lazy" />
             </div>
+            <div class="slider-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
         </div>
+    
+        <!-- Panel 2 - 3 images -->
+        <div class="slider-panel" data-panel="1" style="flex: 1; max-width: 350px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
+            <img src="Jewel1.jpg" alt="Before" style="width: 100%; display: block;" loading="lazy" />
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W16_2.jpg" alt="After 1" class="panel-image" data-index="0" style="width: 100%; display: block;" loading="lazy" />
+            </div>
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W11_4.png" alt="After 2" class="panel-image" data-index="1" style="width: 100%; display: block;" loading="lazy" />
+            </div>
+            <div class="slider-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+        </div>
+    
+        <!-- Panel 3 - 3 images -->
+        <div class="slider-panel" data-panel="2" style="flex: 1; max-width: 350px; position: relative; overflow: hidden; cursor: pointer; user-select: none;">
+            <img src="canvas1.png" alt="Before" style="width: 100%; display: block;" loading="lazy" />
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W14_1.jpg" alt="After 1" class="panel-image" data-index="0" style="width: 100%; display: block;" loading="lazy" />
+            </div>
+            <div class="after-image" style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; opacity: 0; transition: opacity 0.5s ease;">
+                <img src="W14_2.jpg" alt="After 2" class="panel-image" data-index="1" style="width: 100%; display: block;" loading="lazy" />
+            </div>
+            <div class="slider-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+        </div>
+    </div>
         
     </section>
 
@@ -3178,11 +3172,7 @@ function onPlanChangeForEdition() {
             afterImages.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.style.cssText = 'width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s ease;';
-                dot.addEventListener('click', () => {
-                    clearInterval(autoSlideInterval);
-                    goToImage(index);
-                    startAutoSlide();
-                });
+                dot.addEventListener('click', () => goToImage(index));
                 dotsContainer.appendChild(dot);
             });
             
@@ -3190,9 +3180,7 @@ function onPlanChangeForEdition() {
             
             function goToImage(index) {
                 // Hide all images
-                afterImages.forEach(img => {
-                    img.style.opacity = '0';
-                });
+                afterImages.forEach(img => img.style.opacity = '0');
                 
                 // Show selected image
                 if (afterImages[index]) {
@@ -3219,15 +3207,16 @@ function onPlanChangeForEdition() {
             }
             
             function startAutoSlide() {
-                clearInterval(autoSlideInterval);
-                autoSlideInterval = setInterval(nextImage, 2000);
+                autoSlideInterval = setInterval(nextImage, 2000); // Change every 2 seconds
             }
             
-            // CRITICAL: Show first image immediately
+            // Initialize - show first image
             goToImage(0);
             
             // Start auto-sliding
             startAutoSlide();
+            
+            // Note: We're NOT stopping on hover as per your requirement
         });
     }
     
@@ -4375,6 +4364,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
