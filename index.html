@@ -411,163 +411,6 @@
             transform: scale(1.08);
         }
 
-        .collections-gallery {
-              background: var(--black);
-              padding: 100px 60px;
-              position: relative;
-        }
-            
-        .collections-wrapper {
-              display: flex;
-              max-width: 1400px;
-              margin: 0 auto;
-              gap: 40px;
-        }
-            
-        .collections-left {
-              flex: 1;
-              position: relative;
-        }
-            
-        .collections-title {
-              font-family: 'Playfair Display', serif;
-              font-size: 48px;
-              font-weight: 900;
-              color: var(--white);
-              writing-mode: vertical-rl;
-              text-orientation: mixed;
-              position: absolute;
-              left: 20px;
-              top: 50%;
-              transform: translateY(-50%);
-              z-index: 10;
-              text-align: right;
-              line-height: 1.1;
-              letter-spacing: -1px;
-              opacity: 0.9;
-            }
-            
-        .collection-item {
-              margin-bottom: 60px;
-              position: relative;
-            }
-            
-        .collection-main img {
-              width: 100%;
-              height: 500px;
-              object-fit: cover;
-              border-radius: 12px;
-              box-shadow: 0 15px 50px rgba(0,0,0,0.4);
-              transition: all 0.4s ease;
-            }
-            
-        .collection-item:hover .collection-main img {
-              transform: scale(1.02);
-              box-shadow: 0 25px 70px rgba(212,175,55,0.2);
-            }
-            
-        .collection-previews {
-              display: flex;
-              gap: 12px;
-              margin-top: 20px;
-            }
-            
-        .collection-previews img {
-              width: 120px;
-              height: 80px;
-              object-fit: cover;
-              border-radius: 8px;
-              border: 2px solid rgba(212,175,55,0.3);
-              transition: all 0.3s ease;
-              cursor: pointer;
-            }
-            
-        .collection-previews img:hover {
-              border-color: var(--gold);
-              transform: scale(1.05);
-            }
-            
-        .collection-label {
-              font-family: 'Playfair Display', serif;
-              font-size: 24px;
-              font-weight: 700;
-              color: var(--gold);
-              margin-top: 15px;
-              text-align: center;
-              line-height: 1.2;
-            }
-            
-        .collections-sidebar {
-              width: 80px;
-              background: var(--black);
-              border-left: 1px solid rgba(212,175,55,0.25);
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              padding: 20px 0;
-            }
-            
-            .gallery-arrows {
-              position: absolute;
-              top: 50%;
-              right: 60px;
-              transform: translateY(-50%);
-              display: flex;
-              gap: 10px;
-              z-index: 20;
-            }
-            
-            .arrow {
-              width: 50px;
-              height: 50px;
-              background: rgba(212,175,55,0.9);
-              color: var(--black);
-              border: none;
-              border-radius: 50%;
-              font-size: 20px;
-              font-weight: bold;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              box-shadow: 0 8px 25px rgba(212,175,55,0.3);
-            }
-            
-            .arrow:hover {
-              background: var(--gold);
-              transform: scale(1.1);
-            }
-            
-            /* Responsive */
-            @media (max-width: 1024px) {
-              .collections-wrapper {
-                flex-direction: column;
-                gap: 40px;
-              }
-              .collections-title {
-                position: static;
-                writing-mode: horizontal-tb;
-                text-align: center;
-                margin-bottom: 40px;
-                transform: none;
-              }
-              .collections-sidebar {
-                display: none;
-              }
-              .gallery-arrows {
-                display: none;
-              }
-            }
-            
-            @media (max-width: 768px) {
-              .collections-main img {
-                height: 300px;
-              }
-              .collection-previews img {
-                width: 80px;
-                height: 60px;
-              }
-            }
-
-
         /* ============ BENEFITS/WHY CHOOSE ============ */
         .benefits {
             background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
@@ -3439,7 +3282,7 @@ function onPlanChangeForEdition() {
 
 
     <!-- GALLERY - OUR MODELS -->
-<!--    <section class="gallery" id="models">
+    <section class="gallery" id="models">
         <h1 class="section-title" style="display: flex; align-items: center; justify-content: center;">
             <img src="camera3.png" alt="Gallery Camera Icon" style="width: 65px; height: 60px; margin-right: 7px;" loading= "lazy">Gallery
         </h1>
@@ -3473,54 +3316,7 @@ function onPlanChangeForEdition() {
                 <img src="W7_2.png" alt="Model 9" loading="lazy">
             </div>
         </div>
-    </section>  -->
-
-    <section class="collections-gallery" id="models">
-      <div class="collections-wrapper">
-        <!-- Left: Title + Main Image -->
-        <div class="collections-left">
-          <h1 class="collections-title">Our<br>Collections</h1>
-          
-          <!-- Collection 1: Aterna -->
-          <div class="collection-item">
-            <div class="collection-main">
-              <img src="M1.png" alt="Aterna Collection" loading="lazy">
-            </div>
-            <div class="collection-previews">
-              <img src="W16_3.png" alt="Aterna Preview 1" loading="lazy">
-              <img src="M3_3.png" alt="Aterna Preview 2" loading="lazy">
-              <img src="W6_1.png" alt="Aterna Preview 3" loading="lazy">
-            </div>
-            <div class="collection-label">Aterna</div>
-          </div>
-    
-          <!-- Collection 2: Whispers from the Valley -->
-          <div class="collection-item">
-            <div class="collection-main">
-              <img src="W11_3.png" alt="Whispers from the Valley" loading="lazy">
-            </div>
-            <div class="collection-previews">
-              <img src="M13_3.png" alt="Whispers Preview 1" loading="lazy">
-              <img src="W12_2.png" alt="Whispers Preview 2" loading="lazy">
-              <img src="M14_1.png" alt="Whispers Preview 2" loading="lazy">
-              <img src="W7_2.png" alt="Whispers Preview 4" loading="lazy">
-            </div>
-            <div class="collection-label">Whispers from<br>the Valley</div>
-          </div>
-        </div>
-    
-        <!-- Right: Sidebar -->
-        <div class="collections-sidebar">
-          <!-- Add navigation or content here if needed -->
-        </div>
-      </div>
-    
-      <div class="gallery-arrows">
-        <button class="arrow prev" onclick="prevCollection()">&#8249;</button>
-        <button class="arrow next" onclick="nextCollection()">&#8250;</button>
-      </div>
     </section>
-
 
     <!-- WHY CHOOSE US -->
     <section class="benefits">
@@ -4565,66 +4361,9 @@ function onPlanChangeForEdition() {
         
     </script>
 
+
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
