@@ -450,15 +450,15 @@
             font-size: 24px;
             cursor: pointer;
             z-index: 10;
-            padding: 5px 10px;
+            padding: 10px 15px;
             transition: all 0.3s ease;
-            opacity: 0.5;
+            opacity: 0.7;
         }
         
         .gallery-nav:hover {
             opacity: 1;
-            transform: translateY(-50%) scale(1.1);
-            text-shadow: none;
+            transform: translateY(-50%) scale(1.2);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
         
         .gallery-nav.prev {
@@ -477,48 +477,26 @@
             margin-top: 30px;
             padding: 0 20px;
         }
-
-        .gallery-line-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 30px;
-            padding: 0 20px;
-        }
         
-        .gallery-line {
-            width: 40px; /* Horizontal line length */
-            height: 2px;
-            background: rgba(212, 175, 55, 0.2); /* Subtle inactive */
+        .gallery-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.3);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
         
-        .gallery-line.active {
-            background: rgba(212, 175, 55, 0.8); /* Active line darker */
-            height: 3px; /* Slightly thicker */
-        }
-        
-        .gallery-line:hover {
-            background: rgba(212, 175, 55, 0.5);
-        }
-        
-        /* Optional: Add subtle animation */
-        .gallery-line.active::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .gallery-indicator.active {
             background: var(--gold);
-            animation: lineGlow 2s ease-in-out infinite;
+            transform: scale(1.3);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
         
-        @keyframes lineGlow {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+        .gallery-indicator:hover {
+            background: rgba(212, 175, 55, 0.6);
+            transform: scale(1.2);
         }
 
 
@@ -3406,8 +3384,7 @@ function onPlanChangeForEdition() {
         </h1>
         <p class="section-subtitle">One Face, Endless Narratives. Distinctly Yours</p>
         <div class="gallery-grid">
-            <button class="gallery-nav prev" aria-label="Previous image">←</button>
-            
+            <button class="gallery-nav prev" aria-label="Previous slide">←</button>
             
             <div class="gallery-track" id="galleryTrack">
                 <div class="gallery-item active">
@@ -3441,10 +3418,12 @@ function onPlanChangeForEdition() {
                     <img src="W7_2.png" alt="Model 9" loading="lazy">
                 </div>
             </div>
-           <button class="gallery-nav next" aria-label="Next image">→</button> 
+            
+            <button class="gallery-nav next" aria-label="Next slide">→</button>
         </div>
-        <div class="gallery-line-indicators" id="lineIndicators">
-        </div>
+        
+        <!-- Optional: Indicator dots -->
+        <div class="gallery-indicators" id="galleryIndicators"></div>
 
     </section>
 
@@ -4429,7 +4408,6 @@ function onPlanChangeForEdition() {
         });
 
         /* ============ EDITORIAL SLIDER - GALLERY ============ */
-        /* ============ EDITORIAL SLIDER - GALLERY (INFINITE LOOP) ============ */
         document.addEventListener('DOMContentLoaded', function() {
             const track = document.getElementById('galleryTrack');
             const items = document.querySelectorAll('.gallery-item');
@@ -4439,91 +4417,48 @@ function onPlanChangeForEdition() {
             
             let currentIndex = 0;
             const itemCount = items.length;
-            const itemWidth = 500; // Match max-width from CSS
-            const gap = 30; // Match gap from CSS
             
             // Create indicator dots
-            const lineIndicatorsContainer = document.getElementById('lineIndicators');
-
-// Create line indicators (only for ORIGINAL slides, not clones)
-            for (let i = 0; i < ORIGINAL_ITEM_COUNT; i++) {
-                const line = document.createElement('button');
-                line.className = 'gallery-line' + (i === 0 ? ' active' : '');
-                line.setAttribute('aria-label', `Go to slide ${i + 1}`);
-                line.addEventListener('click', () => goToSlide(i + CLONE_COUNT)); // Account for clones
-                lineIndicatorsContainer.appendChild(line);
-            }
+            items.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'gallery-indicator' + (index === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(dot);
+            });
             
-            const lineIndicators = document.querySelectorAll('.gallery-line');
+            const indicators = document.querySelectorAll('.gallery-indicator');
             
-            function updateSlider(smooth = true) {
+            function updateSlider() {
+                // Calculate translation: center the active slide
+                const itemWidth = items[0].offsetWidth;
+                const gap = 30;
                 const containerWidth = track.parentElement.offsetWidth;
-                const totalItemWidth = itemWidth + gap;
-                const offset = -(currentIndex * totalItemWidth) + (containerWidth / 2) - (itemWidth / 2);
+                const offset = -(currentIndex * (itemWidth + gap)) + (containerWidth / 2) - (itemWidth / 2);
                 
-                track.style.transition = smooth ? 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
                 track.style.transform = `translateX(${offset}px)`;
                 
-                // Update active states (only for ORIGINAL slides, not clones)
-                const allItems = document.querySelectorAll('.gallery-item');
-                allItems.forEach((item, i) => {
-                    const isOriginal = i >= CLONE_COUNT && i < CLONE_COUNT + ORIGINAL_ITEM_COUNT;
-                    const isActive = i === currentIndex && isOriginal;
-                    item.classList.toggle('active', isActive);
+                // Update active states
+                items.forEach((item, i) => {
+                    item.classList.toggle('active', i === currentIndex);
                 });
                 
-                // Update indicators (explained in next section)
-                updateIndicators();
+                indicators.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
             }
             
             function goToSlide(index) {
-                currentIndex = index;
-                updateSlider(true);
+                currentIndex = (index + itemCount) % itemCount;
+                updateSlider();
             }
             
-            const ORIGINAL_ITEM_COUNT = 10; // Your actual slides
-            const CLONE_COUNT = 2; // Clones on each side
-            
             function nextSlide() {
-                currentIndex++;
-                updateSlider(true);
-                
-                // If we've reached the first clone after last original
-                if (currentIndex === ORIGINAL_ITEM_COUNT + CLONE_COUNT) {
-                    setTimeout(() => {
-                        currentIndex = CLONE_COUNT; // Jump to first original
-                        updateSlider(false); // No animation for instant reset
-                    }, 800); // Match your transition duration
-                }
+                goToSlide(currentIndex + 1);
             }
             
             function prevSlide() {
-                currentIndex--;
-                updateSlider(true);
-                
-                // If we've reached the clone before first original
-                if (currentIndex < CLONE_COUNT) {
-                    setTimeout(() => {
-                        currentIndex = ORIGINAL_ITEM_COUNT + CLONE_COUNT - 1; // Jump to last original
-                        updateSlider(false);
-                    }, 800);
-                }
-            }
-
-            function updateIndicators() {
-                // Map current index to original slide index
-                let displayIndex = currentIndex - CLONE_COUNT;
-                
-                // Handle wrapping for visual consistency
-                if (displayIndex < 0) {
-                    displayIndex = ORIGINAL_ITEM_COUNT + displayIndex;
-                } else if (displayIndex >= ORIGINAL_ITEM_COUNT) {
-                    displayIndex = displayIndex - ORIGINAL_ITEM_COUNT;
-                }
-                
-                lineIndicators.forEach((line, i) => {
-                    line.classList.toggle('active', i === displayIndex);
-                });
+                goToSlide(currentIndex - 1);
             }
             
             // Event listeners
@@ -4537,10 +4472,9 @@ function onPlanChangeForEdition() {
             });
             
             // Initial render
-            updateSlider(false);
+            updateSlider();
         });
         /* ============ END EDITORIAL SLIDER ============ */
-
 
     </script>
 
@@ -4609,8 +4543,6 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
-
-
 
 
 
