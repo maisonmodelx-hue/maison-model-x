@@ -4408,6 +4408,7 @@ function onPlanChangeForEdition() {
         });
 
         /* ============ EDITORIAL SLIDER - GALLERY ============ */
+        /* ============ EDITORIAL SLIDER - GALLERY (INFINITE LOOP) ============ */
         document.addEventListener('DOMContentLoaded', function() {
             const track = document.getElementById('galleryTrack');
             const items = document.querySelectorAll('.gallery-item');
@@ -4417,6 +4418,8 @@ function onPlanChangeForEdition() {
             
             let currentIndex = 0;
             const itemCount = items.length;
+            const itemWidth = 500; // Match max-width from CSS
+            const gap = 30; // Match gap from CSS
             
             // Create indicator dots
             items.forEach((_, index) => {
@@ -4429,13 +4432,13 @@ function onPlanChangeForEdition() {
             
             const indicators = document.querySelectorAll('.gallery-indicator');
             
-            function updateSlider() {
-                // Calculate translation: center the active slide
-                const itemWidth = items[0].offsetWidth;
-                const gap = 30;
+            function updateSlider(smooth = true) {
+                // Calculate translation to center the active slide
                 const containerWidth = track.parentElement.offsetWidth;
-                const offset = -(currentIndex * (itemWidth + gap)) + (containerWidth / 2) - (itemWidth / 2);
+                const totalItemWidth = itemWidth + gap;
+                const offset = -(currentIndex * totalItemWidth) + (containerWidth / 2) - (itemWidth / 2);
                 
+                track.style.transition = smooth ? 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none';
                 track.style.transform = `translateX(${offset}px)`;
                 
                 // Update active states
@@ -4449,16 +4452,18 @@ function onPlanChangeForEdition() {
             }
             
             function goToSlide(index) {
-                currentIndex = (index + itemCount) % itemCount;
-                updateSlider();
+                currentIndex = index;
+                updateSlider(true);
             }
             
             function nextSlide() {
-                goToSlide(currentIndex + 1);
+                currentIndex = (currentIndex + 1) % itemCount; // Wraps to 0 after last item
+                updateSlider(true);
             }
             
             function prevSlide() {
-                goToSlide(currentIndex - 1);
+                currentIndex = (currentIndex - 1 + itemCount) % itemCount; // Wraps to last item when going back from 0
+                updateSlider(true);
             }
             
             // Event listeners
@@ -4472,9 +4477,10 @@ function onPlanChangeForEdition() {
             });
             
             // Initial render
-            updateSlider();
+            updateSlider(false);
         });
         /* ============ END EDITORIAL SLIDER ============ */
+
 
     </script>
 
@@ -4543,6 +4549,7 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
+
 
 
 
