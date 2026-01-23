@@ -378,156 +378,125 @@
             position: relative;
         }
         
-        .gallery-wrapper {
-            display: grid;
-            grid-template-columns: 350px 1fr; 
-            gap: 60px;
+        .gallery-grid {
+            /* Flex container for horizontal layout */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             max-width: 1400px;
             margin: 0 auto;
-            align-items: center;
-            padding: 0 60px;
-        }
-        
-        .gallery-left {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;  
-        }
-
-        .gallery-left-subtitle {
-            font-size: 14px;
-            color: var(--gold);
-            margin-top: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        
-        .gallery-left h2 {
-            font-family: Playfair Display, serif;
-            font-size: 52px;
-            font-weight: 900;
-            color: var(--white);
-            letter-spacing: -0.5px;
-        }
-        
-        .gallery-right {
             position: relative;
-            overflow: hidden;
-        }
-        
-        .gallery-grid {
-            display: flex;
-            align-items: center;
-            height: 600px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gallery-track {
-            display: flex;
-            gap: 0;              
-            align-items: center;
-            height: 100%;
-            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            /* Position track so primary item aligns to left */
+            height: 600px;  /* Adjust based on desired height */
+            overflow: hidden;  /* Hide overflow during scroll */
+            gap: 0;  /* No gaps between items */
+            padding: 0 60px;  /* Space for left/right nav arrows */
         }
         
         .gallery-item {
-            flex: 0 0 auto;
-            width: 480px;        
+            /* Slide behavior */
+            flex: 0 0 auto;  /* Don't grow/shrink */
+            width: 100%;
             height: 100%;
+            max-width: 500px;  /* Primary card width */
             position: relative;
-            background: transparent;
-            border: none;
-            border-radius: 0;    
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 1;          
-            transform: none;     
-            box-shadow: none;    
-            margin-right: -120px;  
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            opacity: 0.6;  /* Non-active slides dimmed */
+            transform: scale(0.85);  /* Non-active slides smaller */
         }
         
+        /* Active (focused) slide */
         .gallery-item.active {
             opacity: 1;
-            transform: none;
-            border-color: transparent;
-            box-shadow: none;
+            transform: scale(1);
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.35);
         }
         
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;    
-            object-position: center;
+            object-fit: contain;  /* ✅ Changed: Prevents cropping */
+            object-position: center;  /* Center if there's space */
+            transition: transform 0.5s ease;
         }
-
         
+        .gallery-item:hover img {
+            transform: scale(1.05);  /* Subtle zoom, not aggressive */
+        }
+        
+        /* Slider track (wrapper for slides) */
+        .gallery-track {
+            display: flex;
+            gap: 30px;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            align-items: center;
+            height: 100%;
+        }
         
         /* Navigation arrows */
-       .gallery-nav {
+        .gallery-nav {
             position: absolute;
-            top: 100%;
-            margin-top: 30px;
+            top: 50%;
+            transform: translateY(-50%);
             background: none;
             border: none;
             color: var(--gold);
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             z-index: 10;
-            padding: 8px 12px;
+            padding: 10px 15px;
             transition: all 0.3s ease;
-            opacity: 0.8;
+            opacity: 0.7;
         }
         
         .gallery-nav:hover {
             opacity: 1;
-            transform: scale(1.15);
+            transform: translateY(-50%) scale(1.2);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
         
         .gallery-nav.prev {
-            left: 50%;
-            transform: translateX(-50px);
+            left: 20px;
         }
         
         .gallery-nav.next {
-            left: 50%;
-            transform: translateX(50px);
+            right: 20px;
         }
         
+        /* Optional: Slider indicators (dots) */
         .gallery-indicators {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 80px;  
-            position: absolute;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
+            gap: 10px;
+            margin-top: 30px;
+            padding: 0 20px;
         }
         
         .gallery-indicator {
-            width: 40px;         
-            height: 3px;          
-            border-radius: 0;     
-            background: rgba(212, 175, 55, 0.2);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
-            border: none;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
         
         .gallery-indicator.active {
             background: var(--gold);
-            width: 50px;          
+            transform: scale(1.3);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
         
         .gallery-indicator:hover {
-            background: rgba(212, 175, 55, 0.5);
+            background: rgba(212, 175, 55, 0.6);
+            transform: scale(1.2);
         }
 
 
@@ -3354,7 +3323,7 @@ function onPlanChangeForEdition() {
     <!-- Products SECTION -->
     <section class="products-section" style="max-width: 1200px; margin: 60px auto; padding: 50px 20px;">
         <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">
-            <img src="sparcel.png" alt="Model Sparkle Icon" style="vertical-align: middle; width: 80px; height: 80px; margin-right: 7px;" loading= "lazy">Our Signature Models
+            Our Signature Models
         </h2>
         <p class="section-subtitle">Diverse, Authentic, and Hyper-Realistic Creations Tailored for You</p>
         <div class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; justify-content: center;">
@@ -3410,56 +3379,47 @@ function onPlanChangeForEdition() {
 
     <!-- GALLERY - OUR MODELS -->
     <section class="gallery" id="models">
-        <div class="gallery-wrapper">
-        <!-- LEFT COLUMN: Static text -->
-        <div class="gallery-left">
-            <h2>Our Creations</h2>
-            <p class="section-subtitle">One Face, Endless Narratives. Distinctly Yours</p>
-        </div>
+        <h1 class="section-title" style="display: flex; align-items: center; justify-content: center;">
+            Our Creations
+        </h1>
+        <p class="section-subtitle">One Face, Endless Narratives. Distinctly Yours</p>
+        <div class="gallery-grid">
+            <button class="gallery-nav prev" aria-label="Previous slide">←</button>
             
-            <div class="gallery-right">
-                <div class="gallery-grid">
-                    <div class="gallery-track" id="galleryTrack">
-                        <div class="gallery-item active">
-                            <img src="M1.png" alt="Model 1" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="W16_3.png" alt="Model 2" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="M3_3.png" alt="Model 3" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="W2_1.png" alt="Model 4" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="W6_1.png" alt="Model 4" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="W11_3.png" alt="Model 5" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="M13_3.png" alt="Model 6" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="W12_2.png" alt="Model 7" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="M14_1.png" alt="Model 8" loading="lazy">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="W7_2.png" alt="Model 9" loading="lazy">
-                        </div>
-                    </div>
+            <div class="gallery-track" id="galleryTrack">
+                <div class="gallery-item active">
+                    <img src="M1.png" alt="Model 1" loading="lazy">
                 </div>
-
-                <div class="gallery-nav-container">
-                    <button class="gallery-nav prev" aria-label="Previous">←</button>
-                    <div class="gallery-indicators" id="galleryIndicators"></div>
-                    <button class="gallery-nav next" aria-label="Next">→</button>
+                <div class="gallery-item">
+                    <img src="W16_3.png" alt="Model 2" loading="lazy">
                 </div>
-            </div>   
+                <div class="gallery-item">
+                    <img src="M3_3.png" alt="Model 3" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="W2_1.png" alt="Model 4" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="W6_1.png" alt="Model 4" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="W11_3.png" alt="Model 5" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="M13_3.png" alt="Model 6" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="W12_2.png" alt="Model 7" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="M14_1.png" alt="Model 8" loading="lazy">
+                </div>
+                <div class="gallery-item">
+                    <img src="W7_2.png" alt="Model 9" loading="lazy">
+                </div>
+            </div>
             
+            <button class="gallery-nav next" aria-label="Next slide">→</button>
         </div>
         
         <!-- Optional: Indicator dots -->
@@ -4448,79 +4408,73 @@ function onPlanChangeForEdition() {
         });
 
         /* ============ EDITORIAL SLIDER - GALLERY ============ */
-        
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('galleryTrack');
+            const items = document.querySelectorAll('.gallery-item');
+            const prevBtn = document.querySelector('.gallery-nav.prev');
+            const nextBtn = document.querySelector('.gallery-nav.next');
+            const indicatorsContainer = document.getElementById('galleryIndicators');
             
-            // Initialize on page load
-            updateSlider(0);
-
-            // ============ GALLERY SLIDER LOGIC ============
-            let currentGalleryIndex = 0;
+            let currentIndex = 0;
+            const itemCount = items.length;
             
-            function initGalleryIndicators() {
-                const items = document.querySelectorAll('.gallery-item');
-                const indicatorsContainer = document.getElementById('galleryIndicators');
-                
-                if (!indicatorsContainer) return;
-                
-                indicatorsContainer.innerHTML = '';
-                
-                items.forEach((_, index) => {
-                    const indicator = document.createElement('div');
-                    indicator.className = 'gallery-indicator';
-                    if (index === 0) indicator.classList.add('active');
-                    indicator.addEventListener('click', () => {
-                        currentGalleryIndex = index;
-                        updateGallerySlider(currentGalleryIndex);
-                    });
-                    indicatorsContainer.appendChild(indicator);
-                });
-            }
-            
-            function updateGallerySlider(index) {
-                const itemWidth = 480;
-                const peekWidth = 120;
-                
-                // Calculate translate: move track left so item[index] aligns to left edge
-                const translateDistance = -(index * (itemWidth - peekWidth));
-                
-                const track = document.getElementById('galleryTrack');
-                if (track) {
-                    track.style.transform = `translateX(${translateDistance}px)`;
-                }
-                
-                // Update indicators
-                const indicators = document.querySelectorAll('.gallery-indicator');
-                indicators.forEach((indicator, i) => {
-                    indicator.classList.toggle('active', i === index);
-                });
-            }
-            
-            document.addEventListener('DOMContentLoaded', () => {
-                initGalleryIndicators();
-                updateGallerySlider(0);
-                
-                // Next button
-                const nextBtn = document.querySelector('.gallery-nav.next');
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        const totalItems = document.querySelectorAll('.gallery-item').length;
-                        currentGalleryIndex = (currentGalleryIndex + 1) % totalItems;
-                        updateGallerySlider(currentGalleryIndex);
-                    });
-                }
-                
-                // Previous button
-                const prevBtn = document.querySelector('.gallery-nav.prev');
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        const totalItems = document.querySelectorAll('.gallery-item').length;
-                        currentGalleryIndex = (currentGalleryIndex - 1 + totalItems) % totalItems;
-                        updateGallerySlider(currentGalleryIndex);
-                    });
-                }
+            // Create indicator dots
+            items.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'gallery-indicator' + (index === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(dot);
             });
-
-
+            
+            const indicators = document.querySelectorAll('.gallery-indicator');
+            
+            function updateSlider() {
+                // Calculate translation: center the active slide
+                const itemWidth = items[0].offsetWidth;
+                const gap = 30;
+                const containerWidth = track.parentElement.offsetWidth;
+                const offset = -(currentIndex * (itemWidth + gap)) + (containerWidth / 2) - (itemWidth / 2);
+                
+                track.style.transform = `translateX(${offset}px)`;
+                
+                // Update active states
+                items.forEach((item, i) => {
+                    item.classList.toggle('active', i === currentIndex);
+                });
+                
+                indicators.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+            
+            function goToSlide(index) {
+                currentIndex = (index + itemCount) % itemCount;
+                updateSlider();
+            }
+            
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+            
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Optional: Arrow key support
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            });
+            
+            // Initial render
+            updateSlider();
+        });
+        /* ============ END EDITORIAL SLIDER ============ */
 
     </script>
 
@@ -4589,7 +4543,6 @@ function onPlanChangeForEdition() {
 </body>
 
 </html>
-
 
 
 
