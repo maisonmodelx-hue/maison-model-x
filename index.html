@@ -4552,6 +4552,98 @@ function onPlanChangeForEdition() {
 
     <script>
 
+        // ============ FLOATING ELEMENTS GENERATOR ============
+        (function createFloatingElements() {
+            const container = document.getElementById('floatingContainer');
+            if (!container) return;
+        
+            const goldColors = ['#d4af37', '#f4e4c1', '#cd7f32', '#e6c875', '#b76e79', '#8b6914', '#c9a84c', '#daa520'];
+        
+            // Stars (30)
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'floating-star';
+                const color = goldColors[Math.floor(Math.random() * goldColors.length)];
+                star.style.background = color;
+                star.style.boxShadow = `0 0 6px ${color}`;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = (8 + Math.random() * 12) + 's';
+                star.style.animationDelay = Math.random() * 10 + 's';
+                const size = 2 + Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                container.appendChild(star);
+            }
+        
+            // 3D cubes (5)
+            for (let i = 0; i < 5; i++) {
+                const cube = document.createElement('div');
+                cube.className = 'floating-cube';
+                const color = goldColors[Math.floor(Math.random() * goldColors.length)];
+                ['front','back','right','left','top','bottom'].forEach(face => {
+                    const faceEl = document.createElement('div');
+                    faceEl.className = 'cube-face ' + face;
+                    faceEl.style.borderColor = color;
+                    faceEl.style.background = color + '15';
+                    cube.appendChild(faceEl);
+                });
+                cube.style.left = (10 + Math.random() * 80) + '%';
+                cube.style.animationDuration = (20 + Math.random() * 15) + 's';
+                cube.style.animationDelay = Math.random() * 10 + 's';
+                const size = 15 + Math.random() * 15;
+                cube.style.width = size + 'px';
+                cube.style.height = size + 'px';
+                container.appendChild(cube);
+            }
+        
+            // Glowing particles (20), diamonds (8), hexagons (6) — same pattern
+        })();
+
+        (function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+        
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-3d').forEach(el => {
+                observer.observe(el);
+            });
+        })();
+
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        (function initHeroParallax() {
+            const hero = document.querySelector('.hero');
+            const heroContent = document.getElementById('heroContent');
+            if (!hero || !heroContent) return;
+            if ('ontouchstart' in window) return;  // skip on touch devices
+        
+            hero.addEventListener('mousemove', (e) => {
+                const rect = hero.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                heroContent.style.transform = `
+                    perspective(1200px)
+                    rotateY(${x * 4}deg)
+                    rotateX(${-y * 4}deg)
+                    translateZ(80px)
+                `;
+            });
+        
+            hero.addEventListener('mouseleave', () => {
+                heroContent.style.transform = 'perspective(1200px) rotateY(0deg) rotateX(0deg) translateZ(80px)';
+            });
+        })();
+
         // ============ TOGGLE FAQ ============
         function toggleFAQ(element) {
             const faqItem = element.closest('.faq-item');
