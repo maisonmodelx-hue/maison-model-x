@@ -3498,7 +3498,7 @@ function onPlanChangeForEdition() {
             <button class="mobile-alert-btn" onclick="closeMobileAlert()">OK, Got It</button>
         </div>
     </div>  -->
-
+    <div class="floating-container" id="floatingContainer" aria-hidden="true"></div>
     <div id="successNotification" style="display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.95); color: white; padding: 15px 30px; border: 1px solid #d4af37; border-radius: 8px; z-index: 9999; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); font-size: 14px; max-width: 500px; text-align: center;">
       ✓ Order Confirmed! We will reach you within 24 hours. Check your email for confirmation.
       <button onclick="closeNotification()" style="margin-left: 15px; background: #d4af37; color: black; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-weight: 600;">OK</button>
@@ -3507,7 +3507,7 @@ function onPlanChangeForEdition() {
 
 
     <!-- NAVIGATION -->
-    <nav>
+    <nav id="mainNav">
         <div class="logo">MAISON MODEL X</div>
         <button id="mobileMenuToggle" class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
         <ul id="navMenu" class="nav-menu">
@@ -4597,7 +4597,45 @@ function onPlanChangeForEdition() {
                 container.appendChild(cube);
             }
         
-            // Glowing particles (20), diamonds (8), hexagons (6) — same pattern
+            for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'floating-particle';
+            const color = goldColors[Math.floor(Math.random() * goldColors.length)];
+            const size = 3 + Math.random() * 6;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 ${size * 2}px ${color}`;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDuration = (6 + Math.random() * 8) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(particle);
+        }
+    
+        for (let i = 0; i < 8; i++) {
+            const diamond = document.createElement('div');
+            diamond.className = 'floating-diamond';
+            const color = goldColors[Math.floor(Math.random() * goldColors.length)];
+            diamond.style.background = color;
+            diamond.style.boxShadow = `0 0 8px ${color}`;
+            diamond.style.left = (5 + Math.random() * 90) + '%';
+            diamond.style.animationDuration = (18 + Math.random() * 12) + 's';
+            diamond.style.animationDelay = Math.random() * 15 + 's';
+            container.appendChild(diamond);
+        }
+    
+        for (let i = 0; i < 6; i++) {
+            const hex = document.createElement('div');
+            hex.className = 'floating-hex';
+            const color = goldColors[Math.floor(Math.random() * goldColors.length)];
+            hex.style.background = color;
+            hex.style.boxShadow = `0 0 10px ${color}`;
+            hex.style.left = (10 + Math.random() * 80) + '%';
+            hex.style.animationDuration = (22 + Math.random() * 10) + 's';
+            hex.style.animationDelay = Math.random() * 12 + 's';
+            container.appendChild(hex);
+        }
         })();
 
         (function initScrollReveal() {
