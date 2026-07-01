@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maison Model X - AI Fashion Photography</title>
+    <title>Maison Model X - AI Fashion & Jewelry Photography and Videography</title>
+    <meta name="description" content="Bespoke AI-generated fashion and jewelry model photography and videography for designers and jewelry stores. Studio-quality visuals delivered fast, without the photoshoot.">
+    <meta property="og:title" content="Maison Model X - AI Fashion & Jewelry Photography">
+    <meta property="og:description" content="Bespoke AI models tailored for your brand. No photoshoots, no delays, only striking impact.">
+    <meta property="og:image" content="M1.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -50,6 +56,23 @@
             background-color: #0b0b0b;
             line-height: 1.6;
             overflow-x: hidden;
+            cursor: none;
+        }
+
+        @media (max-width: 768px), (hover: none) {
+            body {
+                cursor: auto;
+            }
+        }
+
+        a, button, input, select, textarea {
+            cursor: none;
+        }
+
+        @media (max-width: 768px), (hover: none) {
+            a, button, input, select, textarea {
+                cursor: pointer;
+            }
         }
 
         :root {
@@ -70,6 +93,27 @@
             --pale-gold: #e6c875;
             --rose-gold: #b76e79;
             --deep-gold: #8b6914;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .floating-star, .floating-cube, .floating-particle, .floating-diamond, .floating-hex {
+                animation: none !important;
+                opacity: 0 !important;
+            }
+            .floating-container {
+                transition: none !important;
+                transform: none !important;
+            }
+            #goldCursorCanvas {
+                display: none !important;
+            }
+            body, a, button, input, select, textarea {
+                cursor: auto !important;
+            }
+            .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-3d {
+                transition: opacity 0.3s ease !important;
+                transform: none !important;
+            }
         }
 
         /* ============ 3D FLOATING ELEMENTS SYSTEM ============ */
@@ -341,6 +385,18 @@
             box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
         }
 
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), var(--champagne-gold));
+            z-index: 1001;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
         /* ============ HERO ========== */
         .hero {
             background: linear-gradient(135deg, var(--black) 0%, var(--light-gray) 100%);
@@ -435,7 +491,7 @@
             letter-spacing: 1.2px;
             border: none;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.2s ease-out;
             text-decoration: none;
             display: inline-block;
             font-family: Montserrat, sans-serif;
@@ -2195,6 +2251,43 @@
             height: 24px;
         }
 
+        .whatsapp-float-btn {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            width: 55px;
+            height: 55px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-float-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-float-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float-btn {
+                bottom: 90px;
+                left: 20px;
+                width: 48px;
+                height: 48px;
+            }
+        }
+
         @media (max-width: 768px) {
             .sticky-cta-bar {
                 position: fixed;
@@ -3510,6 +3603,7 @@ function onPlanChangeForEdition() {
 
 
     <!-- NAVIGATION -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
     <nav id="mainNav">
         <div class="logo">MAISON MODEL X</div>
         <button id="mobileMenuToggle" class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
@@ -4475,10 +4569,7 @@ function onPlanChangeForEdition() {
             </div>
 
         </div>
-    </section>
-
-        </div>
-    </section>  
+    </section> 
 
     <!-- FOOTER -->
     <footer>
@@ -4533,7 +4624,10 @@ function onPlanChangeForEdition() {
         </svg>
     </button>
 
-  
+  <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/917756078868?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Maison%20Model%20X" target="_blank" class="whatsapp-float-btn" title="Chat on WhatsApp" aria-label="WhatsApp us">
+        <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39c1.44.79 3.06 1.21 4.71 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.91 6.45 17.5 2 12.04 2zm5.83 14.03c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.81-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.58.81 2 .88 2.15.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.13-.28.28-.12.55.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.28.38-.23.64-.14.26.09 1.66.78 1.94.92.28.14.47.21.54.33.07.12.07.68-.17 1.36z"/></svg>
+    </a>
 
     <script>
 
@@ -4628,6 +4722,7 @@ function onPlanChangeForEdition() {
             const container = document.getElementById('floatingContainer');
             if (!container) return;
             if ('ontouchstart' in window) return; // skip on touch devices, no cursor there
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
             let targetX = 0, targetY = 0;
             let currentX = 0, currentY = 0;
@@ -4727,6 +4822,15 @@ function onPlanChangeForEdition() {
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        window.addEventListener('scroll', function() {
+            const bar = document.getElementById('scrollProgressBar');
+            if (!bar) return;
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            bar.style.width = progress + '%';
+        });
 
         // ============ SCROLL TO ORDER AND SELECT PLAN ============
         function scrollToOrderAndSelectPlan(planType) {
@@ -4987,6 +5091,25 @@ function onPlanChangeForEdition() {
             
             // Initial render
             updateSlider();
+            // Touch swipe support
+            let touchStartX = 0;
+            let touchEndX = 0;
+            const galleryGrid = document.querySelector('.gallery-grid');
+
+            if (galleryGrid) {
+                galleryGrid.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+
+                galleryGrid.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const diff = touchStartX - touchEndX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) nextSlide();
+                        else prevSlide();
+                    }
+                }, { passive: true });
+            }
         });
         /* ============ END EDITORIAL SLIDER ============ */
 
@@ -5057,6 +5180,7 @@ function onPlanChangeForEdition() {
         // ============ GOLDEN CURSOR ORB WITH SPEED TAIL ============
         (function initGoldCursor() {
             if ('ontouchstart' in window) return; // skip on touch devices
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
             const canvas = document.getElementById('goldCursorCanvas');
             if (!canvas) return;
@@ -5150,6 +5274,27 @@ function onPlanChangeForEdition() {
             }
             animate();
         })();
+
+        (function initMagneticButtons() {
+            if ('ontouchstart' in window) return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const magneticEls = document.querySelectorAll('.btn-primary, .btn-secondary');
+
+            magneticEls.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
+                });
+
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = 'translate(0, 0)';
+                });
+            });
+        })();
+        
     </script>
 
 
