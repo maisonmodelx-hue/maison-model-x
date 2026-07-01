@@ -83,6 +83,8 @@
             z-index: 9;
             overflow: hidden;
             perspective: 1000px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
         
         /* Stars */
@@ -4619,6 +4621,33 @@ function onPlanChangeForEdition() {
             hex.style.animationDelay = Math.random() * 12 + 's';
             container.appendChild(hex);
         }
+        })();
+
+        // ============ CURSOR-FOLLOW PARALLAX FOR STARFIELD ============
+        (function initStarfieldParallax() {
+            const container = document.getElementById('floatingContainer');
+            if (!container) return;
+            if ('ontouchstart' in window) return; // skip on touch devices, no cursor there
+
+            let targetX = 0, targetY = 0;
+            let currentX = 0, currentY = 0;
+            const strength = 25; // max px shift, tweak for more/less movement
+
+            window.addEventListener('mousemove', (e) => {
+                const xRatio = (e.clientX / window.innerWidth) - 0.5;
+                const yRatio = (e.clientY / window.innerHeight) - 0.5;
+                targetX = -xRatio * strength * 2;
+                targetY = -yRatio * strength * 2;
+            });
+
+            function animateParallax() {
+                // smooth easing toward the target position
+                currentX += (targetX - currentX) * 0.05;
+                currentY += (targetY - currentY) * 0.05;
+                container.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                requestAnimationFrame(animateParallax);
+            }
+            animateParallax();
         })();
 
         (function initScrollReveal() {
