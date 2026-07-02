@@ -385,17 +385,7 @@
             box-shadow: 0 4px 30px rgba(212, 175, 55, 0.1);
         }
 
-        .scroll-progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            width: 0%;
-            background: linear-gradient(90deg, var(--gold), var(--champagne-gold));
-            z-index: 1001;
-            transition: width 0.1s ease-out;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
-        }
+        
 
         /* ============ HERO ========== */
         .hero {
@@ -2240,44 +2230,11 @@
         }
 
         /* ============ SCROLL TO TOP BUTTON ============ */
-        .scroll-to-top-btn {
+
+       .whatsapp-float-btn {
             position: fixed;
             bottom: 40px;
             right: 40px;
-            width: 50px;
-            height: 50px;
-            background: var(--gold);
-            color: var(--black);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .scroll-to-top-btn:hover {
-            background: #e5c158;
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
-        }
-
-        .scroll-to-top-btn.show {
-            display: flex;
-        }
-
-        .scroll-to-top-btn svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .whatsapp-float-btn {
-            position: fixed;
-            bottom: 40px;
-            left: 40px;
             width: 55px;
             height: 55px;
             background: #25D366;
@@ -2305,7 +2262,7 @@
         @media (max-width: 768px) {
             .whatsapp-float-btn {
                 bottom: 90px;
-                left: 20px;
+                right: 20px;
                 width: 48px;
                 height: 48px;
             }
@@ -3626,7 +3583,6 @@ function onPlanChangeForEdition() {
 
 
     <!-- NAVIGATION -->
-    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
     <nav id="mainNav">
         <div class="logo">MAISON MODEL X</div>
         <button id="mobileMenuToggle" class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
@@ -4645,13 +4601,6 @@ function onPlanChangeForEdition() {
         </div>
     </footer>
 
-    <!-- SCROLL TO TOP BUTTON -->
-    <button id="scrollToTopBtn" class="scroll-to-top-btn" onclick="scrollToTop()" title="Go to top">
-        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
-    </button>
-
   <!-- FLOATING WHATSAPP BUTTON -->
     <a href="https://wa.me/917756078868?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Maison%20Model%20X" target="_blank" class="whatsapp-float-btn" title="Chat on WhatsApp" aria-label="WhatsApp us">
         <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39c1.44.79 3.06 1.21 4.71 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.91 6.45 17.5 2 12.04 2zm5.83 14.03c-.24.68-1.4 1.3-1.94 1.38-.5.08-1.12.11-1.81-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.14-4.9-4.33-.14-.19-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.58.81 2 .88 2.15.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.13-.28.28-.12.55.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.28.14.44.12.6-.07.17-.19.71-.83.9-1.11.19-.28.38-.23.64-.14.26.09 1.66.78 1.94.92.28.14.47.21.54.33.07.12.07.68-.17 1.36z"/></svg>
@@ -4858,28 +4807,6 @@ function onPlanChangeForEdition() {
             }
         }
 
-        // ============ SCROLL TO TOP ============
-        window.addEventListener('scroll', function () {
-            const scrollBtn = document.getElementById('scrollToTopBtn');
-            if (window.pageYOffset > 300) {
-                scrollBtn.classList.add('show');
-            } else {
-                scrollBtn.classList.remove('show');
-            }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.addEventListener('scroll', function() {
-            const bar = document.getElementById('scrollProgressBar');
-            if (!bar) return;
-            const scrollTop = window.pageYOffset;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
-            bar.style.width = progress + '%';
-        });
 
         // ============ SCROLL TO ORDER AND SELECT PLAN ============
         function scrollToOrderAndSelectPlan(planType) {
@@ -5244,64 +5171,14 @@ function onPlanChangeForEdition() {
 
             let mouseX = window.innerWidth / 2;
             let mouseY = window.innerHeight / 2;
-            let lastX = mouseX;
-            let lastY = mouseY;
-            let particles = [];
-            let hasMoved = false;
 
             window.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
-                hasMoved = true;
             });
-
-            function spawnParticle(x, y, speed) {
-                particles.push({
-                    x: x,
-                    y: y,
-                    size: 6 + Math.random() * 3,
-                    life: 1,
-                    // faster movement = tail stretches further and lives longer
-                    decay: 0.035 + Math.random() * 0.02 - Math.min(speed * 0.0015, 0.02)
-                });
-            }
 
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                const dx = mouseX - lastX;
-                const dy = mouseY - lastY;
-                const speed = Math.sqrt(dx * dx + dy * dy);
-
-                if (hasMoved) {
-                    // spawn more trail particles the faster the cursor moves
-                    const spawnCount = Math.min(Math.floor(speed / 4), 6);
-                    for (let i = 0; i < spawnCount; i++) {
-                        const t = i / spawnCount;
-                        spawnParticle(
-                            lastX + dx * t,
-                            lastY + dy * t,
-                            speed
-                        );
-                    }
-                }
-
-                lastX = mouseX;
-                lastY = mouseY;
-
-                // draw + fade trail particles
-                particles = particles.filter(p => p.life > 0);
-                particles.forEach(p => {
-                    ctx.beginPath();
-                    const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                    grad.addColorStop(0, `rgba(212, 175, 55, ${p.life})`);
-                    grad.addColorStop(0.5, `rgba(244, 228, 193, ${p.life * 0.6})`);
-                    grad.addColorStop(1, `rgba(212, 175, 55, 0)`);
-                    ctx.fillStyle = grad;
-                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-                    ctx.fill();
-                    p.life -= p.decay;
-                });
 
                 // draw the main golden orb at the cursor position
                 ctx.beginPath();
