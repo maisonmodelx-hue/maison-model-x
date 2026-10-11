@@ -71,7 +71,7 @@ export default function HeroMotion() {
       <div ref={mediaRef} className="hero-media" aria-hidden="true" />
       <div ref={shadeRef} className="hero-shade" />
       <div ref={contentRef} className="hero-content shell">
-        <p className="eyebrow hero-kicker hero-fade">Independent fashion-content studio</p>
+        <p className="eyebrow hero-kicker hero-fade">AI FASHION & JEWELLERY CAMPAIGNS</p>
         <h1 aria-label="Where elegance transcends reality.">
           <span className="hero-line" aria-hidden="true">
             {firstLine.map((word, index) => (
@@ -84,7 +84,7 @@ export default function HeroMotion() {
             ))}
           </em>
         </h1>
-        <p className="hero-intro hero-fade">Fashion and jewellery campaigns, produced with AI. From sketch to film in 48 hours.</p>
+        <p className="hero-intro hero-fade">Fashion and jewellery campaigns, crafted with AI for brands that demand speed, consistency, and editorial quality.</p>
         <div className="hero-actions hero-fade">
           <Link
             ref={ctaRef}
@@ -94,7 +94,7 @@ export default function HeroMotion() {
             onPointerLeave={resetMagnet}
             onPointerCancel={resetMagnet}
           >
-            <span>Start a project</span><i aria-hidden="true">↗</i>
+            <span>Book Now</span><i aria-hidden="true">↗</i>
           </Link>
           <a className="text-link light" href="#selected-work">View selected work <span>↘</span></a>
         </div>

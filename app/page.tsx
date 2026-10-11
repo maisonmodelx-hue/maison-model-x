@@ -12,17 +12,16 @@ export default function Home() {
         <div className="shell">
           <Reveal><div className="section-heading"><p className="eyebrow">Selected work</p><p className="section-note">Campaign direction / still / motion</p></div></Reveal>
           <div className="editorial-grid">
-            {projects.map((project, index) => (
+            {projects.slice(0, 3).map((project, index) => (
               <Reveal key={project.slug} className={`project-tile tile-${index + 1}`} delay={index * 100}>
-                <Link href={`/work/${project.slug}`} aria-label={`View ${project.name} case study`}>
+                <div className="project-tile-static" aria-label={`${project.name} case study`}>
                   <div className="project-media" data-cursor="View">
                     <div className={`project-image project-image-${project.image}`} />
-                    <div className="project-overlay"><span className="label">Case study</span><span aria-hidden="true">↗</span></div>
                   </div>
                   <div className="project-meta">
                     <h2>{project.name}</h2><p className="label">{project.tags.join(" · ")}</p>
                   </div>
-                </Link>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -49,7 +48,7 @@ export default function Home() {
 
       <section className="section paper capabilities">
         <div className="shell">
-          <Reveal><div className="split-title"><div><p className="eyebrow">Capabilities</p><h2 className="display-medium">Made for the<br /><em>fashion moment.</em></h2></div><p>Creative direction and production for brands that need exceptional campaign assets without the constraints of a traditional shoot.</p></div></Reveal>
+          <Reveal><div className="split-title"><div><p className="eyebrow">Capabilities</p><h2 className="display-medium">Made for the<br /><em>fashion moment.</em></h2></div><p>Creative direction and AI-powered production for fashion and jewellery brands, from campaign photography to cinematic motion.</p></div></Reveal>
           <div className="service-list">
             {services.map((service, index) => (
               <Reveal key={service.title} delay={index * 70}>
