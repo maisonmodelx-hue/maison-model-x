@@ -1,9 +1,10 @@
 export const films = [
   { slug: "sketch-to-stone", title: "From Sketch to Stone", category: "Jewellery", video: "/videos/03_video.mp4", poster: "/videos/posters/03_poster.jpg", tags: ["Jewellery", "Process", "Film"], summary: "A diamond-and-emerald necklace, from technical drawing to finished piece.", type: "video" },
-  { slug: "verdant-lehenga", title: "Verdant Lehenga", category: "Fashion", video: "/videos/04_video.mp4", poster: "/videos/posters/04_poster.jpg", tags: ["Fashion", "Film"], summary: "An embroidered emerald lehenga, staged against raw stone architecture.", type: "video" },
+  { slug: "city-sapphire", title: "City Sapphire", category: "Jewellery", video: "/videos/08_video.mp4", poster: "/videos/posters/08_poster.jpg", tags: ["Jewellery", "Film"], summary: "A sapphire and diamond necklace, lit against a dusk skyline.", type: "video" },
   { slug: "emerald-hour", title: "Emerald Hour", category: "Jewellery", video: "/videos/01_video.mp4", poster: "/videos/posters/01_poster.jpg", tags: ["Jewellery", "Film"], summary: "Candlelit emerald and gold necklace, styled on rich brocade.", type: "video" },
   { slug: "the-collection", title: "The Collection", category: "Fashion", video: "/videos/07_video.mp4", poster: "/videos/posters/07_poster.jpg", tags: ["Fashion", "Film"], summary: "Eight looks in jewel tones and ivory, drawn together in a single reel.", type: "video" },
-  { slug: "sculpted-in-black", title: "Sculpted in Black", category: "Fashion", video: "/videos/05_video.mp4", poster: "/videos/posters/05_poster.jpg", tags: ["Fashion", "Film"], summary: "A study in structure — a sculptural black gown in close detail.", type: "video" },
+  { slug: "terracotta-drape", title: "Terracotta Drape", category: "Fashion", video: "/videos/10_video.mp4", poster: "/videos/posters/10_poster.jpg", tags: ["Fashion", "Film"], summary: "A draped metallic gown framed by sculpted terracotta architecture.", type: "video" },
+  { slug: "veiled-contrast", title: "Veiled Contrast", category: "Fashion", video: "/videos/09_video.mp4", poster: "/videos/posters/09_poster.jpg", tags: ["Fashion", "Film"], summary: "A two-tone gown staged among sheer drapery and stone arches.", type: "video" },
 ];
 
 export const projects = [

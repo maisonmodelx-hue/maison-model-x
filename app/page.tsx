@@ -52,9 +52,9 @@ export default function Home() {
           <div className="service-list">
             {services.map((service, index) => (
               <Reveal key={service.title} delay={index * 70}>
-                <Link href="/services" className="service-row">
-                  <span className="label">0{index + 1}</span><h3>{service.title}</h3><p>{service.short}</p><span className="row-arrow">↗</span>
-                </Link>
+                <div className="service-row">
+                  <span className="label">0{index + 1}</span><h3>{service.title}</h3><p>{service.short}</p>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -69,7 +69,7 @@ export default function Home() {
               <p className="label brass-text">Nooré / Spring–Summer 2026</p>
               <h2>Jewellery, captured with the precision it deserves.</h2>
               <p>From four product references, we built an editorial world where every stone, setting and reflection remained true to the original pieces.</p>
-              <Link className="text-link light" href="/work/noore-ss26">Read the case study <span>→</span></Link>
+              <Link className="text-link light" href="/work">See all work <span>→</span></Link>
             </Reveal>
             <Reveal className="feature-image" delay={120}><div className="feature-crop" /></Reveal>
           </div>
