@@ -5,6 +5,7 @@ export const films = [
   { slug: "the-collection", title: "The Collection", category: "Fashion", video: "/videos/07_video.mp4", poster: "/videos/posters/07_poster.jpg", tags: ["Fashion", "Film"], summary: "Eight looks in jewel tones and ivory, drawn together in a single reel.", type: "video" },
   { slug: "terracotta-drape", title: "Terracotta Drape", category: "Fashion", video: "/videos/10_video.mp4", poster: "/videos/posters/10_poster.jpg", tags: ["Fashion", "Film"], summary: "A draped metallic gown framed by sculpted terracotta architecture.", type: "video" },
   { slug: "veiled-contrast", title: "Veiled Contrast", category: "Fashion", video: "/videos/09_video.mp4", poster: "/videos/posters/09_poster.jpg", tags: ["Fashion", "Film"], summary: "A two-tone gown staged among sheer drapery and stone arches.", type: "video" },
+  { slug: "poolside-encounter", title: "Poolside Encounter", category: "Fashion", video: "/videos/11_video.mp4", poster: "/videos/posters/11_poster.jpg", tags: ["Fashion", "Film"], summary: "A burgundy gown and black tailoring meet beside a reflecting pool.", type: "video" },
 ];
 
 export const projects = [

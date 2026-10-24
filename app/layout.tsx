@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://maisonmodelx.com"),
   title: {
-    default: "Maison Model X — Fashion content, reimagined",
+    default: "Maison Model X",
     template: "%s — Maison Model X",
   },
   description:

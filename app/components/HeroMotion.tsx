@@ -96,7 +96,7 @@ export default function HeroMotion() {
           >
             <span>Book Now</span><i aria-hidden="true">↗</i>
           </Link>
-          <a className="text-link light" href="#selected-work">View selected work <span>↘</span></a>
+          <a className="text-link light" href="#selected-work">View our work <span>↘</span></a>
         </div>
       </div>
       <div className="hero-index label">MMX / 001</div>

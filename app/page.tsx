@@ -10,7 +10,7 @@ export default function Home() {
 
       <section className="section ivory selected" id="selected-work">
         <div className="shell">
-          <Reveal><div className="section-heading"><p className="eyebrow">Selected work</p><p className="section-note">Campaign direction / still / motion</p></div></Reveal>
+          <Reveal><div className="section-heading"><p className="eyebrow">Our work</p><p className="section-note">Campaign direction / still / motion</p></div></Reveal>
           <div className="editorial-grid">
             {projects.slice(0, 3).map((project, index) => (
               <Reveal key={project.slug} className={`project-tile tile-${index + 1}`} delay={index * 100}>
@@ -119,7 +119,7 @@ export default function Home() {
 
       <section className="final-cta dark-section">
         <div className="shell">
-          <Reveal><p className="eyebrow muted-light">Begin a collaboration</p><h2>Your next campaign can<br /><em>begin with a sketch.</em></h2><div className="cta-row"><Link className="button brass" href="/start">Start a project</Link><a className="text-link light" href="https://wa.me/917756078868?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Maison%20Model%20X" target="_blank" rel="noopener">WhatsApp the studio <span>↗</span></a></div></Reveal>
+          <Reveal><p className="eyebrow muted-light">Begin a collaboration</p><h2>Your next campaign can<br /><em>begin with a click.</em></h2><div className="cta-row"><Link className="button brass" href="/start">Start a project</Link><a className="text-link light" href="https://wa.me/917756078868?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Maison%20Model%20X" target="_blank" rel="noopener">WhatsApp the studio <span>↗</span></a></div></Reveal>
         </div>
       </section>
     </main>
