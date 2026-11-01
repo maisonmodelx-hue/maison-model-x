@@ -41,10 +41,11 @@ export default async (req) => {
       return Response.json({ ok: false, error: "Missing or invalid fields" }, { status: 400 });
     }
 
+    const MAX_FILES = 6;
+    const incoming = data.getAll("reference").filter(f => typeof f === "object" && f.size > 0).slice(0, MAX_FILES);
     const attachments = [];
-    const file = data.get("reference");
-    if (file && typeof file === "object" && file.size > 0) {
-      if (file.size > MAX_FILE) return Response.json({ ok: false, error: "File too large" }, { status: 413 });
+    for (const file of incoming) {
+      if (file.size > MAX_FILE) return Response.json({ ok: false, error: `"${file.name}" is too large` }, { status: 413 });
       attachments.push({ filename: file.name, content: Buffer.from(await file.arrayBuffer()) });
     }
 
