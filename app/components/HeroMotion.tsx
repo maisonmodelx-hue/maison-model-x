@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import Photo from "./Photo";
 
 const firstLine = ["Where", "elegance"];
 const secondLine = ["transcends", "reality."];
@@ -68,7 +69,7 @@ export default function HeroMotion() {
 
   return (
     <section ref={sectionRef} className={`hero dark-section ${ready ? "hero-motion-ready" : ""}`}>
-      <div ref={mediaRef} className="hero-media" aria-hidden="true" />
+      <div ref={mediaRef} className="hero-media" aria-hidden="true"><Photo src="/images/studio-hero.jpg" sizes="(max-aspect-ratio: 8/5) 160vh, 100vw" priority /></div>
       <div ref={shadeRef} className="hero-shade" />
       <div ref={contentRef} className="hero-content shell">
         <p className="eyebrow hero-kicker hero-fade">AI FASHION & JEWELLERY CAMPAIGNS</p>

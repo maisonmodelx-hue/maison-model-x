@@ -2,8 +2,9 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 const categories = ["Fashion", "Jewellery", "Fashion & Jewellery", "Campaign Film", "Full Campaign"];
-const MAX_FILE = 4 * 1024 * 1024; // 4 MB per file
+const MAX_TOTAL = 4 * 1024 * 1024; // the most the server can accept across all files
 const MAX_FILES = 6;
+const GENERIC_ERROR = "Something went wrong sending your brief. Please try again, or email maisonmodelx@gmail.com.";
 
 export default function ProjectForm() {
   const [sent, setSent] = useState(false);
@@ -19,9 +20,8 @@ export default function ProjectForm() {
     e.preventDefault();
     const form = e.currentTarget;
     setError("");
-    const oversized = files.find(f => f.size > MAX_FILE);
-    if (oversized) {
-      setError(`"${oversized.name}" is over 4 MB. Please choose a smaller file, or email it to us.`);
+    if (files.reduce((total, f) => total + f.size, 0) > MAX_TOTAL) {
+      setError("Your files add up to more than 4 MB. Please remove or compress some, or email them to us.");
       return;
     }
     setSending(true);
@@ -30,11 +30,15 @@ export default function ProjectForm() {
       formData.delete("reference");
       files.forEach(f => formData.append("reference", f));
       const res = await fetch("/api/send-brief", { method: "POST", body: formData });
-      if (!res.ok) throw new Error("failed");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        setError(res.status === 429 ? "Too many attempts. Please wait a few minutes and try again." : body?.error || GENERIC_ERROR);
+        return;
+      }
       setSent(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch {
-      setError("Something went wrong sending your brief. Please try again, or email maisonmodelx@gmail.com.");
+      setError(GENERIC_ERROR);
     } finally {
       setSending(false);
     }
@@ -81,19 +85,19 @@ export default function ProjectForm() {
   return <>
     <form className="project-form" onSubmit={submit}>
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px" }} />
-      <div className="field"><label htmlFor="name">Name *</label><input id="name" name="name" required placeholder="Your full name" /></div>
-      <div className="field"><label htmlFor="brand">Brand *</label><input id="brand" name="brand" required placeholder="Brand or company" /></div>
-      <div className="field"><label htmlFor="email">Email *</label><input id="email" name="email" type="email" required placeholder="you@brand.com" /></div>
-      <div className="field"><label htmlFor="whatsapp">WhatsApp</label><input id="whatsapp" name="whatsapp" type="tel" placeholder="+91" /></div>
+      <div className="field"><label htmlFor="name">Name *</label><input id="name" name="name" required maxLength={120} placeholder="Your full name" /></div>
+      <div className="field"><label htmlFor="brand">Brand *</label><input id="brand" name="brand" required maxLength={160} placeholder="Brand or company" /></div>
+      <div className="field"><label htmlFor="email">Email *</label><input id="email" name="email" type="email" required maxLength={254} placeholder="you@brand.com" /></div>
+      <div className="field"><label htmlFor="whatsapp">WhatsApp</label><input id="whatsapp" name="whatsapp" type="tel" maxLength={30} placeholder="+91" /></div>
       <div className="field full"><label htmlFor="category">Project category *</label><select id="category" name="category" required defaultValue=""><option value="" disabled>Select a category</option>{categories.map(c => <option key={c}>{c}</option>)}</select></div>
-      <div className="field"><label htmlFor="products">Products or designs *</label><input id="products" name="products" type="number" min="1" required placeholder="e.g. 12" /></div>
+      <div className="field"><label htmlFor="products">Products or designs *</label><input id="products" name="products" type="number" min="1" max="999999" required placeholder="e.g. 12" /></div>
       <div className="field"><label htmlFor="launch">Launch date *</label><input id="launch" name="launch" type="date" required min={today} /></div>
       <fieldset className="field full checks"><legend>Deliverables needed *</legend>{["Campaign Photography", "Campaign Film", "Social Content", "Full Campaign"].map(x => <label key={x}><input type="checkbox" name="deliverables" value={x}/><span>{x}</span></label>)}</fieldset>
-      <div className="field full"><label htmlFor="budget">Approximate budget</label><input id="budget" name="budget" type="text" autoComplete="off" placeholder="e.g. $2,000 – $5,000" /></div>
-      <div className="field full"><label htmlFor="description">Project description *</label><textarea id="description" name="description" required rows={6} placeholder="Tell us about the collection, creative direction, formats and ambition." /></div>
+      <div className="field full"><label htmlFor="budget">Approximate budget</label><input id="budget" name="budget" type="text" autoComplete="off" maxLength={80} placeholder="e.g. $2,000 – $5,000" /></div>
+      <div className="field full"><label htmlFor="description">Project description *</label><textarea id="description" name="description" required rows={6} maxLength={5000} placeholder="Tell us about the collection, creative direction, formats and ambition." /></div>
       <div className="field full">
-        <label htmlFor="reference">Reference upload — up to {MAX_FILES} files, max 4 MB each</label>
-        <input ref={fileRef} className="file" id="reference" type="file" accept="image/*,.pdf" multiple onChange={onFileChange} disabled={files.length >= MAX_FILES} />
+        <label htmlFor="reference">Reference upload — up to {MAX_FILES} files, 4 MB in total</label>
+        <input ref={fileRef} className="file" id="reference" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,.heic,.heif,.pdf" multiple onChange={onFileChange} disabled={files.length >= MAX_FILES} />
         {files.length > 0 && <ul className="file-list">
           {files.map((f, i) => (
             <li key={`${f.name}-${i}`} className="file-row">

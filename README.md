@@ -102,6 +102,31 @@ Use build and validation commands for targeted diagnosis after a remote failure,
 
 The timeout defaults can be overridden for a controlled canary with `SITES_INSTALL_TIMEOUT`, `SITES_INSTALL_KILL_AFTER`, `SITES_BUILD_TIMEOUT`, and `SITES_BUILD_KILL_AFTER`. A timeout fails the command; the helpers never retry an unchanged install or build.
 
+## Adding Photos and Films
+
+The site serves resized WebP copies from `public/images/opt`, never the originals.
+
+**Photos:** add the file under `public/images/`, use its path in the code, then run
+`npm run images` and commit the results. Until then the original is served, which works
+but is slower.
+
+**Films:** encode to `public/videos/opt/` with the same name, and use that path in `app/data.ts`:
+
+```bash
+ffmpeg -i public/videos/NAME.mp4 -c:v libx264 -preset slow -crf 21 -profile:v high \
+  -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k public/videos/opt/NAME.mp4
+```
+
+**Replacing a file:** give it a new name. Browsers cache `/images/*` and `/videos/*` for up to
+30 days, so returning visitors would keep seeing the old file under the same name.
+
+## Security Checks
+
+- `npm run test:api`: abuse cases for the `/api/send-brief` form endpoint
+- `npm run audit:prod`: known vulnerabilities in the packages the live site runs
+
+`.npmrc` turns off npm's automatic audit, so these warnings won't appear during install.
+
 ## Learn More
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)

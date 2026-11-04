@@ -45,7 +45,9 @@ export default defineConfig(async () => {
 
   return {
     server: {
-      host: "0.0.0.0",
+      // Only a Codex sandbox needs every interface; elsewhere this would expose the
+      // dev server to the local network. Use `npm run dev -- --host` to test on a phone.
+      host: process.env.CODEX_SANDBOX ? "0.0.0.0" : "localhost",
       allowedHosts: ["terminal.local"],
       ...(isCodexSeatbeltSandbox
         ? { watch: { useFsEvents: false, usePolling: true } }

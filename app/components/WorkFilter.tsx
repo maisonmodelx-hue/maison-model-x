@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
 import { projects, films } from "../data";
+import { photoSrc } from "../photo";
+import Photo from "./Photo";
 import Reveal from "./Reveal";
+
+const WORK_IMAGE_SIZES = "(max-width: 900px) 85vw, 55vw";
 
 export default function WorkFilter() {
   const [filter, setFilter] = useState("All");
@@ -17,10 +21,10 @@ export default function WorkFilter() {
         </div>
         <div className="work-masonry">
           {films.map((f, i) => (
-            <Reveal className="work-card" delay={i * 90} key={`videos-${f.slug}`}>
+            <Reveal className="work-card" delay={(i % 3) * 90} key={`videos-${f.slug}`}>
               <article>
                 <div className="project-media">
-                  <video className="work-image" poster={f.poster} controls preload="none" playsInline>
+                  <video className="work-image" poster={photoSrc(f.poster, 1024)} controls preload="none" playsInline>
                     <source src={f.video} type="video/mp4" />
                   </video>
                 </div>
@@ -46,13 +50,13 @@ export default function WorkFilter() {
       </div>
       <div className="work-masonry">
         {list.map((p, i) => (
-          <Reveal className="work-card" delay={i * 90} key={`${filter}-${p.slug}`}>
+          <Reveal className="work-card" delay={(i % 3) * 90} key={`${filter}-${p.slug}`}>
             <article>
               <div className="project-media">
-                {p.img ? (
-                  <img src={p.img} alt={p.name} className="work-image" />
+                {p.fit === "cover" ? (
+                  <div className="work-image"><Photo src={p.img} alt={p.name} sizes={WORK_IMAGE_SIZES} /></div>
                 ) : (
-                  <div className={`work-image project-image-${p.image}`} />
+                  <Photo src={p.img} alt={p.name} className="work-image" sizes={WORK_IMAGE_SIZES} />
                 )}
               </div>
               <p className="label">{p.year} / {p.category}</p>

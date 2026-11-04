@@ -20,6 +20,8 @@
 # misc
 .DS_Store
 *.pem
+*.key
+.dev.vars*
 
 # debug
 npm-debug.log*

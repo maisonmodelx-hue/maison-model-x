@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description:
       "Fashion and jewellery campaigns produced with AI, from first idea to final film.",
     type: "website",
-    images: [{ url: "/images/maison-hero.png", width: 1600, height: 900 }],
+    images: [{ url: "/images/opt/social-share.jpg", width: 1200, height: 630 }],
   },
   other: { "codex-preview": "development" },
   icons: {

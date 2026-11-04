@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { films } from "../data";
+import { photoSrc } from "../photo";
 
 export default function FilmFilter() {
   const [filter, setFilter] = useState("All");
@@ -20,7 +21,7 @@ export default function FilmFilter() {
             <div className="project-media">
               <video
                 className="work-image"
-                poster={film.poster}
+                poster={photoSrc(film.poster, 1024)}
                 controls
                 preload="none"
                 playsInline

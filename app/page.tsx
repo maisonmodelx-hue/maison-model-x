@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Reveal from "./components/Reveal";
 import HeroMotion from "./components/HeroMotion";
+import Photo from "./components/Photo";
 import { projects, services } from "./data";
 
 export default function Home() {
@@ -16,7 +17,7 @@ export default function Home() {
               <Reveal key={project.slug} className={`project-tile tile-${index + 1}`} delay={index * 100}>
                 <div className="project-tile-static" aria-label={`${project.name} case study`}>
                   <div className="project-media" data-cursor="View">
-                    <div className={`project-image project-image-${project.image}`} />
+                    <div className="project-image"><Photo src={project.img} alt={project.name} sizes="(max-width: 900px) 85vw, 55vw" /></div>
                   </div>
                   <div className="project-meta">
                     <h2>{project.name}</h2><p className="label">{project.tags.join(" · ")}</p>
@@ -34,10 +35,10 @@ export default function Home() {
           <Reveal><p className="eyebrow muted-light">A complete transformation</p><h2 className="display-large centered">From first idea to<br /><em>final campaign.</em></h2></Reveal>
           <div className="sequence">
             {[
-              ["01", "Sketch", "line-art"], ["02", "Garment", "fabric"], ["03", "Model", "campaign"], ["04", "Campaign film", "jewellery"],
-            ].map(([n, title, cls], i) => (
+              ["01", "Sketch", "/images/Sketch2.jpeg"], ["02", "Garment", "/images/Styling-Room2.jpeg"], ["03", "Model", "/images/AI-Production6.png"], ["04", "Campaign film", "/images/Fashion_Campaign3.jpeg"],
+            ].map(([n, title, img], i) => (
               <Reveal className="sequence-step" delay={i * 160} key={title}>
-                <div className={`sequence-frame ${cls}`}><span className="sequence-number">{n}</span></div>
+                <div className="sequence-frame"><Photo src={img} alt={title} sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 25vw" /><span className="sequence-number">{n}</span></div>
                 <p className="label">{title}</p>
               </Reveal>
             ))}
@@ -71,7 +72,7 @@ export default function Home() {
               <p>From four product references, we built an editorial world where every stone, setting and reflection remained true to the original pieces.</p>
               <Link className="text-link light" href="/work">See all work <span>→</span></Link>
             </Reveal>
-            <Reveal className="feature-image" delay={120}><div className="feature-crop" /></Reveal>
+            <Reveal className="feature-image" delay={120}><div className="feature-crop"><Photo src="/images/AI_Jewel2.jpeg" alt="Nooré fine jewellery campaign" sizes="(max-width: 900px) 100vw, 55vw" /></div></Reveal>
           </div>
           <div className="stat-line label"><span>Scope 24 images + 2 films</span><span>Turnaround 41 hours</span><span>Usage global commercial</span></div>
         </div>
@@ -111,7 +112,7 @@ export default function Home() {
       </section>
 
       <section className="founder ivory">
-        <div className="founder-image" role="img" aria-label="Maison Model X creative direction studio" />
+        <div className="founder-image"><Photo src="/images/AI_Production7.png" alt="Maison Model X creative direction studio" sizes="(max-width: 900px) 100vw, 50vw" /></div>
         <div className="founder-copy">
           <Reveal><p className="eyebrow">The studio</p><h2 className="display-medium">Technology is the medium.<br /><em>Taste is the difference.</em></h2><p>Maison Model X was founded to give fashion brands a more agile way to make exceptional visual work. We combine art direction, AI production and exacting post-production under one creative point of view.</p><Link className="text-link" href="/studio">Meet the studio <span>→</span></Link></Reveal>
         </div>

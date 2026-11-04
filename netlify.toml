@@ -7,3 +7,21 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Pages get their security headers from next.config.ts. This covers files Netlify serves directly.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+# File names aren't hashed, so give a replaced photo or film a new name.
+# Otherwise returning visitors can keep seeing the old file for up to 30 days.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/videos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=604800"
