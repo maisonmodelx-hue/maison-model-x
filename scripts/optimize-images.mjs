@@ -13,6 +13,7 @@ const manifestPath = join(root, "app/photos.json");
 
 const WIDTHS = [640, 1024, 1600];
 const MAX_WIDTH = 1600;
+const MAX_WIDE_WIDTH = 2000; // landscape photos can run the full width of a large screen
 const QUALITY = 82;
 
 // Shown edge to edge, so these keep a larger top size.
@@ -49,8 +50,10 @@ await mkdir(outDir, { recursive: true });
 const manifest = {};
 for (const src of await referencedPhotos()) {
   const name = basename(src, extname(src));
-  const { width: sourceWidth } = await sharp(publicPath(src)).metadata();
-  const top = Math.min(sourceWidth, FULL_BLEED[src] ?? MAX_WIDTH);
+  const metadata = await sharp(publicPath(src)).metadata();
+  const { width: sourceWidth, height: sourceHeight } = metadata.autoOrient ?? metadata;
+  const ratio = sourceWidth / sourceHeight;
+  const top = Math.min(sourceWidth, FULL_BLEED[src] ?? (ratio > 1.2 ? MAX_WIDE_WIDTH : MAX_WIDTH));
   const widths = [...WIDTHS.filter((width) => width < top), top];
 
   for (const width of widths) {
@@ -60,7 +63,7 @@ for (const src of await referencedPhotos()) {
       .webp({ quality: QUALITY, effort: 6, smartSubsample: true })
       .toFile(join(outDir, `${name}-${width}.webp`));
   }
-  manifest[src] = { base: `/images/opt/${name}`, widths };
+  manifest[src] = { base: `/images/opt/${name}`, widths, ratio: Number(ratio.toFixed(3)) };
 }
 
 await sharp(publicPath(SOCIAL_SOURCE))

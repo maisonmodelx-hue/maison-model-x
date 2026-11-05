@@ -1,40 +1,20 @@
 "use client";
 import { useState } from "react";
-import { films } from "../data";
-import { photoSrc } from "../photo";
+import { filmPieces } from "../pieces";
+import FilterBar from "./FilterBar";
+import Spreads from "./Spreads";
+
+// Built from the films themselves, so a category with no films never shows an empty page.
+const options = ["All", ...new Set(filmPieces.map((piece) => piece.category))];
 
 export default function FilmFilter() {
   const [filter, setFilter] = useState("All");
-  const filters = ["All", "Fashion", "Jewellery", "Concept"];
-  const list = filter === "All" ? films : films.filter(f => f.category === filter);
+  const pieces = filter === "All" ? filmPieces : filmPieces.filter((piece) => piece.category === filter);
 
   return (
     <>
-      <div className="filter-bar" role="group" aria-label="Filter films">
-        {filters.map(f => (
-          <button onClick={() => setFilter(f)} className={filter === f ? "active" : ""} key={f}>{f}</button>
-        ))}
-      </div>
-      <div className="work-masonry">
-        {list.map((film, i) => (
-          <article className="work-card" key={`${filter}-${film.slug}`}>
-            <div className="project-media">
-              <video
-                className="work-image"
-                poster={photoSrc(film.poster, 1024)}
-                controls
-                preload="none"
-                playsInline
-              >
-                <source src={film.video} type="video/mp4" />
-              </video>
-            </div>
-            <p className="label">{film.category}</p>
-            <h2>{film.title}</h2>
-            <p>{film.summary}</p>
-          </article>
-        ))}
-      </div>
+      <FilterBar label="Filter films" options={options} value={filter} onChange={setFilter} />
+      <Spreads key={filter} pieces={pieces} />
     </>
   );
 }

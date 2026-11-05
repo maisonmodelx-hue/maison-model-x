@@ -5,7 +5,8 @@
       640,
       1024,
       1083
-    ]
+    ],
+    "ratio": 0.746
   },
   "/images/AI_Jewel2.jpeg": {
     "base": "/images/opt/AI_Jewel2",
@@ -13,7 +14,17 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
+  },
+  "/images/AI_Production2.jpeg": {
+    "base": "/images/opt/AI_Production2",
+    "widths": [
+      640,
+      1024,
+      1600
+    ],
+    "ratio": 0.747
   },
   "/images/AI_Production7.png": {
     "base": "/images/opt/AI_Production7",
@@ -21,7 +32,8 @@
       640,
       1024,
       1086
-    ]
+    ],
+    "ratio": 0.75
   },
   "/images/AI_Production9.png": {
     "base": "/images/opt/AI_Production9",
@@ -29,7 +41,8 @@
       640,
       1024,
       1122
-    ]
+    ],
+    "ratio": 0.8
   },
   "/images/Fashion_Campaign3.jpeg": {
     "base": "/images/opt/Fashion_Campaign3",
@@ -37,7 +50,17 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
+  },
+  "/images/Fashion_and_jewellery_design_studio_202608250227.jpeg": {
+    "base": "/images/opt/Fashion_and_jewellery_design_studio_202608250227",
+    "widths": [
+      640,
+      1024,
+      1600
+    ],
+    "ratio": 0.747
   },
   "/images/Model-Couture2.png": {
     "base": "/images/opt/Model-Couture2",
@@ -45,7 +68,8 @@
       640,
       1024,
       1084
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/Sketch2.jpeg": {
     "base": "/images/opt/Sketch2",
@@ -53,7 +77,8 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/Styling-Room2.jpeg": {
     "base": "/images/opt/Styling-Room2",
@@ -61,31 +86,38 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/images_mmx/mmx_1.jpeg": {
     "base": "/images/opt/mmx_1",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_10.jpeg": {
     "base": "/images/opt/mmx_10",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.792
   },
   "/images/images_mmx/mmx_11.jpeg": {
     "base": "/images/opt/mmx_11",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_13.jpeg": {
     "base": "/images/opt/mmx_13",
@@ -93,7 +125,8 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/images_mmx/mmx_14.jpeg": {
     "base": "/images/opt/mmx_14",
@@ -101,15 +134,18 @@
       640,
       1024,
       1536
-    ]
+    ],
+    "ratio": 0.558
   },
   "/images/images_mmx/mmx_15.jpeg": {
     "base": "/images/opt/mmx_15",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.792
   },
   "/images/images_mmx/mmx_16.jpeg": {
     "base": "/images/opt/mmx_16",
@@ -117,7 +153,8 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/images_mmx/mmx_17.jpeg": {
     "base": "/images/opt/mmx_17",
@@ -125,15 +162,18 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 1
   },
   "/images/images_mmx/mmx_18.jpeg": {
     "base": "/images/opt/mmx_18",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_19.jpeg": {
     "base": "/images/opt/mmx_19",
@@ -141,23 +181,28 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 1
   },
   "/images/images_mmx/mmx_2.jpeg": {
     "base": "/images/opt/mmx_2",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.792
   },
   "/images/images_mmx/mmx_20.jpeg": {
     "base": "/images/opt/mmx_20",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_21.jpeg": {
     "base": "/images/opt/mmx_21",
@@ -165,15 +210,27 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
+  },
+  "/images/images_mmx/mmx_22.jpeg": {
+    "base": "/images/opt/mmx_22",
+    "widths": [
+      640,
+      1024,
+      1600
+    ],
+    "ratio": 1
   },
   "/images/images_mmx/mmx_23.jpeg": {
     "base": "/images/opt/mmx_23",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_24.jpeg": {
     "base": "/images/opt/mmx_24",
@@ -181,7 +238,8 @@
       640,
       1024,
       1536
-    ]
+    ],
+    "ratio": 0.558
   },
   "/images/images_mmx/mmx_25.jpeg": {
     "base": "/images/opt/mmx_25",
@@ -189,7 +247,8 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/images_mmx/mmx_27.jpeg": {
     "base": "/images/opt/mmx_27",
@@ -197,7 +256,8 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.867
   },
   "/images/images_mmx/mmx_28.jpeg": {
     "base": "/images/opt/mmx_28",
@@ -205,15 +265,18 @@
       640,
       1024,
       1536
-    ]
+    ],
+    "ratio": 0.558
   },
   "/images/images_mmx/mmx_30.jpeg": {
     "base": "/images/opt/mmx_30",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_31.jpeg": {
     "base": "/images/opt/mmx_31",
@@ -221,7 +284,8 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.747
   },
   "/images/images_mmx/mmx_32.jpeg": {
     "base": "/images/opt/mmx_32",
@@ -229,15 +293,18 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 1
   },
   "/images/images_mmx/mmx_37.jpeg": {
     "base": "/images/opt/mmx_37",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.792
   },
   "/images/images_mmx/mmx_39.jpeg": {
     "base": "/images/opt/mmx_39",
@@ -245,23 +312,28 @@
       640,
       1024,
       1536
-    ]
+    ],
+    "ratio": 0.558
   },
   "/images/images_mmx/mmx_4.jpeg": {
     "base": "/images/opt/mmx_4",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_40.jpeg": {
     "base": "/images/opt/mmx_40",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_41.jpeg": {
     "base": "/images/opt/mmx_41",
@@ -269,15 +341,18 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 0.805
   },
   "/images/images_mmx/mmx_42.jpeg": {
     "base": "/images/opt/mmx_42",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.792
   },
   "/images/images_mmx/mmx_43.jpeg": {
     "base": "/images/opt/mmx_43",
@@ -285,15 +360,18 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 1
   },
   "/images/images_mmx/mmx_46.jpeg": {
     "base": "/images/opt/mmx_46",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_47.jpeg": {
     "base": "/images/opt/mmx_47",
@@ -301,37 +379,45 @@
       640,
       1024,
       1600
-    ]
+    ],
+    "ratio": 1
   },
   "/images/images_mmx/mmx_7.jpeg": {
     "base": "/images/opt/mmx_7",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/images_mmx/mmx_8.jpeg": {
     "base": "/images/opt/mmx_8",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.792
   },
   "/images/images_mmx/mmx_9.jpeg": {
     "base": "/images/opt/mmx_9",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      2000
+    ],
+    "ratio": 1.339
   },
   "/images/logo.png": {
     "base": "/images/opt/logo",
     "widths": [
       223
-    ]
+    ],
+    "ratio": 0.791
   },
   "/images/maison-hero3.jpeg": {
     "base": "/images/opt/maison-hero3",
@@ -340,7 +426,8 @@
       1024,
       1600,
       1920
-    ]
+    ],
+    "ratio": 1.339
   },
   "/images/maison-jewellery.png": {
     "base": "/images/opt/maison-jewellery",
@@ -348,7 +435,8 @@
       640,
       1024,
       1122
-    ]
+    ],
+    "ratio": 0.8
   },
   "/images/studio-hero.jpg": {
     "base": "/images/opt/studio-hero",
@@ -357,7 +445,8 @@
       1024,
       1600,
       1920
-    ]
+    ],
+    "ratio": 1.6
   },
   "/videos/posters/01_poster.jpg": {
     "base": "/images/opt/01_poster",
@@ -365,7 +454,8 @@
       640,
       1024,
       1280
-    ]
+    ],
+    "ratio": 1.778
   },
   "/videos/posters/03_poster.jpg": {
     "base": "/images/opt/03_poster",
@@ -373,7 +463,8 @@
       640,
       1024,
       1344
-    ]
+    ],
+    "ratio": 1.75
   },
   "/videos/posters/07_poster.jpg": {
     "base": "/images/opt/07_poster",
@@ -381,38 +472,47 @@
       640,
       1024,
       1280
-    ]
+    ],
+    "ratio": 1.778
   },
   "/videos/posters/08_poster.jpg": {
     "base": "/images/opt/08_poster",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      1920
+    ],
+    "ratio": 1.778
   },
   "/videos/posters/09_poster.jpg": {
     "base": "/images/opt/09_poster",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      1920
+    ],
+    "ratio": 1.778
   },
   "/videos/posters/10_poster.jpg": {
     "base": "/images/opt/10_poster",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      1920
+    ],
+    "ratio": 1.778
   },
   "/videos/posters/11_poster.jpg": {
     "base": "/images/opt/11_poster",
     "widths": [
       640,
       1024,
-      1600
-    ]
+      1600,
+      1920
+    ],
+    "ratio": 1.778
   }
 }

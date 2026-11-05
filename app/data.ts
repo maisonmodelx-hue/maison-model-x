@@ -9,9 +9,9 @@ export const films = [
 ];
 
 export const projects = [
-  { slug: "noore-ss26", name: "Nooré Fine Jewellery", category: "Jewellery", img: "/images/maison-jewellery.png", fit: "cover", tags: ["Campaign direction", "Jewellery", "Motion"], year: "SS26", summary: "An intimate study of light, skin and sculptural gold." },
-  { slug: "atelier-nuit", name: "Atelier Nuit", category: "Fashion", img: "/images/Model-Couture2.png", fit: "cover", tags: ["Editorial", "Virtual model", "Stills"], year: "AW26", summary: "A couture story built from fabric swatches and architectural shadow." },
-  { slug: "forma-01", name: "Forma 01", category: "Concept", img: "/images/maison-hero3.jpeg", fit: "cover", tags: ["Concept campaign", "Art direction", "Film"], year: "2026", summary: "A study in form, motion and impossible elegance." },
+  { slug: "noore-ss26", name: "Nooré Fine Jewellery", category: "Jewellery", img: "/images/maison-jewellery.png", tags: ["Campaign direction", "Jewellery", "Motion"], year: "SS26", summary: "An intimate study of light, skin and sculptural gold." },
+  { slug: "atelier-nuit", name: "Atelier Nuit", category: "Fashion", img: "/images/Model-Couture2.png", tags: ["Editorial", "Virtual model", "Stills"], year: "AW26", summary: "A couture story built from fabric swatches and architectural shadow." },
+  { slug: "forma-01", name: "Forma 01", category: "Concept", img: "/images/maison-hero3.jpeg", tags: ["Concept campaign", "Art direction", "Film"], year: "2026", summary: "A study in form, motion and impossible elegance." },
   { slug: "noir-veranda", name: "Noir Veranda", category: "Fashion", img: "/images/images_mmx/mmx_10.jpeg", tags: ["Editorial", "Jewellery", "Stills"], year: "2026", summary: "Sculptural black couture against sunlit stone arches." },
   { slug: "sable-suite", name: "Sablé Suite", category: "Fashion", img: "/images/images_mmx/mmx_1.jpeg", tags: ["Campaign direction", "Duo", "Stills"], year: "2026", summary: "Ivory and black formalwear staged in quiet symmetry." },
   { slug: "crimson-arch", name: "Crimson Arch", category: "Fashion", img: "/images/images_mmx/mmx_18.jpeg", tags: ["Editorial", "Drapery", "Film"], year: "2026", summary: "Bold red silk in motion beneath a sculpted archway." },
@@ -49,10 +49,10 @@ export const projects = [
 
 
 export const services = [
-  { title: "Campaign Photography", short: "Editorial and commercial imagery for launches, collections, lookbooks, e-commerce and social." },
-  { title: "Campaign Videography", short: "Collection films, teasers and vertical reels.", detail: "Cinematic campaign films, collection films, launch videos and short-form motion for digital." },
-  { title: "Fashion & Jewellery Campaigns", short: "Concepts and fabric, rendered before production.", detail: "Complete visual campaigns built around the character, product and identity of your brand." },
-  { title: "Creative Direction", short: "Concept, casting, styling, locations, lighting and visual storytelling brought together from first idea to final campaign." },
+  { title: "Campaign Photography", short: "Editorial and commercial imagery for launches, collections, lookbooks, e-commerce and social.", image: "/images/AI_Production2.jpeg", imageAlt: "A model in a black gown on set, lit by studio softboxes with a crew member beside her.", imagePosition: "50% 12%" },
+  { title: "Campaign Videography", short: "Collection films, teasers and vertical reels.", detail: "Cinematic campaign films, collection films, launch videos and short-form motion for digital.", image: "/videos/posters/10_poster.jpg", imageAlt: "A frame from the film Terracotta Drape: a draped metallic gown among sculpted terracotta walls.", filmTitle: "Terracotta Drape" },
+  { title: "Fashion & Jewellery Campaigns", short: "Concepts and fabric, rendered before production.", detail: "Complete visual campaigns built around the character, product and identity of your brand.", image: "/images/images_mmx/mmx_22.jpeg", imageAlt: "A model in a black dress wearing a statement gold and emerald necklace.", imagePosition: "50% 30%" },
+  { title: "Creative Direction", short: "Concept, casting, styling, locations, lighting and visual storytelling brought together from first idea to final campaign.", image: "/images/Fashion_and_jewellery_design_studio_202608250227.jpeg", imageAlt: "An open sketchbook of gown and jewellery drawings on a stone table, with fabric swatches and brass tools." },
 ];
 
 export function getProject(slug: string) { return projects.find((p) => p.slug === slug); }

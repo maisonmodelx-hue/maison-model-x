@@ -6,12 +6,12 @@ export const metadata: Metadata = { title: "Films", description: "Campaign films
 export default function FilmsPage() {
   return (
     <main id="main-content" className="page-main ivory">
-      <section className="page-hero shell">
+      <section className="page-hero work-opening shell">
         <p className="eyebrow">The films / 2026</p>
-        <h1>Motion,<br/>directed with <em>intent.</em></h1>
+        <h1>Motion, <br/>directed with <em>intent.</em></h1>
         <p className="page-lead">Cinematic campaign films, produced with new creative tools.</p>
       </section>
-      <section className="work-section shell">
+      <section className="work-section">
         <FilmFilter />
       </section>
     </main>
